@@ -10,6 +10,7 @@ test("Should split up into monospace words", () => {
     end: 100,
     word: "This is a `monospace` word",
     monospace: false,
+    timestamp: 0,
   };
 
   expect(splitWordIntoMonospaceSegment(word)).toEqual([
@@ -18,18 +19,21 @@ test("Should split up into monospace words", () => {
       end: 100,
       word: "This is a ",
       monospace: false,
+      timestamp: 0,
     },
     {
       start: 10,
       end: 100,
       word: "monospace",
       monospace: true,
+      timestamp: 0,
     },
     {
       start: 10,
       end: 100,
       word: " word",
       monospace: false,
+      timestamp: 0,
     },
   ]);
 });

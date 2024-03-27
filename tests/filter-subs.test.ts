@@ -6,31 +6,37 @@ const example = [
     word: "",
     start: 0,
     end: 0,
+    timestamp: 0,
   },
   {
     word: " Test.",
     start: 0,
     end: 1580,
+    timestamp: 0,
   },
   {
     word: " Hello.",
     start: 1580,
     end: 3240,
+    timestamp: 0,
   },
   {
     word: " Hello.",
     start: 3240,
     end: 3710,
+    timestamp: 0,
   },
   {
     word: " Test.",
     start: 3710,
     end: 4000,
+    timestamp: 0,
   },
   {
     word: " [BLANK_AUDIO]",
     start: 4000,
     end: 10000,
+    timestamp: 0,
   },
 ];
 
@@ -41,31 +47,37 @@ test("filter out [BLANK_AUDIO]", () => {
       word: "",
       start: 0,
       end: 0,
+      timestamp: 0,
     },
     {
       word: " Test.",
       start: 0,
       end: 1580,
+      timestamp: 0,
     },
     {
       word: " Hello.",
       start: 1580,
       end: 3240,
+      timestamp: 0,
     },
     {
       word: " Hello.",
       start: 3240,
       end: 3710,
+      timestamp: 0,
     },
     {
       word: " Test.",
       start: 3710,
       end: 4000,
+      timestamp: 0,
     },
     {
       word: "",
       start: 4000,
       end: 10000,
+      timestamp: 0,
     },
   ]);
 });
@@ -75,16 +87,19 @@ const pauseExample = [
     word: "",
     start: 0,
     end: 0,
+    timestamp: 0,
   },
   {
     word: " Test.",
     start: 0,
     end: 1580,
+    timestamp: 0,
   },
   {
     word: "[PAUSE]",
     start: 1580,
     end: 3240,
+    timestamp: 0,
   },
 ];
 
@@ -95,16 +110,19 @@ test("filter out [PAUSE]", () => {
       word: "",
       start: 0,
       end: 0,
+      timestamp: 0,
     },
     {
       word: " Test.",
       start: 0,
       end: 1580,
+      timestamp: 0,
     },
     {
       word: "",
       start: 1580,
       end: 3240,
+      timestamp: 0,
     },
   ]);
 });
@@ -114,31 +132,37 @@ const splittedBlankAudio = [
     word: "[",
     start: 0,
     end: 0,
+    timestamp: 0,
   },
   {
     word: "BLA",
     start: 0,
     end: 1580,
+    timestamp: 0,
   },
   {
     word: "NK",
     start: 1580,
     end: 3240,
+    timestamp: 0,
   },
   {
     word: "_",
     start: 3240,
     end: 3710,
+    timestamp: 0,
   },
   {
     word: "AUDIO",
     start: 3710,
     end: 4000,
+    timestamp: 0,
   },
   {
     word: "]",
     start: 4000,
     end: 10000,
+    timestamp: 0,
   },
 ];
 
@@ -149,31 +173,37 @@ test("filter out splitted [BLANK_AUDIO]", () => {
       word: "",
       start: 0,
       end: 0,
+      timestamp: 0,
     },
     {
       word: "",
       start: 0,
       end: 1580,
+      timestamp: 0,
     },
     {
       word: "",
       start: 1580,
       end: 3240,
+      timestamp: 0,
     },
     {
       word: "",
       start: 3240,
       end: 3710,
+      timestamp: 0,
     },
     {
       word: "",
       start: 3710,
       end: 4000,
+      timestamp: 0,
     },
     {
       word: "",
       start: 4000,
       end: 10000,
+      timestamp: 0,
     },
   ]);
 });
@@ -183,16 +213,19 @@ const splittedPause = [
     word: "[P",
     start: 0,
     end: 0,
+    timestamp: 0,
   },
   {
     word: "AUS",
     start: 0,
     end: 1580,
+    timestamp: 0,
   },
   {
     word: "E]",
     start: 1580,
     end: 3240,
+    timestamp: 0,
   },
 ];
 
@@ -203,16 +236,19 @@ test("filter out splitted [PAUSE]", () => {
       word: "",
       start: 0,
       end: 0,
+      timestamp: 0,
     },
     {
       word: "",
       start: 0,
       end: 1580,
+      timestamp: 0,
     },
     {
       word: "",
       start: 1580,
       end: 3240,
+      timestamp: 0,
     },
   ]);
 });
@@ -222,31 +258,37 @@ const splittedBlankAudioWithSpaces = [
     word: "  [",
     start: 0,
     end: 0,
+    timestamp: 0,
   },
   {
     word: "BLA  ",
     start: 0,
     end: 1580,
+    timestamp: 0,
   },
   {
     word: "NK ",
     start: 1580,
     end: 3240,
+    timestamp: 0,
   },
   {
     word: "_",
     start: 3240,
     end: 3710,
+    timestamp: 0,
   },
   {
     word: " AUDIO",
     start: 3710,
     end: 4000,
+    timestamp: 0,
   },
   {
     word: " ]",
     start: 4000,
     end: 10000,
+    timestamp: 0,
   },
 ];
 
@@ -257,31 +299,37 @@ test("filter out splitted [BLANK_AUDIO] with spaces", () => {
       word: "",
       start: 0,
       end: 0,
+      timestamp: 0,
     },
     {
       word: "",
       start: 0,
       end: 1580,
+      timestamp: 0,
     },
     {
       word: "",
       start: 1580,
       end: 3240,
+      timestamp: 0,
     },
     {
       word: "",
       start: 3240,
       end: 3710,
+      timestamp: 0,
     },
     {
       word: "",
       start: 3710,
       end: 4000,
+      timestamp: 0,
     },
     {
       word: "",
       start: 4000,
       end: 10000,
+      timestamp: 0,
     },
   ]);
 });
@@ -291,31 +339,37 @@ const wordsWrappedInBrackets = [
     word: "[Some]",
     start: 0,
     end: 0,
+    timestamp: 0,
   },
   {
     word: "[Random]",
     start: 0,
     end: 1580,
+    timestamp: 0,
   },
   {
     word: "[Words]",
     start: 1580,
     end: 3240,
+    timestamp: 0,
   },
   {
     word: "[In]",
     start: 3240,
     end: 3710,
+    timestamp: 0,
   },
   {
     word: "[Square]",
     start: 3710,
     end: 4000,
+    timestamp: 0,
   },
   {
     word: "[braces]",
     start: 4000,
     end: 10000,
+    timestamp: 0,
   },
 ];
 
@@ -326,31 +380,37 @@ test("should not filter out other words warpped in []", () => {
       word: "[Some]",
       start: 0,
       end: 0,
+      timestamp: 0,
     },
     {
       word: "[Random]",
       start: 0,
       end: 1580,
+      timestamp: 0,
     },
     {
       word: "[Words]",
       start: 1580,
       end: 3240,
+      timestamp: 0,
     },
     {
       word: "[In]",
       start: 3240,
       end: 3710,
+      timestamp: 0,
     },
     {
       word: "[Square]",
       start: 3710,
       end: 4000,
+      timestamp: 0,
     },
     {
       word: "[braces]",
       start: 4000,
       end: 10000,
+      timestamp: 0,
     },
   ]);
 });
