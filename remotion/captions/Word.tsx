@@ -118,7 +118,8 @@ export const WordComp: React.FC<{
   const appeared = word.firstTimestamp <= time;
 
   const active =
-    word.firstTimestamp <= time && (word.lastTimestamp > time || isLast);
+    word.firstTimestamp <= time &&
+    (word.lastTimestamp === null || word.lastTimestamp > time || isLast);
 
   const wordColor = getWordColor({
     appeared,

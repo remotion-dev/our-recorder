@@ -143,14 +143,27 @@ export const CaptionSentence: React.FC<{
   // If first caption of a segment, show it a bit earlier to avoid flicker
   // of caption showing only shortly after the video
   const startFrame = isFirst ? normalStartFrame - fps : normalStartFrame;
-  const normalEndFrame = (getEndOfSegment(segment) / 1000) * fps;
-  const endFrame = isLast ? normalEndFrame + fps : normalEndFrame;
+  const endSegment = getEndOfSegment(segment);
+  const normalEndFrame = endSegment === null ? null : (endSegment / 1000) * fps;
+  const endFrame =
+    normalEndFrame === null
+      ? null
+      : isLast
+        ? normalEndFrame + fps
+        : normalEndFrame;
 
+  console.log(
+    segment,
+    endFrame,
+    startFrame,
+    getStartOfSegment(segment),
+    getEndOfSegment(segment),
+  );
   return (
     <Sequence
       showInTimeline={false}
       from={startFrame - trimStart}
-      durationInFrames={endFrame - startFrame}
+      durationInFrames={endFrame === null ? undefined : endFrame - startFrame}
       layout="none"
     >
       <FadeSentence>

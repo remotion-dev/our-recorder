@@ -1,7 +1,7 @@
 export type Word = {
   word: string;
   firstTimestamp: number;
-  lastTimestamp: number;
+  lastTimestamp: number | null;
   monospace?: boolean;
 };
 
