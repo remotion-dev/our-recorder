@@ -152,13 +152,6 @@ export const CaptionSentence: React.FC<{
         ? normalEndFrame + fps
         : normalEndFrame;
 
-  console.log(
-    segment,
-    endFrame,
-    startFrame,
-    getStartOfSegment(segment),
-    getEndOfSegment(segment),
-  );
   return (
     <Sequence
       showInTimeline={false}
