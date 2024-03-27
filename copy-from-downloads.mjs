@@ -4,7 +4,7 @@ import fs, { existsSync, mkdirSync } from "fs";
 import path from "path";
 import { getDownloadsFolder } from "./scripts/get-downloads-folder.js";
 
-const prefix = "recorder";
+const prefix = "recorderpromo";
 
 const downloadsDir = getDownloadsFolder();
 
