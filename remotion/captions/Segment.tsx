@@ -16,7 +16,7 @@ const getStartOfSegment = (segment: Segment) => {
     return 0;
   }
 
-  return (segment.words[0] as Word).start;
+  return (segment.words[0] as Word).firstTimestamp;
 };
 
 const getEndOfSegment = (segment: Segment) => {
@@ -24,7 +24,7 @@ const getEndOfSegment = (segment: Segment) => {
     return 0;
   }
 
-  return (segment.words[segment.words.length - 1] as Word).end;
+  return (segment.words[segment.words.length - 1] as Word).lastTimestamp;
 };
 
 export type SubtitleType = "below-video" | "overlayed-center" | "boxed";

@@ -31,8 +31,7 @@ export type Segment = {
 export const whisperWordToWord = (word: WhisperWord): Word => {
   return {
     word: word.text,
-    start: word.offsets.from,
-    end: word.offsets.to,
-    timestamp: word.tokens[0]?.t_dtw as number,
+    firstTimestamp: (word.tokens[0] as Token).t_dtw * 10,
+    lastTimestamp: (word.tokens[word.tokens.length - 1] as Token).t_dtw * 10,
   };
 };
