@@ -1,5 +1,4 @@
 import { writeFileSync } from "fs";
-import { EOL } from "os";
 import path from "path";
 import { SERVER_PORT } from "../../config/server";
 import type { SaveSubtitlesPayload } from "./constants";
@@ -22,7 +21,7 @@ const saveSubtitles = async (req: Request): Promise<Response> => {
     });
   }
 
-  writeFileSync(json.filename, JSON.stringify(json.data, null, 2) + EOL);
+  writeFileSync(json.filename, JSON.stringify(json.data, null, 2));
 
   return new Response("Subtitles saved!", {
     headers: corsHeaders,
