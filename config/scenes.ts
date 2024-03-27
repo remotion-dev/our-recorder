@@ -83,7 +83,9 @@ export const videoConf = z.object({
 export type Pair = {
   display: StaticFile | null;
   webcam: StaticFile;
-  sub: StaticFile | null;
+  subs: StaticFile | null;
+  alternative1: StaticFile | null;
+  alternative2: StaticFile | null;
 };
 
 export type SceneVideos = {
