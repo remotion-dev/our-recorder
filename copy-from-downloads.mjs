@@ -2,9 +2,9 @@ import { getSilentParts } from "@remotion/renderer";
 import { execSync } from "child_process";
 import fs, { existsSync, mkdirSync } from "fs";
 import path from "path";
-import { getDownloadsFolder } from "./src/get-downloads-folder.js";
+import { getDownloadsFolder } from "./scripts/get-downloads-folder.js";
 
-const prefix = "january";
+const prefix = "license";
 
 const downloadsDir = getDownloadsFolder();
 

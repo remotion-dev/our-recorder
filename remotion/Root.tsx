@@ -4656,6 +4656,20 @@ export const Root = () => {
         component={Main}
         fps={FPS}
         durationInFrames={100}
+        id="license"
+        schema={videoConf}
+        defaultProps={{
+          theme: "light" as const,
+          canvasLayout: "landscape" as const,
+          scenes: [],
+          scenesAndMetadata: [],
+        }}
+        calculateMetadata={calcMetadata}
+      />
+      <Composition
+        component={Main}
+        fps={FPS}
+        durationInFrames={100}
         id="augustupdate"
         schema={videoConf}
         defaultProps={{
