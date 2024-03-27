@@ -44,6 +44,9 @@ const getFilesInGit = async (folder: string) => {
           "themes.ts",
           "transitions.ts",
           "autocorrect.ts",
+          "whisper.ts",
+          "cameras.ts",
+          "silence-removal.ts",
         ];
 
         // Don't override config files with defaults

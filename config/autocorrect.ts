@@ -49,3 +49,7 @@ export const autocorrectWord = (word: Word): Word => {
       .replace(" rust.", " Rust."),
   };
 };
+
+export const autocorrectWords = (words: Word[]): Word[] => {
+  return words.map(autocorrectWord);
+};
