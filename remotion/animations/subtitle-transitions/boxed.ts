@@ -78,8 +78,8 @@ export const getBoxedExit = ({
     return translate(
       0,
       isWebCamAtBottom(scene.finalWebcamPosition)
-        ? scene.layout.webcamLayout.height + getSafeSpace("square")
-        : -(scene.layout.webcamLayout.height + getSafeSpace("square")),
+        ? -(currentLayout.height + getSafeSpace("square"))
+        : currentLayout.height + getSafeSpace("square"),
     );
   }
 
@@ -177,8 +177,8 @@ export const getBoxedEnter = ({
     return translate(
       0,
       isWebCamAtBottom(scene.finalWebcamPosition)
-        ? scene.layout.webcamLayout.height + getSafeSpace("square")
-        : -(scene.layout.webcamLayout.height + getSafeSpace("square")),
+        ? -(currentLayout.height + getSafeSpace("square"))
+        : currentLayout.height + getSafeSpace("square"),
     );
   }
 

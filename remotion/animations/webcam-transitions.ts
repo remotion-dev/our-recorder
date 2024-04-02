@@ -150,12 +150,15 @@ const getWebcamEndLayout = ({
     return nextScene.layout.webcamLayout;
   }
 
+  // webcam moving from top down or bottom up (moving distance = height of the current subs box)
+  const currentSubsBoxHeight = currentScene.layout.subLayout.height;
+
   return {
     ...nextScene.layout.webcamLayout,
     left: currentLayout.left,
     top: isWebCamAtBottom(currentScene.finalWebcamPosition)
-      ? height + getSafeSpace(canvasLayout)
-      : -currentLayout.height - getSafeSpace(canvasLayout),
+      ? -currentSubsBoxHeight + getSafeSpace(canvasLayout)
+      : currentSubsBoxHeight + 2 * getSafeSpace(canvasLayout), //current case
   };
 };
 
@@ -216,18 +219,19 @@ const getWebCamStartLayout = ({
     return previousScene.layout.webcamLayout;
   }
 
-  // Square, moving bottom up
+  const currentSubsBoxHeight = currentScene.layout.subLayout.height;
+  // Square layout, webcam moving top to bottom
   if (isWebCamAtBottom(currentScene.finalWebcamPosition)) {
     return {
       ...currentLayout,
-      top: height + getSafeSpace(canvasLayout),
+      top: getSafeSpace(canvasLayout),
     };
   }
 
-  // Square, moving top down
+  // Square layout, webcam moving bottom to top
   return {
     ...currentLayout,
-    top: -currentLayout.height - getSafeSpace(canvasLayout),
+    top: currentSubsBoxHeight + getSafeSpace(canvasLayout),
   };
 };
 
