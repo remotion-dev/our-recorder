@@ -92,7 +92,6 @@ export const isGrowingOrShrinkingToMiniature = ({
 
 const getWebcamEndLayout = ({
   width,
-  height,
   canvasLayout,
   nextScene,
   currentScene,
@@ -150,21 +149,25 @@ const getWebcamEndLayout = ({
     return nextScene.layout.webcamLayout;
   }
 
-  // webcam moving from top down or bottom up (moving distance = height of the current subs box)
+  // webcam moving from bottom to top (moving distance = height of the current subs box)
   const currentSubsBoxHeight = currentScene.layout.subLayout.height;
+  if (isWebCamAtBottom(currentScene.finalWebcamPosition)) {
+    return {
+      ...nextScene.layout.webcamLayout,
+      top: getSafeSpace(canvasLayout),
+    };
+  }
 
+  // webcam moving from top to bottom (moving distance = height of the current subs box)
   return {
     ...nextScene.layout.webcamLayout,
     left: currentLayout.left,
-    top: isWebCamAtBottom(currentScene.finalWebcamPosition)
-      ? getSafeSpace(canvasLayout)
-      : currentSubsBoxHeight + 2 * getSafeSpace(canvasLayout), //current case
+    top: currentSubsBoxHeight + 2 * getSafeSpace(canvasLayout),
   };
 };
 
 const getWebCamStartLayout = ({
   width,
-  height,
   canvasLayout,
   previousScene,
   currentScene,
@@ -172,7 +175,6 @@ const getWebCamStartLayout = ({
   previousScene: SceneAndMetadata | null;
   currentScene: VideoSceneAndMetadata;
   width: number;
-  height: number;
   canvasLayout: CanvasLayout;
 }): Layout => {
   const currentLayout = currentScene.layout.webcamLayout;
@@ -273,7 +275,6 @@ export const getWebcamLayout = ({
   const startLayout = getWebCamStartLayout({
     canvasLayout,
     currentScene,
-    height,
     previousScene,
     width,
   });

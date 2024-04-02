@@ -177,8 +177,8 @@ export const getBoxedEnter = ({
     return translate(
       0,
       isWebCamAtBottom(scene.finalWebcamPosition)
-        ? -(currentLayout.height + getSafeSpace("square"))
-        : currentLayout.height + getSafeSpace("square"),
+        ? -currentLayout.height - getSafeSpace("square") // subtitles above webcam
+        : currentLayout.height + getSafeSpace("square"), // subtitles below webcam
     );
   }
 
