@@ -116,10 +116,8 @@ export const getBoxedEnter = ({
   ) {
     const isWebcamLeft = !isWebCamRight(scene.finalWebcamPosition);
     const atBottom = isWebCamAtBottom(scene.finalWebcamPosition);
-
     const transX = currentLayout.width + getSafeSpace("square");
     const transY = height - currentLayout.height - getSafeSpace("square") * 2;
-
     const previousAtBottom = isWebCamAtBottom(
       previousScene.finalWebcamPosition,
     );
@@ -179,7 +177,7 @@ export const getBoxedEnter = ({
     return translate(
       0,
       isWebCamAtBottom(scene.finalWebcamPosition)
-        ? currentLayout.height + getSafeSpace("square")
+        ? scene.layout.webcamLayout.height + getSafeSpace("square")
         : -(scene.layout.webcamLayout.height + getSafeSpace("square")),
     );
   }
