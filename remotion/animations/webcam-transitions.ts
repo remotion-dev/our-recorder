@@ -157,7 +157,7 @@ const getWebcamEndLayout = ({
     ...nextScene.layout.webcamLayout,
     left: currentLayout.left,
     top: isWebCamAtBottom(currentScene.finalWebcamPosition)
-      ? -currentSubsBoxHeight + getSafeSpace(canvasLayout)
+      ? getSafeSpace(canvasLayout)
       : currentSubsBoxHeight + 2 * getSafeSpace(canvasLayout), //current case
   };
 };
