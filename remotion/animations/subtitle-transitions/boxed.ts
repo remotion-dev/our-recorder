@@ -79,7 +79,7 @@ export const getBoxedExit = ({
       0,
       isWebCamAtBottom(scene.finalWebcamPosition)
         ? scene.layout.webcamLayout.height + getSafeSpace("square")
-        : -(currentLayout.height + getSafeSpace("square") * 2),
+        : -(scene.layout.webcamLayout.height + getSafeSpace("square")),
     );
   }
 
