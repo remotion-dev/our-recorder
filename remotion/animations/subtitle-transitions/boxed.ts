@@ -74,6 +74,15 @@ export const getBoxedExit = ({
     isWebCamAtBottom(nextScene.finalWebcamPosition) ===
     isWebCamAtBottom(scene.finalWebcamPosition);
 
+  const hasDisplay = scene.layout.displayLayout;
+  if (!isSamePositionHorizontal && hasDisplay) {
+    if (isWebCamAtBottom(scene.finalWebcamPosition)) {
+      return translate(0, currentLayout.height + getSafeSpace("square"));
+    }
+
+    return translate(0, -currentLayout.height - getSafeSpace("square"));
+  }
+
   if (!isSamePositionHorizontal) {
     return translate(
       0,
@@ -172,6 +181,15 @@ export const getBoxedEnter = ({
   const isSamePositionHorizontal =
     isWebCamAtBottom(previousScene.finalWebcamPosition) ===
     isWebCamAtBottom(scene.finalWebcamPosition);
+
+  const hasDisplay = scene.layout.displayLayout;
+  if (!isSamePositionHorizontal && hasDisplay) {
+    if (isWebCamAtBottom(scene.finalWebcamPosition)) {
+      return translate(0, currentLayout.height + getSafeSpace("square"));
+    }
+
+    return translate(0, -currentLayout.height - getSafeSpace("square"));
+  }
 
   if (!isSamePositionHorizontal) {
     return translate(
