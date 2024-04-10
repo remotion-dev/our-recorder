@@ -92,10 +92,10 @@ export const isGrowingOrShrinkingToMiniature = ({
 
 const getWebcamEndLayout = ({
   width,
+  height,
   canvasLayout,
   nextScene,
   currentScene,
-  height,
 }: {
   nextScene: SceneAndMetadata | null;
   currentScene: VideoSceneAndMetadata;
@@ -126,7 +126,6 @@ const getWebcamEndLayout = ({
     isWebCamRight(nextScene.finalWebcamPosition) ===
     isWebCamRight(currentScene.finalWebcamPosition);
 
-  const currentSubsBoxHeight = currentScene.layout.subLayout.height;
   if (canvasLayout === "landscape") {
     if (!isSamePositionVertical) {
       // landscape, moving to the right
@@ -151,36 +150,12 @@ const getWebcamEndLayout = ({
     return nextScene.layout.webcamLayout;
   }
 
-  const hasDisplay = currentScene.layout.displayLayout;
-  // veritcal and horizontal changes
-  if (!samePositionHorizontal && hasDisplay) {
-    if (isWebCamAtBottom(currentScene.finalWebcamPosition)) {
-      return {
-        ...currentLayout,
-        top: height,
-      };
-    }
-
-    return {
-      ...currentLayout,
-      top: -currentLayout.height + getSafeSpace(canvasLayout),
-    };
-  }
-
-  // webcam moving from bottom to top (moving distance = height of the current subs box)
-
-  if (isWebCamAtBottom(currentScene.finalWebcamPosition)) {
-    return {
-      ...nextScene.layout.webcamLayout,
-      top: getSafeSpace(canvasLayout),
-    };
-  }
-
-  // webcam moving from top to bottom (moving distance = height of the current subs box)
   return {
     ...nextScene.layout.webcamLayout,
     left: currentLayout.left,
-    top: currentSubsBoxHeight + 2 * getSafeSpace(canvasLayout),
+    top: isWebCamAtBottom(currentScene.finalWebcamPosition)
+      ? height + getSafeSpace(canvasLayout)
+      : -currentLayout.height - getSafeSpace(canvasLayout),
   };
 };
 
@@ -216,7 +191,6 @@ const getWebCamStartLayout = ({
     isWebCamRight(previousScene.finalWebcamPosition) ===
     isWebCamRight(currentScene.finalWebcamPosition);
 
-  const currentSubsBoxHeight = currentScene.layout.subLayout.height;
   if (canvasLayout === "landscape") {
     if (!isSamePositionVertical) {
       // landscape layout, flying in from the right
@@ -242,43 +216,18 @@ const getWebCamStartLayout = ({
     return previousScene.layout.webcamLayout;
   }
 
-  // veritcal and horizontal changes
   // Square, moving bottom up
-  const hasDisplay = currentScene.layout.displayLayout;
-  if (!samePositionHorizontal && hasDisplay) {
-    if (isWebCamAtBottom(currentScene.finalWebcamPosition)) {
-      return {
-        ...currentLayout,
-        top: height,
-      };
-    }
-
-    return {
-      ...currentLayout,
-      top: -currentSubsBoxHeight - getSafeSpace(canvasLayout),
-    };
-  }
-
-  // Square layout, webcam moving top to bottom
   if (isWebCamAtBottom(currentScene.finalWebcamPosition)) {
     return {
       ...currentLayout,
-      top: -currentSubsBoxHeight - getSafeSpace(canvasLayout),
+      top: height + getSafeSpace(canvasLayout),
     };
   }
 
-  // Square layout, webcam moving top to bottom
-  if (isWebCamAtBottom(currentScene.finalWebcamPosition)) {
-    return {
-      ...currentLayout,
-      top: getSafeSpace(canvasLayout),
-    };
-  }
-
-  // Square layout, webcam moving bottom to top
+  // Square, moving top down
   return {
     ...currentLayout,
-    top: currentSubsBoxHeight + getSafeSpace(canvasLayout),
+    top: -currentLayout.height - getSafeSpace(canvasLayout),
   };
 };
 
@@ -320,9 +269,9 @@ export const getWebcamLayout = ({
   const startLayout = getWebCamStartLayout({
     canvasLayout,
     currentScene,
+    height,
     previousScene,
     width,
-    height,
   });
 
   const endLayout = getWebcamEndLayout({
