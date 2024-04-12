@@ -94,7 +94,7 @@ export const SubsEditor: React.FC<{
         {words.map((word, i) => {
           return (
             <EditWord
-              key={word.firstTimestamp + word.text + word.lastTimestamp}
+              key={[word.firstTimestamp, word.lastTimestamp, i].join("-")}
               theme={theme}
               index={i}
               longestWordLength={longestNumberLength}
