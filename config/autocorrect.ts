@@ -1,49 +1,49 @@
 export type Word = {
-  word: string;
+  text: string;
   firstTimestamp: number;
   lastTimestamp: number | null;
   monospace?: boolean;
 };
 
 export const autocorrectWord = (word: Word): Word => {
-  if (word.word === " github") {
+  if (word.text === " github") {
     return {
       ...word,
-      word: " GitHub",
+      text: " GitHub",
     };
   }
 
-  if (word.word === " BUN") {
+  if (word.text === " BUN") {
     return {
       ...word,
-      word: " Bun",
+      text: " Bun",
     };
   }
 
-  if (word.word === " javascript") {
+  if (word.text === " javascript") {
     return {
       ...word,
-      word: " JavaScript",
+      text: " JavaScript",
     };
   }
 
-  if (word.word.includes(" Algorra")) {
+  if (word.text.includes(" Algorra")) {
     return {
       ...word,
-      word: word.word.replace(" Algorra", " Algora"),
+      text: word.text.replace(" Algorra", " Algora"),
     };
   }
 
-  if (word.word.match(/ remotion\.$/)) {
+  if (word.text.match(/ remotion\.$/)) {
     return {
       ...word,
-      word: word.word.replace(/ remotion.$/, " Remotion."),
+      text: word.text.replace(/ remotion.$/, " Remotion."),
     };
   }
 
   return {
     ...word,
-    word: word.word
+    text: word.text
       .replace(" ReMotion", " Remotion")
       .replace(" Monorepo", " monorepo")
       .replace(" rust.", " Rust."),
