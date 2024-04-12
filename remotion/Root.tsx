@@ -5244,7 +5244,7 @@ export const Root = () => {
               music: "euphoric" as const,
               channel: "remotion" as const,
               platform: "x" as const,
-              links: [{ link: "remotion-dev/timing-functions" }],
+              links: [{ link: "JonnyBurger/timing-functions" }],
             },
           ],
           scenesAndMetadata: [],
