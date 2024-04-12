@@ -115,6 +115,11 @@ export const EditWord: React.FC<{
         e.preventDefault();
         onCloseEditor();
       }
+
+      if (e.key === "Escape") {
+        e.preventDefault();
+        onCloseEditor();
+      }
     },
     [onCloseEditor],
   );
