@@ -28,6 +28,7 @@ export const BoxedSubtitles: React.FC<{
 }) => {
   const padding = getHorizontalPaddingForSubtitles("boxed", canvasLayout);
   const fontSize = getSubtitlesFontSize("boxed", displayLayout);
+
   return (
     <div
       style={{
