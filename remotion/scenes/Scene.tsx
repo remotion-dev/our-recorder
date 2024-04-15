@@ -27,7 +27,6 @@ import { RecorderScene } from "./Recorder";
 import { TableOfContents } from "./TableOfContents";
 import { Title } from "./Title/Title";
 import { TitleCard } from "./TitleCard/TitleCard";
-import { UpdateScene } from "./Update/UpdateScene";
 
 type Props = {
   sceneAndMetadata: SceneAndMetadata;
@@ -62,10 +61,6 @@ const InnerScene: React.FC<
         theme={theme}
       />
     );
-  }
-
-  if (sceneAndMetadata.scene.type === "remotionupdate") {
-    return <UpdateScene theme={theme} />;
   }
 
   if (sceneAndMetadata.scene.type === "titlecard") {
