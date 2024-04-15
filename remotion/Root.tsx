@@ -5794,6 +5794,75 @@ export const Root = () => {
           scenesAndMetadata: [],
         }}
         calculateMetadata={calcMetadata}
+      />
+      <Composition
+        component={Main}
+        fps={FPS}
+        id="reactconf"
+        schema={videoConf}
+        defaultProps={{
+          theme: "light" as const,
+          canvasLayout: "square" as const,
+          scenes: [
+            {
+              type: "videoscene" as const,
+              webcamPosition: "previous" as const,
+              trimStart: 0,
+              duration: null,
+              transitionToNextScene: true,
+              newChapter: "",
+              stopChapteringAfterThis: false,
+              music: "previous" as const,
+            },
+            {
+              type: "videoscene" as const,
+              webcamPosition: "previous" as const,
+              trimStart: 0,
+              duration: null,
+              transitionToNextScene: true,
+              newChapter: "",
+              stopChapteringAfterThis: false,
+              music: "previous" as const,
+            },
+            {
+              type: "videoscene" as const,
+              webcamPosition: "previous" as const,
+              trimStart: 0,
+              duration: null,
+              transitionToNextScene: true,
+              newChapter: "",
+              stopChapteringAfterThis: false,
+              music: "previous" as const,
+            },
+            {
+              type: "videoscene" as const,
+              webcamPosition: "previous" as const,
+              trimStart: 0,
+              duration: null,
+              transitionToNextScene: true,
+              newChapter: "",
+              stopChapteringAfterThis: false,
+              music: "previous" as const,
+            },
+            {
+              type: "recorder" as const,
+              durationInFrames: 90,
+              music: "previous" as const,
+              transitionToNextScene: true,
+            },
+            {
+              type: "endcard" as const,
+              durationInFrames: 200,
+              music: "previous" as const,
+              channel: "jonny" as const,
+              platform: "youtube" as const,
+              links: [],
+              transitionToNextScene: true,
+            },
+          ],
+          scenesAndMetadata: [],
+        }}
+        calculateMetadata={calcMetadata}
       />{" "}
       <Composition
         component={Main}
