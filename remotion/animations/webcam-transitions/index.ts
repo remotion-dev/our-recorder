@@ -3,8 +3,8 @@ import type {
   SceneAndMetadata,
   VideoSceneAndMetadata,
 } from "../../../config/scenes";
-import type { Layout } from "../../layout/layout-types";
-import { interpolateLayout } from "../interpolate-layout";
+import type { LayoutAndFade } from "../../layout/layout-types";
+import { interpolateLayoutAndFade } from "../interpolate-layout";
 import { getLandscapeWebCamStartOrEndLayout } from "./landscape";
 import { getSquareWebcamStartOrEndLayout } from "./square";
 
@@ -20,7 +20,7 @@ const getWebCamStartOrEndLayout = ({
   canvasWidth: number;
   canvasHeight: number;
   canvasLayout: CanvasLayout;
-}): Layout => {
+}): LayoutAndFade => {
   if (canvasLayout === "landscape") {
     return getLandscapeWebCamStartOrEndLayout({
       currentScene,
@@ -38,24 +38,6 @@ const getWebCamStartOrEndLayout = ({
   }
 
   throw new Error(`Unknown canvas layout: ${canvasLayout}`);
-};
-
-const shouldTransitionWebcamVideo = ({
-  previousScene,
-}: {
-  previousScene: SceneAndMetadata | null;
-}) => {
-  if (!previousScene) {
-    return false;
-  }
-
-  // TODO: If webcam slides off one side and slides in from the other side,
-  // we should not transition the video
-  if (previousScene.type !== "video-scene") {
-    return false;
-  }
-
-  return true;
 };
 
 export const getWebcamLayout = ({
@@ -94,24 +76,18 @@ export const getWebcamLayout = ({
   });
 
   if (exitProgress > 0) {
-    return interpolateLayout(
+    return interpolateLayoutAndFade(
       currentScene.layout.webcamLayout,
-      endLayout,
+      endLayout.layout,
       exitProgress,
+      endLayout.shouldFadeRecording,
     );
   }
 
-  return {
-    ...interpolateLayout(
-      startLayout,
-      currentScene.layout.webcamLayout,
-      enterProgress,
-    ),
-    // Switch opacity in the middle of the transition
-    opacity: shouldTransitionWebcamVideo({ previousScene })
-      ? enterProgress > 0.5
-        ? 1
-        : 0
-      : 1,
-  };
+  return interpolateLayoutAndFade(
+    startLayout.layout,
+    currentScene.layout.webcamLayout,
+    enterProgress,
+    startLayout.shouldFadeRecording,
+  );
 };

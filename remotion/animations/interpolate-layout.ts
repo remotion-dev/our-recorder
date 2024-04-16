@@ -46,3 +46,17 @@ export const interpolateLayout = (
     opacity,
   };
 };
+
+export const interpolateLayoutAndFade = (
+  firstLayout: Layout,
+  secondLayout: Layout,
+  progress: number,
+  shouldFade: boolean,
+) => {
+  const layout = interpolateLayout(firstLayout, secondLayout, progress);
+
+  return {
+    ...layout,
+    opacity: shouldFade ? (progress > 0.5 ? 1 : 0) : 1,
+  };
+};
