@@ -1,7 +1,7 @@
 import type { StaticFile } from "remotion";
 import { z } from "zod";
 import type { CameraSceneLayout } from "../remotion/layout/get-layout";
-import { brand, linkType, platform } from "./endcard";
+import { brand, linkType } from "./endcard";
 import type { Dimensions } from "./layout";
 import { canvasLayout } from "./layout";
 import { music } from "./sounds";
@@ -58,7 +58,6 @@ export const configuration = z.discriminatedUnion("type", [
     type: z.literal("remotionupdate"),
     durationInFrames: z.number().int().default(100),
     transitionToNextScene: z.boolean().default(true),
-
     music,
   }),
   z.object({
@@ -66,7 +65,6 @@ export const configuration = z.discriminatedUnion("type", [
     durationInFrames: z.number().int().default(200),
     music,
     channel: brand,
-    platform,
     links: z.array(linkType).default([]),
     transitionToNextScene: z.boolean().default(true),
   }),
