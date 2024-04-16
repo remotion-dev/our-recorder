@@ -5757,7 +5757,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
-              webcamPosition: "previous" as const,
+              webcamPosition: "bottom-left" as const,
               trimStart: 0,
               duration: null,
               transitionToNextScene: true,
@@ -5767,7 +5767,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
-              webcamPosition: "previous" as const,
+              webcamPosition: "bottom-left" as const,
               trimStart: 0,
               duration: null,
               transitionToNextScene: true,

@@ -15,6 +15,7 @@ const availablePositions = [
 ] as const;
 
 export type WebcamPosition = (typeof availablePositions)[number];
+export type FinalWebcamPosition = WebcamPosition | "center";
 
 const availablePositionsAndPrevious = [
   "previous",
@@ -42,7 +43,6 @@ export const configuration = z.discriminatedUnion("type", [
     subtitle: z.string().nullable(),
     durationInFrames: z.number().int().default(50),
     transitionToNextScene: z.boolean().default(true),
-
     music,
   }),
   z.object({
@@ -114,7 +114,7 @@ export type VideoSceneAndMetadata = {
   videos: SceneVideos;
   layout: CameraSceneLayout;
   pair: Pair;
-  finalWebcamPosition: WebcamPosition;
+  finalWebcamPosition: FinalWebcamPosition;
   chapter: string | null;
 };
 
