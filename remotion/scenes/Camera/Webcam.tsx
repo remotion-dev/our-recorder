@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { OffthreadVideo, useVideoConfig } from "remotion";
 import type { CanvasLayout } from "../../../config/layout";
 import type {
@@ -7,6 +7,11 @@ import type {
 } from "../../../config/scenes";
 import { getWebcamLayout } from "../../animations/webcam-transitions";
 import type { Layout } from "../../layout/layout-types";
+
+const outer: React.CSSProperties = {
+  position: "absolute",
+  display: "flex",
+};
 
 export const Webcam: React.FC<{
   webcamLayout: Layout;
@@ -42,32 +47,33 @@ export const Webcam: React.FC<{
     canvasLayout,
   });
 
+  const container: React.CSSProperties = useMemo(() => {
+    return {
+      overflow: "hidden",
+      position: "relative",
+      ...webcamStyle,
+    };
+  }, [webcamStyle]);
+
+  const style: React.CSSProperties = useMemo(() => {
+    return {
+      width: "100%",
+      height: "100%",
+      objectFit: "cover",
+      display: "block",
+      borderRadius: webcamLayout.borderRadius,
+      overflow: "hidden",
+      transformOrigin: "50% 0%",
+    };
+  }, [webcamLayout.borderRadius]);
+
   return (
-    <div
-      style={{
-        position: "absolute",
-        display: "flex",
-      }}
-    >
-      <div
-        style={{
-          overflow: "hidden",
-          position: "relative",
-          ...webcamStyle,
-        }}
-      >
+    <div style={outer}>
+      <div style={container}>
         <OffthreadVideo
           startFrom={startFrom}
           endAt={endAt}
-          style={{
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-            display: "block",
-            borderRadius: webcamLayout.borderRadius,
-            overflow: "hidden",
-            transformOrigin: "50% 0%",
-          }}
+          style={style}
           src={currentScene.pair.webcam.src}
         />
       </div>
