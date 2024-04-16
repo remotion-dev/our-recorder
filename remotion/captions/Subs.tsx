@@ -24,7 +24,6 @@ import type { Theme } from "../../config/themes";
 import { COLORS } from "../../config/themes";
 import type { SaveSubtitlesPayload } from "../../scripts/server/constants";
 import { SAVE_SUBTITLES } from "../../scripts/server/constants";
-import { getAnimatedSubtitleLayout } from "../animations/subtitle-transitions/box-transition";
 import { shouldInlineTransitionSubtitles } from "../animations/subtitle-transitions/should-transition-subtitle";
 import { getSubtitleTransform } from "../animations/subtitle-transitions/subtitle-transitions";
 import { SubsEditor } from "./Editor/SubsEditor";
@@ -117,19 +116,6 @@ export const Subs: React.FC<{
     nextScene: previousScene,
   });
 
-  const animatedSubLayout = getAnimatedSubtitleLayout({
-    enterProgress,
-    exitProgress,
-    nextScene: nextScene && nextScene.type === "video-scene" ? nextScene : null,
-    previousScene:
-      previousScene && previousScene.type === "video-scene"
-        ? previousScene
-        : null,
-    scene,
-    shouldTransitionFromPrevious,
-    shouldTransitionToNext,
-  });
-
   const postprocessed = useMemo(() => {
     if (!whisperOutput) {
       return null;
@@ -212,9 +198,8 @@ export const Subs: React.FC<{
       canvasLayout,
       subtitleType,
     }),
-    ...animatedSubLayout,
-    transform: getSubtitleTransform({
-      currentLayout: animatedSubLayout,
+    ...getSubtitleTransform({
+      currentLayout: scene.layout.subLayout,
       enterProgress,
       exitProgress,
       canvasHeight: height,
