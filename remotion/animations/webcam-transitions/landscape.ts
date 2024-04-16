@@ -7,13 +7,13 @@ import type { Layout } from "../../layout/layout-types";
 import { isWebCamRight } from "./helpers";
 
 export const getLandscapeWebCamStartOrEndLayout = ({
-  width,
+  canvasWidth,
   otherScene,
   currentScene,
 }: {
   otherScene: SceneAndMetadata | null;
   currentScene: VideoSceneAndMetadata;
-  width: number;
+  canvasWidth: number;
 }): Layout => {
   const currentLayout = currentScene.layout.webcamLayout;
 
@@ -39,7 +39,7 @@ export const getLandscapeWebCamStartOrEndLayout = ({
   if (isWebCamRight(currentScene.finalWebcamPosition)) {
     return {
       ...currentLayout,
-      left: width + getSafeSpace("landscape"),
+      left: canvasWidth + getSafeSpace("landscape"),
     };
   }
 

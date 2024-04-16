@@ -9,11 +9,11 @@ import { isWebCamAtBottom } from "./helpers";
 export const getSquareWebcamStartOrEndLayout = ({
   otherScene,
   currentScene,
-  height,
+  canvasHeight,
 }: {
   otherScene: SceneAndMetadata | null;
   currentScene: VideoSceneAndMetadata;
-  height: number;
+  canvasHeight: number;
 }): Layout => {
   if (!currentScene || currentScene.type !== "video-scene") {
     throw new Error("no transitions on non-video scenes");
@@ -44,7 +44,7 @@ export const getSquareWebcamStartOrEndLayout = ({
   if (isWebCamAtBottom(currentScene.finalWebcamPosition)) {
     return {
       ...currentLayout,
-      top: height + getSafeSpace("square"),
+      top: canvasHeight + getSafeSpace("square"),
     };
   }
 

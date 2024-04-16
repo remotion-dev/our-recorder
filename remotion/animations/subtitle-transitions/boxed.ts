@@ -97,14 +97,14 @@ export const getBoxedExit = ({
 export const getBoxedEnter = ({
   currentLayout,
   scene,
-  height,
+  canvasHeight,
   previousScene,
-  width,
+  canvasWidth,
 }: {
   previousScene: SceneAndMetadata | null;
   scene: VideoSceneAndMetadata;
-  width: number;
-  height: number;
+  canvasWidth: number;
+  canvasHeight: number;
   currentLayout: Layout;
 }): string => {
   if (previousScene === null || previousScene.type !== "video-scene") {
@@ -120,7 +120,8 @@ export const getBoxedEnter = ({
     const isWebcamLeft = !isWebCamRight(scene.finalWebcamPosition);
     const atBottom = isWebCamAtBottom(scene.finalWebcamPosition);
     const transX = currentLayout.width + getSafeSpace("square");
-    const transY = height - currentLayout.height - getSafeSpace("square") * 2;
+    const transY =
+      canvasHeight - currentLayout.height - getSafeSpace("square") * 2;
     const previousAtBottom = isWebCamAtBottom(
       previousScene.finalWebcamPosition,
     );
@@ -158,7 +159,9 @@ export const getBoxedEnter = ({
     }
 
     return translate(
-      isWebCamRight(previousScene.finalWebcamPosition) ? width : -width,
+      isWebCamRight(previousScene.finalWebcamPosition)
+        ? canvasWidth
+        : -canvasWidth,
       currentlyAtBottom ? heightDifference : -heightDifference,
     );
   }
@@ -190,7 +193,7 @@ export const getBoxedEnter = ({
 
   if (!isSamePositionVertical) {
     return translate(
-      isWebCamRight(scene.finalWebcamPosition) ? -width : width,
+      isWebCamRight(scene.finalWebcamPosition) ? -canvasWidth : canvasWidth,
       0,
     );
   }

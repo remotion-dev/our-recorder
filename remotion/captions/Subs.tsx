@@ -24,9 +24,9 @@ import type { Theme } from "../../config/themes";
 import { COLORS } from "../../config/themes";
 import type { SaveSubtitlesPayload } from "../../scripts/server/constants";
 import { SAVE_SUBTITLES } from "../../scripts/server/constants";
-import { getSubtitleTransform } from "../animations/subtitle-transitions";
 import { getAnimatedSubtitleLayout } from "../animations/subtitle-transitions/box-transition";
 import { shouldInlineTransitionSubtitles } from "../animations/subtitle-transitions/should-transition-subtitle";
+import { getSubtitleTransform } from "../animations/subtitle-transitions/subtitle-transitions";
 import { SubsEditor } from "./Editor/SubsEditor";
 import { postprocessSubtitles } from "./processing/postprocess-subs";
 import {
@@ -47,8 +47,8 @@ export const Subs: React.FC<{
   trimStart: number;
   canvasLayout: CanvasLayout;
   scene: VideoSceneAndMetadata;
-  enter: number;
-  exit: number;
+  enterProgress: number;
+  exitProgress: number;
   nextScene: SceneAndMetadata | null;
   previousScene: SceneAndMetadata | null;
   theme: Theme;
@@ -57,8 +57,8 @@ export const Subs: React.FC<{
   trimStart,
   canvasLayout,
   scene,
-  enter,
-  exit,
+  enterProgress,
+  exitProgress,
   nextScene,
   previousScene,
   theme,
@@ -118,8 +118,8 @@ export const Subs: React.FC<{
   });
 
   const animatedSubLayout = getAnimatedSubtitleLayout({
-    enterProgress: enter,
-    exitProgress: exit,
+    enterProgress,
+    exitProgress,
     nextScene: nextScene && nextScene.type === "video-scene" ? nextScene : null,
     previousScene:
       previousScene && previousScene.type === "video-scene"
@@ -215,13 +215,13 @@ export const Subs: React.FC<{
     ...animatedSubLayout,
     transform: getSubtitleTransform({
       currentLayout: animatedSubLayout,
-      enter,
-      exit,
-      height,
+      enterProgress,
+      exitProgress,
+      canvasHeight: height,
       nextScene,
       previousScene,
       scene,
-      width,
+      canvasWidth: width,
       subtitleType,
     }),
   };

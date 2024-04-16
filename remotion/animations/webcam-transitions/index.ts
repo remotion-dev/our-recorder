@@ -9,30 +9,30 @@ import { getLandscapeWebCamStartOrEndLayout } from "./landscape";
 import { getSquareWebcamStartOrEndLayout } from "./square";
 
 const getWebCamStartOrEndLayout = ({
-  width,
-  height,
+  canvasWidth,
+  canvasHeight,
   canvasLayout,
   otherScene,
   currentScene,
 }: {
   otherScene: SceneAndMetadata | null;
   currentScene: VideoSceneAndMetadata;
-  width: number;
-  height: number;
+  canvasWidth: number;
+  canvasHeight: number;
   canvasLayout: CanvasLayout;
 }): Layout => {
   if (canvasLayout === "landscape") {
     return getLandscapeWebCamStartOrEndLayout({
       currentScene,
       otherScene,
-      width,
+      canvasWidth,
     });
   }
 
   if (canvasLayout === "square") {
     return getSquareWebcamStartOrEndLayout({
       currentScene,
-      height,
+      canvasHeight,
       otherScene,
     });
   }
@@ -59,8 +59,8 @@ const shouldTransitionWebcamVideo = ({
 export const getWebcamLayout = ({
   enterProgress,
   exitProgress,
-  width,
-  height,
+  canvasWidth,
+  canvasHeight,
   canvasLayout,
   currentScene,
   nextScene,
@@ -68,8 +68,8 @@ export const getWebcamLayout = ({
 }: {
   enterProgress: number;
   exitProgress: number;
-  width: number;
-  height: number;
+  canvasWidth: number;
+  canvasHeight: number;
   canvasLayout: CanvasLayout;
   nextScene: SceneAndMetadata | null;
   currentScene: VideoSceneAndMetadata;
@@ -79,16 +79,16 @@ export const getWebcamLayout = ({
     canvasLayout,
     currentScene,
     otherScene: previousScene,
-    width,
-    height,
+    canvasWidth,
+    canvasHeight,
   });
 
   const endLayout = getWebCamStartOrEndLayout({
     canvasLayout,
     currentScene,
-    height,
+    canvasHeight,
     otherScene: nextScene,
-    width,
+    canvasWidth,
   });
 
   if (exitProgress > 0) {

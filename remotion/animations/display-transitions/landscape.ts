@@ -12,13 +12,13 @@ import {
 export const getLandscapeDisplayExit = ({
   currentScene,
   nextScene,
-  width,
-  height,
+  canvasWidth,
+  canvasHeight,
 }: {
   nextScene: SceneAndMetadata | null;
   currentScene: VideoSceneAndMetadata;
-  width: number;
-  height: number;
+  canvasWidth: number;
+  canvasHeight: number;
 }): Layout => {
   if (
     currentScene.type !== "video-scene" ||
@@ -39,13 +39,13 @@ export const getLandscapeDisplayExit = ({
   // Next scene has no display
   // The webcam will zoom in to fullscreen, the display
   // needs to move out of the way
-  const y = height - currentScene.layout.displayLayout.height;
+  const y = canvasHeight - currentScene.layout.displayLayout.height;
 
   return {
     ...currentScene.layout.displayLayout,
     left: isWebCamRight(currentScene.finalWebcamPosition)
-      ? -(width - getSafeSpace("landscape") * 2)
-      : width + getSafeSpace("landscape"),
+      ? -(canvasWidth - getSafeSpace("landscape") * 2)
+      : canvasWidth + getSafeSpace("landscape"),
     top: y,
   };
 };

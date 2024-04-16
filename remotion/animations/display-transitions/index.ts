@@ -11,22 +11,22 @@ import { getSquareDisplayEnterOrExit } from "./square";
 const getDisplayExit = ({
   currentScene,
   nextScene,
-  width,
-  height,
+  canvasWidth,
+  canvasHeight,
   canvasLayout,
 }: {
   nextScene: SceneAndMetadata | null;
   currentScene: VideoSceneAndMetadata;
-  width: number;
-  height: number;
+  canvasWidth: number;
+  canvasHeight: number;
   canvasLayout: CanvasLayout;
 }): Layout => {
   if (canvasLayout === "landscape") {
     return getLandscapeDisplayExit({
       currentScene,
       nextScene,
-      width,
-      height,
+      canvasWidth,
+      canvasHeight,
     });
   }
 
@@ -34,8 +34,8 @@ const getDisplayExit = ({
     return getSquareDisplayEnterOrExit({
       currentScene,
       otherScene: nextScene,
-      width,
-      height,
+      canvasWidth,
+      canvasHeight,
     });
   }
 
@@ -45,27 +45,30 @@ const getDisplayExit = ({
 const getDisplayEnter = ({
   currentScene,
   previousScene,
-  width,
-  // TODO: Which height?
-  height,
+  canvasWidth,
+  canvasHeight,
   canvasLayout,
 }: {
   previousScene: SceneAndMetadata | null;
   currentScene: VideoSceneAndMetadata;
-  width: number;
-  height: number;
+  canvasWidth: number;
+  canvasHeight: number;
   canvasLayout: CanvasLayout;
 }): Layout => {
   if (canvasLayout === "landscape") {
-    return getLandscapeDisplayEnter({ currentScene, previousScene, width });
+    return getLandscapeDisplayEnter({
+      currentScene,
+      previousScene,
+      width: canvasWidth,
+    });
   }
 
   if (canvasLayout === "square") {
     return getSquareDisplayEnterOrExit({
       currentScene,
       otherScene: previousScene,
-      width,
-      height,
+      canvasWidth,
+      canvasHeight,
     });
   }
 
@@ -76,30 +79,30 @@ const getDisplayTransitionOrigins = ({
   currentScene,
   nextScene,
   previousScene,
-  width,
-  height,
+  canvasWidth,
+  canvasHeight,
   canvasLayout,
 }: {
   nextScene: SceneAndMetadata | null;
   previousScene: SceneAndMetadata | null;
   currentScene: VideoSceneAndMetadata;
   canvasLayout: CanvasLayout;
-  width: number;
-  height: number;
+  canvasWidth: number;
+  canvasHeight: number;
 }) => {
   const enter = getDisplayEnter({
     currentScene,
     previousScene,
-    width,
+    canvasWidth,
     canvasLayout,
-    height,
+    canvasHeight,
   });
 
   const exit = getDisplayExit({
     currentScene,
     nextScene,
-    width,
-    height,
+    canvasWidth,
+    canvasHeight,
     canvasLayout,
   });
 
@@ -130,10 +133,10 @@ const shouldTransitionDisplayVideo = ({
 };
 
 export const getDisplayPosition = ({
-  enterProgress: enter,
-  exitProgress: exit,
-  width,
-  height,
+  enterProgress,
+  exitProgress,
+  canvasWidth,
+  canvasHeight,
   nextScene,
   previousScene,
   currentScene,
@@ -141,8 +144,8 @@ export const getDisplayPosition = ({
 }: {
   enterProgress: number;
   exitProgress: number;
-  width: number;
-  height: number;
+  canvasWidth: number;
+  canvasHeight: number;
   previousScene: SceneAndMetadata | null;
   nextScene: SceneAndMetadata | null;
   currentScene: VideoSceneAndMetadata;
@@ -159,48 +162,48 @@ export const getDisplayPosition = ({
     currentScene,
     nextScene,
     previousScene,
-    width,
-    height,
+    canvasWidth,
+    canvasHeight,
     canvasLayout,
   });
 
-  if (exit > 0) {
+  if (exitProgress > 0) {
     return {
       left: Math.round(
         interpolate(
-          exit,
+          exitProgress,
           [0, 1],
           [currentScene.layout.displayLayout.left, exitState.left],
         ),
       ),
       top: Math.round(
         interpolate(
-          exit,
+          exitProgress,
           [0, 1],
           [currentScene.layout.displayLayout.top, exitState.top],
         ),
       ),
       width: Math.round(
         interpolate(
-          exit,
+          exitProgress,
           [0, 1],
           [currentScene.layout.displayLayout.width, exitState.width],
         ),
       ),
       height: Math.round(
         interpolate(
-          exit,
+          exitProgress,
           [0, 1],
           [currentScene.layout.displayLayout.height, exitState.height],
         ),
       ),
       opacity: interpolate(
-        exit,
+        exitProgress,
         [0, 1],
         [currentScene.layout.displayLayout.opacity, exitState.opacity],
       ),
       borderRadius: interpolate(
-        exit,
+        exitProgress,
         [0, 1],
         [
           currentScene.layout.displayLayout.borderRadius,
@@ -211,27 +214,27 @@ export const getDisplayPosition = ({
   }
 
   const enterX = interpolate(
-    enter,
+    enterProgress,
     [0, 1],
     [enterState.left, currentScene.layout.displayLayout.left],
   );
   const enterY = interpolate(
-    enter,
+    enterProgress,
     [0, 1],
     [enterState.top, currentScene.layout.displayLayout.top],
   );
   const enterWidth = interpolate(
-    enter,
+    enterProgress,
     [0, 1],
     [enterState.width, currentScene.layout.displayLayout.width],
   );
   const enterHeight = interpolate(
-    enter,
+    enterProgress,
     [0, 1],
     [enterState.height, currentScene.layout.displayLayout.height],
   );
   const borderRadius = interpolate(
-    enter,
+    enterProgress,
     [0, 1],
     [enterState.borderRadius, currentScene.layout.displayLayout.borderRadius],
   );
@@ -243,7 +246,7 @@ export const getDisplayPosition = ({
     height: enterHeight,
     // Switch to new video in the middle of the transition
     opacity: shouldTransitionDisplayVideo({ previousScene })
-      ? enter > 0.5
+      ? enterProgress > 0.5
         ? 1
         : 0
       : 1,

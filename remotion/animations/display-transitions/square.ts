@@ -12,13 +12,13 @@ import {
 export const getSquareDisplayEnterOrExit = ({
   currentScene,
   otherScene,
-  height,
-  width,
+  canvasHeight,
+  canvasWidth,
 }: {
   otherScene: SceneAndMetadata | null;
   currentScene: VideoSceneAndMetadata;
-  width: number;
-  height: number;
+  canvasWidth: number;
+  canvasHeight: number;
 }): Layout => {
   if (
     currentScene.type !== "video-scene" ||
@@ -61,7 +61,7 @@ export const getSquareDisplayEnterOrExit = ({
   ) {
     return {
       ...currentScene.layout.displayLayout,
-      top: height,
+      top: canvasHeight,
     };
   }
 
@@ -78,7 +78,7 @@ export const getSquareDisplayEnterOrExit = ({
   if (currentScene.finalWebcamPosition === "top-left") {
     return {
       ...currentScene.layout.displayLayout,
-      left: width + getSafeSpace("square"),
+      left: canvasWidth + getSafeSpace("square"),
       top: otherScene.layout.webcamLayout.height + getSafeSpace("square") * 2,
     };
   }
@@ -87,9 +87,9 @@ export const getSquareDisplayEnterOrExit = ({
   if (currentScene.finalWebcamPosition === "bottom-left") {
     return {
       ...currentScene.layout.displayLayout,
-      left: width + getSafeSpace("square"),
+      left: canvasWidth + getSafeSpace("square"),
       top:
-        height -
+        canvasHeight -
         currentScene.layout.displayLayout.height -
         otherScene.layout.webcamLayout.height -
         getSafeSpace("square") * 2,
@@ -102,7 +102,7 @@ export const getSquareDisplayEnterOrExit = ({
       ...currentScene.layout.displayLayout,
       left: -currentScene.layout.displayLayout.width - getSafeSpace("square"),
       top:
-        height -
+        canvasHeight -
         currentScene.layout.displayLayout.height -
         otherScene.layout.webcamLayout.height -
         getSafeSpace("square") * 2,
