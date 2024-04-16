@@ -4,12 +4,7 @@ import type {
   VideoSceneAndMetadata,
 } from "../../../config/scenes";
 import type { Layout } from "../../layout/layout-types";
-import {
-  isGrowingFromMiniature,
-  isShrinkingToMiniature,
-  isWebCamAtBottom,
-  isWebCamRight,
-} from "../webcam-transitions/helpers";
+import { isWebCamAtBottom, isWebCamRight } from "../webcam-transitions/helpers";
 
 const getEnterAndExitOfFullscreenBox = ({
   scene,
@@ -52,18 +47,135 @@ const getEnterAndExitOfFullscreenBox = ({
   }
 
   // Now we expect that the other scene has a display video, and the webcam will shrink
+  const top = isWebCamAtBottom(scene.finalWebcamPosition)
+    ? otherScene.layout.webcamLayout.top -
+      scene.layout.subLayout.height -
+      getSafeSpace("square")
+    : getSafeSpace("square") * 2 + otherScene.layout.webcamLayout.height;
 
   // If the webcam moves to the top right corner, the subtitle should come from left corner
   if (!isWebCamRight(otherScene.finalWebcamPosition)) {
     return {
       ...scene.layout.subLayout,
       left: -scene.layout.subLayout.width,
+      top,
     };
   }
 
   return {
     ...scene.layout.subLayout,
     left: canvasWidth,
+    top,
+  };
+};
+
+const getEnterAndExitLayoutOfWebcamPositionChange = ({
+  otherScene,
+  scene,
+  canvasHeight,
+  canvasWidth,
+}: {
+  otherScene: VideoSceneAndMetadata;
+  scene: VideoSceneAndMetadata;
+  canvasHeight: number;
+  canvasWidth: number;
+}) => {
+  if (scene.finalWebcamPosition === otherScene.finalWebcamPosition) {
+    return otherScene.layout.subLayout;
+  }
+
+  // Horizontal position change, move the subtitle over the edge
+  if (
+    isWebCamAtBottom(scene.finalWebcamPosition) !==
+    isWebCamAtBottom(otherScene.finalWebcamPosition)
+  ) {
+    if (isWebCamAtBottom(scene.finalWebcamPosition)) {
+      return {
+        ...scene.layout.subLayout,
+        top: canvasHeight,
+      };
+    }
+  }
+
+  // Vertical position change
+  // Webcam moves from right to left
+  if (isWebCamRight(scene.finalWebcamPosition)) {
+    return {
+      ...scene.layout.subLayout,
+      left: -scene.layout.subLayout.width,
+    };
+  }
+
+  // Webcam moves from left to right
+  return {
+    ...scene.layout.subLayout,
+    left: canvasWidth,
+  };
+};
+
+const getEnterAndExitOfBentoLayout = ({
+  scene,
+  otherScene,
+  canvasWidth,
+  canvasHeight,
+}: {
+  otherScene: VideoSceneAndMetadata;
+  scene: VideoSceneAndMetadata;
+  canvasWidth: number;
+  canvasHeight: number;
+}) => {
+  if (!scene.layout.displayLayout) {
+    throw new Error("Expected display layout to be present");
+  }
+
+  if (otherScene.layout.displayLayout) {
+    return getEnterAndExitLayoutOfWebcamPositionChange({
+      otherScene,
+      scene,
+      canvasHeight,
+      canvasWidth,
+    });
+  }
+
+  // We now assume the other scene has no display, webcam is getting bigger
+  // and we need to animate the subtitles out
+  const left = isWebCamRight(scene.finalWebcamPosition)
+    ? -scene.layout.subLayout.width
+    : canvasWidth;
+
+  // Vertical position change
+  if (
+    isWebCamAtBottom(otherScene.finalWebcamPosition) !==
+    isWebCamAtBottom(scene.finalWebcamPosition)
+  ) {
+    if (isWebCamAtBottom(scene.finalWebcamPosition)) {
+      return {
+        ...scene.layout.subLayout,
+        top: getSafeSpace("square"),
+        left,
+      };
+    }
+
+    return {
+      ...scene.layout.subLayout,
+      top:
+        canvasHeight - scene.layout.subLayout.height - getSafeSpace("square"),
+      left,
+    };
+  }
+
+  const top = isWebCamAtBottom(scene.finalWebcamPosition)
+    ? canvasHeight -
+      otherScene.layout.webcamLayout.height -
+      getSafeSpace("square")
+    : otherScene.layout.webcamLayout.height -
+      scene.layout.subLayout.height +
+      getSafeSpace("square");
+
+  return {
+    ...scene.layout.subLayout,
+    left,
+    top,
   };
 };
 
@@ -91,116 +203,10 @@ export const getSquareEnterOrExit = ({
     });
   }
 
-  if (
-    isShrinkingToMiniature({
-      firstScene: otherScene,
-      secondScene: scene,
-    })
-  ) {
-    const isWebcamLeft = !isWebCamRight(scene.finalWebcamPosition);
-    const atBottom = isWebCamAtBottom(scene.finalWebcamPosition);
-    const transX = scene.layout.subLayout.width + getSafeSpace("square");
-    const transY =
-      canvasHeight - scene.layout.subLayout.height - getSafeSpace("square") * 2;
-    const previousAtBottom = isWebCamAtBottom(otherScene.finalWebcamPosition);
-    const changedVerticalPosition = atBottom !== previousAtBottom;
-
-    const translateX = isWebcamLeft ? transX : -transX;
-    const translateY = changedVerticalPosition
-      ? atBottom
-        ? -transY
-        : transY
-      : 0;
-
-    return {
-      ...scene.layout.subLayout,
-      left: scene.layout.subLayout.left + translateX,
-      top: scene.layout.subLayout.top + translateY,
-    };
-  }
-
-  if (
-    isGrowingFromMiniature({
-      firstScene: otherScene,
-      secondScene: scene,
-    })
-  ) {
-    const heightDifference =
-      scene.layout.webcamLayout.height - otherScene.layout.webcamLayout.height;
-
-    const previouslyAtBottom = isWebCamAtBottom(otherScene.finalWebcamPosition);
-    const currentlyAtBottom = isWebCamAtBottom(scene.finalWebcamPosition);
-    const changedVerticalPosition = previouslyAtBottom !== currentlyAtBottom;
-
-    if (changedVerticalPosition) {
-      return {
-        ...scene.layout.subLayout,
-        top:
-          scene.layout.subLayout.top +
-          (currentlyAtBottom
-            ? -scene.layout.subLayout.height - getSafeSpace("square")
-            : scene.layout.subLayout.height + getSafeSpace("square")),
-      };
-    }
-
-    return {
-      ...scene.layout.subLayout,
-      left:
-        scene.layout.subLayout.left +
-        (isWebCamRight(scene.finalWebcamPosition) ? -canvasWidth : canvasWidth),
-      top:
-        scene.layout.subLayout.top +
-        (currentlyAtBottom ? heightDifference : -heightDifference),
-    };
-  }
-
-  const isSamePositionVertical =
-    isWebCamRight(otherScene.finalWebcamPosition) ===
-    isWebCamRight(scene.finalWebcamPosition);
-  const isSamePositionHorizontal =
-    isWebCamAtBottom(otherScene.finalWebcamPosition) ===
-    isWebCamAtBottom(scene.finalWebcamPosition);
-
-  const hasDisplay = scene.layout.displayLayout;
-  if (!isSamePositionHorizontal && hasDisplay) {
-    if (isWebCamAtBottom(scene.finalWebcamPosition)) {
-      return {
-        ...scene.layout.subLayout,
-        top:
-          scene.layout.subLayout.top +
-          scene.layout.subLayout.height +
-          getSafeSpace("square"),
-      };
-    }
-
-    return {
-      ...scene.layout.subLayout,
-      top:
-        scene.layout.subLayout.top -
-        scene.layout.subLayout.height -
-        getSafeSpace("square"),
-    };
-  }
-
-  if (!isSamePositionHorizontal) {
-    return {
-      ...scene.layout.subLayout,
-      top:
-        scene.layout.subLayout.top +
-        (isWebCamAtBottom(scene.finalWebcamPosition)
-          ? -scene.layout.subLayout.height - getSafeSpace("square")
-          : scene.layout.subLayout.height + getSafeSpace("square")),
-    };
-  }
-
-  if (!isSamePositionVertical) {
-    return {
-      ...scene.layout.subLayout,
-      left: isWebCamRight(scene.finalWebcamPosition)
-        ? -canvasWidth
-        : canvasWidth,
-    };
-  }
-
-  return scene.layout.subLayout;
+  return getEnterAndExitOfBentoLayout({
+    otherScene,
+    scene,
+    canvasWidth,
+    canvasHeight,
+  });
 };
