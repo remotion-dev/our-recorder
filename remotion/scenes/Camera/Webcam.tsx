@@ -36,16 +36,27 @@ export const Webcam: React.FC<{
 }) => {
   const { height, width } = useVideoConfig();
 
-  const webcamStyle = getWebcamLayout({
+  const webcamStyle = useMemo(() => {
+    return getWebcamLayout({
+      enterProgress,
+      exitProgress,
+      canvasHeight: height,
+      canvasWidth: width,
+      currentScene,
+      nextScene,
+      previousScene,
+      canvasLayout,
+    });
+  }, [
+    canvasLayout,
+    currentScene,
     enterProgress,
     exitProgress,
-    canvasHeight: height,
-    canvasWidth: width,
-    currentScene,
+    height,
     nextScene,
     previousScene,
-    canvasLayout,
-  });
+    width,
+  ]);
 
   const container: React.CSSProperties = useMemo(() => {
     return {
