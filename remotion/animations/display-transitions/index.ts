@@ -1,10 +1,10 @@
-import { interpolate } from "remotion";
 import type { CanvasLayout } from "../../../config/layout";
 import type {
   SceneAndMetadata,
   VideoSceneAndMetadata,
 } from "../../../config/scenes";
 import type { Layout } from "../../layout/layout-types";
+import { interpolateLayout } from "../interpolate-layout";
 import { getLandscapeDisplayEnter, getLandscapeDisplayExit } from "./landscape";
 import { getSquareDisplayEnterOrExit } from "./square";
 
@@ -168,88 +168,26 @@ export const getDisplayPosition = ({
   });
 
   if (exitProgress > 0) {
-    return {
-      left: Math.round(
-        interpolate(
-          exitProgress,
-          [0, 1],
-          [currentScene.layout.displayLayout.left, exitState.left],
-        ),
-      ),
-      top: Math.round(
-        interpolate(
-          exitProgress,
-          [0, 1],
-          [currentScene.layout.displayLayout.top, exitState.top],
-        ),
-      ),
-      width: Math.round(
-        interpolate(
-          exitProgress,
-          [0, 1],
-          [currentScene.layout.displayLayout.width, exitState.width],
-        ),
-      ),
-      height: Math.round(
-        interpolate(
-          exitProgress,
-          [0, 1],
-          [currentScene.layout.displayLayout.height, exitState.height],
-        ),
-      ),
-      opacity: interpolate(
-        exitProgress,
-        [0, 1],
-        [currentScene.layout.displayLayout.opacity, exitState.opacity],
-      ),
-      borderRadius: interpolate(
-        exitProgress,
-        [0, 1],
-        [
-          currentScene.layout.displayLayout.borderRadius,
-          exitState.borderRadius,
-        ],
-      ),
-    };
+    return interpolateLayout({
+      firstLayout: currentScene.layout.displayLayout,
+      secondLayout: exitState,
+      progress: exitProgress,
+    });
   }
 
-  const enterX = interpolate(
-    enterProgress,
-    [0, 1],
-    [enterState.left, currentScene.layout.displayLayout.left],
-  );
-  const enterY = interpolate(
-    enterProgress,
-    [0, 1],
-    [enterState.top, currentScene.layout.displayLayout.top],
-  );
-  const enterWidth = interpolate(
-    enterProgress,
-    [0, 1],
-    [enterState.width, currentScene.layout.displayLayout.width],
-  );
-  const enterHeight = interpolate(
-    enterProgress,
-    [0, 1],
-    [enterState.height, currentScene.layout.displayLayout.height],
-  );
-  const borderRadius = interpolate(
-    enterProgress,
-    [0, 1],
-    [enterState.borderRadius, currentScene.layout.displayLayout.borderRadius],
-  );
+  const interpolatedLayout = interpolateLayout({
+    firstLayout: enterState,
+    secondLayout: currentScene.layout.displayLayout,
+    progress: enterProgress,
+  });
 
   return {
-    left: Math.round(enterX),
-    top: Math.round(enterY),
-    width: enterWidth,
-    height: enterHeight,
+    ...interpolatedLayout,
     // Switch to new video in the middle of the transition
     opacity: shouldTransitionDisplayVideo({ previousScene })
       ? enterProgress > 0.5
         ? 1
         : 0
       : 1,
-    borderRadius,
   };
 };
