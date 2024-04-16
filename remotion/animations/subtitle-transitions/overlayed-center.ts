@@ -3,32 +3,27 @@ import type {
   VideoSceneAndMetadata,
 } from "../../../config/scenes";
 import type { Layout } from "../../layout/layout-types";
-import {
-  isGrowingFromMiniature,
-  isShrinkingToMiniature,
-} from "../webcam-transitions/helpers";
+import { isGrowingFromMiniature } from "../webcam-transitions/helpers";
 
-export const getOverlayedCenterSubtitleEnter = ({
-  previousScene,
+export const getOverlayedCenterSubtitleEnterOrExit = ({
+  otherScene,
   scene,
 }: {
-  previousScene: SceneAndMetadata | null;
+  otherScene: SceneAndMetadata | null;
   scene: VideoSceneAndMetadata;
 }): Layout => {
-  if (previousScene === null) {
+  if (otherScene === null) {
     return scene.layout.subLayout;
   }
 
-  if (previousScene.type !== "video-scene") {
+  if (otherScene.type !== "video-scene") {
     return {
       ...scene.layout.subLayout,
       top: scene.layout.subLayout.top + 500,
     };
   }
 
-  if (
-    isGrowingFromMiniature({ firstScene: previousScene, secondScene: scene })
-  ) {
+  if (isGrowingFromMiniature({ firstScene: otherScene, secondScene: scene })) {
     return {
       ...scene.layout.subLayout,
       top: scene.layout.subLayout.top + 500,
@@ -36,37 +31,4 @@ export const getOverlayedCenterSubtitleEnter = ({
   }
 
   return scene.layout.subLayout;
-};
-
-export const getOverlayedCenterSubtitleExit = ({
-  nextScene,
-  currentScene,
-}: {
-  nextScene: SceneAndMetadata | null;
-  currentScene: VideoSceneAndMetadata;
-}): Layout => {
-  if (!nextScene) {
-    return currentScene.layout.subLayout;
-  }
-
-  if (nextScene.type !== "video-scene") {
-    return {
-      ...currentScene.layout.subLayout,
-      top: currentScene.layout.subLayout.top + 500,
-    };
-  }
-
-  if (
-    isShrinkingToMiniature({
-      firstScene: currentScene,
-      secondScene: nextScene,
-    })
-  ) {
-    return {
-      ...currentScene.layout.subLayout,
-      top: currentScene.layout.subLayout.top + 500,
-    };
-  }
-
-  return currentScene.layout.subLayout;
 };

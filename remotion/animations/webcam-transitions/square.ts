@@ -50,6 +50,6 @@ export const getSquareWebcamStartOrEndLayout = ({
 
   return {
     ...currentLayout,
-    top: -getSafeSpace("square"),
+    top: 0 - currentLayout.height - getSafeSpace("square"),
   };
 };

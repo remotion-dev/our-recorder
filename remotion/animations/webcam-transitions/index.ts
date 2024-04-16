@@ -49,6 +49,8 @@ const shouldTransitionWebcamVideo = ({
     return false;
   }
 
+  // TODO: If webcam slides off one side and slides in from the other side,
+  // we should not transition the video
   if (previousScene.type !== "video-scene") {
     return false;
   }

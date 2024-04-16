@@ -37,7 +37,7 @@ export const getSquareDisplayEnterOrExit = ({
       secondScene: currentScene,
     })
   ) {
-    return currentScene.layout.displayLayout;
+    return otherScene.layout.displayLayout as Layout;
   }
 
   // Assuming now: currentScene is a display video that needs to be moved in

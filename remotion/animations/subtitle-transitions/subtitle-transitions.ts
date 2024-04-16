@@ -5,12 +5,9 @@ import type {
 import type { SubtitleType } from "../../captions/Segment";
 import type { Layout } from "../../layout/layout-types";
 import { interpolateLayout } from "../interpolate-layout";
-import { belowVideoSubtitleEnter, belowVideoSubtitleExit } from "./below-video";
-import { getBoxedEnter, getBoxedExit } from "./boxed";
-import {
-  getOverlayedCenterSubtitleEnter,
-  getOverlayedCenterSubtitleExit,
-} from "./overlayed-center";
+import { belowVideoSubtitleEnterOrExit } from "./below-video";
+import { getBoxedEnterOrExit } from "./boxed";
+import { getOverlayedCenterSubtitleEnterOrExit } from "./overlayed-center";
 
 const getSubtitleExit = ({
   canvasWidth,
@@ -18,27 +15,33 @@ const getSubtitleExit = ({
   scene,
   currentLayout,
   subtitleType,
+  canvasHeight,
 }: {
   canvasWidth: number;
+  canvasHeight: number;
   scene: VideoSceneAndMetadata;
   nextScene: SceneAndMetadata | null;
   currentLayout: Layout;
   subtitleType: SubtitleType;
 }): Layout => {
   if (subtitleType === "overlayed-center") {
-    return getOverlayedCenterSubtitleExit({ nextScene, currentScene: scene });
+    return getOverlayedCenterSubtitleEnterOrExit({
+      otherScene: nextScene,
+      scene,
+    });
   }
 
   if (subtitleType === "below-video") {
-    return belowVideoSubtitleExit({ nextScene, currentScene: scene });
+    return belowVideoSubtitleEnterOrExit({ otherScene: nextScene, scene });
   }
 
   if (subtitleType === "boxed") {
-    return getBoxedExit({
-      nextScene,
+    return getBoxedEnterOrExit({
+      otherScene: nextScene,
       currentLayout,
       scene,
       canvasWidth,
+      canvasHeight,
     });
   }
 
@@ -65,25 +68,25 @@ const getSubtitleEnterTransform = ({
   }
 
   if (subtitleType === "overlayed-center") {
-    return getOverlayedCenterSubtitleEnter({
-      previousScene,
+    return getOverlayedCenterSubtitleEnterOrExit({
+      otherScene: previousScene,
       scene,
     });
   }
 
   if (subtitleType === "below-video") {
-    return belowVideoSubtitleEnter({
-      previousScene,
+    return belowVideoSubtitleEnterOrExit({
+      otherScene: previousScene,
       scene,
     });
   }
 
   if (subtitleType === "boxed") {
-    return getBoxedEnter({
+    return getBoxedEnterOrExit({
       currentLayout,
       scene,
       canvasHeight,
-      previousScene,
+      otherScene: previousScene,
       canvasWidth,
     });
   }
@@ -127,6 +130,7 @@ export const getSubtitleTransform = ({
     scene,
     currentLayout,
     subtitleType,
+    canvasHeight,
   });
 
   if (exitProgress > 0) {
