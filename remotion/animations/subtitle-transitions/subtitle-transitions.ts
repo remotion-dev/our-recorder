@@ -6,8 +6,8 @@ import type { SubtitleType } from "../../captions/Segment";
 import type { Layout } from "../../layout/layout-types";
 import { interpolateLayout } from "../interpolate-layout";
 import { belowVideoSubtitleEnterOrExit } from "./below-video";
-import { getBoxedEnterOrExit } from "./boxed";
 import { getOverlayedCenterSubtitleEnterOrExit } from "./overlayed-center";
+import { getSquareEnterOrExit } from "./square";
 
 const getSubtitleExit = ({
   canvasWidth,
@@ -35,8 +35,8 @@ const getSubtitleExit = ({
     return belowVideoSubtitleEnterOrExit({ otherScene: nextScene, scene });
   }
 
-  if (subtitleType === "boxed") {
-    return getBoxedEnterOrExit({
+  if (subtitleType === "square") {
+    return getSquareEnterOrExit({
       otherScene: nextScene,
       currentLayout,
       scene,
@@ -81,8 +81,8 @@ const getSubtitleEnterTransform = ({
     });
   }
 
-  if (subtitleType === "boxed") {
-    return getBoxedEnterOrExit({
+  if (subtitleType === "square") {
+    return getSquareEnterOrExit({
       currentLayout,
       scene,
       canvasHeight,

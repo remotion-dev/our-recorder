@@ -11,7 +11,7 @@ import {
   isWebCamRight,
 } from "../webcam-transitions/helpers";
 
-export const getBoxedEnterOrExit = ({
+export const getSquareEnterOrExit = ({
   currentLayout,
   scene,
   canvasHeight,

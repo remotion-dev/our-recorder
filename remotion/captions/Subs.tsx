@@ -191,7 +191,7 @@ export const Subs: React.FC<{
       COLORS[theme].BORDER_COLOR
     }`,
     backgroundColor:
-      subtitleType === "boxed" || subtitleType === "overlayed-center"
+      subtitleType === "square" || subtitleType === "overlayed-center"
         ? COLORS[theme].SUBTITLES_BACKGROUND
         : undefined,
     ...getSubsAlign({

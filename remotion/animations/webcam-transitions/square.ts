@@ -1,4 +1,3 @@
-import { getSafeSpace } from "../../../config/layout";
 import type {
   SceneAndMetadata,
   VideoSceneAndMetadata,
@@ -54,7 +53,7 @@ export const getSquareWebcamStartOrEndLayout = ({
     return {
       layout: {
         ...currentLayout,
-        top: canvasHeight + getSafeSpace("square"),
+        top: canvasHeight,
       },
       shouldFadeRecording: false,
     };
@@ -63,7 +62,7 @@ export const getSquareWebcamStartOrEndLayout = ({
   return {
     layout: {
       ...currentLayout,
-      top: 0 - currentLayout.height - getSafeSpace("square"),
+      top: -currentLayout.height,
     },
     shouldFadeRecording: false,
   };
