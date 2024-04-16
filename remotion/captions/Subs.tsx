@@ -199,7 +199,6 @@ export const Subs: React.FC<{
       subtitleType,
     }),
     ...getSubtitleTransform({
-      currentLayout: scene.layout.subLayout,
       enterProgress,
       exitProgress,
       canvasHeight: height,
