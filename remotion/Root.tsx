@@ -5885,12 +5885,20 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
-              webcamPosition: "previous" as const,
+              webcamPosition: "bottom-left" as const,
               trimStart: 0,
               duration: null,
               transitionToNextScene: true,
               newChapter: "",
               stopChapteringAfterThis: false,
+              music: "previous" as const,
+            },
+            {
+              type: "title" as const,
+              title: "The nice things about Vercel",
+              subtitle: "",
+              durationInFrames: 50,
+              transitionToNextScene: true,
               music: "previous" as const,
             },
             {
