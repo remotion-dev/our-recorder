@@ -5747,7 +5747,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
-              webcamPosition: "previous" as const,
+              webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
               transitionToNextScene: true,
