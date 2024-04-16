@@ -59,7 +59,7 @@ const getDisplayEnter = ({
     return getLandscapeDisplayEnter({
       currentScene,
       previousScene,
-      width: canvasWidth,
+      canvasWidth,
     });
   }
 
@@ -158,7 +158,7 @@ export const getDisplayPosition = ({
     throw new Error("no transitions on non-video scenes");
   }
 
-  const { enter: enterState, exit: exitState } = getDisplayTransitionOrigins({
+  const { enter, exit } = getDisplayTransitionOrigins({
     currentScene,
     nextScene,
     previousScene,
@@ -168,18 +168,18 @@ export const getDisplayPosition = ({
   });
 
   if (exitProgress > 0) {
-    return interpolateLayout({
-      firstLayout: currentScene.layout.displayLayout,
-      secondLayout: exitState,
-      progress: exitProgress,
-    });
+    return interpolateLayout(
+      currentScene.layout.displayLayout,
+      exit,
+      exitProgress,
+    );
   }
 
-  const interpolatedLayout = interpolateLayout({
-    firstLayout: enterState,
-    secondLayout: currentScene.layout.displayLayout,
-    progress: enterProgress,
-  });
+  const interpolatedLayout = interpolateLayout(
+    enter,
+    currentScene.layout.displayLayout,
+    enterProgress,
+  );
 
   return {
     ...interpolatedLayout,

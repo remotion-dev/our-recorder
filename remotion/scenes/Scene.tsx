@@ -137,12 +137,12 @@ const SceneWithTransition: React.FC<Props> = (props) => {
   const startStyle = getSceneEnter({
     currentScene: props.sceneAndMetadata,
     previousScene: props.previousScene,
-    width,
+    canvasWidth: width,
   });
   const endStyle = getSceneExit({
     currentScene: props.sceneAndMetadata,
     nextScene: props.nextScene,
-    width,
+    canvasWidth: width,
   });
 
   const style = interpolateStyles(

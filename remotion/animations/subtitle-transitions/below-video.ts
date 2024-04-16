@@ -1,8 +1,8 @@
-import { translate } from "@remotion/animation-utils";
 import type {
   SceneAndMetadata,
   VideoSceneAndMetadata,
 } from "../../../config/scenes";
+import type { Layout } from "../../layout/layout-types";
 import {
   isGrowingFromMiniature,
   isShrinkingToMiniature,
@@ -14,22 +14,28 @@ export const belowVideoSubtitleEnter = ({
 }: {
   previousScene: SceneAndMetadata | null;
   scene: VideoSceneAndMetadata;
-}): string => {
+}): Layout => {
   if (previousScene === null) {
-    return translate(0, 0);
+    return scene.layout.subLayout;
   }
 
   if (previousScene.type !== "video-scene") {
-    return translate(0, 500);
+    return {
+      ...scene.layout.subLayout,
+      top: scene.layout.subLayout.top + 500,
+    };
   }
 
   if (
     isShrinkingToMiniature({ firstScene: previousScene, secondScene: scene })
   ) {
-    return translate(0, 500);
+    return {
+      ...scene.layout.subLayout,
+      top: scene.layout.subLayout.top + 500,
+    };
   }
 
-  return translate(0, 0);
+  return scene.layout.subLayout;
 };
 
 export const belowVideoSubtitleExit = ({
@@ -38,13 +44,16 @@ export const belowVideoSubtitleExit = ({
 }: {
   nextScene: SceneAndMetadata | null;
   currentScene: VideoSceneAndMetadata;
-}): string => {
+}): Layout => {
   if (!nextScene) {
-    return translate(0, 0);
+    return currentScene.layout.subLayout;
   }
 
   if (nextScene.type !== "video-scene") {
-    return translate(0, 500);
+    return {
+      ...currentScene.layout.subLayout,
+      top: currentScene.layout.subLayout.top + 500,
+    };
   }
 
   if (
@@ -53,8 +62,11 @@ export const belowVideoSubtitleExit = ({
       secondScene: nextScene,
     })
   ) {
-    return translate(0, 500);
+    return {
+      ...currentScene.layout.subLayout,
+      top: currentScene.layout.subLayout.top + 500,
+    };
   }
 
-  return translate(0, 0);
+  return currentScene.layout.subLayout;
 };

@@ -1,10 +1,10 @@
-import { interpolateStyles } from "@remotion/animation-utils";
 import type { CanvasLayout } from "../../../config/layout";
 import type {
   SceneAndMetadata,
   VideoSceneAndMetadata,
 } from "../../../config/scenes";
 import type { Layout } from "../../layout/layout-types";
+import { interpolateLayout } from "../interpolate-layout";
 import { getLandscapeWebCamStartOrEndLayout } from "./landscape";
 import { getSquareWebcamStartOrEndLayout } from "./square";
 
@@ -92,18 +92,18 @@ export const getWebcamLayout = ({
   });
 
   if (exitProgress > 0) {
-    return interpolateStyles(
+    return interpolateLayout(
+      currentScene.layout.webcamLayout,
+      endLayout,
       exitProgress,
-      [0, 1],
-      [currentScene.layout.webcamLayout, endLayout],
     );
   }
 
   return {
-    ...interpolateStyles(
+    ...interpolateLayout(
+      startLayout,
+      currentScene.layout.webcamLayout,
       enterProgress,
-      [0, 1],
-      [startLayout, currentScene.layout.webcamLayout],
     ),
     // Switch opacity in the middle of the transition
     opacity: shouldTransitionWebcamVideo({ previousScene })

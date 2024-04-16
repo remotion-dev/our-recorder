@@ -1,10 +1,10 @@
-import { interpolateStyles, translate } from "@remotion/animation-utils";
 import type {
   SceneAndMetadata,
   VideoSceneAndMetadata,
 } from "../../../config/scenes";
 import type { SubtitleType } from "../../captions/Segment";
 import type { Layout } from "../../layout/layout-types";
+import { interpolateLayout } from "../interpolate-layout";
 import { belowVideoSubtitleEnter, belowVideoSubtitleExit } from "./below-video";
 import { getBoxedEnter, getBoxedExit } from "./boxed";
 import {
@@ -13,18 +13,18 @@ import {
 } from "./overlayed-center";
 
 const getSubtitleExit = ({
-  width,
+  canvasWidth,
   nextScene,
   scene,
   currentLayout,
   subtitleType,
 }: {
-  width: number;
+  canvasWidth: number;
   scene: VideoSceneAndMetadata;
   nextScene: SceneAndMetadata | null;
   currentLayout: Layout;
   subtitleType: SubtitleType;
-}) => {
+}): Layout => {
   if (subtitleType === "overlayed-center") {
     return getOverlayedCenterSubtitleExit({ nextScene, currentScene: scene });
   }
@@ -34,7 +34,12 @@ const getSubtitleExit = ({
   }
 
   if (subtitleType === "boxed") {
-    return getBoxedExit({ nextScene, currentLayout, scene, width });
+    return getBoxedExit({
+      nextScene,
+      currentLayout,
+      scene,
+      canvasWidth,
+    });
   }
 
   throw new Error("Unknown subtitle type: " + subtitleType);
@@ -54,7 +59,7 @@ const getSubtitleEnterTransform = ({
   previousScene: SceneAndMetadata | null;
   currentLayout: Layout;
   subtitleType: SubtitleType;
-}): string => {
+}): Layout => {
   if (scene.type !== "video-scene") {
     throw new Error("no subtitles on non-video scenes");
   }
@@ -106,7 +111,7 @@ export const getSubtitleTransform = ({
   nextScene: SceneAndMetadata | null;
   currentLayout: Layout;
   subtitleType: SubtitleType;
-}): string => {
+}): Layout => {
   const enter = getSubtitleEnterTransform({
     canvasHeight,
     canvasWidth,
@@ -117,7 +122,7 @@ export const getSubtitleTransform = ({
   });
 
   const exit = getSubtitleExit({
-    width: canvasWidth,
+    canvasWidth,
     nextScene,
     scene,
     currentLayout,
@@ -125,17 +130,8 @@ export const getSubtitleTransform = ({
   });
 
   if (exitProgress > 0) {
-    return interpolateStyles(
-      exitProgress,
-      [0, 1],
-      [{ transform: translate(0, 0) }, { transform: exit }],
-    ).transform as string;
+    return interpolateLayout(currentLayout, exit, exitProgress);
   }
 
-  return interpolateStyles(
-    enterProgress,
-    [0, 1],
-    [{ transform: enter }, { transform: translate(0, 0) }],
-    {},
-  ).transform as string;
+  return interpolateLayout(enter, currentLayout, enterProgress);
 };

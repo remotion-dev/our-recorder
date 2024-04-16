@@ -53,11 +53,11 @@ export const getLandscapeDisplayExit = ({
 export const getLandscapeDisplayEnter = ({
   currentScene,
   previousScene,
-  width,
+  canvasWidth,
 }: {
   previousScene: SceneAndMetadata | null;
   currentScene: VideoSceneAndMetadata;
-  width: number;
+  canvasWidth: number;
 }): Layout => {
   if (
     currentScene.type !== "video-scene" ||
@@ -89,7 +89,7 @@ export const getLandscapeDisplayEnter = ({
     // landscape, Slide in from right
     return {
       ...currentScene.layout.displayLayout,
-      left: width + getSafeSpace("landscape"),
+      left: canvasWidth + getSafeSpace("landscape"),
       top: 0,
     };
   }

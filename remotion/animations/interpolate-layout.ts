@@ -1,15 +1,11 @@
 import { interpolate } from "remotion";
 import type { Layout } from "../layout/layout-types";
 
-export const interpolateLayout = ({
-  firstLayout,
-  secondLayout,
-  progress,
-}: {
-  firstLayout: Layout;
-  secondLayout: Layout;
-  progress: number;
-}) => {
+export const interpolateLayout = (
+  firstLayout: Layout,
+  secondLayout: Layout,
+  progress: number,
+) => {
   const enterX = interpolate(
     progress,
     [0, 1],
