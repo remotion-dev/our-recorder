@@ -9,58 +9,17 @@ import { belowVideoSubtitleEnterOrExit } from "./below-video";
 import { getOverlayedCenterSubtitleEnterOrExit } from "./overlayed-center";
 import { getSquareEnterOrExit } from "./square";
 
-const getSubtitleExit = ({
-  canvasWidth,
-  nextScene,
-  scene,
-  currentLayout,
-  subtitleType,
-  canvasHeight,
-}: {
-  canvasWidth: number;
-  canvasHeight: number;
-  scene: VideoSceneAndMetadata;
-  nextScene: SceneAndMetadata | null;
-  currentLayout: Layout;
-  subtitleType: SubtitleType;
-}): Layout => {
-  if (subtitleType === "overlayed-center") {
-    return getOverlayedCenterSubtitleEnterOrExit({
-      otherScene: nextScene,
-      scene,
-    });
-  }
-
-  if (subtitleType === "below-video") {
-    return belowVideoSubtitleEnterOrExit({ otherScene: nextScene, scene });
-  }
-
-  if (subtitleType === "square") {
-    return getSquareEnterOrExit({
-      otherScene: nextScene,
-      currentLayout,
-      scene,
-      canvasWidth,
-      canvasHeight,
-    });
-  }
-
-  throw new Error("Unknown subtitle type: " + subtitleType);
-};
-
-const getSubtitleEnterTransform = ({
+const getSubtitleEnterOrExitLayout = ({
   canvasWidth,
   canvasHeight,
   scene,
-  previousScene,
-  currentLayout,
+  otherScene,
   subtitleType,
 }: {
   canvasWidth: number;
   canvasHeight: number;
   scene: SceneAndMetadata;
-  previousScene: SceneAndMetadata | null;
-  currentLayout: Layout;
+  otherScene: SceneAndMetadata | null;
   subtitleType: SubtitleType;
 }): Layout => {
   if (scene.type !== "video-scene") {
@@ -69,24 +28,23 @@ const getSubtitleEnterTransform = ({
 
   if (subtitleType === "overlayed-center") {
     return getOverlayedCenterSubtitleEnterOrExit({
-      otherScene: previousScene,
+      otherScene,
       scene,
     });
   }
 
   if (subtitleType === "below-video") {
     return belowVideoSubtitleEnterOrExit({
-      otherScene: previousScene,
+      otherScene,
       scene,
     });
   }
 
   if (subtitleType === "square") {
     return getSquareEnterOrExit({
-      currentLayout,
       scene,
       canvasHeight,
-      otherScene: previousScene,
+      otherScene,
       canvasWidth,
     });
   }
@@ -102,7 +60,6 @@ export const getSubtitleTransform = ({
   nextScene,
   previousScene,
   scene,
-  currentLayout,
   subtitleType,
 }: {
   enterProgress: number;
@@ -112,30 +69,27 @@ export const getSubtitleTransform = ({
   scene: VideoSceneAndMetadata;
   previousScene: SceneAndMetadata | null;
   nextScene: SceneAndMetadata | null;
-  currentLayout: Layout;
   subtitleType: SubtitleType;
 }): Layout => {
-  const enter = getSubtitleEnterTransform({
+  const enter = getSubtitleEnterOrExitLayout({
+    scene,
+    otherScene: previousScene,
     canvasHeight,
     canvasWidth,
-    scene,
-    previousScene,
-    currentLayout,
     subtitleType,
   });
 
-  const exit = getSubtitleExit({
-    canvasWidth,
-    nextScene,
+  const exit = getSubtitleEnterOrExitLayout({
     scene,
-    currentLayout,
+    otherScene: nextScene,
     subtitleType,
+    canvasWidth,
     canvasHeight,
   });
 
   if (exitProgress > 0) {
-    return interpolateLayout(currentLayout, exit, exitProgress);
+    return interpolateLayout(scene.layout.subLayout, exit, exitProgress);
   }
 
-  return interpolateLayout(enter, currentLayout, enterProgress);
+  return interpolateLayout(enter, scene.layout.subLayout, enterProgress);
 };
