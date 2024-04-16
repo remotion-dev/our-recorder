@@ -3,62 +3,28 @@ import type {
   SceneAndMetadata,
   VideoSceneAndMetadata,
 } from "../../../config/scenes";
-import type { Layout } from "../../layout/layout-types";
-import { interpolateLayout } from "../interpolate-layout";
-import { getLandscapeDisplayEnter, getLandscapeDisplayExit } from "./landscape";
+import type { Layout, LayoutAndFade } from "../../layout/layout-types";
+import { interpolateLayoutAndFade } from "../interpolate-layout";
+import { getLandscapeDisplayEnterOrExit } from "./landscape";
 import { getSquareDisplayEnterOrExit } from "./square";
 
-const getDisplayExit = ({
+const getDisplayStartOrEndLayout = ({
   currentScene,
-  nextScene,
+  otherScene,
   canvasWidth,
   canvasHeight,
   canvasLayout,
 }: {
-  nextScene: SceneAndMetadata | null;
+  otherScene: SceneAndMetadata | null;
   currentScene: VideoSceneAndMetadata;
   canvasWidth: number;
   canvasHeight: number;
   canvasLayout: CanvasLayout;
-}): Layout => {
+}): LayoutAndFade => {
   if (canvasLayout === "landscape") {
-    return getLandscapeDisplayExit({
+    return getLandscapeDisplayEnterOrExit({
       currentScene,
-      nextScene,
-      canvasWidth,
-      canvasHeight,
-    });
-  }
-
-  if (canvasLayout === "square") {
-    return getSquareDisplayEnterOrExit({
-      currentScene,
-      otherScene: nextScene,
-      canvasWidth,
-      canvasHeight,
-    });
-  }
-
-  throw new Error("Unknown canvas layout: " + canvasLayout);
-};
-
-const getDisplayEnter = ({
-  currentScene,
-  previousScene,
-  canvasWidth,
-  canvasHeight,
-  canvasLayout,
-}: {
-  previousScene: SceneAndMetadata | null;
-  currentScene: VideoSceneAndMetadata;
-  canvasWidth: number;
-  canvasHeight: number;
-  canvasLayout: CanvasLayout;
-}): Layout => {
-  if (canvasLayout === "landscape") {
-    return getLandscapeDisplayEnter({
-      currentScene,
-      previousScene,
+      otherScene,
       canvasWidth,
     });
   }
@@ -66,13 +32,13 @@ const getDisplayEnter = ({
   if (canvasLayout === "square") {
     return getSquareDisplayEnterOrExit({
       currentScene,
-      otherScene: previousScene,
+      otherScene,
       canvasWidth,
       canvasHeight,
     });
   }
 
-  throw new Error("Unknown canvas layout: " + canvasLayout);
+  throw new Error(`Unknown canvas layout: ${canvasLayout}`);
 };
 
 const getDisplayTransitionOrigins = ({
@@ -90,17 +56,17 @@ const getDisplayTransitionOrigins = ({
   canvasWidth: number;
   canvasHeight: number;
 }) => {
-  const enter = getDisplayEnter({
+  const enter = getDisplayStartOrEndLayout({
     currentScene,
-    previousScene,
+    otherScene: previousScene,
     canvasWidth,
     canvasLayout,
     canvasHeight,
   });
 
-  const exit = getDisplayExit({
+  const exit = getDisplayStartOrEndLayout({
     currentScene,
-    nextScene,
+    otherScene: nextScene,
     canvasWidth,
     canvasHeight,
     canvasLayout,
@@ -110,26 +76,6 @@ const getDisplayTransitionOrigins = ({
     enter,
     exit,
   };
-};
-
-const shouldTransitionDisplayVideo = ({
-  previousScene,
-}: {
-  previousScene: SceneAndMetadata | null;
-}) => {
-  if (previousScene === null) {
-    return false;
-  }
-
-  if (previousScene.type !== "video-scene") {
-    return false;
-  }
-
-  if (previousScene.videos.display === null) {
-    return false;
-  }
-
-  return true;
 };
 
 export const getDisplayPosition = ({
@@ -168,26 +114,18 @@ export const getDisplayPosition = ({
   });
 
   if (exitProgress > 0) {
-    return interpolateLayout(
+    return interpolateLayoutAndFade(
       currentScene.layout.displayLayout,
-      exit,
+      exit.layout,
       exitProgress,
+      exit.shouldFadeRecording,
     );
   }
 
-  const interpolatedLayout = interpolateLayout(
-    enter,
+  return interpolateLayoutAndFade(
+    enter.layout,
     currentScene.layout.displayLayout,
     enterProgress,
+    enter.shouldFadeRecording,
   );
-
-  return {
-    ...interpolatedLayout,
-    // Switch to new video in the middle of the transition
-    opacity: shouldTransitionDisplayVideo({ previousScene })
-      ? enterProgress > 0.5
-        ? 1
-        : 0
-      : 1,
-  };
 };
