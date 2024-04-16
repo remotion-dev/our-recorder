@@ -74,7 +74,7 @@ export const getSquareDisplayEnterOrExit = ({
     return {
       layout: {
         ...currentScene.layout.displayLayout,
-        left: -currentScene.layout.displayLayout.width - getSafeSpace("square"),
+        left: -currentScene.layout.displayLayout.width,
         top: otherScene.layout.webcamLayout.height + getSafeSpace("square") * 2,
       },
       shouldFadeRecording: false,
@@ -86,7 +86,7 @@ export const getSquareDisplayEnterOrExit = ({
     return {
       layout: {
         ...currentScene.layout.displayLayout,
-        left: canvasWidth + getSafeSpace("square"),
+        left: canvasWidth,
         top: otherScene.layout.webcamLayout.height + getSafeSpace("square") * 2,
       },
       shouldFadeRecording: false,
@@ -98,7 +98,7 @@ export const getSquareDisplayEnterOrExit = ({
     return {
       layout: {
         ...currentScene.layout.displayLayout,
-        left: canvasWidth + getSafeSpace("square"),
+        left: canvasWidth,
         top:
           canvasHeight -
           currentScene.layout.displayLayout.height -
@@ -114,7 +114,7 @@ export const getSquareDisplayEnterOrExit = ({
     return {
       layout: {
         ...currentScene.layout.displayLayout,
-        left: -currentScene.layout.displayLayout.width - getSafeSpace("square"),
+        left: -currentScene.layout.displayLayout.width,
         top:
           canvasHeight -
           currentScene.layout.displayLayout.height -

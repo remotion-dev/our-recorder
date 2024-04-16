@@ -80,7 +80,7 @@ export const getWebcamLayout = ({
       currentScene.layout.webcamLayout,
       endLayout.layout,
       exitProgress,
-      endLayout.shouldFadeRecording,
+      false,
     );
   }
 

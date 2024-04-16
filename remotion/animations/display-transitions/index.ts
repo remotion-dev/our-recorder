@@ -118,7 +118,7 @@ export const getDisplayPosition = ({
       currentScene.layout.displayLayout,
       exit.layout,
       exitProgress,
-      exit.shouldFadeRecording,
+      false,
     );
   }
 
