@@ -5895,9 +5895,9 @@ export const Root = () => {
             },
             {
               type: "title" as const,
-              title: "The nice things about Vercel",
+              title: "Upsides of Vercel",
               subtitle: "",
-              durationInFrames: 50,
+              durationInFrames: 90,
               transitionToNextScene: true,
               music: "previous" as const,
             },
