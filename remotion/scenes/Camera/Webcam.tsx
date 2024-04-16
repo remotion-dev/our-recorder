@@ -1,10 +1,5 @@
 import React, { useMemo } from "react";
-import {
-  OffthreadVideo,
-  staticFile,
-  useCurrentFrame,
-  useVideoConfig,
-} from "remotion";
+import { OffthreadVideo, useCurrentFrame, useVideoConfig } from "remotion";
 import type { CanvasLayout } from "../../../config/layout";
 import type {
   SceneAndMetadata,
@@ -12,31 +7,14 @@ import type {
 } from "../../../config/scenes";
 import { getWebcamLayout } from "../../animations/webcam-transitions";
 import type { Layout } from "../../layout/layout-types";
+import { BRollStack } from "../BRoll/BRollStack";
 import { ScaleDownWithBRoll } from "../BRoll/ScaleDownWithBRoll";
-import type { BRollScene } from "./BRoll";
-import { BRoll } from "./BRoll";
+import type { BRollScene } from "../BRoll/types";
 
 const outer: React.CSSProperties = {
   position: "absolute",
   display: "flex",
 };
-
-const bRolls: BRollScene[] = [
-  {
-    source: staticFile("test/Marathon.png"),
-    durationInFrames: 70,
-    from: 30,
-    assetWidth: 3840,
-    assetHeight: 2160,
-  },
-  {
-    source: staticFile("test/Marathon.png"),
-    durationInFrames: 70,
-    from: 50,
-    assetWidth: 3840,
-    assetHeight: 2160,
-  },
-];
 
 export const Webcam: React.FC<{
   webcamLayout: Layout;
@@ -48,6 +26,7 @@ export const Webcam: React.FC<{
   nextScene: SceneAndMetadata | null;
   previousScene: SceneAndMetadata | null;
   currentScene: VideoSceneAndMetadata;
+  bRolls: BRollScene[];
 }> = ({
   webcamLayout,
   enterProgress,
@@ -58,6 +37,7 @@ export const Webcam: React.FC<{
   previousScene,
   canvasLayout,
   currentScene,
+  bRolls,
 }) => {
   const frame = useCurrentFrame();
   const { height, width } = useVideoConfig();
@@ -114,18 +94,7 @@ export const Webcam: React.FC<{
           src={currentScene.pair.webcam.src}
         />
       </ScaleDownWithBRoll>
-      {bRolls.map((roll, i) => {
-        return (
-          <BRoll
-            // eslint-disable-next-line react/no-array-index-key
-            key={i}
-            bRoll={roll}
-            bRollsBefore={bRolls.slice(i + 1)}
-            sceneLayout={webcamLayout}
-            sceneFrame={frame}
-          />
-        );
-      })}
+      <BRollStack bRolls={bRolls} layout={webcamLayout} />
     </div>
   );
 };

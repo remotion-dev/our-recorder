@@ -1,6 +1,6 @@
 import React from "react";
 import { spring, useVideoConfig } from "remotion";
-import type { BRollScene } from "../Camera/BRoll";
+import type { BRollScene } from "./types";
 
 export const ScaleDownWithBRoll: React.FC<
   {

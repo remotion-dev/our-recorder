@@ -10,14 +10,7 @@ import {
 import { getSafeSpace } from "../../../config/layout";
 import type { Layout } from "../../layout/layout-types";
 import { ScaleDownWithBRoll } from "../BRoll/ScaleDownWithBRoll";
-
-export type BRollScene = {
-  from: number;
-  durationInFrames: number;
-  source: string;
-  assetWidth: number;
-  assetHeight: number;
-};
+import type { BRollScene } from "../BRoll/types";
 
 const Inner: React.FC<{
   bRoll: BRollScene;
