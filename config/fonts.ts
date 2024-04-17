@@ -18,5 +18,5 @@ export const MONOSPACE_FONT_WEIGHT = 500;
 export const TITLE_FONT_FAMILY = regularFont;
 export const TITLE_FONT_WEIGHT = 700;
 
-export const ENDCARD_FONT_FAMILY = regularFont;
+export const ENDCARD_FONT_FAMILY = "GT Planar";
 export const ENDCARD_FONT_WEIGHT = 500;

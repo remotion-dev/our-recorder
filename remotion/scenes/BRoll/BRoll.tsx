@@ -2,6 +2,7 @@ import React, { useMemo } from "react";
 import {
   Img,
   interpolate,
+  OffthreadVideo,
   Sequence,
   spring,
   useCurrentFrame,
@@ -91,15 +92,31 @@ const Inner: React.FC<{
         alignItems: "center",
       }}
     >
-      <Img
-        src={bRoll.source}
-        style={{
-          borderRadius: bRollLayout.borderRadius,
-          overflow: "hidden",
-          boxShadow: "0 0 50px rgba(0, 0, 0, 0.2)",
-          height: "100%",
-        }}
-      />
+      {bRoll.type === "image" ? (
+        <Img
+          src={bRoll.source}
+          style={{
+            borderRadius: bRollLayout.borderRadius,
+            overflow: "hidden",
+            boxShadow: "0 0 50px rgba(0, 0, 0, 0.2)",
+            maxWidth: "100%",
+            maxHeight: "100%",
+          }}
+        />
+      ) : null}
+      {bRoll.type === "video" ? (
+        <OffthreadVideo
+          src={bRoll.source}
+          muted
+          style={{
+            borderRadius: bRollLayout.borderRadius,
+            overflow: "hidden",
+            boxShadow: "0 0 50px rgba(0, 0, 0, 0.2)",
+            maxWidth: "100%",
+            maxHeight: "100%",
+          }}
+        />
+      ) : null}
     </ScaleDownWithBRoll>
   );
 };
