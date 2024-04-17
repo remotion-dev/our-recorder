@@ -15,28 +15,34 @@ const regular = loadRegular();
 // Don't use it for your videos.
 const gtPlanar = "GT Planar";
 
-const gtPlanarRegular = new FontFace(
-  "GT Planar",
-  `url(${staticFile("gt-planar-regular.woff2")}) format('woff2')`,
-)
-  .load()
-  .then((f) => {
-    return f.loaded;
-  })
-  .then((f) => {
-    document.fonts.add(f);
-  });
-const gtPlanarBold = new FontFace(
-  "GT Planar",
-  `url(${staticFile("gt-planar-bold.woff2")}) format('woff2')`,
-)
-  .load()
-  .then((f) => {
-    return f.loaded;
-  })
-  .then((f) => {
-    document.fonts.add(f);
-  });
+const gtPlanarRegular =
+  typeof document === "undefined"
+    ? Promise.resolve()
+    : new FontFace(
+        "GT Planar",
+        `url(${staticFile("gt-planar-regular.woff2")}) format('woff2')`,
+      )
+        .load()
+        .then((f) => {
+          return f.loaded;
+        })
+        .then((f) => {
+          document.fonts.add(f);
+        });
+const gtPlanarBold =
+  typeof document === "undefined"
+    ? Promise.resolve()
+    : new FontFace(
+        "GT Planar",
+        `url(${staticFile("gt-planar-bold.woff2")}) format('woff2')`,
+      )
+        .load()
+        .then((f) => {
+          return f.loaded;
+        })
+        .then((f) => {
+          document.fonts.add(f);
+        });
 
 export const waitForFonts = async () => {
   await regular.waitUntilDone();
