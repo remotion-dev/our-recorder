@@ -5,10 +5,11 @@ import { BRoll } from "../Camera/BRoll";
 import type { BRollScene } from "./types";
 
 export const BRollStack: React.FC<{
-  layout: Layout;
+  bRollLayout: Layout;
   bRolls: BRollScene[];
-}> = ({ layout, bRolls }) => {
+}> = ({ bRollLayout, bRolls }) => {
   const frame = useCurrentFrame();
+
   return (
     <>
       {bRolls.map((roll, i) => {
@@ -18,8 +19,8 @@ export const BRollStack: React.FC<{
             key={i}
             bRoll={roll}
             bRollsBefore={bRolls.slice(i + 1)}
-            sceneLayout={layout}
             sceneFrame={frame}
+            bRollLayout={bRollLayout}
           />
         );
       })}

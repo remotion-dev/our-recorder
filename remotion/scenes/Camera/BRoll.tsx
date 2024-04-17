@@ -15,9 +15,9 @@ import type { BRollScene } from "../BRoll/types";
 const Inner: React.FC<{
   bRoll: BRollScene;
   bRollsBefore: BRollScene[];
-  sceneLayout: Layout;
+  bRollLayout: Layout;
   sceneFrame: number;
-}> = ({ bRoll, bRollsBefore, sceneFrame, sceneLayout }) => {
+}> = ({ bRoll, bRollsBefore, bRollLayout, sceneFrame }) => {
   const { fps } = useVideoConfig();
   const frame = useCurrentFrame();
 
@@ -41,29 +41,16 @@ const Inner: React.FC<{
   });
 
   const bRollContainer: Layout = useMemo(() => {
-    const bRollMaxWidth = sceneLayout.width;
-    const aspectRatio = bRoll.assetWidth / bRoll.assetHeight;
-    const bRollHeight = Math.min(
-      sceneLayout.height,
-      bRollMaxWidth / aspectRatio,
-    );
-    const bRollWidth = bRollHeight * aspectRatio;
-    const top = (sceneLayout.height - bRollHeight) / 2 + getSafeSpace("square");
-
     return {
-      ...sceneLayout,
-      left: getSafeSpace("square"),
-      width: bRollWidth,
-      top,
-      height: bRollHeight,
+      ...bRollLayout,
       display: "flex",
     };
-  }, [bRoll.assetHeight, bRoll.assetWidth, sceneLayout]);
+  }, [bRollLayout]);
 
   const topOffset = interpolate(
     appear - disappear,
     [0, 1],
-    [-sceneLayout.height - getSafeSpace("square"), 0],
+    [-bRollLayout.height - getSafeSpace("square"), 0],
     { extrapolateLeft: "clamp", extrapolateRight: "clamp" },
   );
 
@@ -71,15 +58,21 @@ const Inner: React.FC<{
     <ScaleDownWithBRoll
       frame={sceneFrame}
       bRolls={bRollsBefore}
-      style={{ position: "absolute", ...bRollContainer }}
+      style={{
+        position: "absolute",
+        ...bRollContainer,
+        justifyContent: "center",
+        alignItems: "center",
+      }}
     >
       <Img
         src={bRoll.source}
         style={{
-          borderRadius: sceneLayout.borderRadius,
+          borderRadius: bRollLayout.borderRadius,
           overflow: "hidden",
           boxShadow: "0 0 50px rgba(0, 0, 0, 0.2)",
           transform: `translateY(${topOffset}px)`,
+          height: "100%",
         }}
       />
     </ScaleDownWithBRoll>
@@ -89,16 +82,16 @@ const Inner: React.FC<{
 export const BRoll: React.FC<{
   bRoll: BRollScene;
   bRollsBefore: BRollScene[];
-  sceneLayout: Layout;
   sceneFrame: number;
-}> = ({ bRoll, sceneLayout, bRollsBefore, sceneFrame }) => {
+  bRollLayout: Layout;
+}> = ({ bRoll, bRollsBefore, sceneFrame, bRollLayout }) => {
   return (
     <Sequence from={bRoll.from} durationInFrames={bRoll.durationInFrames}>
       <Inner
         sceneFrame={sceneFrame}
         bRollsBefore={bRollsBefore}
         bRoll={bRoll}
-        sceneLayout={sceneLayout}
+        bRollLayout={bRollLayout}
       />
     </Sequence>
   );

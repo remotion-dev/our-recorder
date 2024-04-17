@@ -7,9 +7,9 @@ import {
 } from "../animations/webcam-transitions/helpers";
 import { borderRadius } from "./get-layout";
 import { getBottomSafeSpace } from "./get-safe-space";
-import type { Layout } from "./layout-types";
+import type { Layout, RecordingsLayout } from "./layout-types";
 
-const getY = ({
+const getYForDisplayLayout = ({
   webcamPosition,
   canvasSize,
   displayHeight,
@@ -36,12 +36,35 @@ export const getSquareDisplayLayout = ({
 }): Layout => {
   return {
     left: (canvasSize.width - displaySize.width) / 2,
-    top: getY({
+    top: getYForDisplayLayout({
       webcamPosition,
       canvasSize,
       displayHeight: displaySize.height,
     }),
     width: displaySize.width,
+    height: displaySize.height,
+    borderRadius,
+    opacity: 1,
+  };
+};
+
+export const getSquareBRollLayout = ({
+  canvasSize,
+  webcamPosition,
+  displaySize,
+}: {
+  canvasSize: Dimensions;
+  webcamPosition: FinalWebcamPosition;
+  displaySize: Dimensions;
+}): Layout => {
+  return {
+    left: getSafeSpace("square"),
+    top: getYForDisplayLayout({
+      webcamPosition,
+      canvasSize,
+      displayHeight: displaySize.height,
+    }),
+    width: canvasSize.width - getSafeSpace("square") * 2,
     height: displaySize.height,
     borderRadius,
     opacity: 1,
@@ -60,7 +83,7 @@ export const getLandscapeDisplayAndWebcamLayout = ({
   canvasLayout: CanvasLayout;
   canvasSize: Dimensions;
   webcamPosition: FinalWebcamPosition;
-}) => {
+}): RecordingsLayout => {
   const totalWidth =
     displaySize.width + webcamSize.width + getSafeSpace(canvasLayout);
 
@@ -94,5 +117,5 @@ export const getLandscapeDisplayAndWebcamLayout = ({
       : top,
   };
 
-  return { displayLayout, webcamLayout };
+  return { displayLayout, webcamLayout, bRollLayout: displayLayout };
 };

@@ -27,6 +27,7 @@ export const Webcam: React.FC<{
   previousScene: SceneAndMetadata | null;
   currentScene: VideoSceneAndMetadata;
   bRolls: BRollScene[];
+  bRollLayout: Layout;
 }> = ({
   webcamLayout,
   enterProgress,
@@ -38,6 +39,7 @@ export const Webcam: React.FC<{
   canvasLayout,
   currentScene,
   bRolls,
+  bRollLayout,
 }) => {
   const frame = useCurrentFrame();
   const { height, width } = useVideoConfig();
@@ -94,7 +96,7 @@ export const Webcam: React.FC<{
           src={currentScene.pair.webcam.src}
         />
       </ScaleDownWithBRoll>
-      <BRollStack bRolls={bRolls} layout={webcamLayout} />
+      <BRollStack bRolls={bRolls} bRollLayout={bRollLayout} />
     </div>
   );
 };

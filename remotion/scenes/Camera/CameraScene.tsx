@@ -56,6 +56,7 @@ export const CameraScene: React.FC<{
             endAt={endAt}
             canvasLayout={canvasLayout}
             bRolls={sampleBRolls}
+            bRollLayout={sceneAndMetadata.layout.bRollLayout}
           />
         ) : null}
         {canvasLayout === "landscape" &&
@@ -85,6 +86,7 @@ export const CameraScene: React.FC<{
           canvasLayout={canvasLayout}
           nextScene={nextScene}
           previousScene={previousScene}
+          bRollLayout={sceneAndMetadata.layout.bRollLayout}
         />
       </AbsoluteFill>
       {sceneAndMetadata.pair.subs ? (
