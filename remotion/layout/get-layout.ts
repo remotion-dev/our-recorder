@@ -1,11 +1,7 @@
 import type { CanvasLayout, Dimensions } from "../../config/layout";
 import { getSafeSpace } from "../../config/layout";
 import type { FinalWebcamPosition, SceneVideos } from "../../config/scenes";
-import {} from "../animations/webcam-transitions";
-import {
-  isWebCamAtBottom,
-  isWebCamRight,
-} from "../animations/webcam-transitions/helpers";
+import { isWebCamAtBottom } from "../animations/webcam-transitions/helpers";
 import type { SubtitleType } from "../captions/Segment";
 import {
   getSubtitlesFontSize,
@@ -14,7 +10,10 @@ import {
 } from "../captions/Segment";
 import { getSubsLayout } from "../captions/subs-layout";
 import { getDimensionsForLayout } from "./dimensions";
-import { getDisplayLayout } from "./get-display-layout";
+import {
+  getLandscapeDisplayAndWebcamLayout,
+  getSquareDisplayLayout,
+} from "./get-display-layout";
 import { getDisplaySize } from "./get-display-size";
 import { getBottomSafeSpace } from "./get-safe-space";
 import { getWebcamSize } from "./get-webcam-size";
@@ -71,7 +70,7 @@ const widescreenFullscreenLayout = ({
   };
 };
 
-const makeWebcamLayoutBasedOnWebcamPosition = ({
+const squareBentoBoxWebcamLayout = ({
   webcamSize,
   webcamPosition,
   canvasLayout,
@@ -243,14 +242,13 @@ export const getLayout = ({
   });
 
   if (canvasLayout === "square") {
-    const displayLayout = getDisplayLayout({
+    const displayLayout = getSquareDisplayLayout({
       canvasSize,
-      canvasLayout,
       webcamPosition,
       displaySize,
     });
 
-    const webcamLayout = makeWebcamLayoutBasedOnWebcamPosition({
+    const webcamLayout = squareBentoBoxWebcamLayout({
       webcamPosition,
       canvasSize,
       canvasLayout,
@@ -290,39 +288,13 @@ export const getLayout = ({
   }
 
   if (canvasLayout === "landscape") {
-    const totalWidth =
-      displaySize.width + webcamSize.width + getSafeSpace(canvasLayout);
-
-    const totalHeight = Math.max(displaySize.height, webcamSize.height);
-
-    const left = (canvasSize.width - totalWidth) / 2;
-    const top =
-      (canvasSize.height - totalHeight) / 2 -
-      (getBottomSafeSpace(canvasLayout) - getSafeSpace(canvasLayout)) / 2;
-
-    const displayLayout: Layout = {
-      borderRadius,
-      height: displaySize.height,
-      width: displaySize.width,
-      opacity: 1,
-      left: isWebCamRight(webcamPosition)
-        ? left
-        : left + getSafeSpace("landscape") + webcamSize.width,
-      top,
-    };
-
-    const webcamLayout: Layout = {
-      borderRadius,
-      height: webcamSize.height,
-      width: webcamSize.width,
-      opacity: 1,
-      left: isWebCamRight(webcamPosition)
-        ? left + displaySize.width + getSafeSpace("landscape")
-        : left,
-      top: isWebCamAtBottom(webcamPosition)
-        ? top + displaySize.height - webcamSize.height
-        : top,
-    };
+    const { displayLayout, webcamLayout } = getLandscapeDisplayAndWebcamLayout({
+      canvasLayout,
+      canvasSize,
+      displaySize,
+      webcamPosition,
+      webcamSize,
+    });
 
     const subtitleType = getSubtitlesType({
       canvasLayout,

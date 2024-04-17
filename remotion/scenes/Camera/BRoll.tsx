@@ -18,7 +18,7 @@ const Inner: React.FC<{
   sceneLayout: Layout;
   sceneFrame: number;
 }> = ({ bRoll, bRollsBefore, sceneFrame, sceneLayout }) => {
-  const { fps, width } = useVideoConfig();
+  const { fps } = useVideoConfig();
   const frame = useCurrentFrame();
 
   const appear = spring({
@@ -41,7 +41,7 @@ const Inner: React.FC<{
   });
 
   const bRollContainer: Layout = useMemo(() => {
-    const bRollMaxWidth = width - getSafeSpace("square") * 2;
+    const bRollMaxWidth = sceneLayout.width;
     const aspectRatio = bRoll.assetWidth / bRoll.assetHeight;
     const bRollHeight = Math.min(
       sceneLayout.height,
@@ -58,7 +58,7 @@ const Inner: React.FC<{
       height: bRollHeight,
       display: "flex",
     };
-  }, [bRoll.assetHeight, bRoll.assetWidth, sceneLayout, width]);
+  }, [bRoll.assetHeight, bRoll.assetWidth, sceneLayout]);
 
   const topOffset = interpolate(
     appear - disappear,

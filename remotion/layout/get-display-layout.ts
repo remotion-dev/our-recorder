@@ -1,56 +1,43 @@
-import {
-  getSafeSpace,
-  type CanvasLayout,
-  type Dimensions,
-} from "../../config/layout";
+import type { CanvasLayout } from "../../config/layout";
+import { getSafeSpace, type Dimensions } from "../../config/layout";
 import type { FinalWebcamPosition } from "../../config/scenes";
-import { isWebCamAtBottom } from "../animations/webcam-transitions/helpers";
+import {
+  isWebCamAtBottom,
+  isWebCamRight,
+} from "../animations/webcam-transitions/helpers";
 import { borderRadius } from "./get-layout";
 import { getBottomSafeSpace } from "./get-safe-space";
 import type { Layout } from "./layout-types";
 
-const overrideYForAltLayouts = ({
+const getY = ({
   webcamPosition,
-  canvasLayout,
   canvasSize,
   displayHeight,
 }: {
   webcamPosition: FinalWebcamPosition;
-  canvasLayout: CanvasLayout;
   canvasSize: Dimensions;
   displayHeight: number;
 }): number => {
-  if (canvasLayout === "landscape") {
-    return (
-      (canvasSize.height - displayHeight - getBottomSafeSpace(canvasLayout)) /
-        2 +
-      getSafeSpace(canvasLayout) / 2
-    );
-  }
-
   if (isWebCamAtBottom(webcamPosition)) {
-    return getSafeSpace(canvasLayout);
+    return getSafeSpace("square");
   }
 
-  return canvasSize.height - displayHeight - getSafeSpace(canvasLayout);
+  return canvasSize.height - displayHeight - getSafeSpace("square");
 };
 
-export const getDisplayLayout = ({
+export const getSquareDisplayLayout = ({
   canvasSize,
-  canvasLayout,
   webcamPosition,
   displaySize,
 }: {
   canvasSize: Dimensions;
-  canvasLayout: CanvasLayout;
   webcamPosition: FinalWebcamPosition;
   displaySize: Dimensions;
 }): Layout => {
   return {
     left: (canvasSize.width - displaySize.width) / 2,
-    top: overrideYForAltLayouts({
+    top: getY({
       webcamPosition,
-      canvasLayout,
       canvasSize,
       displayHeight: displaySize.height,
     }),
@@ -59,4 +46,40 @@ export const getDisplayLayout = ({
     borderRadius,
     opacity: 1,
   };
+};
+
+export const getLandscapeDisplayAndWebcamLayout = ({
+  displaySize,
+  webcamSize,
+  canvasLayout,
+  canvasSize,
+  webcamPosition,
+}: {
+  displaySize: Dimensions;
+  webcamSize: Dimensions;
+  canvasLayout: CanvasLayout;
+  canvasSize: Dimensions;
+  webcamPosition: FinalWebcamPosition;
+}) => {
+  const totalWidth =
+    displaySize.width + webcamSize.width + getSafeSpace(canvasLayout);
+
+  const totalHeight = Math.max(displaySize.height, webcamSize.height);
+  const left = (canvasSize.width - totalWidth) / 2;
+  const top =
+    (canvasSize.height - totalHeight) / 2 -
+    (getBottomSafeSpace(canvasLayout) - getSafeSpace(canvasLayout)) / 2;
+
+  const displayLayout: Layout = {
+    borderRadius,
+    height: displaySize.height,
+    width: displaySize.width,
+    opacity: 1,
+    left: isWebCamRight(webcamPosition)
+      ? left
+      : left + getSafeSpace("landscape") + webcamSize.width,
+    top,
+  };
+
+  return displayLayout;
 };
