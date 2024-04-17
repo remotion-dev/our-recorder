@@ -6414,7 +6414,7 @@ export const Root = () => {
                 {
                   source: staticFile("reactconf/vercel.png"),
                   durationInFrames: 90,
-                  from: 420,
+                  from: 381,
                 },
               ],
               webcamPosition: "previous" as const,
