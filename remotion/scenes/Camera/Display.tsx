@@ -6,7 +6,7 @@ import type {
   VideoSceneAndMetadata,
 } from "../../../config/scenes";
 import { getDisplayPosition } from "../../animations/display-transitions";
-import type { Layout } from "../../layout/layout-types";
+import type { BRollEnterDirection, Layout } from "../../layout/layout-types";
 import { BRollStack } from "../BRoll/BRollStack";
 import { ScaleDownWithBRoll } from "../BRoll/ScaleDownWithBRoll";
 import type { BRollScene } from "../BRoll/types";
@@ -28,6 +28,7 @@ export const Display: React.FC<{
   canvasLayout: CanvasLayout;
   bRolls: BRollScene[];
   bRollLayout: Layout;
+  bRollEnterDirection: BRollEnterDirection;
 }> = ({
   scene,
   enterProgress,
@@ -39,6 +40,7 @@ export const Display: React.FC<{
   startFrom,
   bRolls,
   bRollLayout,
+  bRollEnterDirection,
 }) => {
   if (scene.layout.displayLayout === null) {
     throw new Error("No display");
@@ -96,7 +98,11 @@ export const Display: React.FC<{
           }}
         />
       </ScaleDownWithBRoll>
-      <BRollStack bRolls={bRolls} bRollLayout={bRollLayout} />
+      <BRollStack
+        bRollEnterDirection={bRollEnterDirection}
+        bRolls={bRolls}
+        bRollLayout={bRollLayout}
+      />
     </div>
   );
 };

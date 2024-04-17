@@ -1,13 +1,14 @@
 import React from "react";
 import { useCurrentFrame } from "remotion";
-import type { Layout } from "../../layout/layout-types";
+import type { BRollEnterDirection, Layout } from "../../layout/layout-types";
 import { BRoll } from "../Camera/BRoll";
 import type { BRollScene } from "./types";
 
 export const BRollStack: React.FC<{
   bRollLayout: Layout;
   bRolls: BRollScene[];
-}> = ({ bRollLayout, bRolls }) => {
+  bRollEnterDirection: BRollEnterDirection;
+}> = ({ bRollLayout, bRollEnterDirection, bRolls }) => {
   const frame = useCurrentFrame();
 
   return (
@@ -21,6 +22,7 @@ export const BRollStack: React.FC<{
             bRollsBefore={bRolls.slice(i + 1)}
             sceneFrame={frame}
             bRollLayout={bRollLayout}
+            bRollEnterDirection={bRollEnterDirection}
           />
         );
       })}

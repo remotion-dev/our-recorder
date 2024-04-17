@@ -7,7 +7,11 @@ import {
 } from "../animations/webcam-transitions/helpers";
 import { borderRadius } from "./get-layout";
 import { getBottomSafeSpace } from "./get-safe-space";
-import type { Layout, RecordingsLayout } from "./layout-types";
+import type {
+  BRollEnterDirection,
+  Layout,
+  RecordingsLayout,
+} from "./layout-types";
 
 const getYForDisplayLayout = ({
   webcamPosition,
@@ -56,18 +60,21 @@ export const getSquareBRollLayout = ({
   canvasSize: Dimensions;
   webcamPosition: FinalWebcamPosition;
   displaySize: Dimensions;
-}): Layout => {
+}): { bRollLayout: Layout; bRollEnterDirection: BRollEnterDirection } => {
   return {
-    left: getSafeSpace("square"),
-    top: getYForDisplayLayout({
-      webcamPosition,
-      canvasSize,
-      displayHeight: displaySize.height,
-    }),
-    width: canvasSize.width - getSafeSpace("square") * 2,
-    height: displaySize.height,
-    borderRadius,
-    opacity: 1,
+    bRollEnterDirection: isWebCamAtBottom(webcamPosition) ? "top" : "bottom",
+    bRollLayout: {
+      left: getSafeSpace("square"),
+      top: getYForDisplayLayout({
+        webcamPosition,
+        canvasSize,
+        displayHeight: displaySize.height,
+      }),
+      width: canvasSize.width - getSafeSpace("square") * 2,
+      height: displaySize.height,
+      borderRadius,
+      opacity: 1,
+    },
   };
 };
 
@@ -117,5 +124,10 @@ export const getLandscapeDisplayAndWebcamLayout = ({
       : top,
   };
 
-  return { displayLayout, webcamLayout, bRollLayout: displayLayout };
+  return {
+    displayLayout,
+    webcamLayout,
+    bRollLayout: displayLayout,
+    bRollEnterDirection: isWebCamAtBottom(webcamPosition) ? "top" : "bottom",
+  };
 };

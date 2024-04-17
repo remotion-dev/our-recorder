@@ -57,24 +57,36 @@ export const CameraScene: React.FC<{
             canvasLayout={canvasLayout}
             bRolls={sampleBRolls}
             bRollLayout={sceneAndMetadata.layout.bRollLayout}
+            bRollEnterDirection={sceneAndMetadata.layout.bRollEnterDirection}
           />
         ) : null}
-        {canvasLayout === "landscape" &&
-        sceneAndMetadata.finalWebcamPosition !== "center" ? (
-          <LandscapeChapters
-            scene={sceneAndMetadata}
-            nextVideoScene={
-              nextScene?.type === "video-scene" ? nextScene : null
-            }
-            previousVideoScene={
-              previousScene?.type === "video-scene" ? previousScene : null
-            }
-            enterProgress={enterProgress}
-            exitProgress={exitProgress}
-            theme={theme}
-            chapters={chapters}
-          />
-        ) : null}
+        {
+          // TODO: Chapters are disabled if a webcam position is center
+          canvasLayout === "landscape" &&
+          sceneAndMetadata.finalWebcamPosition !== "center" &&
+          !(
+            nextScene?.type === "video-scene" &&
+            nextScene.finalWebcamPosition === "center"
+          ) &&
+          !(
+            previousScene?.type === "video-scene" &&
+            previousScene.finalWebcamPosition === "center"
+          ) ? (
+            <LandscapeChapters
+              scene={sceneAndMetadata}
+              nextVideoScene={
+                nextScene?.type === "video-scene" ? nextScene : null
+              }
+              previousVideoScene={
+                previousScene?.type === "video-scene" ? previousScene : null
+              }
+              enterProgress={enterProgress}
+              exitProgress={exitProgress}
+              theme={theme}
+              chapters={chapters}
+            />
+          ) : null
+        }
         <Webcam
           bRolls={sceneAndMetadata.pair.display ? [] : sampleBRolls}
           currentScene={sceneAndMetadata}
@@ -87,6 +99,7 @@ export const CameraScene: React.FC<{
           nextScene={nextScene}
           previousScene={previousScene}
           bRollLayout={sceneAndMetadata.layout.bRollLayout}
+          bRollEnterDirection={sceneAndMetadata.layout.bRollEnterDirection}
         />
       </AbsoluteFill>
       {sceneAndMetadata.pair.subs ? (

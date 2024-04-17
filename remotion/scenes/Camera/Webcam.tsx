@@ -6,7 +6,7 @@ import type {
   VideoSceneAndMetadata,
 } from "../../../config/scenes";
 import { getWebcamLayout } from "../../animations/webcam-transitions";
-import type { Layout } from "../../layout/layout-types";
+import type { BRollEnterDirection, Layout } from "../../layout/layout-types";
 import { BRollStack } from "../BRoll/BRollStack";
 import { ScaleDownWithBRoll } from "../BRoll/ScaleDownWithBRoll";
 import type { BRollScene } from "../BRoll/types";
@@ -28,6 +28,7 @@ export const Webcam: React.FC<{
   currentScene: VideoSceneAndMetadata;
   bRolls: BRollScene[];
   bRollLayout: Layout;
+  bRollEnterDirection: BRollEnterDirection;
 }> = ({
   webcamLayout,
   enterProgress,
@@ -40,6 +41,7 @@ export const Webcam: React.FC<{
   currentScene,
   bRolls,
   bRollLayout,
+  bRollEnterDirection,
 }) => {
   const frame = useCurrentFrame();
   const { height, width } = useVideoConfig();
@@ -96,7 +98,11 @@ export const Webcam: React.FC<{
           src={currentScene.pair.webcam.src}
         />
       </ScaleDownWithBRoll>
-      <BRollStack bRolls={bRolls} bRollLayout={bRollLayout} />
+      <BRollStack
+        bRollEnterDirection={bRollEnterDirection}
+        bRolls={bRolls}
+        bRollLayout={bRollLayout}
+      />
     </div>
   );
 };

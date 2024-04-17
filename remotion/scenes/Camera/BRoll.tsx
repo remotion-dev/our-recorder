@@ -7,18 +7,24 @@ import {
   useCurrentFrame,
   useVideoConfig,
 } from "remotion";
-import { getSafeSpace } from "../../../config/layout";
-import type { Layout } from "../../layout/layout-types";
+import type { BRollEnterDirection, Layout } from "../../layout/layout-types";
 import { ScaleDownWithBRoll } from "../BRoll/ScaleDownWithBRoll";
 import type { BRollScene } from "../BRoll/types";
 
 const Inner: React.FC<{
   bRoll: BRollScene;
   bRollsBefore: BRollScene[];
+  bRollEnterDirection: BRollEnterDirection;
   bRollLayout: Layout;
   sceneFrame: number;
-}> = ({ bRoll, bRollsBefore, bRollLayout, sceneFrame }) => {
-  const { fps } = useVideoConfig();
+}> = ({
+  bRoll,
+  bRollsBefore,
+  bRollLayout,
+  bRollEnterDirection,
+  sceneFrame,
+}) => {
+  const { fps, height } = useVideoConfig();
   const frame = useCurrentFrame();
 
   const appear = spring({
@@ -47,10 +53,22 @@ const Inner: React.FC<{
     };
   }, [bRollLayout]);
 
+  const enterPosition = useMemo(() => {
+    if (bRollEnterDirection === "top") {
+      return -bRollLayout.height;
+    }
+
+    if (bRollEnterDirection === "bottom") {
+      return height;
+    }
+
+    throw new Error(`Invalid direction ${bRollEnterDirection}`);
+  }, [bRollEnterDirection, bRollLayout.height, height]);
+
   const topOffset = interpolate(
     appear - disappear,
     [0, 1],
-    [-bRollLayout.height - getSafeSpace("square"), 0],
+    [enterPosition, bRollLayout.top],
     { extrapolateLeft: "clamp", extrapolateRight: "clamp" },
   );
 
@@ -61,6 +79,7 @@ const Inner: React.FC<{
       style={{
         position: "absolute",
         ...bRollContainer,
+        top: topOffset,
         justifyContent: "center",
         alignItems: "center",
       }}
@@ -71,7 +90,6 @@ const Inner: React.FC<{
           borderRadius: bRollLayout.borderRadius,
           overflow: "hidden",
           boxShadow: "0 0 50px rgba(0, 0, 0, 0.2)",
-          transform: `translateY(${topOffset}px)`,
           height: "100%",
         }}
       />
@@ -82,9 +100,16 @@ const Inner: React.FC<{
 export const BRoll: React.FC<{
   bRoll: BRollScene;
   bRollsBefore: BRollScene[];
+  bRollEnterDirection: BRollEnterDirection;
   sceneFrame: number;
   bRollLayout: Layout;
-}> = ({ bRoll, bRollsBefore, sceneFrame, bRollLayout }) => {
+}> = ({
+  bRoll,
+  bRollsBefore,
+  sceneFrame,
+  bRollLayout,
+  bRollEnterDirection,
+}) => {
   return (
     <Sequence from={bRoll.from} durationInFrames={bRoll.durationInFrames}>
       <Inner
@@ -92,6 +117,7 @@ export const BRoll: React.FC<{
         bRollsBefore={bRollsBefore}
         bRoll={bRoll}
         bRollLayout={bRollLayout}
+        bRollEnterDirection={bRollEnterDirection}
       />
     </Sequence>
   );
