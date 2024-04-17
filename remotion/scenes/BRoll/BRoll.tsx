@@ -8,9 +8,10 @@ import {
   useVideoConfig,
 } from "remotion";
 import type { CanvasLayout } from "../../../config/layout";
+import { B_ROLL_TRANSITION_DURATION } from "../../../config/transitions";
 import type { BRollEnterDirection, Layout } from "../../layout/layout-types";
-import { ScaleDownWithBRoll } from "../BRoll/ScaleDownWithBRoll";
-import type { BRollScene } from "../BRoll/types";
+import { ScaleDownWithBRoll } from "./ScaleDownWithBRoll";
+import type { BRollScene } from "./types";
 
 const Inner: React.FC<{
   bRoll: BRollScene;
@@ -36,17 +37,17 @@ const Inner: React.FC<{
     config: {
       damping: 200,
     },
-    durationInFrames: 15,
+    durationInFrames: B_ROLL_TRANSITION_DURATION,
   });
 
   const disappear = spring({
     fps,
     frame,
-    delay: bRoll.durationInFrames - 15,
+    delay: bRoll.durationInFrames - B_ROLL_TRANSITION_DURATION,
     config: {
       damping: 200,
     },
-    durationInFrames: 15,
+    durationInFrames: B_ROLL_TRANSITION_DURATION,
   });
 
   const bRollContainer: Layout = useMemo(() => {

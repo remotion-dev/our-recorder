@@ -10,7 +10,6 @@ import type { BRollEnterDirection, Layout } from "../../layout/layout-types";
 import { BRollStack } from "../BRoll/BRollStack";
 import { ScaleDownWithBRoll } from "../BRoll/ScaleDownWithBRoll";
 import type { BRollScene } from "../BRoll/types";
-import { sampleBRolls } from "../BRoll/types";
 
 const outer: React.CSSProperties = {
   position: "absolute",
@@ -80,7 +79,7 @@ export const Display: React.FC<{
       <ScaleDownWithBRoll
         canvasLayout={canvasLayout}
         bRollEnterDirection={bRollEnterDirection}
-        bRolls={sampleBRolls}
+        bRolls={bRolls}
         bRollLayout={bRollLayout}
         frame={frame}
         style={{

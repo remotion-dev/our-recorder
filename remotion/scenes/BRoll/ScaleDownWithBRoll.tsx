@@ -1,6 +1,7 @@
 import React, { useMemo } from "react";
 import { spring, useVideoConfig } from "remotion";
 import type { CanvasLayout } from "../../../config/layout";
+import { B_ROLL_TRANSITION_DURATION } from "../../../config/transitions";
 import type { BRollEnterDirection, Layout } from "../../layout/layout-types";
 import type { BRollScene } from "./types";
 
@@ -36,7 +37,7 @@ export const ScaleDownWithBRoll: React.FC<
           damping: 200,
         },
         delay: roll.from,
-        durationInFrames: 15,
+        durationInFrames: B_ROLL_TRANSITION_DURATION,
       }) -
       spring({
         fps,
@@ -44,8 +45,8 @@ export const ScaleDownWithBRoll: React.FC<
         config: {
           damping: 200,
         },
-        delay: roll.from + roll.durationInFrames - 15,
-        durationInFrames: 15,
+        delay: roll.from + roll.durationInFrames - B_ROLL_TRANSITION_DURATION,
+        durationInFrames: B_ROLL_TRANSITION_DURATION,
       })
     );
   }, []);

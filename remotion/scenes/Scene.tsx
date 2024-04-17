@@ -14,13 +14,14 @@ import type {
   VideoSceneAndMetadata,
 } from "../../config/scenes";
 import type { Theme } from "../../config/themes";
-import { TRANSITION_DURATION } from "../../config/transitions";
+import { SCENE_TRANSITION_DURATION } from "../../config/transitions";
 import { getSceneEnter, getSceneExit } from "../animations/scene-transitions";
 import {
   getShouldTransitionIn,
   getShouldTransitionOut,
 } from "../animations/transitions";
 import type { ChapterType } from "../chapters/make-chapters";
+import { sampleBRolls } from "./BRoll/types";
 import { CameraScene } from "./Camera/CameraScene";
 import { SoundEffects } from "./Camera/SoundEffects";
 import { EndCard } from "./EndCard";
@@ -95,6 +96,11 @@ const InnerScene: React.FC<
       sceneAndMetadata={sceneAndMetadata as VideoSceneAndMetadata}
       theme={theme}
       chapters={chapters}
+      bRolls={sampleBRolls}
+      willTransitionToNextScene={getShouldTransitionOut({
+        nextScene,
+        sceneAndMetadata,
+      })}
     />
   );
 };
@@ -118,7 +124,7 @@ const SceneWithTransition: React.FC<Props> = (props) => {
         config: {
           damping: 200,
         },
-        durationInFrames: TRANSITION_DURATION,
+        durationInFrames: SCENE_TRANSITION_DURATION,
       })
     : 1;
 
@@ -129,8 +135,8 @@ const SceneWithTransition: React.FC<Props> = (props) => {
         config: {
           damping: 200,
         },
-        durationInFrames: TRANSITION_DURATION,
-        delay: durationInFrames - TRANSITION_DURATION,
+        durationInFrames: SCENE_TRANSITION_DURATION,
+        delay: durationInFrames - SCENE_TRANSITION_DURATION,
       })
     : 0;
 

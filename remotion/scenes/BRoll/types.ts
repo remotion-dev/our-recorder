@@ -11,7 +11,7 @@ export type BRollScene = {
 export const sampleBRolls: BRollScene[] = [
   {
     source: staticFile("test/Marathon.png"),
-    durationInFrames: 120,
+    durationInFrames: 300,
     from: 30,
     assetWidth: 3840,
     assetHeight: 2160,
@@ -19,7 +19,7 @@ export const sampleBRolls: BRollScene[] = [
   {
     source: staticFile("test/vegas.jpg"),
     durationInFrames: 60,
-    from: 90,
+    from: 20,
     assetWidth: 3840,
     assetHeight: 2160,
   },

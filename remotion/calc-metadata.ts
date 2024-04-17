@@ -18,7 +18,7 @@ import {
   type SceneVideos,
   type WebcamPosition,
 } from "../config/scenes";
-import { TRANSITION_DURATION } from "../config/transitions";
+import { SCENE_TRANSITION_DURATION } from "../config/transitions";
 import {
   getShouldTransitionOut,
   getSumUpDuration,
@@ -194,7 +194,7 @@ export const calcMetadata: CalculateMetadataFunction<MainProps> = async ({
           nextScene: scenesAndMetadataWithoutDuration[i + 1] ?? null,
         })
       ) {
-        addedUpDurations -= TRANSITION_DURATION;
+        addedUpDurations -= SCENE_TRANSITION_DURATION;
       }
 
       const retValue = {
