@@ -8,14 +8,14 @@ import {
   useVideoConfig,
 } from "remotion";
 import type { CanvasLayout } from "../../../config/layout";
-import type { BRollScene } from "../../../config/scenes";
+import type { BRollWithDimensions } from "../../../config/scenes";
 import { B_ROLL_TRANSITION_DURATION } from "../../../config/transitions";
 import type { BRollEnterDirection, Layout } from "../../layout/layout-types";
 import { ScaleDownWithBRoll } from "./ScaleDownWithBRoll";
 
 const Inner: React.FC<{
-  bRoll: BRollScene;
-  bRollsBefore: BRollScene[];
+  bRoll: BRollWithDimensions;
+  bRollsBefore: BRollWithDimensions[];
   bRollEnterDirection: BRollEnterDirection;
   bRollLayout: Layout;
   sceneFrame: number;
@@ -105,8 +105,8 @@ const Inner: React.FC<{
 };
 
 export const BRoll: React.FC<{
-  bRoll: BRollScene;
-  bRollsBefore: BRollScene[];
+  bRoll: BRollWithDimensions;
+  bRollsBefore: BRollWithDimensions[];
   bRollEnterDirection: BRollEnterDirection;
   sceneFrame: number;
   bRollLayout: Layout;
@@ -119,6 +119,10 @@ export const BRoll: React.FC<{
   bRollEnterDirection,
   canvasLayout,
 }) => {
+  if (bRoll.durationInFrames <= 0) {
+    return null;
+  }
+
   return (
     <Sequence from={bRoll.from} durationInFrames={bRoll.durationInFrames}>
       <Inner

@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import { OffthreadVideo, useCurrentFrame, useVideoConfig } from "remotion";
 import type { CanvasLayout } from "../../../config/layout";
 import type {
-  BRollScene,
+  BRollWithDimensions,
   SceneAndMetadata,
   VideoSceneAndMetadata,
 } from "../../../config/scenes";
@@ -26,7 +26,7 @@ export const Webcam: React.FC<{
   nextScene: SceneAndMetadata | null;
   previousScene: SceneAndMetadata | null;
   currentScene: VideoSceneAndMetadata;
-  bRolls: BRollScene[];
+  bRolls: BRollWithDimensions[];
   bRollLayout: Layout;
   bRollEnterDirection: BRollEnterDirection;
 }> = ({

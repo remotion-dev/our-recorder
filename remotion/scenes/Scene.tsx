@@ -21,7 +21,6 @@ import {
   getShouldTransitionOut,
 } from "../animations/transitions";
 import type { ChapterType } from "../chapters/make-chapters";
-import { sampleBRolls } from "./BRoll/types";
 import { CameraScene } from "./Camera/CameraScene";
 import { SoundEffects } from "./Camera/SoundEffects";
 import { EndCard } from "./EndCard";
@@ -96,7 +95,6 @@ const InnerScene: React.FC<
       sceneAndMetadata={sceneAndMetadata as VideoSceneAndMetadata}
       theme={theme}
       chapters={chapters}
-      bRolls={sampleBRolls}
       willTransitionToNextScene={getShouldTransitionOut({
         nextScene,
         sceneAndMetadata,

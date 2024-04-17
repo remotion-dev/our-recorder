@@ -1,20 +1,23 @@
-import type { BRollScene } from "../../../config/scenes";
+import type { BRollWithDimensions } from "../../../config/scenes";
 import { SCENE_TRANSITION_DURATION } from "../../../config/transitions";
 
 const ensureNoBRollOverlaps = (
-  bRollsEnsureSceneEnds: BRollScene[],
-): BRollScene[] => {
+  bRollsEnsureSceneEnds: BRollWithDimensions[],
+): BRollWithDimensions[] => {
   let neededToCorrect = false;
 
   const corrected = bRollsEnsureSceneEnds.map((bRoll, i) => {
     const endPosition = bRoll.from + bRoll.durationInFrames;
     const laterBRolls = bRollsEnsureSceneEnds.slice(i + 1);
     const overlappingBRolls = laterBRolls
+      .filter((laterRoll) => {
+        return laterRoll.from < endPosition;
+      })
       .map((laterBRoll) => {
         return laterBRoll.from + laterBRoll.durationInFrames;
       })
       .filter((laterBRollEndPosition) => {
-        return laterBRollEndPosition > endPosition;
+        return laterBRollEndPosition > endPosition && bRoll.from;
       });
 
     if (overlappingBRolls.length === 0) {
@@ -41,10 +44,10 @@ export const applyBRollRules = ({
   sceneDurationInFrames,
   willTransitionToNextScene,
 }: {
-  bRolls: BRollScene[];
+  bRolls: BRollWithDimensions[];
   sceneDurationInFrames: number;
   willTransitionToNextScene: boolean;
-}) => {
+}): BRollWithDimensions[] => {
   // The algorithm assumes the b-rolls are sorted by their start time
   const sortedBRolls = bRolls.sort((a, b) => a.from - b.from);
 

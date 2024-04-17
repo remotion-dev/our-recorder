@@ -1,8 +1,7 @@
-import React, { useMemo } from "react";
-import { AbsoluteFill, useVideoConfig } from "remotion";
+import React from "react";
+import { AbsoluteFill } from "remotion";
 import type { CanvasLayout } from "../../../config/layout";
 import type {
-  BRollScene,
   SceneAndMetadata,
   VideoSceneAndMetadata,
 } from "../../../config/scenes";
@@ -11,7 +10,6 @@ import { Subs } from "../../captions/Subs";
 import { LandscapeChapters } from "../../chapters/landscape/SelectedChapters";
 import type { ChapterType } from "../../chapters/make-chapters";
 import { SquareChapter } from "../../chapters/square/SquareChapter";
-import { applyBRollRules } from "../BRoll/apply-b-roll-rules";
 import { Display } from "./Display";
 import { Webcam } from "./Webcam";
 
@@ -24,7 +22,6 @@ export const CameraScene: React.FC<{
   previousScene: SceneAndMetadata | null;
   theme: Theme;
   chapters: ChapterType[];
-  bRolls: BRollScene[];
   willTransitionToNextScene: boolean;
 }> = ({
   enterProgress,
@@ -35,10 +32,7 @@ export const CameraScene: React.FC<{
   previousScene,
   theme,
   chapters,
-  bRolls,
-  willTransitionToNextScene,
 }) => {
-  const { durationInFrames } = useVideoConfig();
   const { scene } = sceneAndMetadata;
 
   const startFrom = scene.trimStart ?? 0;
@@ -47,14 +41,6 @@ export const CameraScene: React.FC<{
   if (sceneAndMetadata.type !== "video-scene") {
     throw new Error("Not a camera scene");
   }
-
-  const bRollsWithRulesApplied = useMemo(() => {
-    return applyBRollRules({
-      bRolls,
-      sceneDurationInFrames: durationInFrames,
-      willTransitionToNextScene,
-    });
-  }, [bRolls, durationInFrames, willTransitionToNextScene]);
 
   return (
     <>
@@ -69,7 +55,6 @@ export const CameraScene: React.FC<{
             startFrom={startFrom}
             endAt={endAt}
             canvasLayout={canvasLayout}
-            bRolls={bRollsWithRulesApplied}
             bRollLayout={sceneAndMetadata.layout.bRollLayout}
             bRollEnterDirection={sceneAndMetadata.layout.bRollEnterDirection}
           />
@@ -102,7 +87,7 @@ export const CameraScene: React.FC<{
           ) : null
         }
         <Webcam
-          bRolls={sceneAndMetadata.pair.display ? [] : bRollsWithRulesApplied}
+          bRolls={sceneAndMetadata.pair.display ? [] : sceneAndMetadata.bRolls}
           currentScene={sceneAndMetadata}
           endAt={endAt}
           enterProgress={enterProgress}

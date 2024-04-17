@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import { spring, useVideoConfig } from "remotion";
 import type { CanvasLayout } from "../../../config/layout";
-import type { BRollScene } from "../../../config/scenes";
+import type { BRoll } from "../../../config/scenes";
 import { B_ROLL_TRANSITION_DURATION } from "../../../config/transitions";
 import type { BRollEnterDirection, Layout } from "../../layout/layout-types";
 
@@ -12,7 +12,7 @@ const SCALE_DOWN = 0.1;
 
 export const ScaleDownWithBRoll: React.FC<
   {
-    bRolls: BRollScene[];
+    bRolls: BRoll[];
     frame: number;
     canvasLayout: CanvasLayout;
     bRollLayout: Layout;

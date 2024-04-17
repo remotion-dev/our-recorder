@@ -27,6 +27,8 @@ import { truthy } from "./helpers/truthy";
 import { getDimensionsForLayout } from "./layout/dimensions";
 import { getLayout } from "./layout/get-layout";
 import type { MainProps } from "./Main";
+import { applyBRollRules } from "./scenes/BRoll/apply-b-roll-rules";
+import { getBRollDimensions } from "./scenes/BRoll/get-broll-dimensions";
 
 const getPairs = (prefix: string) => {
   const files = getStaticFiles().filter((f) => f.name.startsWith(prefix));
@@ -153,6 +155,12 @@ export const calcMetadata: CalculateMetadataFunction<MainProps> = async ({
           webcamPosition = "center";
         }
 
+        const bRollWithDimensions = await Promise.all(
+          scene.bRolls.map((bRoll) => {
+            return getBRollDimensions(bRoll);
+          }),
+        );
+
         return {
           type: "video-scene",
           scene,
@@ -167,6 +175,7 @@ export const calcMetadata: CalculateMetadataFunction<MainProps> = async ({
           finalWebcamPosition: webcamPosition as WebcamPosition,
           from: 0,
           chapter: scene.newChapter ?? null,
+          bRolls: bRollWithDimensions,
         };
       }),
     )
@@ -197,8 +206,21 @@ export const calcMetadata: CalculateMetadataFunction<MainProps> = async ({
         addedUpDurations -= SCENE_TRANSITION_DURATION;
       }
 
-      const retValue = {
+      const retValue: SceneAndMetadata = {
         ...sceneAndMetadata,
+        ...(sceneAndMetadata.type === "video-scene"
+          ? {
+              bRolls: applyBRollRules({
+                bRolls: sceneAndMetadata.bRolls,
+                sceneDurationInFrames: sceneAndMetadata.durationInFrames,
+                willTransitionToNextScene: getShouldTransitionOut({
+                  sceneAndMetadata,
+                  nextScene: scenesAndMetadataWithoutDuration[i + 1] ?? null,
+                }),
+              }),
+            }
+          : {}),
+
         from,
         chapter: currentChapter,
       };

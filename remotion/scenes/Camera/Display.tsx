@@ -2,7 +2,6 @@ import { useMemo } from "react";
 import { OffthreadVideo, useCurrentFrame, useVideoConfig } from "remotion";
 import type { CanvasLayout } from "../../../config/layout";
 import type {
-  BRollScene,
   SceneAndMetadata,
   VideoSceneAndMetadata,
 } from "../../../config/scenes";
@@ -25,7 +24,6 @@ export const Display: React.FC<{
   startFrom: number;
   endAt: number | undefined;
   canvasLayout: CanvasLayout;
-  bRolls: BRollScene[];
   bRollLayout: Layout;
   bRollEnterDirection: BRollEnterDirection;
 }> = ({
@@ -37,7 +35,6 @@ export const Display: React.FC<{
   previousScene,
   endAt,
   startFrom,
-  bRolls,
   bRollLayout,
   bRollEnterDirection,
 }) => {
@@ -79,7 +76,7 @@ export const Display: React.FC<{
       <ScaleDownWithBRoll
         canvasLayout={canvasLayout}
         bRollEnterDirection={bRollEnterDirection}
-        bRolls={bRolls}
+        bRolls={scene.bRolls}
         bRollLayout={bRollLayout}
         frame={frame}
         style={{
@@ -102,7 +99,7 @@ export const Display: React.FC<{
       </ScaleDownWithBRoll>
       <BRollStack
         bRollEnterDirection={bRollEnterDirection}
-        bRolls={bRolls}
+        bRolls={scene.bRolls}
         bRollLayout={bRollLayout}
         canvasLayout={canvasLayout}
       />

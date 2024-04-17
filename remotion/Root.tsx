@@ -5526,7 +5526,18 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
-              bRolls: [],
+              bRolls: [
+                {
+                  source: staticFile("sample-broll.jpg"),
+                  durationInFrames: 90,
+                  from: 30,
+                },
+                {
+                  source: staticFile("sample-broll.jpg"),
+                  durationInFrames: 90,
+                  from: 220,
+                },
+              ],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: 323,
