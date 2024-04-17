@@ -17,7 +17,7 @@ export const sampleBRolls: BRollScene[] = [
     assetHeight: 2160,
   },
   {
-    source: staticFile("test/Marathon.png"),
+    source: staticFile("test/vegas.jpg"),
     durationInFrames: 60,
     from: 90,
     assetWidth: 3840,
