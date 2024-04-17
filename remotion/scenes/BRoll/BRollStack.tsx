@@ -1,5 +1,6 @@
 import React from "react";
 import { useCurrentFrame } from "remotion";
+import type { CanvasLayout } from "../../../config/layout";
 import type { BRollEnterDirection, Layout } from "../../layout/layout-types";
 import { BRoll } from "../Camera/BRoll";
 import type { BRollScene } from "./types";
@@ -8,7 +9,8 @@ export const BRollStack: React.FC<{
   bRollLayout: Layout;
   bRolls: BRollScene[];
   bRollEnterDirection: BRollEnterDirection;
-}> = ({ bRollLayout, bRollEnterDirection, bRolls }) => {
+  canvasLayout: CanvasLayout;
+}> = ({ bRollLayout, bRollEnterDirection, canvasLayout, bRolls }) => {
   const frame = useCurrentFrame();
 
   return (
@@ -23,6 +25,7 @@ export const BRollStack: React.FC<{
             sceneFrame={frame}
             bRollLayout={bRollLayout}
             bRollEnterDirection={bRollEnterDirection}
+            canvasLayout={canvasLayout}
           />
         );
       })}

@@ -1,13 +1,30 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { spring, useVideoConfig } from "remotion";
+import type { CanvasLayout } from "../../../config/layout";
+import type { BRollEnterDirection, Layout } from "../../layout/layout-types";
 import type { BRollScene } from "./types";
+
+// A value of 0.1 means that the original
+// video only has a 90% of its original size
+// when a b-roll is shown
+const SCALE_DOWN = 0.1;
 
 export const ScaleDownWithBRoll: React.FC<
   {
     bRolls: BRollScene[];
     frame: number;
+    canvasLayout: CanvasLayout;
+    bRollLayout: Layout;
+    bRollEnterDirection: BRollEnterDirection;
   } & React.HTMLAttributes<HTMLDivElement>
-> = ({ bRolls, frame, ...props }) => {
+> = ({
+  bRolls,
+  frame,
+  canvasLayout,
+  bRollLayout,
+  bRollEnterDirection,
+  ...props
+}) => {
   const { fps } = useVideoConfig();
 
   const springs = bRolls.map((roll) => {
@@ -33,13 +50,19 @@ export const ScaleDownWithBRoll: React.FC<
     );
   }, []);
 
-  const scaleFromBRoll = springs.reduce((acc, scale) => {
-    return acc - scale * 0.1;
-  }, 1);
+  const scaleFromBRoll = useMemo(() => {
+    return springs.reduce((acc, instance) => {
+      return acc - instance * SCALE_DOWN;
+    }, 1);
+  }, [springs]);
 
-  const translation = springs.reduce((acc, scale) => {
-    return acc + scale * 50;
-  }, 0);
+  const translation = useMemo(() => {
+    return springs.reduce((acc, instance) => {
+      const expectedHeightLoss = bRollLayout.height * SCALE_DOWN;
+
+      return acc + instance * (expectedHeightLoss / 2);
+    }, 0);
+  }, [bRollLayout.height, springs]);
 
   return (
     <div
@@ -47,7 +70,7 @@ export const ScaleDownWithBRoll: React.FC<
       style={{
         ...props.style,
         scale: String(scaleFromBRoll),
-        translate: `0 ${translation}px`,
+        translate: `0 ${translation * (bRollEnterDirection === "bottom" ? -1 : 1)}px`,
       }}
     />
   );

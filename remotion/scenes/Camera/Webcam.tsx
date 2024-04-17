@@ -90,7 +90,14 @@ export const Webcam: React.FC<{
 
   return (
     <div style={outer}>
-      <ScaleDownWithBRoll bRolls={bRolls} frame={frame} style={container}>
+      <ScaleDownWithBRoll
+        canvasLayout={canvasLayout}
+        bRollEnterDirection={bRollEnterDirection}
+        bRolls={bRolls}
+        bRollLayout={bRollLayout}
+        frame={frame}
+        style={container}
+      >
         <OffthreadVideo
           startFrom={startFrom}
           endAt={endAt}
@@ -99,6 +106,7 @@ export const Webcam: React.FC<{
         />
       </ScaleDownWithBRoll>
       <BRollStack
+        canvasLayout={canvasLayout}
         bRollEnterDirection={bRollEnterDirection}
         bRolls={bRolls}
         bRollLayout={bRollLayout}

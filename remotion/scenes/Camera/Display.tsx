@@ -78,7 +78,10 @@ export const Display: React.FC<{
   return (
     <div style={outer}>
       <ScaleDownWithBRoll
+        canvasLayout={canvasLayout}
+        bRollEnterDirection={bRollEnterDirection}
         bRolls={sampleBRolls}
+        bRollLayout={bRollLayout}
         frame={frame}
         style={{
           position: "absolute",
@@ -102,6 +105,7 @@ export const Display: React.FC<{
         bRollEnterDirection={bRollEnterDirection}
         bRolls={bRolls}
         bRollLayout={bRollLayout}
+        canvasLayout={canvasLayout}
       />
     </div>
   );

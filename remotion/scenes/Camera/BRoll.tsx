@@ -7,6 +7,7 @@ import {
   useCurrentFrame,
   useVideoConfig,
 } from "remotion";
+import type { CanvasLayout } from "../../../config/layout";
 import type { BRollEnterDirection, Layout } from "../../layout/layout-types";
 import { ScaleDownWithBRoll } from "../BRoll/ScaleDownWithBRoll";
 import type { BRollScene } from "../BRoll/types";
@@ -17,12 +18,14 @@ const Inner: React.FC<{
   bRollEnterDirection: BRollEnterDirection;
   bRollLayout: Layout;
   sceneFrame: number;
+  canvasLayout: CanvasLayout;
 }> = ({
   bRoll,
   bRollsBefore,
   bRollLayout,
   bRollEnterDirection,
   sceneFrame,
+  canvasLayout,
 }) => {
   const { fps, height } = useVideoConfig();
   const frame = useCurrentFrame();
@@ -74,8 +77,11 @@ const Inner: React.FC<{
 
   return (
     <ScaleDownWithBRoll
+      canvasLayout={canvasLayout}
       frame={sceneFrame}
       bRolls={bRollsBefore}
+      bRollLayout={bRollLayout}
+      bRollEnterDirection={bRollEnterDirection}
       style={{
         position: "absolute",
         ...bRollContainer,
@@ -103,12 +109,14 @@ export const BRoll: React.FC<{
   bRollEnterDirection: BRollEnterDirection;
   sceneFrame: number;
   bRollLayout: Layout;
+  canvasLayout: CanvasLayout;
 }> = ({
   bRoll,
   bRollsBefore,
   sceneFrame,
   bRollLayout,
   bRollEnterDirection,
+  canvasLayout,
 }) => {
   return (
     <Sequence from={bRoll.from} durationInFrames={bRoll.durationInFrames}>
@@ -118,6 +126,7 @@ export const BRoll: React.FC<{
         bRoll={bRoll}
         bRollLayout={bRollLayout}
         bRollEnterDirection={bRollEnterDirection}
+        canvasLayout={canvasLayout}
       />
     </Sequence>
   );
