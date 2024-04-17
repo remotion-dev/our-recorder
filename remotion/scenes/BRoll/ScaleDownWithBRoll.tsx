@@ -1,9 +1,9 @@
 import React, { useMemo } from "react";
 import { spring, useVideoConfig } from "remotion";
 import type { CanvasLayout } from "../../../config/layout";
+import type { BRollScene } from "../../../config/scenes";
 import { B_ROLL_TRANSITION_DURATION } from "../../../config/transitions";
 import type { BRollEnterDirection, Layout } from "../../layout/layout-types";
-import type { BRollScene } from "./types";
 
 // A value of 0.1 means that the original
 // video only has a 90% of its original size

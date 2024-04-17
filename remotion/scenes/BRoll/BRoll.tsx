@@ -8,10 +8,10 @@ import {
   useVideoConfig,
 } from "remotion";
 import type { CanvasLayout } from "../../../config/layout";
+import type { BRollScene } from "../../../config/scenes";
 import { B_ROLL_TRANSITION_DURATION } from "../../../config/transitions";
 import type { BRollEnterDirection, Layout } from "../../layout/layout-types";
 import { ScaleDownWithBRoll } from "./ScaleDownWithBRoll";
-import type { BRollScene } from "./types";
 
 const Inner: React.FC<{
   bRoll: BRollScene;

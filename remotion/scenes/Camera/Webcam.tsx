@@ -2,6 +2,7 @@ import React, { useMemo } from "react";
 import { OffthreadVideo, useCurrentFrame, useVideoConfig } from "remotion";
 import type { CanvasLayout } from "../../../config/layout";
 import type {
+  BRollScene,
   SceneAndMetadata,
   VideoSceneAndMetadata,
 } from "../../../config/scenes";
@@ -9,7 +10,6 @@ import { getWebcamLayout } from "../../animations/webcam-transitions";
 import type { BRollEnterDirection, Layout } from "../../layout/layout-types";
 import { BRollStack } from "../BRoll/BRollStack";
 import { ScaleDownWithBRoll } from "../BRoll/ScaleDownWithBRoll";
-import type { BRollScene } from "../BRoll/types";
 
 const outer: React.CSSProperties = {
   position: "absolute",

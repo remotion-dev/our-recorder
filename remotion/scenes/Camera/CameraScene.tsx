@@ -2,6 +2,7 @@ import React, { useMemo } from "react";
 import { AbsoluteFill, useVideoConfig } from "remotion";
 import type { CanvasLayout } from "../../../config/layout";
 import type {
+  BRollScene,
   SceneAndMetadata,
   VideoSceneAndMetadata,
 } from "../../../config/scenes";
@@ -11,7 +12,6 @@ import { LandscapeChapters } from "../../chapters/landscape/SelectedChapters";
 import type { ChapterType } from "../../chapters/make-chapters";
 import { SquareChapter } from "../../chapters/square/SquareChapter";
 import { applyBRollRules } from "../BRoll/apply-b-roll-rules";
-import type { BRollScene } from "../BRoll/types";
 import { Display } from "./Display";
 import { Webcam } from "./Webcam";
 

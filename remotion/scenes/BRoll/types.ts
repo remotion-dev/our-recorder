@@ -1,12 +1,5 @@
 import { staticFile } from "remotion";
-
-export type BRollScene = {
-  from: number;
-  durationInFrames: number;
-  source: string;
-  assetWidth: number;
-  assetHeight: number;
-};
+import type { BRollScene } from "../../../config/scenes";
 
 export const sampleBRolls: BRollScene[] = [
   {

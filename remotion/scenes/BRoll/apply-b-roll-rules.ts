@@ -1,5 +1,5 @@
+import type { BRollScene } from "../../../config/scenes";
 import { SCENE_TRANSITION_DURATION } from "../../../config/transitions";
-import type { BRollScene } from "./types";
 
 const ensureNoBRollOverlaps = (
   bRollsEnsureSceneEnds: BRollScene[],

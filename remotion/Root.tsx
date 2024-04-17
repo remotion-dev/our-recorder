@@ -22,6 +22,7 @@ export const Root = () => {
           scenes: [
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-left" as const,
               trimStart: 103,
               transitionToNextScene: true,
@@ -38,6 +39,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-left" as const,
               trimStart: 60,
               transitionToNextScene: false,
@@ -46,6 +48,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-left" as const,
               trimStart: 76,
               transitionToNextScene: false,
@@ -54,6 +57,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-left" as const,
               trimStart: 85,
               transitionToNextScene: false,
@@ -62,6 +66,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-left" as const,
               trimStart: 320,
               transitionToNextScene: false,
@@ -70,6 +75,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-left" as const,
               trimStart: 25,
               transitionToNextScene: false,
@@ -78,6 +84,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-left" as const,
               trimStart: 45,
               duration: 310,
@@ -86,6 +93,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-left" as const,
               trimStart: 60,
               transitionToNextScene: false,
@@ -94,6 +102,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-left" as const,
               trimStart: 108,
               transitionToNextScene: false,
@@ -102,6 +111,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-left" as const,
               trimStart: 140,
               transitionToNextScene: false,
@@ -157,6 +167,7 @@ export const Root = () => {
             },
             {
               type: "videoscene",
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 65,
               transitionToNextScene: false,
@@ -170,6 +181,7 @@ export const Root = () => {
               music: "previous",
               duration: 1064,
               type: "videoscene",
+              bRolls: [],
             },
             {
               webcamPosition: "top-left" as const,
@@ -178,6 +190,7 @@ export const Root = () => {
               music: "previous",
               duration: 1348,
               type: "videoscene",
+              bRolls: [],
             },
             {
               webcamPosition: "top-left" as const,
@@ -186,6 +199,7 @@ export const Root = () => {
               music: "previous",
               duration: 833,
               type: "videoscene",
+              bRolls: [],
             },
             {
               webcamPosition: "top-left" as const,
@@ -194,6 +208,7 @@ export const Root = () => {
               music: "previous",
               duration: 567,
               type: "videoscene",
+              bRolls: [],
             },
             {
               webcamPosition: "top-left" as const,
@@ -202,6 +217,7 @@ export const Root = () => {
               music: "previous",
               duration: 971,
               type: "videoscene",
+              bRolls: [],
             },
             {
               webcamPosition: "top-left" as const,
@@ -210,6 +226,7 @@ export const Root = () => {
               music: "previous",
               duration: 453,
               type: "videoscene",
+              bRolls: [],
             },
             {
               webcamPosition: "top-right" as const,
@@ -218,6 +235,7 @@ export const Root = () => {
               music: "previous",
               duration: 610,
               type: "videoscene",
+              bRolls: [],
             },
             {
               webcamPosition: "top-right" as const,
@@ -226,6 +244,7 @@ export const Root = () => {
               music: "previous",
               duration: 1387,
               type: "videoscene",
+              bRolls: [],
             },
             {
               webcamPosition: "bottom-right" as const,
@@ -234,6 +253,7 @@ export const Root = () => {
               music: "previous",
               duration: 790,
               type: "videoscene",
+              bRolls: [],
             },
             {
               webcamPosition: "bottom-right" as const,
@@ -242,6 +262,7 @@ export const Root = () => {
               music: "previous",
               duration: 2176,
               type: "videoscene",
+              bRolls: [],
             },
             {
               webcamPosition: "bottom-right" as const,
@@ -250,6 +271,7 @@ export const Root = () => {
               music: "previous",
               duration: 1353,
               type: "videoscene",
+              bRolls: [],
             },
             {
               webcamPosition: "bottom-right" as const,
@@ -258,6 +280,7 @@ export const Root = () => {
               music: "previous",
               duration: 530,
               type: "videoscene",
+              bRolls: [],
             },
             {
               webcamPosition: "bottom-right" as const,
@@ -266,6 +289,7 @@ export const Root = () => {
               music: "previous",
               duration: 1810,
               type: "videoscene",
+              bRolls: [],
             },
             {
               webcamPosition: "bottom-right" as const,
@@ -274,6 +298,7 @@ export const Root = () => {
               music: "previous",
               duration: 471,
               type: "videoscene",
+              bRolls: [],
             },
             {
               webcamPosition: "bottom-right" as const,
@@ -282,6 +307,7 @@ export const Root = () => {
               music: "previous",
               duration: 1390,
               type: "videoscene",
+              bRolls: [],
             },
             {
               webcamPosition: "bottom-right" as const,
@@ -290,6 +316,7 @@ export const Root = () => {
               music: "previous",
               duration: 2555,
               type: "videoscene",
+              bRolls: [],
             },
             {
               webcamPosition: "bottom-right" as const,
@@ -298,6 +325,7 @@ export const Root = () => {
               music: "previous",
               duration: 1195,
               type: "videoscene",
+              bRolls: [],
             },
             {
               webcamPosition: "bottom-right" as const,
@@ -306,6 +334,7 @@ export const Root = () => {
               music: "previous",
               duration: 1005,
               type: "videoscene",
+              bRolls: [],
             },
             {
               webcamPosition: "bottom-right" as const,
@@ -314,6 +343,7 @@ export const Root = () => {
               music: "previous",
               duration: 442,
               type: "videoscene",
+              bRolls: [],
             },
             {
               webcamPosition: "bottom-right" as const,
@@ -322,6 +352,7 @@ export const Root = () => {
               music: "previous",
               duration: 842,
               type: "videoscene",
+              bRolls: [],
             },
             {
               webcamPosition: "bottom-right" as const,
@@ -330,6 +361,7 @@ export const Root = () => {
               music: "previous",
               duration: 1700,
               type: "videoscene",
+              bRolls: [],
             },
             {
               webcamPosition: "bottom-right" as const,
@@ -338,6 +370,7 @@ export const Root = () => {
               music: "previous",
               duration: 574,
               type: "videoscene",
+              bRolls: [],
             },
             {
               webcamPosition: "bottom-right" as const,
@@ -346,6 +379,7 @@ export const Root = () => {
               music: "previous",
               duration: 1229,
               type: "videoscene",
+              bRolls: [],
             },
             {
               webcamPosition: "bottom-right" as const,
@@ -354,6 +388,7 @@ export const Root = () => {
               music: "previous",
               duration: 500,
               type: "videoscene",
+              bRolls: [],
             },
             {
               webcamPosition: "bottom-right" as const,
@@ -362,6 +397,7 @@ export const Root = () => {
               music: "previous",
               duration: 993,
               type: "videoscene",
+              bRolls: [],
             },
           ],
           scenesAndMetadata: [],
@@ -394,6 +430,7 @@ export const Root = () => {
               music: "previous",
               duration: 530,
               type: "videoscene",
+              bRolls: [],
             },
             {
               type: "title",
@@ -410,6 +447,7 @@ export const Root = () => {
               music: "previous",
               duration: 830,
               type: "videoscene",
+              bRolls: [],
             },
             {
               webcamPosition: "bottom-left" as const,
@@ -418,6 +456,7 @@ export const Root = () => {
               music: "previous",
               duration: 1020,
               type: "videoscene",
+              bRolls: [],
             },
             {
               webcamPosition: "top-left" as const,
@@ -426,6 +465,7 @@ export const Root = () => {
               music: "previous",
               duration: 124,
               type: "videoscene",
+              bRolls: [],
             },
             {
               webcamPosition: "top-right" as const,
@@ -434,6 +474,7 @@ export const Root = () => {
               music: "previous",
               duration: 531,
               type: "videoscene",
+              bRolls: [],
             },
             {
               type: "title",
@@ -450,6 +491,7 @@ export const Root = () => {
               music: "previous",
               duration: 997,
               type: "videoscene",
+              bRolls: [],
             },
             {
               webcamPosition: "bottom-right" as const,
@@ -458,6 +500,7 @@ export const Root = () => {
               music: "previous",
               duration: 450,
               type: "videoscene",
+              bRolls: [],
             },
             {
               type: "title",
@@ -474,6 +517,7 @@ export const Root = () => {
               music: "previous",
               duration: 1703,
               type: "videoscene",
+              bRolls: [],
             },
             {
               webcamPosition: "bottom-right" as const,
@@ -482,6 +526,7 @@ export const Root = () => {
               music: "previous",
               duration: 1522,
               type: "videoscene",
+              bRolls: [],
             },
             {
               webcamPosition: "top-left" as const,
@@ -490,6 +535,7 @@ export const Root = () => {
               music: "previous",
               duration: 816,
               type: "videoscene",
+              bRolls: [],
             },
             {
               webcamPosition: "top-left" as const,
@@ -498,6 +544,7 @@ export const Root = () => {
               music: "previous",
               duration: 280,
               type: "videoscene",
+              bRolls: [],
             },
             {
               type: "title",
@@ -514,6 +561,7 @@ export const Root = () => {
               music: "previous",
               duration: 810,
               type: "videoscene",
+              bRolls: [],
             },
             {
               webcamPosition: "top-left" as const,
@@ -522,6 +570,7 @@ export const Root = () => {
               music: "previous",
               duration: 1460,
               type: "videoscene",
+              bRolls: [],
             },
             {
               type: "title",
@@ -538,6 +587,7 @@ export const Root = () => {
               music: "previous",
               duration: 1750,
               type: "videoscene",
+              bRolls: [],
             },
             {
               type: "title",
@@ -554,6 +604,7 @@ export const Root = () => {
               music: "previous",
               duration: 1864,
               type: "videoscene",
+              bRolls: [],
             },
             {
               webcamPosition: "bottom-right" as const,
@@ -562,6 +613,7 @@ export const Root = () => {
               music: "previous",
               duration: 834,
               type: "videoscene",
+              bRolls: [],
             },
           ],
           scenesAndMetadata: [],
@@ -594,6 +646,7 @@ export const Root = () => {
               music: "previous",
               duration: 2619,
               type: "videoscene",
+              bRolls: [],
             },
             {
               webcamPosition: "top-left" as const,
@@ -602,6 +655,7 @@ export const Root = () => {
               music: "previous",
               duration: 2949,
               type: "videoscene",
+              bRolls: [],
             },
             {
               webcamPosition: "top-left" as const,
@@ -610,6 +664,7 @@ export const Root = () => {
               music: "previous",
               duration: 3310,
               type: "videoscene",
+              bRolls: [],
             },
             {
               webcamPosition: "top-left" as const,
@@ -618,6 +673,7 @@ export const Root = () => {
               music: "previous",
               duration: 1657,
               type: "videoscene",
+              bRolls: [],
             },
             {
               webcamPosition: "top-left" as const,
@@ -626,6 +682,7 @@ export const Root = () => {
               music: "previous",
               duration: 1795,
               type: "videoscene",
+              bRolls: [],
             },
             {
               webcamPosition: "top-left" as const,
@@ -634,6 +691,7 @@ export const Root = () => {
               music: "previous",
               duration: 3416,
               type: "videoscene",
+              bRolls: [],
             },
             {
               webcamPosition: "bottom-right" as const,
@@ -642,6 +700,7 @@ export const Root = () => {
               music: "previous",
               duration: 580,
               type: "videoscene",
+              bRolls: [],
             },
             {
               webcamPosition: "top-left" as const,
@@ -650,6 +709,7 @@ export const Root = () => {
               music: "previous",
               duration: 702,
               type: "videoscene",
+              bRolls: [],
             },
             {
               webcamPosition: "top-left" as const,
@@ -658,6 +718,7 @@ export const Root = () => {
               music: "previous",
               duration: 661,
               type: "videoscene",
+              bRolls: [],
             },
             {
               webcamPosition: "top-left" as const,
@@ -666,6 +727,7 @@ export const Root = () => {
               music: "previous",
               duration: null,
               type: "videoscene",
+              bRolls: [],
             },
             {
               webcamPosition: "top-left" as const,
@@ -674,6 +736,7 @@ export const Root = () => {
               music: "previous",
               duration: null,
               type: "videoscene",
+              bRolls: [],
             },
             {
               webcamPosition: "top-left" as const,
@@ -682,6 +745,7 @@ export const Root = () => {
               music: "previous",
               duration: null,
               type: "videoscene",
+              bRolls: [],
             },
             {
               webcamPosition: "top-left" as const,
@@ -690,6 +754,7 @@ export const Root = () => {
               music: "previous",
               duration: null,
               type: "videoscene",
+              bRolls: [],
             },
             {
               webcamPosition: "top-left" as const,
@@ -698,6 +763,7 @@ export const Root = () => {
               music: "previous",
               duration: null,
               type: "videoscene",
+              bRolls: [],
             },
             {
               webcamPosition: "bottom-right" as const,
@@ -706,6 +772,7 @@ export const Root = () => {
               music: "previous",
               duration: null,
               type: "videoscene",
+              bRolls: [],
             },
             {
               webcamPosition: "top-left" as const,
@@ -714,6 +781,7 @@ export const Root = () => {
               music: "previous",
               duration: null,
               type: "videoscene",
+              bRolls: [],
             },
           ],
           scenesAndMetadata: [],
@@ -738,6 +806,7 @@ export const Root = () => {
               music: "previous",
               duration: 609,
               type: "videoscene",
+              bRolls: [],
             },
             {
               webcamPosition: "bottom-right" as const,
@@ -746,6 +815,7 @@ export const Root = () => {
               music: "previous",
               duration: 2871,
               type: "videoscene",
+              bRolls: [],
             },
             {
               webcamPosition: "bottom-right" as const,
@@ -754,6 +824,7 @@ export const Root = () => {
               music: "previous",
               duration: 1743,
               type: "videoscene",
+              bRolls: [],
             },
             {
               webcamPosition: "bottom-right" as const,
@@ -762,6 +833,7 @@ export const Root = () => {
               music: "previous",
               duration: 1980,
               type: "videoscene",
+              bRolls: [],
             },
             {
               webcamPosition: "bottom-right" as const,
@@ -770,6 +842,7 @@ export const Root = () => {
               music: "previous",
               duration: 1460,
               type: "videoscene",
+              bRolls: [],
             },
             {
               webcamPosition: "previous" as const,
@@ -778,6 +851,7 @@ export const Root = () => {
               music: "previous",
               duration: 263,
               type: "videoscene",
+              bRolls: [],
             },
           ],
           scenesAndMetadata: [],
@@ -802,6 +876,7 @@ export const Root = () => {
               music: "previous",
               duration: 290,
               type: "videoscene",
+              bRolls: [],
             },
             {
               webcamPosition: "top-left" as const,
@@ -810,6 +885,7 @@ export const Root = () => {
               music: "previous",
               duration: 550,
               type: "videoscene",
+              bRolls: [],
             },
             {
               webcamPosition: "bottom-right" as const,
@@ -818,6 +894,7 @@ export const Root = () => {
               music: "previous",
               duration: 1776,
               type: "videoscene",
+              bRolls: [],
             },
             {
               webcamPosition: "top-left" as const,
@@ -826,6 +903,7 @@ export const Root = () => {
               music: "previous",
               duration: 748,
               type: "videoscene",
+              bRolls: [],
             },
             {
               webcamPosition: "top-left" as const,
@@ -834,6 +912,7 @@ export const Root = () => {
               music: "previous",
               duration: 200,
               type: "videoscene",
+              bRolls: [],
             },
             {
               webcamPosition: "top-left" as const,
@@ -842,6 +921,7 @@ export const Root = () => {
               music: "previous",
               duration: 1305,
               type: "videoscene",
+              bRolls: [],
             },
             {
               webcamPosition: "top-left" as const,
@@ -850,6 +930,7 @@ export const Root = () => {
               music: "previous",
               duration: 670,
               type: "videoscene",
+              bRolls: [],
             },
             {
               webcamPosition: "top-left" as const,
@@ -858,6 +939,7 @@ export const Root = () => {
               music: "previous",
               duration: 1534,
               type: "videoscene",
+              bRolls: [],
             },
             {
               webcamPosition: "top-left" as const,
@@ -866,6 +948,7 @@ export const Root = () => {
               music: "previous",
               duration: 2244,
               type: "videoscene",
+              bRolls: [],
             },
             {
               webcamPosition: "previous" as const,
@@ -874,6 +957,7 @@ export const Root = () => {
               music: "previous",
               duration: 551,
               type: "videoscene",
+              bRolls: [],
             },
           ],
           scenesAndMetadata: [],
@@ -898,6 +982,7 @@ export const Root = () => {
               music: "previous",
               duration: 677,
               type: "videoscene",
+              bRolls: [],
             },
             {
               webcamPosition: "previous" as const,
@@ -906,6 +991,7 @@ export const Root = () => {
               music: "previous",
               duration: 528,
               type: "videoscene",
+              bRolls: [],
             },
             {
               webcamPosition: "top-left" as const,
@@ -914,6 +1000,7 @@ export const Root = () => {
               music: "previous",
               duration: 1444,
               type: "videoscene",
+              bRolls: [],
             },
             {
               webcamPosition: "top-left" as const,
@@ -922,6 +1009,7 @@ export const Root = () => {
               music: "previous",
               duration: 913,
               type: "videoscene",
+              bRolls: [],
             },
             {
               webcamPosition: "top-left" as const,
@@ -930,6 +1018,7 @@ export const Root = () => {
               music: "previous",
               duration: 841,
               type: "videoscene",
+              bRolls: [],
             },
             {
               webcamPosition: "previous" as const,
@@ -938,6 +1027,7 @@ export const Root = () => {
               music: "previous",
               duration: 174,
               type: "videoscene",
+              bRolls: [],
             },
             {
               webcamPosition: "bottom-right" as const,
@@ -946,6 +1036,7 @@ export const Root = () => {
               music: "previous",
               duration: 2371,
               type: "videoscene",
+              bRolls: [],
             },
             {
               webcamPosition: "bottom-right" as const,
@@ -954,6 +1045,7 @@ export const Root = () => {
               music: "previous",
               duration: 1150,
               type: "videoscene",
+              bRolls: [],
             },
             {
               webcamPosition: "bottom-right" as const,
@@ -962,6 +1054,7 @@ export const Root = () => {
               music: "previous",
               duration: 1305,
               type: "videoscene",
+              bRolls: [],
             },
             {
               webcamPosition: "bottom-right" as const,
@@ -970,6 +1063,7 @@ export const Root = () => {
               music: "previous",
               duration: 247,
               type: "videoscene",
+              bRolls: [],
             },
             {
               webcamPosition: "bottom-right" as const,
@@ -978,6 +1072,7 @@ export const Root = () => {
               music: "previous",
               duration: 688,
               type: "videoscene",
+              bRolls: [],
             },
             {
               webcamPosition: "bottom-right" as const,
@@ -986,6 +1081,7 @@ export const Root = () => {
               music: "previous",
               duration: 664,
               type: "videoscene",
+              bRolls: [],
             },
             {
               webcamPosition: "top-right" as const,
@@ -994,6 +1090,7 @@ export const Root = () => {
               music: "previous",
               duration: 2034,
               type: "videoscene",
+              bRolls: [],
             },
             {
               webcamPosition: "top-left" as const,
@@ -1002,6 +1099,7 @@ export const Root = () => {
               music: "previous",
               duration: 666,
               type: "videoscene",
+              bRolls: [],
             },
             {
               webcamPosition: "top-left" as const,
@@ -1010,6 +1108,7 @@ export const Root = () => {
               music: "previous",
               duration: 1314,
               type: "videoscene",
+              bRolls: [],
             },
             {
               webcamPosition: "top-left" as const,
@@ -1018,6 +1117,7 @@ export const Root = () => {
               music: "previous",
               duration: 510,
               type: "videoscene",
+              bRolls: [],
             },
             {
               webcamPosition: "bottom-right" as const,
@@ -1026,6 +1126,7 @@ export const Root = () => {
               music: "previous",
               duration: 362,
               type: "videoscene",
+              bRolls: [],
             },
             {
               webcamPosition: "previous" as const,
@@ -1034,6 +1135,7 @@ export const Root = () => {
               music: "previous",
               duration: 1280,
               type: "videoscene",
+              bRolls: [],
             },
             {
               webcamPosition: "previous" as const,
@@ -1042,6 +1144,7 @@ export const Root = () => {
               music: "previous",
               duration: 530,
               type: "videoscene",
+              bRolls: [],
             },
             {
               webcamPosition: "previous" as const,
@@ -1050,6 +1153,7 @@ export const Root = () => {
               music: "previous",
               duration: 635,
               type: "videoscene",
+              bRolls: [],
             },
           ],
           scenesAndMetadata: [],
@@ -1069,6 +1173,7 @@ export const Root = () => {
           scenes: [
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 110,
               transitionToNextScene: false,
@@ -1077,6 +1182,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-left" as const,
               trimStart: 60,
               transitionToNextScene: false,
@@ -1085,6 +1191,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-left" as const,
               trimStart: 20,
               transitionToNextScene: false,
@@ -1093,6 +1200,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-left" as const,
               trimStart: 20,
               transitionToNextScene: false,
@@ -1101,6 +1209,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 20,
               transitionToNextScene: false,
@@ -1109,6 +1218,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-right" as const,
               trimStart: 146,
               transitionToNextScene: false,
@@ -1117,6 +1227,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 50,
               transitionToNextScene: false,
@@ -1141,6 +1252,7 @@ export const Root = () => {
           scenes: [
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-right" as const,
               trimStart: 0,
               transitionToNextScene: false,
@@ -1149,6 +1261,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-right" as const,
               trimStart: 96,
               transitionToNextScene: false,
@@ -1157,6 +1270,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-right" as const,
               trimStart: 27,
               transitionToNextScene: false,
@@ -1165,6 +1279,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-left" as const,
               trimStart: 70,
               transitionToNextScene: false,
@@ -1173,6 +1288,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-left" as const,
               trimStart: 0,
               transitionToNextScene: false,
@@ -1181,6 +1297,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-left" as const,
               trimStart: 0,
               transitionToNextScene: false,
@@ -1189,6 +1306,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-left" as const,
               trimStart: 0,
               transitionToNextScene: false,
@@ -1197,6 +1315,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-left" as const,
               trimStart: 0,
               transitionToNextScene: false,
@@ -1205,6 +1324,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-right" as const,
               trimStart: 0,
               transitionToNextScene: false,
@@ -1213,6 +1333,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-left" as const,
               trimStart: 0,
               transitionToNextScene: false,
@@ -1221,6 +1342,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-right" as const,
               trimStart: 0,
               transitionToNextScene: false,
@@ -1229,6 +1351,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-right" as const,
               trimStart: 30,
               transitionToNextScene: false,
@@ -1237,6 +1360,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-left" as const,
               trimStart: 0,
               transitionToNextScene: false,
@@ -1245,6 +1369,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-right" as const,
               trimStart: 32,
               transitionToNextScene: false,
@@ -1253,6 +1378,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-right" as const,
               trimStart: 70,
               transitionToNextScene: false,
@@ -1261,6 +1387,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-right" as const,
               trimStart: 70,
               transitionToNextScene: false,
@@ -1269,6 +1396,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-right" as const,
               trimStart: 40,
               transitionToNextScene: false,
@@ -1277,6 +1405,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-right" as const,
               trimStart: 25,
               transitionToNextScene: false,
@@ -1285,6 +1414,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               transitionToNextScene: false,
@@ -1309,6 +1439,7 @@ export const Root = () => {
           scenes: [
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-right" as const,
               trimStart: 35,
               transitionToNextScene: false,
@@ -1317,6 +1448,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-right" as const,
               trimStart: 0,
               transitionToNextScene: false,
@@ -1325,6 +1457,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               transitionToNextScene: false,
@@ -1333,6 +1466,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-right" as const,
               trimStart: 0,
               transitionToNextScene: false,
@@ -1341,6 +1475,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-right" as const,
               trimStart: 0,
               transitionToNextScene: false,
@@ -1349,6 +1484,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-right" as const,
               trimStart: 0,
               transitionToNextScene: false,
@@ -1357,6 +1493,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-right" as const,
               trimStart: 0,
               transitionToNextScene: false,
@@ -1365,6 +1502,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-right" as const,
               trimStart: 0,
               transitionToNextScene: false,
@@ -1373,6 +1511,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-right" as const,
               trimStart: 0,
               transitionToNextScene: false,
@@ -1381,6 +1520,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-right" as const,
               trimStart: 0,
               transitionToNextScene: false,
@@ -1389,6 +1529,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               transitionToNextScene: false,
@@ -1397,6 +1538,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               transitionToNextScene: false,
@@ -1405,6 +1547,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               transitionToNextScene: false,
@@ -1413,6 +1556,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               transitionToNextScene: false,
@@ -1437,6 +1581,7 @@ export const Root = () => {
           scenes: [
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-right" as const,
               trimStart: 0,
               transitionToNextScene: false,
@@ -1445,6 +1590,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-right" as const,
               trimStart: 0,
               transitionToNextScene: false,
@@ -1461,6 +1607,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-right" as const,
               trimStart: 0,
               transitionToNextScene: false,
@@ -1469,6 +1616,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-right" as const,
               trimStart: 0,
               transitionToNextScene: false,
@@ -1477,6 +1625,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-right" as const,
               trimStart: 0,
               transitionToNextScene: false,
@@ -1485,6 +1634,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-right" as const,
               trimStart: 0,
               transitionToNextScene: false,
@@ -1493,6 +1643,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-right" as const,
               trimStart: 28,
               transitionToNextScene: false,
@@ -1501,6 +1652,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-left" as const,
               trimStart: 0,
               transitionToNextScene: false,
@@ -1509,6 +1661,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-right" as const,
               trimStart: 0,
               transitionToNextScene: false,
@@ -1517,6 +1670,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-right" as const,
               trimStart: 0,
               transitionToNextScene: false,
@@ -1525,6 +1679,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-right" as const,
               trimStart: 0,
               transitionToNextScene: false,
@@ -1533,6 +1688,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-left" as const,
               trimStart: 0,
               transitionToNextScene: false,
@@ -1541,6 +1697,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-left" as const,
               trimStart: 0,
               transitionToNextScene: false,
@@ -1549,6 +1706,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-right" as const,
               trimStart: 20,
               transitionToNextScene: false,
@@ -1557,6 +1715,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-left" as const,
               trimStart: 0,
               transitionToNextScene: false,
@@ -1565,6 +1724,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-right" as const,
               trimStart: 0,
               transitionToNextScene: false,
@@ -1589,6 +1749,7 @@ export const Root = () => {
           scenes: [
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-right" as const,
               trimStart: 0,
               duration: 120,
@@ -1605,6 +1766,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-right" as const,
               trimStart: 30,
               transitionToNextScene: false,
@@ -1613,6 +1775,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-left" as const,
               trimStart: 0,
               transitionToNextScene: false,
@@ -1621,6 +1784,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-left" as const,
               trimStart: 0,
               transitionToNextScene: false,
@@ -1629,6 +1793,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-left" as const,
               trimStart: 0,
               transitionToNextScene: false,
@@ -1637,6 +1802,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-right" as const,
               trimStart: 0,
               transitionToNextScene: false,
@@ -1645,6 +1811,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-right" as const,
               trimStart: 0,
               transitionToNextScene: false,
@@ -1654,6 +1821,7 @@ export const Root = () => {
 
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-right" as const,
               trimStart: 0,
               transitionToNextScene: false,
@@ -1662,6 +1830,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-left" as const,
               trimStart: 0,
               transitionToNextScene: false,
@@ -1670,6 +1839,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-left" as const,
               trimStart: 0,
               transitionToNextScene: false,
@@ -1678,6 +1848,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               transitionToNextScene: false,
@@ -1686,6 +1857,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-left" as const,
               trimStart: 0,
               transitionToNextScene: false,
@@ -1694,6 +1866,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               transitionToNextScene: false,
@@ -1702,6 +1875,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               transitionToNextScene: false,
@@ -1726,6 +1900,7 @@ export const Root = () => {
           scenes: [
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -1734,6 +1909,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -1742,6 +1918,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-right" as const,
               trimStart: 0,
               duration: null,
@@ -1750,6 +1927,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-right" as const,
               trimStart: 0,
               duration: null,
@@ -1758,6 +1936,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-right" as const,
               trimStart: 0,
               duration: null,
@@ -1766,6 +1945,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-left" as const,
               trimStart: 0,
               duration: null,
@@ -1774,6 +1954,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-right" as const,
               trimStart: 0,
               duration: null,
@@ -1782,6 +1963,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-right" as const,
               trimStart: 0,
               duration: null,
@@ -1790,6 +1972,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-right" as const,
               trimStart: 0,
               duration: null,
@@ -1798,6 +1981,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-right" as const,
               trimStart: 0,
               duration: null,
@@ -1806,6 +1990,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-left" as const,
               trimStart: 0,
               duration: null,
@@ -1830,6 +2015,7 @@ export const Root = () => {
           scenes: [
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -1838,6 +2024,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -1846,6 +2033,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -1863,6 +2051,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-left" as const,
               trimStart: 0,
               duration: null,
@@ -1871,6 +2060,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -1879,6 +2069,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -1887,6 +2078,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -1895,6 +2087,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-right" as const,
               trimStart: 0,
               duration: null,
@@ -1903,6 +2096,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-left" as const,
               trimStart: 0,
               duration: null,
@@ -1911,6 +2105,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-right" as const,
               trimStart: 0,
               duration: null,
@@ -1919,6 +2114,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -1927,6 +2123,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -1935,6 +2132,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -1943,6 +2141,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -1951,6 +2150,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -1959,6 +2159,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -1992,6 +2193,7 @@ export const Root = () => {
           scenes: [
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -2000,6 +2202,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -2008,6 +2211,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -2016,6 +2220,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -2024,6 +2229,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -2032,6 +2238,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -2040,6 +2247,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -2048,6 +2256,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -2056,6 +2265,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -2064,6 +2274,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -2072,6 +2283,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -2080,6 +2292,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -2088,6 +2301,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -2096,6 +2310,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -2104,6 +2319,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -2112,6 +2328,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -2120,6 +2337,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -2128,6 +2346,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: 1590,
@@ -2136,6 +2355,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -2169,6 +2389,7 @@ export const Root = () => {
           scenes: [
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -2177,6 +2398,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -2185,6 +2407,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -2193,6 +2416,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -2201,6 +2425,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -2218,6 +2443,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -2226,6 +2452,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -2234,6 +2461,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -2242,6 +2470,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -2250,6 +2479,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: 646,
@@ -2258,6 +2488,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -2266,6 +2497,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -2274,6 +2506,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -2282,6 +2515,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -2290,6 +2524,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -2298,6 +2533,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -2306,6 +2542,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -2314,6 +2551,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -2338,6 +2576,7 @@ export const Root = () => {
           scenes: [
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -2346,6 +2585,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -2363,6 +2603,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -2371,6 +2612,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -2379,6 +2621,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-right" as const,
               trimStart: 0,
               duration: null,
@@ -2387,6 +2630,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-left" as const,
               trimStart: 0,
               duration: null,
@@ -2395,6 +2639,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -2403,6 +2648,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-right" as const,
               trimStart: 0,
               duration: null,
@@ -2411,6 +2657,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -2419,6 +2666,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -2427,6 +2675,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -2435,6 +2684,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -2443,6 +2693,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -2451,6 +2702,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -2499,6 +2751,7 @@ export const Root = () => {
           scenes: [
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -2509,6 +2762,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 40,
               duration: 285,
@@ -2519,6 +2773,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -2529,6 +2784,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -2539,6 +2795,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -2549,6 +2806,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -2559,6 +2817,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -2569,6 +2828,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -2579,6 +2839,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -2589,6 +2850,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -2599,6 +2861,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -2609,6 +2872,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -2619,6 +2883,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -2645,6 +2910,7 @@ export const Root = () => {
           scenes: [
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -2655,6 +2921,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -2665,6 +2932,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-right" as const,
               trimStart: 0,
               duration: null,
@@ -2675,6 +2943,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -2685,6 +2954,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -2695,6 +2965,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-right" as const,
               trimStart: 0,
               duration: null,
@@ -2705,6 +2976,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-right" as const,
               trimStart: 0,
               duration: null,
@@ -2715,6 +2987,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -2725,6 +2998,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -2735,6 +3009,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -2770,6 +3045,7 @@ export const Root = () => {
           scenes: [
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -2786,6 +3062,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-right" as const,
               trimStart: 0,
               duration: null,
@@ -2796,6 +3073,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -2806,6 +3084,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-left" as const,
               trimStart: 0,
               duration: null,
@@ -2816,6 +3095,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -2826,6 +3106,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -2836,6 +3117,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -2846,6 +3128,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -2881,6 +3164,7 @@ export const Root = () => {
           scenes: [
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -2891,6 +3175,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-left" as const,
               trimStart: 0,
               duration: null,
@@ -2901,6 +3186,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-left" as const,
               trimStart: 0,
               duration: null,
@@ -2911,6 +3197,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-left" as const,
               trimStart: 0,
               duration: null,
@@ -2921,6 +3208,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-right" as const,
               trimStart: 0,
               duration: null,
@@ -2931,6 +3219,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-right" as const,
               trimStart: 0,
               duration: null,
@@ -2941,6 +3230,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-right" as const,
               trimStart: 0,
               duration: null,
@@ -2976,6 +3266,7 @@ export const Root = () => {
           scenes: [
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -2986,6 +3277,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -2996,6 +3288,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -3006,6 +3299,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -3016,6 +3310,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -3026,6 +3321,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -3036,6 +3332,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -3046,6 +3343,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -3056,6 +3354,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -3066,6 +3365,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -3076,6 +3376,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -3129,6 +3430,7 @@ export const Root = () => {
           scenes: [
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -3139,6 +3441,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-right" as const,
               trimStart: 0,
               duration: 907,
@@ -3149,6 +3452,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -3159,6 +3463,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-left" as const,
               trimStart: 0,
               duration: null,
@@ -3169,6 +3474,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: 800,
@@ -3179,6 +3485,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -3189,6 +3496,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -3199,6 +3507,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -3209,6 +3518,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-right" as const,
               trimStart: 0,
               duration: null,
@@ -3219,6 +3529,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -3229,6 +3540,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -3264,6 +3576,7 @@ export const Root = () => {
           scenes: [
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-right" as const,
               trimStart: 0,
               duration: null,
@@ -3275,6 +3588,7 @@ export const Root = () => {
 
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-left" as const,
               trimStart: 0,
               duration: null,
@@ -3285,6 +3599,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -3295,6 +3610,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -3305,6 +3621,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -3315,6 +3632,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -3325,6 +3643,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -3335,6 +3654,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -3345,6 +3665,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -3355,6 +3676,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -3365,6 +3687,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -3375,6 +3698,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -3385,6 +3709,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -3395,6 +3720,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -3405,6 +3731,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -3415,6 +3742,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -3450,6 +3778,7 @@ export const Root = () => {
           scenes: [
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-right" as const,
               trimStart: 0,
               duration: null,
@@ -3460,6 +3789,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-right" as const,
               trimStart: 0,
               duration: null,
@@ -3470,6 +3800,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-left" as const,
               trimStart: 0,
               duration: null,
@@ -3480,6 +3811,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-right" as const,
               trimStart: 0,
               duration: null,
@@ -3490,6 +3822,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-right" as const,
               trimStart: 0,
               duration: null,
@@ -3500,6 +3833,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -3510,6 +3844,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -3520,6 +3855,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -3530,6 +3866,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -3540,6 +3877,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -3550,6 +3888,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -3560,6 +3899,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -3595,6 +3935,7 @@ export const Root = () => {
           scenes: [
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-right" as const,
               trimStart: 0,
               duration: null,
@@ -3605,6 +3946,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-left" as const,
               trimStart: 0,
               duration: null,
@@ -3615,6 +3957,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: 141,
@@ -3625,6 +3968,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -3635,6 +3979,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -3645,6 +3990,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -3686,6 +4032,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-left" as const,
               trimStart: 0,
               duration: null,
@@ -3696,6 +4043,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -3706,6 +4054,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -3716,6 +4065,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -3726,6 +4076,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -3736,6 +4087,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -3746,6 +4098,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -3756,6 +4109,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -3766,6 +4120,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -3776,6 +4131,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -3786,6 +4142,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -3796,6 +4153,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -3806,6 +4164,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -3816,6 +4175,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -3826,6 +4186,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -3836,6 +4197,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -3846,6 +4208,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -3856,6 +4219,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -3866,6 +4230,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-left" as const,
               trimStart: 0,
               duration: null,
@@ -3876,6 +4241,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -3886,6 +4252,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -3896,6 +4263,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -3906,6 +4274,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -3941,6 +4310,7 @@ export const Root = () => {
           scenes: [
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-left" as const,
               trimStart: 0,
               duration: null,
@@ -3951,6 +4321,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -3989,6 +4360,7 @@ export const Root = () => {
           scenes: [
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -3999,6 +4371,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -4009,6 +4382,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -4019,6 +4393,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -4029,6 +4404,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -4039,6 +4415,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -4049,6 +4426,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -4059,6 +4437,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -4069,6 +4448,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -4079,6 +4459,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -4089,6 +4470,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -4099,6 +4481,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -4109,6 +4492,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -4144,6 +4528,7 @@ export const Root = () => {
           scenes: [
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -4154,6 +4539,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -4164,6 +4550,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -4174,6 +4561,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 120,
               duration: null,
@@ -4184,6 +4572,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -4194,6 +4583,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 25,
               duration: null,
@@ -4204,6 +4594,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -4214,6 +4605,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -4224,6 +4616,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 45,
               duration: null,
@@ -4259,6 +4652,7 @@ export const Root = () => {
           scenes: [
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 20,
               duration: null,
@@ -4269,6 +4663,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 25,
               duration: null,
@@ -4279,6 +4674,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 46,
               duration: 1555,
@@ -4289,6 +4685,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -4299,6 +4696,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -4309,6 +4707,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -4319,6 +4718,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 45,
               duration: null,
@@ -4329,6 +4729,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 30,
               duration: null,
@@ -4339,6 +4740,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 19,
               duration: null,
@@ -4349,6 +4751,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 17,
               duration: null,
@@ -4386,6 +4789,7 @@ export const Root = () => {
           scenes: [
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -4396,6 +4800,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-left" as const,
               trimStart: 0,
               duration: null,
@@ -4406,6 +4811,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 26,
               duration: 807,
@@ -4416,6 +4822,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 45,
               duration: null,
@@ -4426,6 +4833,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 45,
               duration: null,
@@ -4436,6 +4844,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 45,
               duration: null,
@@ -4471,6 +4880,7 @@ export const Root = () => {
           scenes: [
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 64,
               duration: null,
@@ -4487,6 +4897,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 92,
               duration: null,
@@ -4497,6 +4908,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-right" as const,
               trimStart: 40,
               duration: null,
@@ -4507,6 +4919,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-left" as const,
               trimStart: 20,
               duration: null,
@@ -4517,6 +4930,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -4527,6 +4941,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-right" as const,
               trimStart: 38,
               duration: null,
@@ -4537,6 +4952,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-right" as const,
               trimStart: 0,
               duration: null,
@@ -4547,6 +4963,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 20,
               duration: null,
@@ -4557,6 +4974,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 25,
               duration: null,
@@ -4567,6 +4985,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -4577,6 +4996,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -4587,6 +5007,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -4622,6 +5043,7 @@ export const Root = () => {
           scenes: [
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 47,
               duration: 696,
@@ -4632,6 +5054,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-left" as const,
               trimStart: 20,
               duration: 868,
@@ -4642,6 +5065,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -4652,6 +5076,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 63,
               duration: 719,
@@ -4662,6 +5087,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -4672,6 +5098,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 20,
               duration: null,
@@ -4682,6 +5109,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -4732,6 +5160,7 @@ export const Root = () => {
           scenes: [
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 36,
               duration: 200,
@@ -4742,6 +5171,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -4752,6 +5182,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -4762,6 +5193,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -4772,6 +5204,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -4782,6 +5215,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 28,
               duration: null,
@@ -4792,6 +5226,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 30,
               duration: null,
@@ -4802,6 +5237,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 30,
               duration: null,
@@ -4812,6 +5248,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -4822,6 +5259,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 39,
               duration: null,
@@ -4832,6 +5270,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -4842,6 +5281,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -4852,6 +5292,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -4862,6 +5303,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 30,
               duration: null,
@@ -4897,6 +5339,7 @@ export const Root = () => {
           scenes: [
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -4911,6 +5354,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-left" as const,
               trimStart: 0,
               duration: null,
@@ -4920,6 +5364,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -4929,6 +5374,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -4937,6 +5383,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-right" as const,
               trimStart: 0,
               duration: null,
@@ -4946,6 +5393,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -4955,6 +5403,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-left" as const,
               trimStart: 0,
               duration: null,
@@ -4964,6 +5413,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-right" as const,
               trimStart: 0,
               duration: null,
@@ -4973,6 +5423,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-right" as const,
               trimStart: 0,
               duration: null,
@@ -4982,6 +5433,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-right" as const,
               trimStart: 0,
               duration: null,
@@ -4991,6 +5443,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-left" as const,
               trimStart: 0,
               duration: null,
@@ -5000,6 +5453,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -5009,6 +5463,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -5018,6 +5473,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-left" as const,
               trimStart: 0,
               duration: null,
@@ -5028,6 +5484,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -5069,6 +5526,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: 323,
@@ -5079,6 +5537,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -5089,6 +5548,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -5115,6 +5575,7 @@ export const Root = () => {
           scenes: [
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 60,
               duration: null,
@@ -5125,6 +5586,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 33,
               duration: null,
@@ -5135,6 +5597,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 55,
               duration: null,
@@ -5145,6 +5608,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 30,
               duration: 1641,
@@ -5155,6 +5619,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 30,
               duration: null,
@@ -5165,6 +5630,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -5175,6 +5641,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 45,
               duration: null,
@@ -5185,6 +5652,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 30,
               duration: null,
@@ -5195,6 +5663,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -5205,6 +5674,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 40,
               duration: null,
@@ -5215,6 +5685,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 40,
               duration: null,
@@ -5225,6 +5696,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -5235,6 +5707,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 30,
               duration: null,
@@ -5245,6 +5718,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -5255,6 +5729,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -5265,6 +5740,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -5275,6 +5751,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -5285,6 +5762,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 35,
               duration: null,
@@ -5295,6 +5773,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 90,
               duration: null,
@@ -5305,6 +5784,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 100,
               duration: null,
@@ -5315,6 +5795,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 30,
               duration: null,
@@ -5325,6 +5806,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -5366,6 +5848,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -5376,6 +5859,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-right" as const,
               trimStart: 0,
               duration: null,
@@ -5386,6 +5870,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-right" as const,
               trimStart: 0,
               duration: null,
@@ -5396,6 +5881,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-left" as const,
               trimStart: 0,
               duration: null,
@@ -5406,6 +5892,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -5416,6 +5903,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -5426,6 +5914,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -5436,6 +5925,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -5446,6 +5936,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -5456,6 +5947,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -5466,6 +5958,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-right" as const,
               trimStart: 0,
               duration: null,
@@ -5476,6 +5969,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-right" as const,
               trimStart: 0,
               duration: null,
@@ -5486,6 +5980,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -5496,6 +5991,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -5506,6 +6002,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -5516,6 +6013,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -5526,6 +6024,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -5536,6 +6035,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: 1314,
@@ -5546,6 +6046,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -5581,6 +6082,7 @@ export const Root = () => {
           scenes: [
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -5591,6 +6093,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 33,
               duration: 691,
@@ -5601,6 +6104,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 33,
               duration: null,
@@ -5611,6 +6115,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -5621,6 +6126,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 65,
               duration: null,
@@ -5631,6 +6137,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-left" as const,
               trimStart: 45,
               duration: null,
@@ -5641,6 +6148,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 42,
               duration: null,
@@ -5651,6 +6159,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 120,
               duration: null,
@@ -5661,6 +6170,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 90,
               duration: null,
@@ -5671,6 +6181,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 40,
               duration: null,
@@ -5681,6 +6192,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-right" as const,
               trimStart: 35,
               duration: null,
@@ -5691,6 +6203,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-left" as const,
               trimStart: 30,
               duration: null,
@@ -5701,6 +6214,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -5711,6 +6225,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 45,
               duration: null,
@@ -5721,6 +6236,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 65,
               duration: null,
@@ -5731,6 +6247,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 65,
               duration: null,
@@ -5741,6 +6258,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -5751,6 +6269,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -5761,6 +6280,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -5795,6 +6315,7 @@ export const Root = () => {
           scenes: [
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -5805,6 +6326,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -5815,6 +6337,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-right" as const,
               trimStart: 0,
               duration: null,
@@ -5825,6 +6348,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 0,
               duration: null,
@@ -5865,6 +6389,7 @@ export const Root = () => {
           scenes: [
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -5875,6 +6400,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -5885,6 +6411,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -5895,6 +6422,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -5935,6 +6463,7 @@ export const Root = () => {
           scenes: [
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -5945,6 +6474,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-left" as const,
               trimStart: 0,
               duration: null,
@@ -5963,6 +6493,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -5973,6 +6504,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -5983,6 +6515,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -5993,6 +6526,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -6003,6 +6537,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -6013,6 +6548,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -6023,6 +6559,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -6033,6 +6570,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -6043,6 +6581,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -6053,6 +6592,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -6063,6 +6603,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -6073,6 +6614,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -6114,6 +6656,7 @@ export const Root = () => {
           scenes: [
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 40,
               duration: null,
@@ -6124,6 +6667,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-left" as const,
               trimStart: 30,
               duration: 159,
@@ -6134,6 +6678,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 52,
               duration: null,
@@ -6144,6 +6689,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "top-right" as const,
               trimStart: 40,
               duration: null,
@@ -6154,6 +6700,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "bottom-right" as const,
               trimStart: 0,
               duration: null,
@@ -6164,6 +6711,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              bRolls: [],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: 830,

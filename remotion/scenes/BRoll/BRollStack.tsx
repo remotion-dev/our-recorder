@@ -1,9 +1,9 @@
 import React from "react";
 import { useCurrentFrame } from "remotion";
 import type { CanvasLayout } from "../../../config/layout";
+import type { BRollScene } from "../../../config/scenes";
 import type { BRollEnterDirection, Layout } from "../../layout/layout-types";
 import { BRoll } from "./BRoll";
-import type { BRollScene } from "./types";
 
 export const BRollStack: React.FC<{
   bRollLayout: Layout;

@@ -22,6 +22,16 @@ const availablePositionsAndPrevious = [
   ...availablePositions,
 ] as const;
 
+const bRoll = z.object({
+  source: z.string(),
+  durationInFrames: z.number().int(),
+  from: z.number().int(),
+  assetWidth: z.number().int(),
+  assetHeight: z.number().int(),
+});
+
+export type BRollScene = z.infer<typeof bRoll>;
+
 export const videoScene = z.object({
   type: z.literal("videoscene"),
   webcamPosition: z.enum(availablePositionsAndPrevious),
@@ -31,6 +41,7 @@ export const videoScene = z.object({
   newChapter: z.string().optional(),
   stopChapteringAfterThis: z.boolean().optional(),
   music,
+  bRolls: z.array(bRoll).default([]),
 });
 
 export type VideoScene = z.infer<typeof videoScene>;
