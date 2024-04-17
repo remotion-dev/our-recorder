@@ -24,55 +24,45 @@ export const ScaleDownWithBRoll: React.FC<
   canvasLayout,
   bRollLayout,
   bRollEnterDirection,
+  style: passedStyle,
   ...props
 }) => {
   const { fps } = useVideoConfig();
 
   const springs = bRolls.map((roll) => {
-    return (
-      spring({
-        fps,
-        frame,
-        config: {
-          damping: 200,
-        },
-        delay: roll.from,
-        durationInFrames: B_ROLL_TRANSITION_DURATION,
-      }) -
-      spring({
-        fps,
-        frame,
-        config: {
-          damping: 200,
-        },
-        delay: roll.from + roll.durationInFrames - B_ROLL_TRANSITION_DURATION,
-        durationInFrames: B_ROLL_TRANSITION_DURATION,
-      })
-    );
+    const enter = spring({
+      fps,
+      frame,
+      config: {
+        damping: 200,
+      },
+      delay: roll.from,
+      durationInFrames: B_ROLL_TRANSITION_DURATION,
+    });
+    const exit = spring({
+      fps,
+      frame,
+      config: {
+        damping: 200,
+      },
+      delay: roll.from + roll.durationInFrames - B_ROLL_TRANSITION_DURATION,
+      durationInFrames: B_ROLL_TRANSITION_DURATION,
+    });
+    return enter - exit;
   }, []);
 
-  const scaleFromBRoll = useMemo(() => {
+  const scale = useMemo(() => {
     return springs.reduce((acc, instance) => {
       return acc - instance * SCALE_DOWN;
     }, 1);
   }, [springs]);
 
-  const translation = useMemo(() => {
-    return springs.reduce((acc, instance) => {
-      const expectedHeightLoss = bRollLayout.height * SCALE_DOWN;
+  const style = useMemo(() => {
+    return {
+      ...(passedStyle ?? {}),
+      scale: String(scale),
+    };
+  }, [passedStyle, scale]);
 
-      return acc + instance * (expectedHeightLoss / 2);
-    }, 0);
-  }, [bRollLayout.height, springs]);
-
-  return (
-    <div
-      {...props}
-      style={{
-        ...props.style,
-        scale: String(scaleFromBRoll),
-        translate: `0 ${translation * (bRollEnterDirection === "bottom" ? -1 : 1)}px`,
-      }}
-    />
-  );
+  return <div {...props} style={style} />;
 };

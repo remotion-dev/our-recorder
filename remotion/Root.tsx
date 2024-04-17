@@ -6498,7 +6498,7 @@ export const Root = () => {
               transitionToNextScene: true,
               newChapter: "",
               stopChapteringAfterThis: false,
-              music: "previous" as const,
+              music: "euphoric" as const,
             },
             {
               type: "videoscene" as const,
@@ -6543,7 +6543,13 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
-              bRolls: [],
+              bRolls: [
+                {
+                  source: staticFile("vps/nextjs.png"),
+                  durationInFrames: 90,
+                  from: 160,
+                },
+              ],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -6662,7 +6668,7 @@ export const Root = () => {
               durationInFrames: 200,
               music: "previous" as const,
               channel: "jonny" as const,
-              platform: "youtube" as const,
+              platform: "youtube",
               links: [],
               transitionToNextScene: true,
             },
