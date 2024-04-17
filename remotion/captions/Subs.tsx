@@ -123,7 +123,7 @@ export const Subs: React.FC<{
 
     return postprocessSubtitles({
       subTypes: whisperOutput,
-      boxWidth: scene.layout.subLayout.width,
+      boxWidth: scene.layout.subtitleLayout.width,
       maxLines: scene.layout.subtitleLines,
       fontSize: scene.layout.subtitleFontSize,
       canvasLayout,
@@ -131,7 +131,7 @@ export const Subs: React.FC<{
     });
   }, [
     whisperOutput,
-    scene.layout.subLayout.width,
+    scene.layout.subtitleLayout.width,
     scene.layout.subtitleLines,
     scene.layout.subtitleFontSize,
     canvasLayout,

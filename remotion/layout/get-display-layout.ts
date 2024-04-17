@@ -81,5 +81,18 @@ export const getLandscapeDisplayAndWebcamLayout = ({
     top,
   };
 
-  return displayLayout;
+  const webcamLayout: Layout = {
+    borderRadius,
+    height: webcamSize.height,
+    width: webcamSize.width,
+    opacity: 1,
+    left: isWebCamRight(webcamPosition)
+      ? displayLayout.left + displayLayout.width + getSafeSpace("landscape")
+      : left,
+    top: isWebCamAtBottom(webcamPosition)
+      ? top + displaySize.height - webcamSize.height
+      : top,
+  };
+
+  return { displayLayout, webcamLayout };
 };
