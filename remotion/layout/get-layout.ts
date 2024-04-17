@@ -70,7 +70,7 @@ const widescreenFullscreenLayout = ({
   };
 };
 
-const squareBentoBoxWebcamLayout = ({
+const getSquareBentoBoxWebcamLayout = ({
   webcamSize,
   webcamPosition,
   canvasSize,
@@ -162,105 +162,41 @@ export type CameraSceneLayout = {
 
 const getDisplayAndWebcamLayout = ({
   canvasSize,
-  displaySize,
   webcamPosition,
   canvasLayout,
-  webcamSize,
+  videos,
 }: {
   canvasSize: Dimensions;
   webcamPosition: FinalWebcamPosition;
-  displaySize: Dimensions;
   canvasLayout: CanvasLayout;
-  webcamSize: Dimensions;
-}) => {
-  if (canvasLayout === "square") {
-    const displayLayout = getSquareDisplayLayout({
-      canvasSize,
-      webcamPosition,
-      displaySize,
-    });
-
-    const webcamLayout = squareBentoBoxWebcamLayout({
-      webcamPosition,
-      canvasSize,
-      webcamSize,
-    });
-    return {
-      displayLayout,
-      webcamLayout,
-    };
-  }
-
-  return getLandscapeDisplayAndWebcamLayout({
-    displaySize,
-    webcamSize,
-    canvasLayout,
-    canvasSize,
-    webcamPosition,
-  });
-};
-
-export const getLayout = ({
-  canvasLayout,
-  videos,
-  webcamPosition,
-}: {
   videos: SceneVideos;
-  canvasLayout: CanvasLayout;
-  webcamPosition: FinalWebcamPosition;
-}): CameraSceneLayout => {
-  const canvasSize = getDimensionsForLayout(canvasLayout);
-
+}) => {
   if (!videos.display) {
-    const noDisplayWebcamLayout =
-      canvasLayout === "square"
-        ? squareFullscreenWebcamLayout({
+    if (canvasLayout === "square") {
+      return {
+        displayLayout: null,
+        webcamLayout: squareFullscreenWebcamLayout({
+          canvasSize,
+          webcamPosition,
+          webcamSize: getFullScreenWebcamSize({
             canvasSize,
-            webcamPosition,
-            webcamSize: getFullScreenWebcamSize({
-              canvasSize,
-              canvasLayout,
-              webcamVideoResolution: videos.webcam,
-            }),
-          })
-        : widescreenFullscreenLayout({
-            canvasSize,
-          });
+            canvasLayout,
+            webcamVideoResolution: videos.webcam,
+          }),
+        }),
+      };
+    }
 
-    const noDisplaySubtitleType = getSubtitlesType({
-      canvasLayout,
-      displayLayout: null,
-    });
+    if (canvasLayout === "landscape") {
+      return {
+        displayLayout: null,
+        webcamLayout: widescreenFullscreenLayout({
+          canvasSize,
+        }),
+      };
+    }
 
-    const noDisplaySubtitleFontSize = getSubtitlesFontSize(
-      noDisplaySubtitleType,
-      null,
-    );
-
-    const noDisplaySubtitleLayout = getSubsLayout({
-      canvasLayout,
-      canvasSize,
-      displayLayout: null,
-      subtitleType: noDisplaySubtitleType,
-      webcamLayout: noDisplayWebcamLayout,
-      webcamPosition,
-      fontSize: noDisplaySubtitleFontSize,
-    });
-
-    const noDisplaysubtitleLines = getSubtitlesLines({
-      boxHeight: noDisplaySubtitleLayout.height,
-      fontSize: noDisplaySubtitleFontSize,
-      subtitleType: noDisplaySubtitleType,
-    });
-
-    return {
-      displayLayout: null,
-      webcamLayout: noDisplayWebcamLayout,
-      subtitleLayout: noDisplaySubtitleLayout,
-      subtitleType: noDisplaySubtitleType,
-      subtitleFontSize: noDisplaySubtitleFontSize,
-      subtitleLines: noDisplaysubtitleLines,
-    };
+    throw new Error(`Unknown canvas layout: ${canvasLayout}`);
   }
 
   const displaySize = getDisplaySize({
@@ -276,12 +212,54 @@ export const getLayout = ({
     displaySize,
   });
 
+  if (canvasLayout === "square") {
+    const displayLayout = getSquareDisplayLayout({
+      canvasSize,
+      webcamPosition,
+      displaySize,
+    });
+
+    const webcamLayout = getSquareBentoBoxWebcamLayout({
+      webcamPosition,
+      canvasSize,
+      webcamSize,
+    });
+
+    return {
+      displayLayout,
+      webcamLayout,
+    };
+  }
+
+  if (canvasLayout === "landscape") {
+    return getLandscapeDisplayAndWebcamLayout({
+      displaySize,
+      webcamSize,
+      canvasLayout,
+      canvasSize,
+      webcamPosition,
+    });
+  }
+
+  throw new Error(`Unknown canvas layout: ${canvasLayout}`);
+};
+
+export const getLayout = ({
+  canvasLayout,
+  videos,
+  webcamPosition,
+}: {
+  videos: SceneVideos;
+  canvasLayout: CanvasLayout;
+  webcamPosition: FinalWebcamPosition;
+}): CameraSceneLayout => {
+  const canvasSize = getDimensionsForLayout(canvasLayout);
+
   const { displayLayout, webcamLayout } = getDisplayAndWebcamLayout({
     canvasSize,
-    displaySize,
     webcamPosition,
     canvasLayout,
-    webcamSize,
+    videos,
   });
 
   const subtitleType = getSubtitlesType({
