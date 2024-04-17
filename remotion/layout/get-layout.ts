@@ -20,6 +20,7 @@ import { getBottomSafeSpace } from "./get-safe-space";
 import { getWebcamSize } from "./get-webcam-size";
 import type {
   BRollEnterDirection,
+  BRollType,
   Layout,
   RecordingsLayout,
 } from "./layout-types";
@@ -180,6 +181,7 @@ export type CameraSceneLayout = {
   webcamLayout: Layout;
   displayLayout: Layout | null;
   bRollLayout: Layout;
+  bRollType: BRollType;
   subtitleLayout: Layout;
   subtitleType: SubtitleType;
   subtitleFontSize: number;
@@ -331,6 +333,9 @@ export const getLayout = ({
     subtitleType,
   });
 
+  const bRollType =
+    canvasLayout === "landscape" && videos.display === null ? "fade" : "scale";
+
   return {
     displayLayout,
     webcamLayout,
@@ -340,5 +345,6 @@ export const getLayout = ({
     subtitleFontSize,
     subtitleLines,
     bRollEnterDirection,
+    bRollType,
   };
 };

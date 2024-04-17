@@ -8,7 +8,7 @@ import type {
 import { getDisplayPosition } from "../../animations/display-transitions";
 import type { BRollEnterDirection, Layout } from "../../layout/layout-types";
 import { BRollStack } from "../BRoll/BRollStack";
-import { ScaleDownWithBRoll } from "../BRoll/ScaleDownWithBRoll";
+import { ScaleDownIfBRollRequiresIt } from "../BRoll/ScaleDownWithBRoll";
 
 const outer: React.CSSProperties = {
   position: "absolute",
@@ -73,11 +73,12 @@ export const Display: React.FC<{
 
   return (
     <div style={outer}>
-      <ScaleDownWithBRoll
+      <ScaleDownIfBRollRequiresIt
         canvasLayout={canvasLayout}
         bRollEnterDirection={bRollEnterDirection}
         bRolls={scene.bRolls}
         bRollLayout={bRollLayout}
+        bRollType={scene.layout.bRollType}
         frame={frame}
         style={{
           position: "absolute",
@@ -96,7 +97,7 @@ export const Display: React.FC<{
             objectFit: "cover",
           }}
         />
-      </ScaleDownWithBRoll>
+      </ScaleDownIfBRollRequiresIt>
       <BRollStack
         bRollEnterDirection={bRollEnterDirection}
         bRolls={scene.bRolls}

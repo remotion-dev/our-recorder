@@ -99,6 +99,7 @@ export const CameraScene: React.FC<{
           previousScene={previousScene}
           bRollLayout={sceneAndMetadata.layout.bRollLayout}
           bRollEnterDirection={sceneAndMetadata.layout.bRollEnterDirection}
+          bRollType={sceneAndMetadata.layout.bRollType}
         />
       </AbsoluteFill>
       {sceneAndMetadata.pair.subs ? (

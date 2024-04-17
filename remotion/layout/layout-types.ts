@@ -20,3 +20,4 @@ export type RecordingsLayout = {
 };
 
 export type BRollEnterDirection = "top" | "bottom";
+export type BRollType = "scale" | "fade";

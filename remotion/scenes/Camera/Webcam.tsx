@@ -7,9 +7,13 @@ import type {
   VideoSceneAndMetadata,
 } from "../../../config/scenes";
 import { getWebcamLayout } from "../../animations/webcam-transitions";
-import type { BRollEnterDirection, Layout } from "../../layout/layout-types";
+import type {
+  BRollEnterDirection,
+  BRollType,
+  Layout,
+} from "../../layout/layout-types";
 import { BRollStack } from "../BRoll/BRollStack";
-import { ScaleDownWithBRoll } from "../BRoll/ScaleDownWithBRoll";
+import { ScaleDownIfBRollRequiresIt } from "../BRoll/ScaleDownWithBRoll";
 
 const outer: React.CSSProperties = {
   position: "absolute",
@@ -29,6 +33,7 @@ export const Webcam: React.FC<{
   bRolls: BRollWithDimensions[];
   bRollLayout: Layout;
   bRollEnterDirection: BRollEnterDirection;
+  bRollType: BRollType;
 }> = ({
   webcamLayout,
   enterProgress,
@@ -42,6 +47,7 @@ export const Webcam: React.FC<{
   bRolls,
   bRollLayout,
   bRollEnterDirection,
+  bRollType,
 }) => {
   const frame = useCurrentFrame();
   const { height, width } = useVideoConfig();
@@ -90,13 +96,14 @@ export const Webcam: React.FC<{
 
   return (
     <div style={outer}>
-      <ScaleDownWithBRoll
+      <ScaleDownIfBRollRequiresIt
         canvasLayout={canvasLayout}
         bRollEnterDirection={bRollEnterDirection}
         bRolls={bRolls}
         bRollLayout={bRollLayout}
         frame={frame}
         style={container}
+        bRollType={bRollType}
       >
         <OffthreadVideo
           startFrom={startFrom}
@@ -104,7 +111,7 @@ export const Webcam: React.FC<{
           style={style}
           src={currentScene.pair.webcam.src}
         />
-      </ScaleDownWithBRoll>
+      </ScaleDownIfBRollRequiresIt>
       <BRollStack
         canvasLayout={canvasLayout}
         bRollEnterDirection={bRollEnterDirection}

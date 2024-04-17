@@ -3,22 +3,27 @@ import { spring, useVideoConfig } from "remotion";
 import type { CanvasLayout } from "../../../config/layout";
 import type { BRoll } from "../../../config/scenes";
 import { B_ROLL_TRANSITION_DURATION } from "../../../config/transitions";
-import type { BRollEnterDirection, Layout } from "../../layout/layout-types";
+import type {
+  BRollEnterDirection,
+  BRollType,
+  Layout,
+} from "../../layout/layout-types";
 
 // A value of 0.1 means that the original
 // video only has a 90% of its original size
 // when a b-roll is shown
 const SCALE_DOWN = 0.1;
 
-export const ScaleDownWithBRoll: React.FC<
-  {
-    bRolls: BRoll[];
-    frame: number;
-    canvasLayout: CanvasLayout;
-    bRollLayout: Layout;
-    bRollEnterDirection: BRollEnterDirection;
-  } & React.HTMLAttributes<HTMLDivElement>
-> = ({
+type Props = {
+  bRolls: BRoll[];
+  frame: number;
+  canvasLayout: CanvasLayout;
+  bRollLayout: Layout;
+  bRollType: BRollType;
+  bRollEnterDirection: BRollEnterDirection;
+} & React.HTMLAttributes<HTMLDivElement>;
+
+export const ScaleDownWithBRoll: React.FC<Props> = ({
   bRolls,
   frame,
   canvasLayout,
@@ -65,4 +70,30 @@ export const ScaleDownWithBRoll: React.FC<
   }, [passedStyle, scale]);
 
   return <div {...props} style={style} />;
+};
+
+export const ScaleDownIfBRollRequiresIt: React.FC<Props> = ({
+  bRollEnterDirection,
+  bRollLayout,
+  bRollType,
+  bRolls,
+  canvasLayout,
+  frame,
+  ...props
+}) => {
+  if (bRollType === "fade") {
+    return <div {...props} />;
+  }
+
+  return (
+    <ScaleDownWithBRoll
+      bRolls={bRolls}
+      frame={frame}
+      canvasLayout={canvasLayout}
+      bRollLayout={bRollLayout}
+      bRollType={bRollType}
+      bRollEnterDirection={bRollEnterDirection}
+      {...props}
+    />
+  );
 };
