@@ -6491,7 +6491,23 @@ export const Root = () => {
           scenes: [
             {
               type: "videoscene" as const,
-              bRolls: [],
+              bRolls: [
+                {
+                  source: staticFile("vps/vercel.png"),
+                  durationInFrames: 60,
+                  from: 60,
+                },
+                {
+                  source: staticFile("vps/vps.png"),
+                  durationInFrames: 60,
+                  from: 150,
+                },
+                {
+                  source: staticFile("vps/levels.png"),
+                  durationInFrames: 100,
+                  from: 237,
+                },
+              ],
               webcamPosition: "previous" as const,
               trimStart: 0,
               duration: null,
@@ -6515,7 +6531,7 @@ export const Root = () => {
               type: "title" as const,
               title: "Upsides of Vercel",
               subtitle: "",
-              durationInFrames: 90,
+              durationInFrames: 70,
               transitionToNextScene: true,
               music: "previous" as const,
             },
@@ -6526,14 +6542,14 @@ export const Root = () => {
               trimStart: 0,
               duration: null,
               transitionToNextScene: true,
-              newChapter: "",
+              newChapter: "1. Multiple sites",
               stopChapteringAfterThis: false,
               music: "previous" as const,
             },
             {
               type: "videoscene" as const,
               bRolls: [],
-              webcamPosition: "previous" as const,
+              webcamPosition: "top-right" as const,
               trimStart: 0,
               duration: null,
               transitionToNextScene: true,
