@@ -118,9 +118,9 @@ export const CameraScene: React.FC<{
       ) : null}
       {sceneAndMetadata.scene.newChapter && canvasLayout === "square" ? (
         <SquareChapter
-          webcamPosition={sceneAndMetadata.finalWebcamPosition}
           title={sceneAndMetadata.scene.newChapter}
-          theme={theme}
+          displayLayout={sceneAndMetadata.layout.displayLayout}
+          webcamLayout={sceneAndMetadata.layout.webcamLayout}
           didTransitionIn={getShouldTransitionIn({
             previousScene,
             scene: sceneAndMetadata,

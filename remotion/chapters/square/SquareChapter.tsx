@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import {
   AbsoluteFill,
   spring,
@@ -7,20 +7,33 @@ import {
 } from "remotion";
 import { TITLE_FONT_FAMILY, TITLE_FONT_WEIGHT } from "../../../config/fonts";
 import { getSafeSpace } from "../../../config/layout";
-import type { FinalWebcamPosition } from "../../../config/scenes";
-import type { Theme } from "../../../config/themes";
-import { COLORS } from "../../../config/themes";
 import { SCENE_TRANSITION_DURATION } from "../../../config/transitions";
-import { isWebCamAtBottom } from "../../animations/webcam-transitions/helpers";
 import { borderRadius } from "../../layout/get-layout";
+import type { Layout } from "../../layout/layout-types";
+
+const HEIGHT = 90;
 
 export const SquareChapter: React.FC<{
   title: string;
-  webcamPosition: FinalWebcamPosition;
-  theme: Theme;
   didTransitionIn: boolean;
-}> = ({ title, webcamPosition, theme, didTransitionIn }) => {
-  const isTop = !isWebCamAtBottom(webcamPosition);
+  displayLayout: Layout | null;
+  webcamLayout: Layout;
+}> = ({ title, webcamLayout, didTransitionIn, displayLayout }) => {
+  const top = useMemo(() => {
+    if (displayLayout) {
+      return (
+        displayLayout.top +
+        displayLayout.height -
+        getSafeSpace("square") -
+        HEIGHT
+      );
+    }
+
+    return (
+      webcamLayout.top + webcamLayout.height - getSafeSpace("square") - HEIGHT
+    );
+  }, [displayLayout, webcamLayout.height, webcamLayout.top]);
+
   const frame = useCurrentFrame();
   const { fps, width } = useVideoConfig();
 
@@ -45,18 +58,20 @@ export const SquareChapter: React.FC<{
       <div
         style={{
           color: "white",
-          padding: "16px 30px",
-          background: COLORS[theme].ACCENT_COLOR,
+          padding: "0 38px",
+          background: "black",
           fontFamily: TITLE_FONT_FAMILY,
           position: "absolute",
-          top: isTop ? undefined : getSafeSpace("square") * 2,
-          bottom: isTop ? getSafeSpace("square") * 2 : undefined,
+          top,
+          height: HEIGHT,
           left: getSafeSpace("square") * 2,
           borderRadius,
-          fontSize: 50,
-          border: "8px solid black",
+          fontSize: 42,
           fontWeight: TITLE_FONT_WEIGHT,
           scale: String(scale),
+          display: "flex",
+          alignItems: "center",
+          boxShadow: "0 -20px 100px rgba(255, 255, 255, 0.2)",
           transform: `translateX(${toLeft}px)`,
         }}
       >
