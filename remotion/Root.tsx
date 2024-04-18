@@ -6686,7 +6686,13 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
-              bRolls: [],
+              bRolls: [
+                {
+                  source: staticFile("vps/levels.png"),
+                  durationInFrames: 90,
+                  from: 200,
+                },
+              ],
               webcamPosition: "top-left" as const,
               trimStart: 34,
               duration: null,
