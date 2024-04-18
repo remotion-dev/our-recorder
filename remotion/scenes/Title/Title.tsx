@@ -1,7 +1,7 @@
 import React from "react";
 import { AbsoluteFill } from "remotion";
 import {
-  REGULAR_FONT_FAMILY,
+  REGULAR_FONT_WEIGHT,
   TITLE_FONT_FAMILY,
   TITLE_FONT_WEIGHT,
 } from "../../../config/fonts";
@@ -18,6 +18,8 @@ export const Title: React.FC<{
       style={{
         justifyContent: "center",
         alignItems: "center",
+        paddingLeft: 30,
+        paddingRight: 30,
       }}
     >
       <div
@@ -26,6 +28,8 @@ export const Title: React.FC<{
           fontSize: 60,
           color: COLORS[theme].WORD_COLOR_ON_BG_APPEARED,
           fontWeight: TITLE_FONT_WEIGHT,
+          textAlign: "center",
+          textWrap: "balance",
         }}
       >
         {title}
@@ -35,9 +39,12 @@ export const Title: React.FC<{
           style={{
             fontFamily: TITLE_FONT_FAMILY,
             fontSize: 40,
-            color: COLORS[theme].ACCENT_COLOR,
-            fontWeight: REGULAR_FONT_FAMILY,
+            // TODO: Introduce a subtitle color in the theme
+            color: COLORS[theme].ENDCARD_TEXT_COLOR,
+            fontWeight: REGULAR_FONT_WEIGHT,
             marginTop: 10,
+            textAlign: "center",
+            textWrap: "balance",
           }}
         >
           {subtitle}

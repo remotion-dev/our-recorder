@@ -29,12 +29,12 @@ const gtPlanarRegular =
         .then((f) => {
           document.fonts.add(f);
         });
-const gtPlanarBold =
+const gtPlanarMedium =
   typeof document === "undefined"
     ? Promise.resolve()
     : new FontFace(
         "GT Planar",
-        `url(${staticFile("gt-planar-bold.woff2")}) format('woff2')`,
+        `url(${staticFile("gt-planar-medium.woff2")}) format('woff2')`,
       )
         .load()
         .then((f) => {
@@ -46,7 +46,7 @@ const gtPlanarBold =
 
 export const waitForFonts = async () => {
   await regular.waitUntilDone();
-  await gtPlanarBold;
+  await gtPlanarMedium;
   await gtPlanarRegular;
 };
 

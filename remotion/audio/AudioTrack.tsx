@@ -81,7 +81,7 @@ const AudioClip: React.FC<{
     return calculateVolume({ durationInFrames, loudParts });
   }, [durationInFrames, loudParts]);
 
-  return <Audio volume={volumeFunction} src={src} />;
+  return <Audio volume={volumeFunction} src={src} loop />;
 };
 
 export const AudioTrack: React.FC<{
