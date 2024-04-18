@@ -10,6 +10,7 @@ import { getSafeSpace } from "../../../config/layout";
 import type { FinalWebcamPosition } from "../../../config/scenes";
 import type { Theme } from "../../../config/themes";
 import { COLORS } from "../../../config/themes";
+import { SCENE_TRANSITION_DURATION } from "../../../config/transitions";
 import { isWebCamAtBottom } from "../../animations/webcam-transitions/helpers";
 import { borderRadius } from "../../layout/get-layout";
 
@@ -17,7 +18,8 @@ export const SquareChapter: React.FC<{
   title: string;
   webcamPosition: FinalWebcamPosition;
   theme: Theme;
-}> = ({ title, webcamPosition, theme }) => {
+  didTransitionIn: boolean;
+}> = ({ title, webcamPosition, theme, didTransitionIn }) => {
   const isTop = !isWebCamAtBottom(webcamPosition);
   const frame = useCurrentFrame();
   const { fps, width } = useVideoConfig();
@@ -25,6 +27,7 @@ export const SquareChapter: React.FC<{
   const scale = spring({
     fps,
     frame,
+    delay: didTransitionIn ? SCENE_TRANSITION_DURATION : 0,
   });
 
   const toLeft =
