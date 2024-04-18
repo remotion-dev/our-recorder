@@ -107,6 +107,7 @@ const InnerBRoll: React.FC<{
       boxShadow: "0 0 50px rgba(0, 0, 0, 0.2)",
       maxWidth: "100%",
       maxHeight: "100%",
+      height: 10000,
     };
   }, [bRollLayout.borderRadius]);
 
