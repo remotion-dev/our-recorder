@@ -53,14 +53,17 @@ const calculateVolume =
     );
 
     if (isLoudPart) {
+      const loudPartDuration = isLoudPart[1] - isLoudPart[0];
+      const isTooShort = loudPartDuration <= AUDIO_FADE_IN_FRAMES * 2;
+      const firstKeyFrame = isTooShort
+        ? loudPartDuration / 2 + isLoudPart[0]
+        : isLoudPart[0] + AUDIO_FADE_IN_FRAMES;
+      const secondKeyFrame = isTooShort
+        ? loudPartDuration / 2 + isLoudPart[0] + 1
+        : isLoudPart[1] - AUDIO_FADE_IN_FRAMES;
       return interpolate(
         f,
-        [
-          isLoudPart[0],
-          isLoudPart[0] + AUDIO_FADE_IN_FRAMES,
-          isLoudPart[1] - AUDIO_FADE_IN_FRAMES,
-          isLoudPart[1],
-        ],
+        [isLoudPart[0], firstKeyFrame, secondKeyFrame, isLoudPart[1]],
         [regularVolume, REGULAR_VOLUME, REGULAR_VOLUME, regularVolume],
       );
     }
