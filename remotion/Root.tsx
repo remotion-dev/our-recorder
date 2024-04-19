@@ -5149,6 +5149,130 @@ export const Root = () => {
       />
       <Composition
         component={Main}
+        id="zoomblur"
+        schema={videoConf}
+        defaultProps={{
+          theme: "light" as const,
+          canvasLayout: "square" as const,
+          platform: "x",
+          scenes: [
+            {
+              type: "videoscene" as const,
+              webcamPosition: "previous" as const,
+              trimStart: 0,
+              duration: null,
+              transitionToNextScene: true,
+              newChapter: "",
+              stopChapteringAfterThis: false,
+              music: "soft" as const,
+              bRolls: [],
+            },
+            {
+              type: "videoscene" as const,
+              webcamPosition: "previous" as const,
+              trimStart: 0,
+              duration: null,
+              transitionToNextScene: true,
+              newChapter: "",
+              stopChapteringAfterThis: false,
+              music: "previous" as const,
+              bRolls: [],
+            },
+            {
+              type: "videoscene" as const,
+              webcamPosition: "previous" as const,
+              trimStart: 0,
+              duration: null,
+              transitionToNextScene: true,
+              newChapter: "",
+              stopChapteringAfterThis: false,
+              music: "previous" as const,
+              bRolls: [],
+            },
+            {
+              type: "videoscene" as const,
+              webcamPosition: "previous" as const,
+              trimStart: 0,
+              duration: null,
+              transitionToNextScene: true,
+              newChapter: "",
+              stopChapteringAfterThis: false,
+              music: "previous" as const,
+              bRolls: [],
+            },
+            {
+              type: "videoscene" as const,
+              webcamPosition: "previous" as const,
+              trimStart: 0,
+              duration: null,
+              transitionToNextScene: true,
+              newChapter: "",
+              stopChapteringAfterThis: false,
+              music: "previous" as const,
+              bRolls: [],
+            },
+            {
+              type: "videoscene" as const,
+              webcamPosition: "previous" as const,
+              trimStart: 0,
+              duration: null,
+              transitionToNextScene: true,
+              newChapter: "",
+              stopChapteringAfterThis: false,
+              music: "previous" as const,
+              bRolls: [],
+            },
+            {
+              type: "videoscene" as const,
+              webcamPosition: "previous" as const,
+              trimStart: 0,
+              duration: null,
+              transitionToNextScene: true,
+              newChapter: "",
+              stopChapteringAfterThis: false,
+              music: "previous" as const,
+              bRolls: [],
+            },
+            {
+              type: "videoscene" as const,
+              webcamPosition: "previous" as const,
+              trimStart: 0,
+              duration: null,
+              transitionToNextScene: true,
+              newChapter: "",
+              stopChapteringAfterThis: false,
+              music: "previous" as const,
+              bRolls: [],
+            },
+            {
+              type: "videoscene" as const,
+              webcamPosition: "previous" as const,
+              trimStart: 0,
+              duration: null,
+              transitionToNextScene: true,
+              newChapter: "",
+              stopChapteringAfterThis: false,
+              music: "previous" as const,
+              bRolls: [],
+            },
+            {
+              type: "videoscene" as const,
+              webcamPosition: "previous" as const,
+              trimStart: 0,
+              duration: null,
+              transitionToNextScene: true,
+              newChapter: "",
+              stopChapteringAfterThis: false,
+              music: "previous" as const,
+              bRolls: [],
+            },
+          ],
+          scenesAndMetadata: [],
+        }}
+        calculateMetadata={calcMetadata}
+      />
+      <Composition
+        component={Main}
         fps={FPS}
         durationInFrames={100}
         id="license"
