@@ -5165,12 +5165,18 @@ export const Root = () => {
               newChapter: "",
               stopChapteringAfterThis: false,
               music: "previous" as const,
-              bRolls: [],
+              bRolls: [
+                {
+                  source: staticFile("zoomblur/zoomblurdiscord.png"),
+                  durationInFrames: 90,
+                  from: 30,
+                },
+              ],
             },
             {
               type: "videoscene" as const,
               webcamPosition: "bottom-left" as const,
-              trimStart: 28,
+              trimStart: 8,
               duration: null,
               transitionToNextScene: true,
               newChapter: "",
@@ -5181,7 +5187,7 @@ export const Root = () => {
             {
               type: "videoscene" as const,
               webcamPosition: "top-left" as const,
-              trimStart: 25,
+              trimStart: 14,
               duration: null,
               transitionToNextScene: true,
               newChapter: "",
