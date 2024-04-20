@@ -5197,7 +5197,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
-              webcamPosition: "bottom-left" as const,
+              webcamPosition: "bottom-right" as const,
               trimStart: 10,
               duration: null,
               transitionToNextScene: true,
@@ -5208,7 +5208,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
-              webcamPosition: "previous" as const,
+              webcamPosition: "bottom-left" as const,
               trimStart: 20,
               duration: null,
               transitionToNextScene: true,
@@ -5219,7 +5219,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
-              webcamPosition: "previous" as const,
+              webcamPosition: "top-right" as const,
               trimStart: 70,
               duration: null,
               transitionToNextScene: true,
@@ -5230,7 +5230,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
-              webcamPosition: "previous" as const,
+              webcamPosition: "bottom-left" as const,
               trimStart: 7,
               duration: null,
               transitionToNextScene: true,
@@ -5241,7 +5241,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
-              webcamPosition: "previous" as const,
+              webcamPosition: "top-right" as const,
               trimStart: 50,
               duration: 499,
               transitionToNextScene: true,
@@ -5252,7 +5252,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
-              webcamPosition: "previous" as const,
+              webcamPosition: "bottom-left" as const,
               trimStart: 0,
               duration: null,
               transitionToNextScene: true,
@@ -5263,7 +5263,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
-              webcamPosition: "previous" as const,
+              webcamPosition: "top-right" as const,
               trimStart: 0,
               duration: null,
               transitionToNextScene: true,
@@ -5283,7 +5283,7 @@ export const Root = () => {
               durationInFrames: 200,
               music: "previous" as const,
               channel: "jonny" as const,
-              links: [],
+              links: [{ link: "remotion-dev/gl-transitions" }],
               transitionToNextScene: true,
             },
           ],
