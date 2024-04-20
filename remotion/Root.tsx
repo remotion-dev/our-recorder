@@ -5263,7 +5263,7 @@ export const Root = () => {
               transitionToNextScene: true,
               newChapter: "",
               stopChapteringAfterThis: false,
-              music: "previous" as const,
+              music: "soft" as const,
               bRolls: [],
             },
             {
