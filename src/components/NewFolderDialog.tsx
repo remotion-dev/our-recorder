@@ -7,6 +7,7 @@ import React, {
   useState,
 } from "react";
 import { createProject } from "../create-project";
+import { useKeyPress } from "../use-key-press";
 import { Button } from "./ui/button";
 import {
   Dialog,
@@ -24,8 +25,8 @@ export const createNewFolderRef = createRef<{
 }>();
 
 export const NewFolderDialog: React.FC<{
-  readonly setSelectedFolder: React.Dispatch<SetStateAction<string | null>>;
-  readonly refreshFoldersList: () => Promise<void>;
+  setSelectedFolder: React.Dispatch<SetStateAction<string | null>>;
+  refreshFoldersList: () => Promise<void>;
 }> = ({ refreshFoldersList, setSelectedFolder }) => {
   const [newProject, setNewProject] = useState<string>("");
   const [open, setOpen] = useState<boolean>(false);
@@ -81,6 +82,14 @@ export const NewFolderDialog: React.FC<{
     },
     [],
   );
+
+  const handlePressEnter = useCallback(() => {
+    if (!disabled) {
+      handleSubmit();
+    }
+  }, [disabled, handleSubmit]);
+
+  useKeyPress(["Enter"], handlePressEnter);
 
   return (
     <Dialog onOpenChange={setOpen} open={open}>
