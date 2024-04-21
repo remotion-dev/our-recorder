@@ -7039,7 +7039,7 @@ export const Root = () => {
               type: "videoscene" as const,
               bRolls: [
                 {
-                  source: staticFile("marathon/broll1.MOV"),
+                  source: staticFile("marathon/broll1.mp4"),
                   durationInFrames: 90,
                   from: 50,
                 },
@@ -7146,7 +7146,7 @@ export const Root = () => {
               type: "videoscene" as const,
               bRolls: [
                 {
-                  source: staticFile("marathon/broll90.mov"),
+                  source: staticFile("marathon/broll90.mp4"),
                   durationInFrames: 90,
                   from: 60,
                 },
