@@ -7066,7 +7066,7 @@ export const Root = () => {
             {
               type: "videoscene" as const,
               bRolls: [],
-              webcamPosition: "top-right" as const,
+              webcamPosition: "bottom-left" as const,
               trimStart: 50,
               duration: 223,
               transitionToNextScene: true,
@@ -7077,7 +7077,7 @@ export const Root = () => {
             {
               type: "videoscene" as const,
               bRolls: [],
-              webcamPosition: "previous" as const,
+              webcamPosition: "top-left" as const,
               trimStart: 15,
               duration: 120,
               transitionToNextScene: true,
@@ -7092,7 +7092,7 @@ export const Root = () => {
               trimStart: 0,
               duration: null,
               transitionToNextScene: true,
-              newChapter: "4. Easy resource management",
+              newChapter: "",
               stopChapteringAfterThis: false,
               music: "previous" as const,
             },
