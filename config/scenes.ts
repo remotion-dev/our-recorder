@@ -104,6 +104,7 @@ export type Pair = {
   display: StaticFile | null;
   webcam: StaticFile;
   subs: StaticFile | null;
+  timestamp: number;
   alternative1: StaticFile | null;
   alternative2: StaticFile | null;
 };
