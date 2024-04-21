@@ -21,6 +21,9 @@ const gtPlanarRegular =
     : new FontFace(
         "GT Planar",
         `url(${staticFile("gt-planar-regular.woff2")}) format('woff2')`,
+        {
+          weight: "400",
+        },
       )
         .load()
         .then((f) => {
@@ -35,6 +38,7 @@ const gtPlanarMedium =
     : new FontFace(
         "GT Planar",
         `url(${staticFile("gt-planar-medium.woff2")}) format('woff2')`,
+        { weight: "500" },
       )
         .load()
         .then((f) => {
