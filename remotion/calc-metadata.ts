@@ -40,8 +40,10 @@ const getPairs = (prefix: string) => {
       }
 
       const timestamp = file.name
+        .toLowerCase()
         .replace(`${prefix}/${WEBCAM_PREFIX}`, "")
         .replace(".webm", "")
+        .replace(".mov", "")
         .replace(".mp4", "");
 
       const display = files.find((_f) =>
