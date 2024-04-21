@@ -1,7 +1,7 @@
 import { staticFile, type StaticFile } from "remotion";
 import { z } from "zod";
 import type { CameraSceneLayout } from "../remotion/layout/get-layout";
-import { brand, linkType } from "./endcard";
+import { brand, linkType, platform } from "./endcard";
 import type { Dimensions } from "./layout";
 import { canvasLayout } from "./layout";
 import { music } from "./sounds";
@@ -97,6 +97,7 @@ export type SceneType = z.infer<typeof configuration>;
 export const videoConf = z.object({
   theme,
   canvasLayout,
+  platform,
   scenes,
 });
 
