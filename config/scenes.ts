@@ -33,12 +33,12 @@ export type BRoll = z.infer<typeof bRoll>;
 export const videoScene = z.object({
   type: z.literal("videoscene"),
   webcamPosition: z.enum(availablePositionsAndPrevious),
-  trimStart: z.number(),
   duration: z.number().nullable().default(null),
   transitionToNextScene: z.boolean().default(true),
   newChapter: z.string().optional(),
   stopChapteringAfterThis: z.boolean().optional(),
   music,
+  startOffset: z.number(),
   bRolls: z.array(bRoll).default([]),
 });
 
@@ -132,6 +132,8 @@ export type VideoSceneAndMetadata = {
   finalWebcamPosition: FinalWebcamPosition;
   chapter: string | null;
   bRolls: BRollWithDimensions[];
+  startFrame: number;
+  endFrame: number;
 };
 
 export type SceneAndMetadata =
