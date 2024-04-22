@@ -3054,12 +3054,7 @@ export const Root = () => {
               stopChapteringAfterThis: false,
               music: "previous" as const,
             },
-            {
-              type: "remotionupdate" as const,
-              durationInFrames: 100,
-              music: "euphoric" as const,
-              transitionToNextScene: true,
-            },
+
             {
               type: "videoscene" as const,
               bRolls: [],
@@ -4024,12 +4019,6 @@ export const Root = () => {
           canvasLayout: "landscape" as const,
           platform: "x",
           scenes: [
-            {
-              type: "remotionupdate" as const,
-              durationInFrames: 100,
-              music: "soft" as const,
-              transitionToNextScene: true,
-            },
             {
               type: "videoscene" as const,
               bRolls: [],
@@ -5639,12 +5628,7 @@ export const Root = () => {
               transitionToNextScene: true,
               music: "soft" as const,
             },
-            {
-              type: "remotionupdate" as const,
-              durationInFrames: 100,
-              music: "previous" as const,
-              transitionToNextScene: true,
-            },
+
             {
               type: "videoscene" as const,
               bRolls: [],
@@ -6144,12 +6128,6 @@ export const Root = () => {
           canvasLayout: "landscape" as const,
           platform: "x",
           scenes: [
-            {
-              type: "remotionupdate" as const,
-              music: "previous" as const,
-              durationInFrames: 100,
-              transitionToNextScene: true,
-            },
             {
               type: "videoscene" as const,
               bRolls: [],

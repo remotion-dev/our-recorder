@@ -63,12 +63,7 @@ export const configuration = z.discriminatedUnion("type", [
     youTubePlug: z.boolean().default(false),
     transitionToNextScene: z.boolean().default(true),
   }),
-  z.object({
-    type: z.literal("remotionupdate"),
-    durationInFrames: z.number().int().default(100),
-    transitionToNextScene: z.boolean().default(true),
-    music,
-  }),
+
   z.object({
     type: z.literal("endcard"),
     durationInFrames: z.number().int().default(200),
