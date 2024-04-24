@@ -16,6 +16,7 @@ const availablePositions = [
 
 export type WebcamPosition = (typeof availablePositions)[number];
 export type FinalWebcamPosition = WebcamPosition | "center";
+export type ComparableWebcamPosition = FinalWebcamPosition | "bottom" | "top";
 
 const availablePositionsAndPrevious = [
   "previous",
@@ -138,5 +139,4 @@ export type SceneAndMetadata =
       scene: SceneType;
       durationInFrames: number;
       from: number;
-      chapter: string | null;
     };
