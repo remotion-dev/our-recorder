@@ -16,7 +16,7 @@ const availablePositions = [
 
 export type WebcamPosition = (typeof availablePositions)[number];
 export type FinalWebcamPosition = WebcamPosition | "center";
-
+export type ComparableWebcamPosition = FinalWebcamPosition | "bottom" | "top";
 const availablePositionsAndPrevious = [
   "previous",
   ...availablePositions,
