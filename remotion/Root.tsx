@@ -5287,7 +5287,7 @@ export const Root = () => {
         defaultProps={{
           theme: "light" as const,
           canvasLayout: "square" as const,
-          platform: "x",
+          platform: "x" as const,
           scenes: [
             {
               type: "videoscene" as const,
@@ -5297,7 +5297,7 @@ export const Root = () => {
               transitionToNextScene: true,
               newChapter: "",
               stopChapteringAfterThis: false,
-              music: "soft" as const,
+              music: "none" as const,
               bRolls: [],
             },
             {
