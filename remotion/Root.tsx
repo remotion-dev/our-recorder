@@ -5227,14 +5227,14 @@ export const Root = () => {
             {
               type: "recorder" as const,
               durationInFrames: 90,
-              music: "previous" as const,
+              music: "euphoric" as const,
               transitionToNextScene: true,
             },
             {
               type: "endcard" as const,
               durationInFrames: 200,
               music: "previous" as const,
-              channel: "jonny" as const,
+              channel: "remotion" as const,
               links: [],
               transitionToNextScene: true,
             },
