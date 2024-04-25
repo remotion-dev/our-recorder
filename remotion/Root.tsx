@@ -5138,6 +5138,21 @@ export const Root = () => {
       />
       <Composition
         component={Main}
+        fps={FPS}
+        durationInFrames={1}
+        id="homebrew"
+        schema={videoConf}
+        defaultProps={{
+          theme: "light" as const,
+          canvasLayout: "landscape" as const,
+          platform: "x",
+          scenes: [],
+          scenesAndMetadata: [],
+        }}
+        calculateMetadata={calcMetadata}
+      />
+      <Composition
+        component={Main}
         id="zoomblur"
         schema={videoConf}
         defaultProps={{
