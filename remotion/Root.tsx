@@ -5467,8 +5467,8 @@ export const Root = () => {
         schema={videoConf}
         defaultProps={{
           theme: "light" as const,
-          canvasLayout: "square" as const,
-          platform: "x" as const,
+          canvasLayout: "landscape" as const,
+          platform: "youtube" as const,
           scenes: [
             {
               type: "videoscene" as const,
@@ -5573,7 +5573,7 @@ export const Root = () => {
               type: "videoscene" as const,
               webcamPosition: "previous" as const,
               startOffset: 0,
-              duration: null,
+              duration: 1745,
               transitionToNextScene: true,
               newChapter: "",
               stopChapteringAfterThis: false,
