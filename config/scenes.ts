@@ -1,4 +1,5 @@
-import { staticFile, type StaticFile } from "remotion";
+import type { StaticFile } from "remotion";
+import { staticFile } from "remotion";
 import { z } from "zod";
 import type { CameraSceneLayout } from "../remotion/layout/get-layout";
 import { brand, linkType, platform } from "./endcard";
@@ -31,7 +32,7 @@ const bRoll = z.object({
 
 export type BRoll = z.infer<typeof bRoll>;
 
-export const videoScene = z.object({
+const videoScene = z.object({
   type: z.literal("videoscene"),
   webcamPosition: z.enum(availablePositionsAndPrevious),
   duration: z.number().nullable().default(null),
@@ -45,65 +46,78 @@ export const videoScene = z.object({
 
 export type VideoScene = z.infer<typeof videoScene>;
 
-export const configuration = z.discriminatedUnion("type", [
-  videoScene,
-  z.object({
-    type: z.literal("title"),
-    title: z.string(),
-    subtitle: z.string().nullable(),
-    durationInFrames: z.number().int().default(50),
-    transitionToNextScene: z.boolean().default(true),
-    music,
-  }),
-  z.object({
-    type: z.literal("titlecard"),
-    durationInFrames: z.number().int().default(100),
-    title: z.string(),
-    image: z.string(),
-    music,
-    youTubePlug: z.boolean().default(false),
-    transitionToNextScene: z.boolean().default(true),
-  }),
+const baseScene = z.object({
+  music,
+  transitionToNextScene: z.boolean().default(true),
+});
 
-  z.object({
-    type: z.literal("endcard"),
-    durationInFrames: z.number().int().default(200),
-    music,
-    channel: brand,
-    links: z.array(linkType).default([]),
-    transitionToNextScene: z.boolean().default(true),
-  }),
-  z.object({
-    type: z.literal("tableofcontents"),
-    durationInFrames: z.number().int().default(200),
-    transitionToNextScene: z.boolean().default(true),
-    music,
-  }),
-  z.object({
-    type: z.literal("recorder"),
-    durationInFrames: z.number().int().default(90),
-    music,
-    transitionToNextScene: z.boolean().default(true),
-  }),
+const titleScene = baseScene.extend({
+  type: z.literal("title"),
+  title: z.string(),
+  subtitle: z.string().nullable(),
+  durationInFrames: z.number().int().default(50),
+});
+
+const endcardScene = baseScene.extend({
+  type: z.literal("endcard"),
+  durationInFrames: z.number().int().default(200),
+  channel: brand,
+  links: z.array(linkType).default([]),
+});
+
+const tableOfContentsScene = baseScene.extend({
+  type: z.literal("tableofcontents"),
+  durationInFrames: z.number().int().default(200),
+});
+
+const recorderScene = baseScene.extend({
+  type: z.literal("recorder"),
+  durationInFrames: z.number().int().default(90),
+});
+
+const selectableScenes = z.discriminatedUnion("type", [
+  videoScene,
+  titleScene,
+  endcardScene,
+  tableOfContentsScene,
+  recorderScene,
 ]);
 
-export const scenes = z.array(configuration);
-export type SceneType = z.infer<typeof configuration>;
+const noRecordingsScene = baseScene.extend({
+  type: z.literal("norecordings"),
+});
+
+const noMoreRecordingsScene = baseScene.extend({
+  type: z.literal("nomorerecordings"),
+});
+
+const noScenes = baseScene.extend({
+  type: z.literal("noscenes"),
+});
+
+const computedScenes = z.discriminatedUnion("type", [
+  noRecordingsScene,
+  noMoreRecordingsScene,
+  noScenes,
+]);
+
+export type SelectableScene = z.infer<typeof selectableScenes>;
+type ComputedScene = z.infer<typeof computedScenes>;
 
 export const videoConf = z.object({
   theme,
   canvasLayout,
   platform,
-  scenes,
+  scenes: z.array(selectableScenes),
 });
 
 export type Pair = {
-  display: StaticFile | null;
   webcam: StaticFile;
+  display: StaticFile | null;
   subs: StaticFile | null;
-  timestamp: number;
   alternative1: StaticFile | null;
   alternative2: StaticFile | null;
+  timestamp: number;
 };
 
 export type SceneVideos = {
@@ -132,11 +146,11 @@ export type VideoSceneAndMetadata = {
   bRolls: BRollWithDimensions[];
 };
 
-export type SceneAndMetadata =
-  | VideoSceneAndMetadata
-  | {
-      type: "other-scene";
-      scene: SceneType;
-      durationInFrames: number;
-      from: number;
-    };
+export type OtherScene = {
+  type: "other-scene";
+  scene: ComputedScene | SelectableScene;
+  durationInFrames: number;
+  from: number;
+};
+
+export type SceneAndMetadata = VideoSceneAndMetadata | OtherScene;
