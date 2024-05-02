@@ -14,6 +14,7 @@ import type {
 } from "../../layout/layout-types";
 import { BRollStack } from "../BRoll/BRollStack";
 import { ScaleDownIfBRollRequiresIt } from "../BRoll/ScaleDownWithBRoll";
+import "./webcam.css";
 
 const outer: React.CSSProperties = {
   position: "absolute",
@@ -106,6 +107,7 @@ export const Webcam: React.FC<{
         bRollType={bRollType}
       >
         <OffthreadVideo
+          className="webcam"
           startFrom={startFrom}
           endAt={endAt}
           style={style}

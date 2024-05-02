@@ -76,8 +76,6 @@ export const Display: React.FC<{
     width,
   ]);
 
-  const p = 20;
-
   return (
     <div style={outer}>
       <ScaleDownIfBRollRequiresIt
@@ -116,7 +114,7 @@ export const Display: React.FC<{
                 `,
                 width: displayLayout.width,
                 height: displayLayout.height,
-                borderRadius: displayLayout.borderRadius,
+                borderRadius: 30,
                 objectFit: "cover",
               }}
             />

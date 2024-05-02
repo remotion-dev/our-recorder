@@ -12,6 +12,7 @@ import {
   cancelRender,
   continueRender,
   delayRender,
+  staticFile,
   useVideoConfig,
   watchStaticFile,
 } from "remotion";
@@ -206,10 +207,10 @@ export const Subs: React.FC<{
     border: `${getBorderWidthForSubtitles(subtitleType)}px solid ${
       COLORS[theme].BORDER_COLOR
     }`,
-    backgroundColor:
-      subtitleType === "square" || subtitleType === "overlayed-center"
-        ? COLORS[theme].SUBTITLES_BACKGROUND
-        : undefined,
+    backgroundImage: `url(${staticFile("cracker.png")})`,
+    backgroundSize: "cover",
+    color: "white",
+    overflow: "hidden",
     ...getSubsAlign({
       canvasLayout,
       subtitleType,

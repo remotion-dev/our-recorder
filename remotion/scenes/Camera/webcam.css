@@ -1,0 +1,9 @@
+.webcam {
+  --r: 15px; /* control the radius of the circles */
+  padding: calc(2 * var(--r));
+  background:
+    radial-gradient(var(--r), #0000 98%, #fff) round calc(-1.5 * var(--r))
+      calc(-1.5 * var(--r)) / calc(3 * var(--r)) calc(3 * var(--r)),
+    linear-gradient(#fff 0 0) no-repeat 50% / calc(100% - 3 * var(--r))
+      calc(100% - 3 * var(--r));
+}
