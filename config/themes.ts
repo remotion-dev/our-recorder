@@ -30,8 +30,8 @@ export const COLORS: { [key in Theme]: ColorTheme } = {
     ENDCARD_TEXT_COLOR: "black",
   },
   dark: {
-    BACKGROUND: "#000000",
-    SUBTITLES_BACKGROUND: "#0A0A0A",
+    BACKGROUND: "#101010",
+    SUBTITLES_BACKGROUND: "#151515",
     BORDER_COLOR: "#1F1F1F",
     WORD_COLOR_ON_BG_APPEARED: "white",
     WORD_COLOR_ON_BG_GREYED: "rgba(255, 255, 255, 0.3)",

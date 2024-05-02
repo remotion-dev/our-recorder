@@ -83,7 +83,7 @@ export const SquareChapter: React.FC<{
           style={{
             color: "white",
             padding: "0 30px",
-            background: "black",
+            background: "lightblue",
             fontFamily: TITLE_FONT_FAMILY,
             position: "absolute",
             top: top + toTop,

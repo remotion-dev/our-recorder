@@ -1,5 +1,10 @@
 import { useMemo } from "react";
-import { OffthreadVideo, useCurrentFrame, useVideoConfig } from "remotion";
+import {
+  AbsoluteFill,
+  OffthreadVideo,
+  useCurrentFrame,
+  useVideoConfig,
+} from "remotion";
 import type { CanvasLayout } from "../../../config/layout";
 import type {
   SceneAndMetadata,
@@ -71,6 +76,8 @@ export const Display: React.FC<{
     width,
   ]);
 
+  const p = 20;
+
   return (
     <div style={outer}>
       <ScaleDownIfBRollRequiresIt
@@ -85,18 +92,36 @@ export const Display: React.FC<{
           ...displayLayout,
         }}
       >
-        <OffthreadVideo
-          muted
-          startFrom={startFrom}
-          endAt={endAt}
-          src={scene.pair.display.src}
+        <AbsoluteFill
           style={{
-            width: displayLayout.width,
-            height: displayLayout.height,
             borderRadius: displayLayout.borderRadius,
-            objectFit: "cover",
+            overflow: "hidden",
           }}
-        />
+        >
+          <AbsoluteFill style={{}}>
+            <OffthreadVideo
+              muted
+              startFrom={startFrom}
+              endAt={endAt}
+              src={scene.pair.display.src}
+              style={{
+                border: "20px solid green",
+                borderImage: `repeating-linear-gradient(
+                  45deg,
+                  green,
+                  green 20px,
+                  white 20px,
+                  white 40px
+                ) 20
+                `,
+                width: displayLayout.width,
+                height: displayLayout.height,
+                borderRadius: displayLayout.borderRadius,
+                objectFit: "cover",
+              }}
+            />
+          </AbsoluteFill>
+        </AbsoluteFill>
       </ScaleDownIfBRollRequiresIt>
       <BRollStack
         bRollEnterDirection={bRollEnterDirection}

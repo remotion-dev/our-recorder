@@ -4,7 +4,6 @@ import type { Platform } from "../config/endcard";
 import type { CanvasLayout } from "../config/layout";
 import type { SceneAndMetadata, SelectableScene } from "../config/scenes";
 import type { Theme } from "../config/themes";
-import { COLORS } from "../config/themes";
 import { AudioTrack } from "./audio/AudioTrack";
 import { captionEditorPortal } from "./captions/Editor/layout";
 import { makeChapters } from "./chapters/make-chapters";
@@ -57,7 +56,9 @@ export const Main: React.FC<MainProps> = ({
   return (
     <AbsoluteFill
       style={{
-        background: COLORS[theme].BACKGROUND,
+        backgroundImage:
+          "url(https://wallpapers.com/images/high/cute-and-pink-brown-cookies-g8rdil6bcqnreb7y.webp)",
+        backgroundSize: "cover",
       }}
     >
       {scenesAndMetadata.map((sceneAndMetadata, i) => {
