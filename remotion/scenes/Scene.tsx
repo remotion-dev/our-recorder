@@ -99,8 +99,6 @@ const InnerScene: React.FC<
     return <NoScenes />;
   }
 
-  // TODO: Implement no scenes
-
   if (sceneAndMetadata.scene.type === "videoscene") {
     return (
       <CameraScene
