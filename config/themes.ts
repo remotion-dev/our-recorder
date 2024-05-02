@@ -22,7 +22,7 @@ export const COLORS: { [key in Theme]: ColorTheme } = {
     SUBTITLES_BACKGROUND: "#fff",
     BORDER_COLOR: "#EBEBEB",
     WORD_COLOR_ON_BG_APPEARED: "black",
-    WORD_COLOR_ON_BG_GREYED: "rgba(0, 0, 0, 0.3)",
+    WORD_COLOR_ON_BG_GREYED: "rgba(255, 255, 255, 0.5)",
     WORD_HIGHLIGHT_COLOR: "#3B82EB",
     ACCENT_COLOR: "#3B82EB",
     CTA_BUTTON_COLOR: "white",

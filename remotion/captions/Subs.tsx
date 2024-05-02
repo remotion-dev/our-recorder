@@ -12,7 +12,6 @@ import {
   cancelRender,
   continueRender,
   delayRender,
-  staticFile,
   useVideoConfig,
   watchStaticFile,
 } from "remotion";
@@ -207,7 +206,7 @@ export const Subs: React.FC<{
     border: `${getBorderWidthForSubtitles(subtitleType)}px solid ${
       COLORS[theme].BORDER_COLOR
     }`,
-    backgroundImage: `url(${staticFile("cracker.png")})`,
+    backgroundImage: `url(https://t4.ftcdn.net/jpg/04/80/44/21/360_F_480442195_iZqUxOOCWwXzhfizZGTCJuMfLT11tT3X.jpg)`,
     backgroundSize: "cover",
     color: "white",
     overflow: "hidden",
