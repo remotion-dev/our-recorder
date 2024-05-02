@@ -33,7 +33,7 @@ import type { MainProps } from "./Main";
 import { applyBRollRules } from "./scenes/BRoll/apply-b-roll-rules";
 import { getBRollDimensions } from "./scenes/BRoll/get-broll-dimensions";
 
-const START_FRAME_PADDING = FPS / 4;
+const START_FRAME_PADDING = Math.ceil(FPS / 4);
 const END_FRAME_PADDING = FPS / 2;
 
 const deriveStartFrameFromSubsJSON = (subsJSON: SubTypes | null): number => {
