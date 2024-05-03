@@ -23,16 +23,24 @@ const FadeBRoll: React.FC<{
   bRoll: BRollWithDimensions;
   appearProgress: number;
   disappearProgress: number;
-}> = ({ bRoll, appearProgress, disappearProgress }) => {
+  dimensions: Dimensions;
+}> = ({ bRoll, appearProgress, disappearProgress, dimensions }) => {
   const style: React.CSSProperties = useMemo(() => {
     return {
       opacity: appearProgress - disappearProgress,
       objectFit: "cover",
+      width: dimensions.width,
+      height: dimensions.height,
     };
-  }, [appearProgress, disappearProgress]);
-
+  }, [appearProgress, dimensions.height, dimensions.width, disappearProgress]);
   return (
-    <AbsoluteFill>
+    <AbsoluteFill
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
       {bRoll.type === "image" ? <Img src={bRoll.source} style={style} /> : null}
       {bRoll.type === "video" ? (
         <OffthreadVideo src={bRoll.source} muted style={style} />
@@ -167,6 +175,7 @@ const InnerBRoll: React.FC<{
   if (bRollType === "fade") {
     return (
       <FadeBRoll
+        dimensions={biggestLayout}
         appearProgress={appearProgress}
         disappearProgress={disappearProgress}
         bRoll={bRoll}

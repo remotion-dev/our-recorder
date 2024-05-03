@@ -83,6 +83,38 @@ const squareFullscreenWebcamLayout = ({
 
 const widescreenFullscreenLayout = ({
   canvasSize,
+  webcamDimensions,
+}: {
+  canvasSize: Dimensions;
+  webcamDimensions: Dimensions;
+}): Layout => {
+  if (webcamDimensions.height > webcamDimensions.width) {
+    const factor = canvasSize.height / webcamDimensions.height;
+    const adjustedWidth = webcamDimensions.width * factor;
+    const derivedLeft = (canvasSize.width - adjustedWidth) / 2;
+
+    return {
+      left: derivedLeft,
+      top: 0,
+      width: adjustedWidth,
+      height: canvasSize.height,
+      borderRadius: 0,
+      opacity: 1,
+    };
+  }
+
+  return {
+    left: 0,
+    top: 0,
+    width: canvasSize.width,
+    height: canvasSize.height,
+    borderRadius: 0,
+    opacity: 1,
+  };
+};
+
+const widescreenFullscreenBRollLayout = ({
+  canvasSize,
 }: {
   canvasSize: Dimensions;
 }): Layout => {
@@ -226,11 +258,14 @@ const getDisplayAndWebcamLayout = ({
     if (canvasLayout === "landscape") {
       const webcamLayout = widescreenFullscreenLayout({
         canvasSize,
+        webcamDimensions: videos.webcam,
       });
-
+      const bRollLayout = widescreenFullscreenBRollLayout({
+        canvasSize,
+      });
       return {
         displayLayout: null,
-        bRollLayout: webcamLayout,
+        bRollLayout,
         webcamLayout,
         bRollEnterDirection: "top",
       };

@@ -18,6 +18,7 @@ import { ScaleDownIfBRollRequiresIt } from "../BRoll/ScaleDownWithBRoll";
 const outer: React.CSSProperties = {
   position: "absolute",
   display: "flex",
+  width: "100%",
 };
 
 export const Webcam: React.FC<{
