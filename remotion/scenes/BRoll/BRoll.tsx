@@ -180,7 +180,6 @@ const InnerBRoll: React.FC<{
     biggestLayout.height,
     biggestLayout.width,
   ]);
-  console.log({ biggestLayout }, bRoll.assetWidth, bRoll.assetHeight);
 
   const mountBackgroundAsset = biggestLayout.left > 0 || biggestLayout.top > 0;
 
