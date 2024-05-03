@@ -19,12 +19,29 @@ import type {
 } from "../../layout/layout-types";
 import { ScaleDownIfBRollRequiresIt } from "./ScaleDownWithBRoll";
 
+const blur: React.CSSProperties = {
+  position: "absolute",
+  width: "110%",
+  height: "110%",
+  objectFit: "cover",
+  filter: "blur(20px)",
+  top: "-5%",
+  left: "-5%",
+};
+
 const FadeBRoll: React.FC<{
   bRoll: BRollWithDimensions;
   appearProgress: number;
   disappearProgress: number;
   rect: Rect;
-}> = ({ bRoll, appearProgress, disappearProgress, rect }) => {
+  mountBackgroundAsset: boolean;
+}> = ({
+  bRoll,
+  appearProgress,
+  disappearProgress,
+  rect,
+  mountBackgroundAsset,
+}) => {
   const style: React.CSSProperties = useMemo(() => {
     return {
       position: "absolute",
@@ -35,10 +52,28 @@ const FadeBRoll: React.FC<{
   }, [appearProgress, rect, disappearProgress]);
 
   if (bRoll.type === "image") {
+    if (mountBackgroundAsset) {
+      return (
+        <>
+          <Img src={bRoll.source} style={blur} />
+          <Img src={bRoll.source} style={style} />
+        </>
+      );
+    }
+
     return <Img src={bRoll.source} style={style} />;
   }
 
   if (bRoll.type === "video") {
+    if (mountBackgroundAsset) {
+      return (
+        <>
+          <OffthreadVideo src={bRoll.source} muted style={blur} />
+          <OffthreadVideo src={bRoll.source} muted style={style} />
+        </>
+      );
+    }
+
     return <OffthreadVideo src={bRoll.source} muted style={style} />;
   }
 
@@ -145,6 +180,9 @@ const InnerBRoll: React.FC<{
     biggestLayout.height,
     biggestLayout.width,
   ]);
+  console.log({ biggestLayout }, bRoll.assetWidth, bRoll.assetHeight);
+
+  const mountBackgroundAsset = biggestLayout.left > 0 || biggestLayout.top > 0;
 
   if (bRollType === "fade") {
     return (
@@ -153,6 +191,7 @@ const InnerBRoll: React.FC<{
         appearProgress={appearProgress}
         disappearProgress={disappearProgress}
         bRoll={bRoll}
+        mountBackgroundAsset={mountBackgroundAsset}
       />
     );
   }
