@@ -55,7 +55,7 @@ const FadeBRoll: React.FC<{
     if (mountBackgroundAsset) {
       return (
         <>
-          <Img src={bRoll.source} style={blur} />
+          <Img src={bRoll.source} style={{ ...style, ...blur }} />
           <Img src={bRoll.source} style={style} />
         </>
       );
@@ -68,7 +68,11 @@ const FadeBRoll: React.FC<{
     if (mountBackgroundAsset) {
       return (
         <>
-          <OffthreadVideo src={bRoll.source} muted style={blur} />
+          <OffthreadVideo
+            src={bRoll.source}
+            muted
+            style={{ ...style, ...blur }}
+          />
           <OffthreadVideo src={bRoll.source} muted style={style} />
         </>
       );
