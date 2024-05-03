@@ -12,11 +12,7 @@ import {
 import type { CanvasLayout, Dimensions } from "../../../config/layout";
 import type { BRollWithDimensions } from "../../../config/scenes";
 import { B_ROLL_TRANSITION_DURATION } from "../../../config/transitions";
-import type {
-  BRollEnterDirection,
-  BRollType,
-  Layout,
-} from "../../layout/layout-types";
+import type { BRollEnterDirection, Layout } from "../../layout/layout-types";
 import { ScaleDownIfBRollRequiresIt } from "./ScaleDownWithBRoll";
 
 const FadeBRoll: React.FC<{
@@ -86,25 +82,40 @@ const InnerBRoll: React.FC<{
   bRoll: BRollWithDimensions;
   bRollsBefore: BRollWithDimensions[];
   bRollEnterDirection: BRollEnterDirection;
-  bRollType: BRollType;
   bRollLayout: Layout;
   sceneFrame: number;
   canvasLayout: CanvasLayout;
-  appearProgress: number;
-  disappearProgress: number;
-  canvasHeight: number;
 }> = ({
   bRoll,
   bRollsBefore,
   bRollLayout,
-  bRollType,
   bRollEnterDirection,
   sceneFrame,
   canvasLayout,
-  appearProgress,
-  disappearProgress,
-  canvasHeight,
 }) => {
+  const { fps, height: canvasHeight } = useVideoConfig();
+  const frame = useCurrentFrame();
+
+  const bRollType = canvasLayout === "landscape" ? "fade" : "scale";
+
+  const appearProgress = spring({
+    fps,
+    frame,
+    config: {
+      damping: 200,
+    },
+    durationInFrames: B_ROLL_TRANSITION_DURATION,
+  });
+
+  const disappearProgress = spring({
+    fps,
+    frame,
+    delay: bRoll.durationInFrames - B_ROLL_TRANSITION_DURATION,
+    config: {
+      damping: 200,
+    },
+    durationInFrames: B_ROLL_TRANSITION_DURATION,
+  });
   const bRollContainer: Layout = useMemo(() => {
     return {
       ...bRollLayout,
@@ -201,59 +212,6 @@ const InnerBRoll: React.FC<{
   );
 };
 
-const Inner: React.FC<{
-  bRoll: BRollWithDimensions;
-  bRollsBefore: BRollWithDimensions[];
-  bRollEnterDirection: BRollEnterDirection;
-  bRollLayout: Layout;
-  sceneFrame: number;
-  canvasLayout: CanvasLayout;
-}> = ({
-  bRoll,
-  bRollsBefore,
-  bRollLayout,
-  bRollEnterDirection,
-  sceneFrame,
-  canvasLayout,
-}) => {
-  const { fps, height } = useVideoConfig();
-  const frame = useCurrentFrame();
-
-  const appear = spring({
-    fps,
-    frame,
-    config: {
-      damping: 200,
-    },
-    durationInFrames: B_ROLL_TRANSITION_DURATION,
-  });
-
-  const disappear = spring({
-    fps,
-    frame,
-    delay: bRoll.durationInFrames - B_ROLL_TRANSITION_DURATION,
-    config: {
-      damping: 200,
-    },
-    durationInFrames: B_ROLL_TRANSITION_DURATION,
-  });
-
-  return (
-    <InnerBRoll
-      bRoll={bRoll}
-      bRollEnterDirection={bRollEnterDirection}
-      bRollLayout={bRollLayout}
-      bRollsBefore={bRollsBefore}
-      canvasLayout={canvasLayout}
-      appearProgress={appear}
-      disappearProgress={disappear}
-      sceneFrame={sceneFrame}
-      canvasHeight={height}
-      bRollType={canvasLayout === "landscape" ? "fade" : "scale"}
-    />
-  );
-};
-
 export const BRoll: React.FC<{
   bRoll: BRollWithDimensions;
   bRollsBefore: BRollWithDimensions[];
@@ -275,7 +233,7 @@ export const BRoll: React.FC<{
 
   return (
     <Sequence from={bRoll.from} durationInFrames={bRoll.durationInFrames}>
-      <Inner
+      <InnerBRoll
         sceneFrame={sceneFrame}
         bRollsBefore={bRollsBefore}
         bRoll={bRoll}
