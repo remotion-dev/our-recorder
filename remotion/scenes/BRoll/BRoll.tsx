@@ -1,6 +1,5 @@
 import React, { useMemo } from "react";
 import {
-  AbsoluteFill,
   Img,
   interpolate,
   OffthreadVideo,
@@ -9,13 +8,14 @@ import {
   useCurrentFrame,
   useVideoConfig,
 } from "remotion";
-import type { CanvasLayout, Dimensions } from "../../../config/layout";
+import type { CanvasLayout } from "../../../config/layout";
 import type { BRollWithDimensions } from "../../../config/scenes";
 import { B_ROLL_TRANSITION_DURATION } from "../../../config/transitions";
+import { fitElementSizeInContainer } from "../../layout/fit-element";
 import type {
   BRollEnterDirection,
-  BRollType,
   Layout,
+  Rect,
 } from "../../layout/layout-types";
 import { ScaleDownIfBRollRequiresIt } from "./ScaleDownWithBRoll";
 
@@ -23,80 +23,66 @@ const FadeBRoll: React.FC<{
   bRoll: BRollWithDimensions;
   appearProgress: number;
   disappearProgress: number;
-}> = ({ bRoll, appearProgress, disappearProgress }) => {
+  rect: Rect;
+}> = ({ bRoll, appearProgress, disappearProgress, rect }) => {
   const style: React.CSSProperties = useMemo(() => {
     return {
+      position: "absolute",
       opacity: appearProgress - disappearProgress,
       objectFit: "cover",
+      ...rect,
     };
-  }, [appearProgress, disappearProgress]);
+  }, [appearProgress, rect, disappearProgress]);
 
-  return (
-    <AbsoluteFill>
-      {bRoll.type === "image" ? <Img src={bRoll.source} style={style} /> : null}
-      {bRoll.type === "video" ? (
-        <OffthreadVideo src={bRoll.source} muted style={style} />
-      ) : null}
-    </AbsoluteFill>
-  );
-};
-
-function getMaxImageSize({
-  containerWidth,
-  containerHeight,
-  imageHeight,
-  imageWidth,
-}: {
-  containerWidth: number;
-  containerHeight: number;
-  imageWidth: number;
-  imageHeight: number;
-}): Dimensions {
-  const containerRatio = containerWidth / containerHeight;
-  const imageRatio = imageWidth / imageHeight;
-
-  let maxWidth: number;
-  let maxHeight: number;
-
-  if (imageRatio > containerRatio) {
-    // Image is more landscape than the container
-    maxWidth = containerWidth;
-    maxHeight = maxWidth / imageRatio;
-  } else {
-    // Image is more portrait than the container or the same aspect ratio
-    maxHeight = containerHeight;
-    maxWidth = maxHeight * imageRatio;
+  if (bRoll.type === "image") {
+    return <Img src={bRoll.source} style={style} />;
   }
 
-  return {
-    width: Math.floor(maxWidth),
-    height: Math.floor(maxHeight),
-  };
-}
+  if (bRoll.type === "video") {
+    return <OffthreadVideo src={bRoll.source} muted style={style} />;
+  }
+
+  throw new Error(`Invalid b-roll type ${bRoll.type}`);
+};
 
 const InnerBRoll: React.FC<{
   bRoll: BRollWithDimensions;
   bRollsBefore: BRollWithDimensions[];
   bRollEnterDirection: BRollEnterDirection;
-  bRollType: BRollType;
   bRollLayout: Layout;
   sceneFrame: number;
   canvasLayout: CanvasLayout;
-  appearProgress: number;
-  disappearProgress: number;
-  canvasHeight: number;
 }> = ({
   bRoll,
   bRollsBefore,
   bRollLayout,
-  bRollType,
   bRollEnterDirection,
   sceneFrame,
   canvasLayout,
-  appearProgress,
-  disappearProgress,
-  canvasHeight,
 }) => {
+  const { fps, height: canvasHeight } = useVideoConfig();
+  const frame = useCurrentFrame();
+
+  const bRollType = canvasLayout === "landscape" ? "fade" : "scale";
+
+  const appearProgress = spring({
+    fps,
+    frame,
+    config: {
+      damping: 200,
+    },
+    durationInFrames: B_ROLL_TRANSITION_DURATION,
+  });
+
+  const disappearProgress = spring({
+    fps,
+    frame,
+    delay: bRoll.durationInFrames - B_ROLL_TRANSITION_DURATION,
+    config: {
+      damping: 200,
+    },
+    durationInFrames: B_ROLL_TRANSITION_DURATION,
+  });
   const bRollContainer: Layout = useMemo(() => {
     return {
       ...bRollLayout,
@@ -133,19 +119,15 @@ const InnerBRoll: React.FC<{
     };
   }, [bRollContainer, topOffset]);
 
-  const biggestLayout = useMemo(() => {
-    return getMaxImageSize({
-      containerHeight: bRollLayout.height,
-      containerWidth: bRollLayout.width,
-      imageHeight: bRoll.assetHeight,
-      imageWidth: bRoll.assetWidth,
+  const biggestLayout: Rect = useMemo(() => {
+    return fitElementSizeInContainer({
+      containerSize: bRollLayout,
+      elementSize: {
+        height: bRoll.assetHeight,
+        width: bRoll.assetWidth,
+      },
     });
-  }, [
-    bRoll.assetHeight,
-    bRoll.assetWidth,
-    bRollLayout.height,
-    bRollLayout.width,
-  ]);
+  }, [bRoll.assetHeight, bRoll.assetWidth, bRollLayout]);
 
   const style = useMemo(() => {
     return {
@@ -167,6 +149,7 @@ const InnerBRoll: React.FC<{
   if (bRollType === "fade") {
     return (
       <FadeBRoll
+        rect={biggestLayout}
         appearProgress={appearProgress}
         disappearProgress={disappearProgress}
         bRoll={bRoll}
@@ -192,59 +175,6 @@ const InnerBRoll: React.FC<{
   );
 };
 
-const Inner: React.FC<{
-  bRoll: BRollWithDimensions;
-  bRollsBefore: BRollWithDimensions[];
-  bRollEnterDirection: BRollEnterDirection;
-  bRollLayout: Layout;
-  sceneFrame: number;
-  canvasLayout: CanvasLayout;
-}> = ({
-  bRoll,
-  bRollsBefore,
-  bRollLayout,
-  bRollEnterDirection,
-  sceneFrame,
-  canvasLayout,
-}) => {
-  const { fps, height } = useVideoConfig();
-  const frame = useCurrentFrame();
-
-  const appear = spring({
-    fps,
-    frame,
-    config: {
-      damping: 200,
-    },
-    durationInFrames: B_ROLL_TRANSITION_DURATION,
-  });
-
-  const disappear = spring({
-    fps,
-    frame,
-    delay: bRoll.durationInFrames - B_ROLL_TRANSITION_DURATION,
-    config: {
-      damping: 200,
-    },
-    durationInFrames: B_ROLL_TRANSITION_DURATION,
-  });
-
-  return (
-    <InnerBRoll
-      bRoll={bRoll}
-      bRollEnterDirection={bRollEnterDirection}
-      bRollLayout={bRollLayout}
-      bRollsBefore={bRollsBefore}
-      canvasLayout={canvasLayout}
-      appearProgress={appear}
-      disappearProgress={disappear}
-      sceneFrame={sceneFrame}
-      canvasHeight={height}
-      bRollType={canvasLayout === "landscape" ? "fade" : "scale"}
-    />
-  );
-};
-
 export const BRoll: React.FC<{
   bRoll: BRollWithDimensions;
   bRollsBefore: BRollWithDimensions[];
@@ -266,7 +196,7 @@ export const BRoll: React.FC<{
 
   return (
     <Sequence from={bRoll.from} durationInFrames={bRoll.durationInFrames}>
-      <Inner
+      <InnerBRoll
         sceneFrame={sceneFrame}
         bRollsBefore={bRollsBefore}
         bRoll={bRoll}
