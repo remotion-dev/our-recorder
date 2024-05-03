@@ -185,7 +185,9 @@ const InnerBRoll: React.FC<{
     biggestLayout.width,
   ]);
 
-  const mountBackgroundAsset = biggestLayout.left > 0 || biggestLayout.top > 0;
+  const mountBackgroundAsset =
+    canvasLayout === "landscape" &&
+    (biggestLayout.left > 0 || biggestLayout.top > 0);
 
   if (bRollType === "fade") {
     return (

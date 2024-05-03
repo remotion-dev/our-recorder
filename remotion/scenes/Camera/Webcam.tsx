@@ -15,6 +15,16 @@ import type {
 import { BRollStack } from "../BRoll/BRollStack";
 import { ScaleDownIfBRollRequiresIt } from "../BRoll/ScaleDownWithBRoll";
 
+const blur: React.CSSProperties = {
+  position: "absolute",
+  width: "110%",
+  height: "110%",
+  objectFit: "cover",
+  filter: "blur(20px)",
+  top: "-5%",
+  left: "-5%",
+};
+
 export const Webcam: React.FC<{
   webcamLayout: Layout;
   enterProgress: number;
@@ -89,8 +99,28 @@ export const Webcam: React.FC<{
     };
   }, [webcamLayout.borderRadius]);
 
+  const dynamicBlur = useMemo(() => {
+    return {
+      ...blur,
+      opacity: 1 - exitProgress,
+    };
+  }, [exitProgress]);
+  const mountBackgroundAsset =
+    !currentScene.videos.display &&
+    canvasLayout === "landscape" &&
+    (webcamLayout.left > 0 || webcamLayout.top > 0);
+
   return (
     <>
+      {mountBackgroundAsset ? (
+        <OffthreadVideo
+          startFrom={startFrom}
+          endAt={endAt}
+          style={dynamicBlur}
+          src={currentScene.pair.webcam.src}
+          muted
+        />
+      ) : null}
       <ScaleDownIfBRollRequiresIt
         canvasLayout={canvasLayout}
         bRollEnterDirection={bRollEnterDirection}

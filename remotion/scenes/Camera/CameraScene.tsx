@@ -45,6 +45,21 @@ export const CameraScene: React.FC<{
   return (
     <>
       <AbsoluteFill>
+        <Webcam
+          bRolls={sceneAndMetadata.pair.display ? [] : sceneAndMetadata.bRolls}
+          currentScene={sceneAndMetadata}
+          endAt={endAt}
+          enterProgress={enterProgress}
+          exitProgress={exitProgress}
+          startFrom={startFrom}
+          webcamLayout={sceneAndMetadata.layout.webcamLayout}
+          canvasLayout={canvasLayout}
+          nextScene={nextScene}
+          previousScene={previousScene}
+          bRollLayout={sceneAndMetadata.layout.bRollLayout}
+          bRollEnterDirection={sceneAndMetadata.layout.bRollEnterDirection}
+          bRollType={sceneAndMetadata.layout.bRollType}
+        />
         {sceneAndMetadata.pair.display ? (
           <Display
             scene={sceneAndMetadata}
@@ -86,21 +101,6 @@ export const CameraScene: React.FC<{
             />
           ) : null
         }
-        <Webcam
-          bRolls={sceneAndMetadata.pair.display ? [] : sceneAndMetadata.bRolls}
-          currentScene={sceneAndMetadata}
-          endAt={endAt}
-          enterProgress={enterProgress}
-          exitProgress={exitProgress}
-          startFrom={startFrom}
-          webcamLayout={sceneAndMetadata.layout.webcamLayout}
-          canvasLayout={canvasLayout}
-          nextScene={nextScene}
-          previousScene={previousScene}
-          bRollLayout={sceneAndMetadata.layout.bRollLayout}
-          bRollEnterDirection={sceneAndMetadata.layout.bRollEnterDirection}
-          bRollType={sceneAndMetadata.layout.bRollType}
-        />
       </AbsoluteFill>
       {sceneAndMetadata.pair.subs ? (
         <Subs
