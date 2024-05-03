@@ -10,6 +10,7 @@ import {
 } from "../captions/Segment";
 import { getSubsLayout } from "../captions/subs-layout";
 import { getDimensionsForLayout } from "./dimensions";
+import { fitElementSizeInContainer } from "./fit-element";
 import {
   getLandscapeDisplayAndWebcamLayout,
   getSquareBRollLayout,
@@ -88,26 +89,11 @@ const widescreenFullscreenLayout = ({
   canvasSize: Dimensions;
   webcamDimensions: Dimensions;
 }): Layout => {
-  if (webcamDimensions.height > webcamDimensions.width) {
-    const factor = canvasSize.height / webcamDimensions.height;
-    const adjustedWidth = webcamDimensions.width * factor;
-    const derivedLeft = (canvasSize.width - adjustedWidth) / 2;
-
-    return {
-      left: derivedLeft,
-      top: 0,
-      width: adjustedWidth,
-      height: canvasSize.height,
-      borderRadius: 0,
-      opacity: 1,
-    };
-  }
-
   return {
-    left: 0,
-    top: 0,
-    width: canvasSize.width,
-    height: canvasSize.height,
+    ...fitElementSizeInContainer({
+      containerSize: canvasSize,
+      elementSize: webcamDimensions,
+    }),
     borderRadius: 0,
     opacity: 1,
   };
