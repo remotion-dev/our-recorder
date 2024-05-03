@@ -1,6 +1,5 @@
 import React, { useMemo } from "react";
 import {
-  AbsoluteFill,
   Img,
   interpolate,
   OffthreadVideo,
@@ -9,74 +8,42 @@ import {
   useCurrentFrame,
   useVideoConfig,
 } from "remotion";
-import type { CanvasLayout, Dimensions } from "../../../config/layout";
+import type { CanvasLayout } from "../../../config/layout";
 import type { BRollWithDimensions } from "../../../config/scenes";
 import { B_ROLL_TRANSITION_DURATION } from "../../../config/transitions";
-import type { BRollEnterDirection, Layout } from "../../layout/layout-types";
+import { fitElementSizeInContainer } from "../../layout/fit-element";
+import type {
+  BRollEnterDirection,
+  Layout,
+  Rect,
+} from "../../layout/layout-types";
 import { ScaleDownIfBRollRequiresIt } from "./ScaleDownWithBRoll";
 
 const FadeBRoll: React.FC<{
   bRoll: BRollWithDimensions;
   appearProgress: number;
   disappearProgress: number;
-  dimensions: Dimensions;
-}> = ({ bRoll, appearProgress, disappearProgress, dimensions }) => {
+  rect: Rect;
+}> = ({ bRoll, appearProgress, disappearProgress, rect }) => {
   const style: React.CSSProperties = useMemo(() => {
     return {
+      position: "absolute",
       opacity: appearProgress - disappearProgress,
       objectFit: "cover",
-      width: dimensions.width,
-      height: dimensions.height,
+      ...rect,
     };
-  }, [appearProgress, dimensions.height, dimensions.width, disappearProgress]);
-  return (
-    <AbsoluteFill
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      {bRoll.type === "image" ? <Img src={bRoll.source} style={style} /> : null}
-      {bRoll.type === "video" ? (
-        <OffthreadVideo src={bRoll.source} muted style={style} />
-      ) : null}
-    </AbsoluteFill>
-  );
-};
+  }, [appearProgress, rect, disappearProgress]);
 
-function getMaxImageSize({
-  containerWidth,
-  containerHeight,
-  imageHeight,
-  imageWidth,
-}: {
-  containerWidth: number;
-  containerHeight: number;
-  imageWidth: number;
-  imageHeight: number;
-}): Dimensions {
-  const containerRatio = containerWidth / containerHeight;
-  const imageRatio = imageWidth / imageHeight;
-
-  let maxWidth: number;
-  let maxHeight: number;
-
-  if (imageRatio > containerRatio) {
-    // Image is more landscape than the container
-    maxWidth = containerWidth;
-    maxHeight = maxWidth / imageRatio;
-  } else {
-    // Image is more portrait than the container or the same aspect ratio
-    maxHeight = containerHeight;
-    maxWidth = maxHeight * imageRatio;
+  if (bRoll.type === "image") {
+    return <Img src={bRoll.source} style={style} />;
   }
 
-  return {
-    width: Math.floor(maxWidth),
-    height: Math.floor(maxHeight),
-  };
-}
+  if (bRoll.type === "video") {
+    return <OffthreadVideo src={bRoll.source} muted style={style} />;
+  }
+
+  throw new Error(`Invalid b-roll type ${bRoll.type}`);
+};
 
 const InnerBRoll: React.FC<{
   bRoll: BRollWithDimensions;
@@ -152,19 +119,15 @@ const InnerBRoll: React.FC<{
     };
   }, [bRollContainer, topOffset]);
 
-  const biggestLayout = useMemo(() => {
-    return getMaxImageSize({
-      containerHeight: bRollLayout.height,
-      containerWidth: bRollLayout.width,
-      imageHeight: bRoll.assetHeight,
-      imageWidth: bRoll.assetWidth,
+  const biggestLayout: Rect = useMemo(() => {
+    return fitElementSizeInContainer({
+      containerSize: bRollLayout,
+      elementSize: {
+        height: bRoll.assetHeight,
+        width: bRoll.assetWidth,
+      },
     });
-  }, [
-    bRoll.assetHeight,
-    bRoll.assetWidth,
-    bRollLayout.height,
-    bRollLayout.width,
-  ]);
+  }, [bRoll.assetHeight, bRoll.assetWidth, bRollLayout]);
 
   const style = useMemo(() => {
     return {
@@ -186,7 +149,7 @@ const InnerBRoll: React.FC<{
   if (bRollType === "fade") {
     return (
       <FadeBRoll
-        dimensions={biggestLayout}
+        rect={biggestLayout}
         appearProgress={appearProgress}
         disappearProgress={disappearProgress}
         bRoll={bRoll}

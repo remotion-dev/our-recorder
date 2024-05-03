@@ -1,4 +1,5 @@
 import type { Dimensions } from "@remotion/layout-utils";
+import type { Rect } from "./layout-types";
 
 // Resize an aspect ratio to fit into a container
 // and center it
@@ -8,7 +9,7 @@ export const fitElementSizeInContainer = ({
 }: {
   containerSize: Dimensions;
   elementSize: Dimensions;
-}) => {
+}): Rect => {
   const heightRatio = containerSize.height / elementSize.height;
   const widthRatio = containerSize.width / elementSize.width;
 
