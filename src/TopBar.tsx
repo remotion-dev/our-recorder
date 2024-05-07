@@ -2,8 +2,12 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { NewFolderDialog } from "./components/NewFolderDialog";
 import { SelectedFolder } from "./components/SelectedFolder";
 import { SmallSpinner } from "./components/SmallSpinner";
+import { Button } from "./components/ui/button";
 import type { CurrentBlobs } from "./components/UseThisTake";
-import { UseThisTake } from "./components/UseThisTake";
+import {
+  currentBlobsInitialState,
+  UseThisTake,
+} from "./components/UseThisTake";
 import {
   fetchProjectFolders,
   loadFolderFromUrl,
@@ -12,7 +16,6 @@ import {
 } from "./get-projects";
 import type { MediaSources } from "./RecordButton";
 import { RecordButton } from "./RecordButton";
-import { useKeyPress } from "./use-key-press";
 
 const topBarContainer: React.CSSProperties = {
   display: "flex",
@@ -41,22 +44,13 @@ const transcribeIndicator: React.CSSProperties = {
 };
 
 export const TopBar: React.FC<{
-  start: () => void;
-  stop: () => void;
-  discardVideos: () => void;
-  recording: false | number;
-  setCurrentBlobs: React.Dispatch<React.SetStateAction<CurrentBlobs>>;
   mediaSources: MediaSources;
-  currentBlobs: CurrentBlobs;
-}> = ({
-  start,
-  stop,
-  discardVideos,
-  recording,
-  currentBlobs,
-  setCurrentBlobs,
-  mediaSources,
-}) => {
+}> = ({ mediaSources }) => {
+  const [recording, setRecording] = useState<false | number>(false);
+  const [currentBlobs, setCurrentBlobs] = useState<CurrentBlobs>(
+    currentBlobsInitialState,
+  );
+
   const [folders, setFolders] = useState<string[] | null>(null);
   const [uploading, setUploading] = useState(false);
   const [transcribing, setTranscribing] = useState(false);
@@ -88,34 +82,6 @@ export const TopBar: React.FC<{
     }
   }, [selectedFolder]);
 
-  const onStop = useCallback(() => {
-    stop();
-    setShowHandleVideos(true);
-  }, [setShowHandleVideos, stop]);
-
-  const onPressR = useCallback(() => {
-    if (mediaSources.webcam === null || !mediaSources.webcam.active) {
-      return;
-    }
-
-    const dialog = document.querySelector('[role="dialog"]');
-
-    if (
-      (document.activeElement && document.activeElement.tagName === "input") ||
-      dialog
-    ) {
-      return;
-    }
-
-    if (recording) {
-      onStop();
-    } else {
-      start();
-    }
-  }, [mediaSources.webcam, onStop, recording, start]);
-
-  useKeyPress(["r"], onPressR);
-
   useEffect(() => {
     if (!window.remotionServerEnabled) {
       return;
@@ -132,12 +98,6 @@ export const TopBar: React.FC<{
     persistSelectedFolder(selectedFolder ?? "");
   }, [selectedFolder]);
 
-  const handleDiscardTake = useCallback(() => {
-    discardVideos();
-    setShowHandleVideos(false);
-    start();
-  }, [discardVideos, start]);
-
   const recordingDisabled = useMemo(() => {
     return (
       mediaSources.webcam === null ||
@@ -151,12 +111,13 @@ export const TopBar: React.FC<{
         <div style={recordWrapper}>
           {uploading ? null : (
             <RecordButton
-              onStop={onStop}
               recording={recording}
               showHandleVideos={showHandleVideos}
-              start={start}
               recordingDisabled={recordingDisabled}
-              onDiscard={handleDiscardTake}
+              setCurrentBlobs={setCurrentBlobs}
+              mediaSources={mediaSources}
+              setRecording={setRecording}
+              setShowHandleVideos={setShowHandleVideos}
             />
           )}
 
@@ -179,7 +140,6 @@ export const TopBar: React.FC<{
       </div>
 
       <div style={{ flex: 1 }} />
-
       {folders ? (
         <>
           <SelectedFolder
@@ -192,6 +152,13 @@ export const TopBar: React.FC<{
             setSelectedFolder={setSelectedFolder}
           />
         </>
+      ) : null}
+      {window.remotionServerEnabled ? (
+        <Button asChild variant="outline">
+          <a href={`http://localhost:3000/${selectedFolder}`} target="_blank">
+            Go to Studio
+          </a>
+        </Button>
       ) : null}
     </div>
   );

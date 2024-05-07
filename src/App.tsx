@@ -8,8 +8,6 @@ import {
 } from "../config/cameras";
 import "./App.css";
 import { Button } from "./components/ui/button";
-import type { CurrentBlobs } from "./components/UseThisTake";
-import { currentBlobsInitialState } from "./components/UseThisTake";
 import type { Label } from "./helpers";
 import { formatLabel } from "./helpers";
 import type { MediaSources } from "./RecordButton";
@@ -51,8 +49,6 @@ const hasNewDevices = (devices: MediaDeviceInfo[]): boolean => {
   return hasNew;
 };
 
-let endDate = 0;
-
 const outer: React.CSSProperties = {
   height: "100%",
   display: "flex",
@@ -72,18 +68,11 @@ const gridContainer: React.CSSProperties = {
   marginTop: 2,
 };
 
-const mediaRecorderOptions: MediaRecorderOptions = {
-  audioBitsPerSecond: 128000,
-  videoBitsPerSecond: 8 * 4000000,
-};
-
 const App = () => {
   const [showAlternativeViews, setShowAlternativeViews] = useState<boolean>(
     localStorage.getItem("showAlternativeViews") === "true",
   );
   const [devices, setDevices] = useState<MediaDeviceInfo[]>([]);
-  const [recorders, setRecorders] = useState<MediaRecorder[] | null>(null);
-  const [recording, setRecording] = useState<false | number>(false);
 
   const [mediaSources, setMediaSources] = useState<MediaSources>({
     webcam: null,
@@ -91,10 +80,6 @@ const App = () => {
     alternative1: null,
     alternative2: null,
   });
-
-  const [currentBlobs, setCurrentBlobs] = useState<CurrentBlobs>(
-    currentBlobsInitialState,
-  );
 
   const dynamicGridContainer = useMemo(() => {
     if (showAlternativeViews) {
@@ -114,10 +99,6 @@ const App = () => {
     localStorage.setItem("showAlternativeViews", "false");
   }, []);
 
-  const discardVideos = useCallback(() => {
-    setCurrentBlobs(currentBlobsInitialState);
-  }, []);
-
   const setMediaStream = useCallback(
     (prefix: Prefix, source: MediaStream | null) => {
       setMediaSources((prevMediaSources) => ({
@@ -127,62 +108,6 @@ const App = () => {
     },
     [],
   );
-  const start = useCallback(() => {
-    setRecording(() => Date.now());
-    const toStart = [];
-    const newRecorders: MediaRecorder[] = [];
-    for (const [prefix, source] of Object.entries(mediaSources)) {
-      if (!source) {
-        continue;
-      }
-
-      const mimeType =
-        prefix === WEBCAM_PREFIX
-          ? "video/webm;codecs=vp8,opus"
-          : "video/webm;codecs=vp8";
-
-      const completeMediaRecorderOptions = {
-        ...mediaRecorderOptions,
-        mimeType,
-      };
-
-      const recorder = new MediaRecorder(source, completeMediaRecorderOptions);
-      newRecorders.push(recorder);
-
-      recorder.addEventListener("dataavailable", ({ data }) => {
-        setCurrentBlobs((prev) => ({
-          ...prev,
-          endDate,
-          blobs: {
-            ...prev.blobs,
-            [prefix]: data,
-          },
-        }));
-      });
-
-      recorder.addEventListener("error", (event) => {
-        console.log("error: ", prefix, event);
-      });
-
-      toStart.push(() => {
-        return recorder.start();
-      });
-    }
-
-    setRecorders(newRecorders);
-    toStart.forEach((f) => f());
-  }, [mediaSources]);
-
-  const stop = useCallback(() => {
-    if (recorders) {
-      for (const recorder of recorders) {
-        recorder.stop();
-      }
-    }
-
-    endDate = Date.now();
-    setRecording(false);
-  }, [recorders]);
 
   useEffect(() => {
     const checkDeviceLabels = async () => {
@@ -212,15 +137,7 @@ const App = () => {
 
   return (
     <div style={outer}>
-      <TopBar
-        start={start}
-        stop={stop}
-        discardVideos={discardVideos}
-        recording={recording}
-        currentBlobs={currentBlobs}
-        setCurrentBlobs={setCurrentBlobs}
-        mediaSources={mediaSources}
-      />
+      <TopBar mediaSources={mediaSources} />
       <div style={dynamicGridContainer}>
         <View
           prefix={WEBCAM_PREFIX}
@@ -252,22 +169,21 @@ const App = () => {
         ) : null}
       </div>
       <div style={{ marginBottom: 10 }}>
-        {/* eslint-disable-next-line no-negated-condition */}
-        {!showAlternativeViews ? (
-          <Button
-            variant={"ghost"}
-            onClick={handleShowMore}
-            style={{ margin: "0px 10px" }}
-          >
-            Show more views
-          </Button>
-        ) : (
+        {showAlternativeViews ? (
           <Button
             variant={"ghost"}
             onClick={handleShowLess}
             style={{ margin: "0px 10px", width: 100 }}
           >
             Show Less
+          </Button>
+        ) : (
+          <Button
+            variant={"ghost"}
+            onClick={handleShowMore}
+            style={{ margin: "0px 10px" }}
+          >
+            Show more views
           </Button>
         )}
       </div>
