@@ -5135,6 +5135,99 @@ export const Root = () => {
       <Composition
         component={Main}
         fps={FPS}
+        durationInFrames={90}
+        id="vscodebug"
+        schema={videoConf}
+        defaultProps={{
+          theme: "light" as const,
+          canvasLayout: "square" as const,
+          platform: "x" as const,
+          scenes: [
+            {
+              type: "videoscene" as const,
+              webcamPosition: "previous" as const,
+              duration: null,
+              transitionToNextScene: true,
+              newChapter: "",
+              stopChapteringAfterThis: false,
+              music: "previous" as const,
+              startOffset: 0,
+              bRolls: [],
+            },
+            {
+              music: "previous" as const,
+              transitionToNextScene: true,
+              type: "recorder" as const,
+              durationInFrames: 90,
+            },
+          ],
+          scenesAndMetadata: [],
+        }}
+        calculateMetadata={calcMetadata}
+      />
+      <Composition
+        component={Main}
+        fps={FPS}
+        durationInFrames={90}
+        id="mp4-parser"
+        schema={videoConf}
+        defaultProps={{
+          theme: "light" as const,
+          canvasLayout: "landscape" as const,
+          platform: "x" as const,
+          scenes: [
+            {
+              type: "videoscene" as const,
+              webcamPosition: "previous" as const,
+              duration: null,
+              transitionToNextScene: true,
+              newChapter: "",
+              stopChapteringAfterThis: false,
+              music: "previous" as const,
+              startOffset: 0,
+              bRolls: [],
+            },
+            {
+              type: "videoscene" as const,
+              webcamPosition: "previous" as const,
+              duration: null,
+              transitionToNextScene: true,
+              newChapter: "",
+              stopChapteringAfterThis: false,
+              music: "previous" as const,
+              startOffset: 0,
+              bRolls: [],
+            },
+            {
+              type: "videoscene" as const,
+              webcamPosition: "previous" as const,
+              duration: null,
+              transitionToNextScene: true,
+              newChapter: "",
+              stopChapteringAfterThis: false,
+              music: "previous" as const,
+              startOffset: 0,
+              bRolls: [],
+            },
+            {
+              type: "videoscene" as const,
+              webcamPosition: "previous" as const,
+              duration: null,
+              transitionToNextScene: true,
+              newChapter: "",
+              stopChapteringAfterThis: false,
+              music: "previous" as const,
+              startOffset: 0,
+              bRolls: [],
+            },
+          ],
+          scenesAndMetadata: [],
+        }}
+        calculateMetadata={calcMetadata}
+      />
+      <Composition
+        component={Main}
+        fps={FPS}
         durationInFrames={1}
         id="installwhispercpp"
         schema={videoConf}
