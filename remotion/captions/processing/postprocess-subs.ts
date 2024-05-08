@@ -11,7 +11,6 @@ import type { CanvasLayout } from "../../../config/layout";
 import { getSafeSpace } from "../../../config/layout";
 import type { SubtitleType } from "../Segment";
 import { getBorderWidthForSubtitles } from "../Segment";
-import type { WhisperWord } from "../types";
 import {
   whisperWordToWord,
   type Segment,
@@ -119,9 +118,7 @@ const cutWords = ({
 
 const FILLER_WORDS = ["[PAUSE]", "[BLANK_AUDIO]"];
 
-export const removeWhisperBlankWords = (
-  original: WhisperWord[],
-): WhisperWord[] => {
+export const removeWhisperBlankWords = (original: Word[]): Word[] => {
   let firstIdx = 0;
   let concatentatedWord = "";
   let inBlank = false;
@@ -189,9 +186,15 @@ export const postprocessSubtitles = ({
 }): SubTypes => {
   const blankTokensRemoved = removeBlankTokens(subTypes.transcription);
   const words = blankTokensRemoved.map((w, i) => {
-    return whisperWordToWord(w, subTypes.transcription[i + 1] ?? null);
+    return whisperWordToWord(w, blankTokensRemoved[i + 1] ?? null);
   });
-  const correctedWords = autocorrectWords(words);
+
+  const removeBlankAudioAndPause = removeWhisperBlankWords(words);
+  const removeBlankTokensAgain = removeBlankAudioAndPause.filter(
+    (w) => w.text.trim() !== "",
+  );
+
+  const correctedWords = autocorrectWords(removeBlankTokensAgain);
   const movedBackTickToWord = correctedWords.map((word) => {
     return {
       ...word,

@@ -1,5 +1,4 @@
 import type { WhisperWord } from "../types";
-import { removeWhisperBlankWords } from "./postprocess-subs";
 
 const removeBlankSubTokens = (
   token: WhisperWord["tokens"],
@@ -8,7 +7,7 @@ const removeBlankSubTokens = (
 };
 
 export const removeBlankTokens = (tokens: WhisperWord[]): WhisperWord[] => {
-  return removeWhisperBlankWords(tokens)
+  return tokens
     .filter((t) => t.text.trim() !== "")
     .filter((t) => {
       return !t.text.match(/TT_(\d+)/);
