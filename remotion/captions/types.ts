@@ -51,11 +51,16 @@ export const whisperWordToWord = (
   const noneEmptyTokens = word.tokens;
   const firstTimestamp = getTokenToTimestamp(noneEmptyTokens[0]) as number;
 
+  const nextWordTokens = filterOutEmptyTokens(nextWord?.tokens ?? []);
+  const currentWordTokens = filterOutEmptyTokens(word.tokens);
+
   return {
     text: word.text,
     firstTimestamp,
     lastTimestamp:
-      getTokenToTimestamp(filterOutEmptyTokens(nextWord?.tokens ?? [])[0]) ??
-      (getTokenToTimestamp(word.tokens[word.tokens.length - 1]) as number),
+      getTokenToTimestamp(nextWordTokens[0]) ??
+      (getTokenToTimestamp(
+        currentWordTokens[currentWordTokens.length - 1],
+      ) as number),
   };
 };
