@@ -2,6 +2,7 @@ export type Word = {
   text: string;
   firstTimestamp: number;
   lastTimestamp: number | null;
+  lastTimestampAccuracy: number | null;
   monospace?: boolean;
 };
 

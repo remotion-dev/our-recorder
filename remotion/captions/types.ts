@@ -6,6 +6,8 @@ type Token = {
     from: number;
     to: number;
   };
+  text: string;
+  p: number;
 };
 
 export type WhisperWord = {
@@ -54,13 +56,13 @@ export const whisperWordToWord = (
   const nextWordTokens = filterOutEmptyTokens(nextWord?.tokens ?? []);
   const currentWordTokens = filterOutEmptyTokens(word.tokens);
 
+  const wordForLastTimestamp =
+    nextWordTokens[0] ?? currentWordTokens[currentWordTokens.length - 1];
+
   return {
     text: word.text,
     firstTimestamp,
-    lastTimestamp:
-      getTokenToTimestamp(nextWordTokens[0]) ??
-      (getTokenToTimestamp(
-        currentWordTokens[currentWordTokens.length - 1],
-      ) as number),
+    lastTimestamp: getTokenToTimestamp(wordForLastTimestamp),
+    lastTimestampAccuracy: wordForLastTimestamp?.p ?? null,
   };
 };
