@@ -75,7 +75,6 @@ export const Subs: React.FC<{
     const { cancel } = watchStaticFile(
       file.name,
       (newData: StaticFile | null) => {
-        console.log("new");
         if (newData) {
           setChangeStatus("changed");
         }

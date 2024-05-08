@@ -2,6 +2,10 @@ import React, { useEffect, useState } from "react";
 import { cancelRender, continueRender, delayRender } from "remotion";
 import { waitForFonts } from "../../config/fonts";
 
+// Missing fonts can influence the layout calculation
+// and cause the subtitles to be misaligned.
+
+// Use this component to only mount components once all fonts are loaded
 export const WaitForFonts: React.FC<{
   children: React.ReactNode;
 }> = ({ children }) => {
