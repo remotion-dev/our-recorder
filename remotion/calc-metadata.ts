@@ -102,11 +102,11 @@ const deriveEndFrameFromSubs = (subs: SubTypes | null) => {
 
   const lastSegment = subs.segments[subs.segments.length - 1];
   const lastWord = lastSegment?.words[lastSegment.words.length - 1];
-  if (!lastWord || !lastWord.firstTimestamp) {
+  if (!lastWord || !lastWord.lastTimestamp) {
     throw new Error("Last word or its timestampe is undefined");
   }
 
-  const lastFrame = Math.floor((lastWord.firstTimestamp / 1000) * FPS);
+  const lastFrame = Math.floor((lastWord.lastTimestamp / 1000) * FPS);
   return lastFrame;
 };
 
