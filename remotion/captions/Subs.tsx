@@ -27,7 +27,7 @@ import { COLORS } from "../../config/themes";
 import { shouldInlineTransitionSubtitles } from "../animations/subtitle-transitions/should-transition-subtitle";
 import { getSubtitleTransform } from "../animations/subtitle-transitions/subtitle-transitions";
 import { Captions } from "./Captions";
-import { SubsEditor } from "./Editor/SubsEditor";
+import { SubsEditor } from "./Editor/CaptionsEditor";
 import { postprocessSubtitles } from "./processing/postprocess-subs";
 import { getBorderWidthForSubtitles, getSubsAlign } from "./Segment";
 import {
