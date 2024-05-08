@@ -18,8 +18,9 @@ export const NoCaptionsPlaceholder: React.FC<{
       position: "absolute",
       color: COLORS[theme].WORD_COLOR_ON_BG_APPEARED,
       fontFamily: REGULAR_FONT_FAMILY,
-      border: `1px ${COLORS[theme].BORDER_COLOR} solid`,
-      fontSize: 24,
+      border: `2px ${COLORS[theme].BORDER_COLOR} solid`,
+      backgroundColor: COLORS[theme].BACKGROUND,
+      fontSize: 28,
       textAlign: "center",
       padding: 20,
     };
