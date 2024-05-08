@@ -14,6 +14,7 @@ import {
 } from "../../config/fonts";
 import type { Theme } from "../../config/themes";
 import { COLORS } from "../../config/themes";
+import { useCaptionOverlay } from "./Editor/use-caption-overlay";
 
 export const useSequenceDuration = (trimStart: number) => {
   const { durationInFrames, fps } = useVideoConfig();
@@ -88,9 +89,8 @@ export const WordComp: React.FC<{
   word: Word;
   isLast: boolean;
   theme: Theme;
-  onOpenSubEditor: (word: Word) => void;
   startFrame: number;
-}> = ({ word, isLast, theme, onOpenSubEditor, startFrame }) => {
+}> = ({ word, isLast, theme, startFrame }) => {
   const { fps } = useVideoConfig();
   const frame = useCurrentFrame() + startFrame;
   const time = (frame / fps) * 1000;
@@ -178,9 +178,11 @@ export const WordComp: React.FC<{
     setHovered(false);
   }, []);
 
+  const overlay = useCaptionOverlay();
+
   const onClick = useCallback(() => {
-    onOpenSubEditor(word);
-  }, [onOpenSubEditor, word]);
+    overlay.setOpen(word);
+  }, [overlay, word]);
 
   return (
     <span

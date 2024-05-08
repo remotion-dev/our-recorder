@@ -1,4 +1,3 @@
-import type { Word } from "../../config/autocorrect";
 import type { CanvasLayout } from "../../config/layout";
 import type { Theme } from "../../config/themes";
 import type { SubtitleType } from "./Segment";
@@ -10,7 +9,6 @@ export const Captions: React.FC<{
   canvasLayout: CanvasLayout;
   theme: Theme;
   segments: Segment[];
-  onOpenSubEditor: (word: Word) => void;
   subtitleType: SubtitleType;
   fontSize: number;
   lines: number;
@@ -19,7 +17,6 @@ export const Captions: React.FC<{
   canvasLayout,
   segments,
   theme,
-  onOpenSubEditor,
   subtitleType,
   fontSize,
   lines,
@@ -40,7 +37,6 @@ export const Captions: React.FC<{
             theme={theme}
             fontSize={fontSize}
             lines={lines}
-            onOpenSubEditor={onOpenSubEditor}
           />
         );
       })}

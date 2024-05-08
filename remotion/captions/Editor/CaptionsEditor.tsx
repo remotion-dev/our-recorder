@@ -10,24 +10,24 @@ import { EditWord } from "./EditWord";
 import { SubsEditorFooter } from "./Footer";
 import { SubsEditorHeader } from "./Header";
 import { captionEditorPortal, FOOTER_HEIGHT, HEADER_HEIGHT } from "./layout";
+import { useCaptionOverlay } from "./use-caption-overlay";
 
-export const SubsEditor: React.FC<{
+export const CaptionsEditor: React.FC<{
   whisperOutput: WhisperOutput;
   setWhisperOutput: React.Dispatch<React.SetStateAction<WhisperOutput | null>>;
   filePath: string;
   initialWord: Word;
-  onCloseSubEditor: () => void;
   trimStart: number;
   theme: Theme;
 }> = ({
   whisperOutput,
   filePath,
-  onCloseSubEditor,
   initialWord,
   trimStart,
   theme,
   setWhisperOutput,
 }) => {
+  const overlay = useCaptionOverlay();
   const setAndSaveWhisperOutput = useCallback(
     (updater: (old: WhisperOutput) => WhisperOutput) => {
       setWhisperOutput((old) => {
@@ -95,7 +95,7 @@ export const SubsEditor: React.FC<{
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         e.preventDefault();
-        onCloseSubEditor();
+        overlay.setOpen(false);
       }
     };
 
@@ -103,7 +103,7 @@ export const SubsEditor: React.FC<{
     return () => {
       window.removeEventListener("keydown", onKeyDown);
     };
-  }, [onCloseSubEditor]);
+  }, [overlay, overlay.setOpen]);
 
   if (!captionEditorPortal.current) {
     return null;
@@ -133,16 +133,12 @@ export const SubsEditor: React.FC<{
               isInitialWord={word.firstTimestamp === initialWord.firstTimestamp}
               trimStart={trimStart}
               onUpdateText={onChangeText}
-              onCloseEditor={onCloseSubEditor}
             />
           );
         })}
       </AbsoluteFill>
       <SubsEditorHeader />
-      <SubsEditorFooter
-        fileName={filePath}
-        onCloseSubEditor={onCloseSubEditor}
-      />
+      <SubsEditorFooter fileName={filePath} />
     </AbsoluteFill>,
     captionEditorPortal.current as HTMLDivElement,
   );

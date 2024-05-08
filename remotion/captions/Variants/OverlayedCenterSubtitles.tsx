@@ -1,4 +1,3 @@
-import type { Word } from "../../../config/autocorrect";
 import type { CanvasLayout } from "../../../config/layout";
 import type { Theme } from "../../../config/themes";
 import { getHorizontalPaddingForSubtitles } from "../processing/postprocess-subs";
@@ -11,9 +10,8 @@ export const OverlayedCenterSubtitles: React.FC<{
   segment: Segment;
   startFrame: number;
   theme: Theme;
-  onOpenSubEditor: (word: Word) => void;
   canvasLayout: CanvasLayout;
-}> = ({ segment, startFrame, theme, canvasLayout, onOpenSubEditor }) => {
+}> = ({ segment, startFrame, theme, canvasLayout }) => {
   const padding = getHorizontalPaddingForSubtitles(
     "overlayed-center",
     canvasLayout,
@@ -34,12 +32,7 @@ export const OverlayedCenterSubtitles: React.FC<{
           borderRadius: WORD_HIGHLIGHT_BORDER_RADIUS + padding,
         }}
       >
-        <Words
-          onOpenSubEditor={onOpenSubEditor}
-          segment={segment}
-          startFrame={startFrame}
-          theme={theme}
-        />
+        <Words segment={segment} startFrame={startFrame} theme={theme} />
       </span>
     </div>
   );

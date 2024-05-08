@@ -7,6 +7,7 @@ import type {
 } from "../../../config/scenes";
 import type { Theme } from "../../../config/themes";
 import { getShouldTransitionIn } from "../../animations/transitions";
+import { CaptionOverlay } from "../../captions/Editor/CaptionOverlay";
 import { PlaceholderSubs } from "../../captions/PlaceholderSubs";
 import { Subs } from "../../captions/Subs";
 import { LandscapeChapters } from "../../chapters/landscape/SelectedChapters";
@@ -105,17 +106,22 @@ export const CameraScene: React.FC<{
       </AbsoluteFill>
       {sceneAndMetadata.pair.subs ? (
         <WaitForFonts>
-          <Subs
-            canvasLayout={canvasLayout}
-            trimStart={startFrom}
+          <CaptionOverlay
             file={sceneAndMetadata.pair.subs}
-            enterProgress={enterProgress}
-            exitProgress={exitProgress}
-            scene={sceneAndMetadata}
-            nextScene={nextScene}
-            previousScene={previousScene}
             theme={theme}
-          />
+            trimStart={startFrom}
+          >
+            <Subs
+              canvasLayout={canvasLayout}
+              trimStart={startFrom}
+              enterProgress={enterProgress}
+              exitProgress={exitProgress}
+              scene={sceneAndMetadata}
+              nextScene={nextScene}
+              previousScene={previousScene}
+              theme={theme}
+            />
+          </CaptionOverlay>
         </WaitForFonts>
       ) : window.remotion_isStudio ? (
         <PlaceholderSubs

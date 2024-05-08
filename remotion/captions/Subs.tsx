@@ -1,19 +1,5 @@
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
-import type { StaticFile } from "remotion";
-import {
-  AbsoluteFill,
-  continueRender,
-  delayRender,
-  useVideoConfig,
-  watchStaticFile,
-} from "remotion";
-import type { Word } from "../../config/autocorrect";
+import React, { useMemo } from "react";
+import { AbsoluteFill, useVideoConfig } from "remotion";
 import type { CanvasLayout } from "../../config/layout";
 import type {
   SceneAndMetadata,
@@ -24,19 +10,17 @@ import { COLORS } from "../../config/themes";
 import { shouldInlineTransitionSubtitles } from "../animations/subtitle-transitions/should-transition-subtitle";
 import { getSubtitleTransform } from "../animations/subtitle-transitions/subtitle-transitions";
 import { Captions } from "./Captions";
-import { SubsEditor } from "./Editor/CaptionsEditor";
+import { useCaptions } from "./Editor/captions-provider";
 import { postprocessSubtitles } from "./processing/postprocess-subs";
 import { getBorderWidthForSubtitles, getSubsAlign } from "./Segment";
 import {
   TransitionFromPreviousSubtitles,
   TransitionToNextSubtitles,
 } from "./TransitionBetweenSubtitles";
-import type { WhisperOutput } from "./types";
 
 const LINE_HEIGHT = 1.2;
 
 export const Subs: React.FC<{
-  file: StaticFile;
   trimStart: number;
   canvasLayout: CanvasLayout;
   scene: VideoSceneAndMetadata;
@@ -46,7 +30,6 @@ export const Subs: React.FC<{
   previousScene: SceneAndMetadata | null;
   theme: Theme;
 }> = ({
-  file,
   trimStart,
   canvasLayout,
   scene,
@@ -56,49 +39,7 @@ export const Subs: React.FC<{
   previousScene,
   theme,
 }) => {
-  const [whisperOutput, setWhisperOutput] = useState<WhisperOutput | null>(
-    null,
-  );
   const { width, height } = useVideoConfig();
-  const [handle] = useState(() => delayRender());
-  const [changeStatus, setChangeStatus] = useState<
-    "initial" | "changed" | "unchanged"
-  >("initial");
-  const [subEditorOpen, setSubEditorOpen] = useState<Word | false>(false);
-  const preventReload = useRef(false);
-
-  useEffect(() => {
-    if (subEditorOpen) {
-      return;
-    }
-
-    const { cancel } = watchStaticFile(
-      file.name,
-      (newData: StaticFile | null) => {
-        if (newData) {
-          setChangeStatus("changed");
-        }
-      },
-    );
-    return () => {
-      cancel();
-    };
-  }, [file.name, subEditorOpen]);
-
-  useEffect(() => {
-    if (changeStatus === "initial" || changeStatus === "changed") {
-      fetch(file.src)
-        .then((res) => res.json())
-        .then((d) => {
-          continueRender(handle);
-          if (!preventReload.current) {
-            setWhisperOutput(d);
-          }
-        });
-      setChangeStatus("unchanged");
-    }
-  }, [changeStatus, file.src, handle]);
-
   const { subtitleType, subtitleFontSize } = scene.layout;
 
   const shouldTransitionToNext = shouldInlineTransitionSubtitles({
@@ -110,11 +51,8 @@ export const Subs: React.FC<{
     nextScene: previousScene,
   });
 
+  const whisperOutput = useCaptions();
   const postprocessed = useMemo(() => {
-    if (!whisperOutput) {
-      return null;
-    }
-
     return postprocessSubtitles({
       subTypes: whisperOutput,
       boxWidth: scene.layout.subtitleLayout.width,
@@ -131,14 +69,6 @@ export const Subs: React.FC<{
     canvasLayout,
     subtitleType,
   ]);
-
-  const onOpenSubEditor = useCallback((word: Word) => {
-    setSubEditorOpen(word);
-  }, []);
-
-  const onCloseSubEditor = useCallback(() => {
-    setSubEditorOpen(false);
-  }, []);
 
   if (!postprocessed) {
     return null;
@@ -185,7 +115,6 @@ export const Subs: React.FC<{
             canvasLayout={canvasLayout}
             fontSize={scene.layout.subtitleFontSize}
             lines={scene.layout.subtitleLines}
-            onOpenSubEditor={onOpenSubEditor}
             segments={postprocessed.segments}
             subtitleType={subtitleType}
             theme={theme}
@@ -193,17 +122,6 @@ export const Subs: React.FC<{
           />
         </TransitionToNextSubtitles>
       </TransitionFromPreviousSubtitles>
-      {whisperOutput && subEditorOpen ? (
-        <SubsEditor
-          initialWord={subEditorOpen}
-          setWhisperOutput={setWhisperOutput}
-          whisperOutput={whisperOutput}
-          filePath={file.name}
-          trimStart={trimStart}
-          theme={theme}
-          onCloseSubEditor={onCloseSubEditor}
-        />
-      ) : null}
     </AbsoluteFill>
   );
 };
