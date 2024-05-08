@@ -11,6 +11,7 @@ import type { CanvasLayout } from "../../../config/layout";
 import { getSafeSpace } from "../../../config/layout";
 import type { SubtitleType } from "../Segment";
 import { getBorderWidthForSubtitles } from "../Segment";
+import type { WhisperWord } from "../types";
 import {
   whisperWordToWord,
   type Segment,
@@ -18,6 +19,7 @@ import {
   type WhisperOutput,
 } from "../types";
 import { hasMonoSpaceInIt } from "./has-monospace-in-word";
+import { removeBlankTokens } from "./remove-blank-tokens";
 import { splitWordIntoMonospaceSegment } from "./split-word-into-monospace-segment";
 import { wordsTogether } from "./words-together";
 
@@ -115,12 +117,14 @@ const cutWords = ({
   });
 };
 
-export const removeWhisperBlankWords = (original: Word[]): Word[] => {
+const FILLER_WORDS = ["[PAUSE]", "[BLANK_AUDIO]"];
+
+export const removeWhisperBlankWords = (
+  original: WhisperWord[],
+): WhisperWord[] => {
   let firstIdx = 0;
   let concatentatedWord = "";
   let inBlank = false;
-  const blankAudio = "[BLANK_AUDIO]";
-  const pause = "[PAUSE]";
 
   const words = [...original];
   words.forEach((word, index) => {
@@ -131,19 +135,13 @@ export const removeWhisperBlankWords = (original: Word[]): Word[] => {
       firstIdx = index;
     }
 
-    if (
-      inBlank &&
-      (blankAudio.includes(wordCopy.text) || pause.includes(wordCopy.text))
-    ) {
+    if (inBlank && FILLER_WORDS.find((w) => w.includes(wordCopy.text))) {
       concatentatedWord += wordCopy.text;
     }
 
     if (inBlank && wordCopy.text.includes("]")) {
       concatentatedWord += wordCopy.text;
-      if (
-        concatentatedWord.includes(blankAudio) ||
-        concatentatedWord.includes(pause)
-      ) {
+      if (FILLER_WORDS.find((w) => concatentatedWord.includes(w))) {
         for (let i = firstIdx; i <= index; i++) {
           const currentWord = words[i];
           if (currentWord?.text !== undefined) {
@@ -189,7 +187,8 @@ export const postprocessSubtitles = ({
   canvasLayout: CanvasLayout;
   subtitleType: SubtitleType;
 }): SubTypes => {
-  const words = subTypes.transcription.map((w, i) => {
+  const blankTokensRemoved = removeBlankTokens(subTypes.transcription);
+  const words = blankTokensRemoved.map((w, i) => {
     return whisperWordToWord(w, subTypes.transcription[i + 1] ?? null);
   });
   const correctedWords = autocorrectWords(words);
@@ -202,7 +201,7 @@ export const postprocessSubtitles = ({
 
   const allWords = wordsTogether(movedBackTickToWord);
 
-  const preFilteredWords = removeWhisperBlankWords(allWords);
+  const preFilteredWords = allWords;
   const segments = cutWords({
     words: preFilteredWords,
     boxWidth:
