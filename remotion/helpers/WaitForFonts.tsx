@@ -17,6 +17,7 @@ export const WaitForFonts: React.FC<{
 
     waitForFonts()
       .then(() => {
+        continueRender(handle);
         continueRender(delay);
         setFontsLoaded(true);
       })
