@@ -40,7 +40,8 @@ export const Subs: React.FC<{
   theme,
 }) => {
   const { width, height } = useVideoConfig();
-  const { subtitleType, subtitleFontSize } = scene.layout;
+  const { subtitleType, subtitleFontSize, subtitleLayout, subtitleLines } =
+    scene.layout;
 
   const shouldTransitionToNext = shouldInlineTransitionSubtitles({
     currentScene: scene,
@@ -55,51 +56,63 @@ export const Subs: React.FC<{
   const postprocessed = useMemo(() => {
     return postprocessSubtitles({
       subTypes: whisperOutput,
-      boxWidth: scene.layout.subtitleLayout.width,
-      maxLines: scene.layout.subtitleLines,
-      fontSize: scene.layout.subtitleFontSize,
+      boxWidth: subtitleLayout.width,
+      maxLines: subtitleLines,
+      fontSize: subtitleFontSize,
       canvasLayout,
       subtitleType,
     });
   }, [
     whisperOutput,
-    scene.layout.subtitleLayout.width,
-    scene.layout.subtitleLines,
-    scene.layout.subtitleFontSize,
+    subtitleLayout.width,
+    subtitleLines,
+    subtitleFontSize,
     canvasLayout,
     subtitleType,
   ]);
 
-  if (!postprocessed) {
-    return null;
-  }
-
-  const outer: React.CSSProperties = {
-    fontSize: subtitleFontSize,
-    display: "flex",
-    lineHeight: LINE_HEIGHT,
-    border: `${getBorderWidthForSubtitles(subtitleType)}px solid ${
-      COLORS[theme].BORDER_COLOR
-    }`,
-    backgroundColor:
+  const outer: React.CSSProperties = useMemo(() => {
+    const backgroundColor =
       subtitleType === "square" || subtitleType === "overlayed-center"
         ? COLORS[theme].SUBTITLES_BACKGROUND
-        : undefined,
-    ...getSubsAlign({
-      canvasLayout,
-      subtitleType,
-    }),
-    ...getSubtitleTransform({
-      enterProgress,
-      exitProgress,
-      canvasHeight: height,
-      nextScene,
-      previousScene,
-      scene,
-      canvasWidth: width,
-      subtitleType,
-    }),
-  };
+        : undefined;
+
+    return {
+      fontSize: subtitleFontSize,
+      display: "flex",
+      lineHeight: LINE_HEIGHT,
+      borderWidth: getBorderWidthForSubtitles(subtitleType),
+      borderStyle: "solid",
+      borderColor: COLORS[theme].BORDER_COLOR,
+      backgroundColor,
+      ...getSubsAlign({
+        canvasLayout,
+        subtitleType,
+      }),
+      ...getSubtitleTransform({
+        enterProgress,
+        exitProgress,
+        canvasHeight: height,
+        nextScene,
+        previousScene,
+        scene,
+        canvasWidth: width,
+        subtitleType,
+      }),
+    };
+  }, [
+    canvasLayout,
+    enterProgress,
+    exitProgress,
+    height,
+    nextScene,
+    previousScene,
+    scene,
+    subtitleFontSize,
+    subtitleType,
+    theme,
+    width,
+  ]);
 
   return (
     <AbsoluteFill style={outer}>
