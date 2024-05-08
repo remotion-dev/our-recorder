@@ -68,10 +68,12 @@ export const whisperWordToWord = (
   return {
     text: word.text,
     firstTimestamp,
-    lastTimestamp: Math.min(
-      atMostLastTimestamp ? atMostLastTimestamp + 500 : Infinity,
-      lastTimestamp ? lastTimestamp : Infinity,
-    ),
+    lastTimestamp: lastTimestamp
+      ? Math.min(
+          atMostLastTimestamp ? atMostLastTimestamp + 500 : Infinity,
+          lastTimestamp,
+        )
+      : null,
     lastTimestampAccuracy: wordForLastTimestamp?.p ?? null,
   };
 };
