@@ -26,13 +26,10 @@ import type { Theme } from "../../config/themes";
 import { COLORS } from "../../config/themes";
 import { shouldInlineTransitionSubtitles } from "../animations/subtitle-transitions/should-transition-subtitle";
 import { getSubtitleTransform } from "../animations/subtitle-transitions/subtitle-transitions";
+import { Captions } from "./Captions";
 import { SubsEditor } from "./Editor/SubsEditor";
 import { postprocessSubtitles } from "./processing/postprocess-subs";
-import {
-  CaptionSentence,
-  getBorderWidthForSubtitles,
-  getSubsAlign,
-} from "./Segment";
+import { getBorderWidthForSubtitles, getSubsAlign } from "./Segment";
 import {
   TransitionFromPreviousSubtitles,
   TransitionToNextSubtitles,
@@ -89,13 +86,14 @@ export const Subs: React.FC<{
   }, [fontsLoaded, handle]);
 
   useEffect(() => {
-    if (!subEditorOpen) {
+    if (subEditorOpen) {
       return;
     }
 
     const { cancel } = watchStaticFile(
       file.name,
       (newData: StaticFile | null) => {
+        console.log("new");
         if (newData) {
           setChangeStatus("changed");
         }
@@ -225,6 +223,7 @@ export const Subs: React.FC<{
       subtitleType,
     }),
   };
+
   return (
     <AbsoluteFill style={outer}>
       <TransitionFromPreviousSubtitles
@@ -235,24 +234,16 @@ export const Subs: React.FC<{
           shouldTransitionToNextsSubtitles={shouldTransitionToNext}
           subtitleType={subtitleType}
         >
-          {postprocessed.segments.map((segment, index) => {
-            return (
-              <CaptionSentence
-                // eslint-disable-next-line react/no-array-index-key
-                key={index}
-                isFirst={index === 0}
-                isLast={index === postprocessed.segments.length - 1}
-                segment={segment}
-                trimStart={trimStart}
-                canvasLayout={canvasLayout}
-                subtitleType={subtitleType}
-                theme={theme}
-                fontSize={scene.layout.subtitleFontSize}
-                lines={scene.layout.subtitleLines}
-                onOpenSubEditor={onOpenSubEditor}
-              />
-            );
-          })}
+          <Captions
+            canvasLayout={canvasLayout}
+            fontSize={scene.layout.subtitleFontSize}
+            lines={scene.layout.subtitleLines}
+            onOpenSubEditor={onOpenSubEditor}
+            segments={postprocessed.segments}
+            subtitleType={subtitleType}
+            theme={theme}
+            trimStart={trimStart}
+          />
         </TransitionToNextSubtitles>
       </TransitionFromPreviousSubtitles>
       {whisperOutput && subEditorOpen ? (

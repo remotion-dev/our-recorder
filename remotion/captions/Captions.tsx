@@ -1,0 +1,49 @@
+import type { Word } from "../../config/autocorrect";
+import type { CanvasLayout } from "../../config/layout";
+import type { Theme } from "../../config/themes";
+import type { SubtitleType } from "./Segment";
+import { CaptionSentence } from "./Segment";
+import type { Segment } from "./types";
+
+export const Captions: React.FC<{
+  trimStart: number;
+  canvasLayout: CanvasLayout;
+  theme: Theme;
+  segments: Segment[];
+  onOpenSubEditor: (word: Word) => void;
+  subtitleType: SubtitleType;
+  fontSize: number;
+  lines: number;
+}> = ({
+  trimStart,
+  canvasLayout,
+  segments,
+  theme,
+  onOpenSubEditor,
+  subtitleType,
+  fontSize,
+  lines,
+}) => {
+  return (
+    <>
+      {segments.map((segment, index) => {
+        return (
+          <CaptionSentence
+            // eslint-disable-next-line react/no-array-index-key
+            key={index}
+            isFirst={index === 0}
+            isLast={index === segments.length - 1}
+            segment={segment}
+            trimStart={trimStart}
+            canvasLayout={canvasLayout}
+            subtitleType={subtitleType}
+            theme={theme}
+            fontSize={fontSize}
+            lines={lines}
+            onOpenSubEditor={onOpenSubEditor}
+          />
+        );
+      })}
+    </>
+  );
+};
