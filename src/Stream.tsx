@@ -109,8 +109,6 @@ export const Stream: React.FC<{
         : undefined,
     };
 
-    console.log(selectedVideoSource);
-
     const mediaStreamConstraints: MediaStreamConstraints = {
       video,
       audio:
