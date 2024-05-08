@@ -56,13 +56,22 @@ export const whisperWordToWord = (
   const nextWordTokens = filterOutEmptyTokens(nextWord?.tokens ?? []);
   const currentWordTokens = filterOutEmptyTokens(word.tokens);
 
+  const atMostLastTimestamp = getTokenToTimestamp(
+    currentWordTokens[currentWordTokens.length - 1],
+  );
+
   const wordForLastTimestamp =
     nextWordTokens[0] ?? currentWordTokens[currentWordTokens.length - 1];
+
+  const lastTimestamp = getTokenToTimestamp(wordForLastTimestamp);
 
   return {
     text: word.text,
     firstTimestamp,
-    lastTimestamp: getTokenToTimestamp(wordForLastTimestamp),
+    lastTimestamp: Math.min(
+      atMostLastTimestamp ? atMostLastTimestamp + 500 : Infinity,
+      lastTimestamp ? lastTimestamp : Infinity,
+    ),
     lastTimestampAccuracy: wordForLastTimestamp?.p ?? null,
   };
 };

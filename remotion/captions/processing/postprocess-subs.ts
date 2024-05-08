@@ -195,6 +195,7 @@ export const postprocessSubtitles = ({
   );
 
   const correctedWords = autocorrectWords(removeBlankTokensAgain);
+
   const movedBackTickToWord = correctedWords.map((word) => {
     return {
       ...word,
