@@ -116,7 +116,7 @@ const cutWords = ({
   });
 };
 
-const FILLER_WORDS = ["[PAUSE]", "[BLANK_AUDIO]"];
+const FILLER_WORDS = ["[PAUSE]", "[BLANK_AUDIO]", "[Silence]"];
 
 export const removeWhisperBlankWords = (original: Word[]): Word[] => {
   let firstIdx = 0;
