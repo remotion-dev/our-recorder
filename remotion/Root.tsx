@@ -5233,8 +5233,8 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
-              webcamPosition: "previous" as const,
-              duration: null,
+              webcamPosition: "top-right" as const,
+              duration: 900,
               transitionToNextScene: true,
               newChapter: "",
               stopChapteringAfterThis: false,
@@ -5244,7 +5244,7 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
-              webcamPosition: "previous" as const,
+              webcamPosition: "top-left" as const,
               duration: null,
               transitionToNextScene: true,
               newChapter: "",
