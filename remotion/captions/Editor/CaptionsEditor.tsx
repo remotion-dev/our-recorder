@@ -1,3 +1,4 @@
+import { writeStaticFile } from "@remotion/studio";
 import React, { useCallback, useEffect, useMemo } from "react";
 import ReactDOM from "react-dom";
 import { AbsoluteFill } from "remotion";
@@ -12,21 +13,46 @@ import { captionEditorPortal, FOOTER_HEIGHT, HEADER_HEIGHT } from "./layout";
 
 export const SubsEditor: React.FC<{
   whisperOutput: WhisperOutput;
-  setWhisperOutput: (updater: (old: WhisperOutput) => WhisperOutput) => void;
-  fileName: string;
+  setWhisperOutput: React.Dispatch<React.SetStateAction<WhisperOutput | null>>;
+  filePath: string;
   initialWord: Word;
   onCloseSubEditor: () => void;
   trimStart: number;
   theme: Theme;
 }> = ({
   whisperOutput,
-  setWhisperOutput,
-  fileName,
+  filePath,
   onCloseSubEditor,
   initialWord,
   trimStart,
   theme,
+  setWhisperOutput,
 }) => {
+  const setAndSaveWhisperOutput = useCallback(
+    (updater: (old: WhisperOutput) => WhisperOutput) => {
+      setWhisperOutput((old) => {
+        if (old === null) {
+          return null;
+        }
+
+        if (!window.remotion_publicFolderExists) {
+          throw new Error("window.remotion_publicFolderExists is not set");
+        }
+
+        const newOutput = updater(old);
+        const contents = JSON.stringify(newOutput, null, 2);
+
+        writeStaticFile({
+          filePath,
+          contents,
+        });
+
+        return newOutput;
+      });
+    },
+    [filePath, setWhisperOutput],
+  );
+
   const words = useMemo(() => {
     return whisperOutput.transcription.map((whisperWord, i) => {
       const nextWhisperWord = whisperOutput.transcription[i + 1];
@@ -45,7 +71,7 @@ export const SubsEditor: React.FC<{
 
   const onChangeText = useCallback(
     (index: number, newText: string) => {
-      setWhisperOutput((old) => {
+      setAndSaveWhisperOutput((old) => {
         const newTranscription = old.transcription.map((t, i) => {
           if (i === index) {
             return {
@@ -62,7 +88,7 @@ export const SubsEditor: React.FC<{
         };
       });
     },
-    [setWhisperOutput],
+    [setAndSaveWhisperOutput],
   );
 
   useEffect(() => {
@@ -114,7 +140,7 @@ export const SubsEditor: React.FC<{
       </AbsoluteFill>
       <SubsEditorHeader />
       <SubsEditorFooter
-        fileName={fileName}
+        fileName={filePath}
         onCloseSubEditor={onCloseSubEditor}
       />
     </AbsoluteFill>,

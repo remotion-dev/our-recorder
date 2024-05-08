@@ -1,4 +1,3 @@
-import { writeStaticFile } from "@remotion/studio";
 import React, {
   useCallback,
   useEffect,
@@ -9,14 +8,12 @@ import React, {
 import type { StaticFile } from "remotion";
 import {
   AbsoluteFill,
-  cancelRender,
   continueRender,
   delayRender,
   useVideoConfig,
   watchStaticFile,
 } from "remotion";
 import type { Word } from "../../config/autocorrect";
-import { waitForFonts } from "../../config/fonts";
 import type { CanvasLayout } from "../../config/layout";
 import type {
   SceneAndMetadata,
@@ -70,21 +67,6 @@ export const Subs: React.FC<{
   const [subEditorOpen, setSubEditorOpen] = useState<Word | false>(false);
   const preventReload = useRef(false);
 
-  const [fontsLoaded, setFontsLoaded] = useState(false);
-
-  useEffect(() => {
-    const delay = delayRender("Waiting for fonts to be loaded");
-
-    waitForFonts()
-      .then(() => {
-        continueRender(delay);
-        setFontsLoaded(true);
-      })
-      .catch((err) => {
-        cancelRender(err);
-      });
-  }, [fontsLoaded, handle]);
-
   useEffect(() => {
     if (subEditorOpen) {
       return;
@@ -134,10 +116,6 @@ export const Subs: React.FC<{
       return null;
     }
 
-    if (!fontsLoaded) {
-      return null;
-    }
-
     return postprocessSubtitles({
       subTypes: whisperOutput,
       boxWidth: scene.layout.subtitleLayout.width,
@@ -148,7 +126,6 @@ export const Subs: React.FC<{
     });
   }, [
     whisperOutput,
-    fontsLoaded,
     scene.layout.subtitleLayout.width,
     scene.layout.subtitleLines,
     scene.layout.subtitleFontSize,
@@ -163,35 +140,6 @@ export const Subs: React.FC<{
   const onCloseSubEditor = useCallback(() => {
     setSubEditorOpen(false);
   }, []);
-
-  const setAndSaveWhisperOutput = useCallback(
-    (updater: (old: WhisperOutput) => WhisperOutput) => {
-      setWhisperOutput((old) => {
-        if (old === null) {
-          return null;
-        }
-
-        if (!window.remotion_publicFolderExists) {
-          throw new Error("window.remotion_publicFolderExists is not set");
-        }
-
-        const newOutput = updater(old);
-        const filePath = `${file.name}`;
-        const contents = JSON.stringify(newOutput, null, 2);
-
-        preventReload.current = true;
-        writeStaticFile({
-          filePath,
-          contents,
-        }).finally(() => {
-          preventReload.current = false;
-        });
-
-        return newOutput;
-      });
-    },
-    [file.name],
-  );
 
   if (!postprocessed) {
     return null;
@@ -249,9 +197,9 @@ export const Subs: React.FC<{
       {whisperOutput && subEditorOpen ? (
         <SubsEditor
           initialWord={subEditorOpen}
-          setWhisperOutput={setAndSaveWhisperOutput}
+          setWhisperOutput={setWhisperOutput}
           whisperOutput={whisperOutput}
-          fileName={file.name}
+          filePath={file.name}
           trimStart={trimStart}
           theme={theme}
           onCloseSubEditor={onCloseSubEditor}
