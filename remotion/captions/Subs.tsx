@@ -73,7 +73,7 @@ export const Subs: React.FC<{
 
   const outer: React.CSSProperties = useMemo(() => {
     const backgroundColor =
-      subtitleType === "square" || subtitleType === "overlayed-center"
+      subtitleType === "square"
         ? COLORS[theme].SUBTITLES_BACKGROUND
         : undefined;
 

@@ -192,7 +192,6 @@ export const CaptionSentence: React.FC<{
             canvasLayout={canvasLayout}
             segment={segment}
             startFrame={startFrame}
-            theme={theme}
           />
         )}
       </FadeSentence>

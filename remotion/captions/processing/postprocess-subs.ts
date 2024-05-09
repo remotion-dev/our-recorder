@@ -163,7 +163,7 @@ export const getHorizontalPaddingForSubtitles = (
   }
 
   if (subtitleType === "overlayed-center") {
-    return 20;
+    return 60;
   }
 
   return 0;
