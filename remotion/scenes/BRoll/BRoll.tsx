@@ -78,7 +78,6 @@ const InnerBRoll: React.FC<{
       bRollsBefore={bRollsBefore}
       bRollLayout={bRollLayout}
       bRollEnterDirection={bRollEnterDirection}
-      canvasLayout={canvasLayout}
       sceneFrame={sceneFrame}
       appearProgress={appearProgress}
       disappearProgress={disappearProgress}
