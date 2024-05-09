@@ -47,6 +47,7 @@ export const FadeBRoll: React.FC<{
         muted
         containerLayout={layout}
         videoSize={assetSize}
+        enableBlur
       />
     );
   }
