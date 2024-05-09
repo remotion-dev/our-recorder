@@ -7,6 +7,7 @@ import type {
   VideoSceneAndMetadata,
 } from "../../../config/scenes";
 import { getWebcamLayout } from "../../animations/webcam-transitions";
+import { shouldEnableSceneBackgroundBlur } from "../../layout/blur";
 import type {
   BRollEnterDirection,
   BRollType,
@@ -90,6 +91,10 @@ export const Webcam: React.FC<{
             src={currentScene.pair.webcam.src}
             containerLayout={webcamLayout}
             videoSize={currentScene.videos.webcam}
+            enableBlur={shouldEnableSceneBackgroundBlur(
+              currentScene,
+              canvasLayout,
+            )}
           />
         </ScaleDownIfBRollRequiresIt>
       </div>

@@ -10,14 +10,30 @@ export const VideoWithBlur: React.FC<
   {
     containerLayout: Layout;
     videoSize: Dimensions;
+    enableBlur: boolean;
   } & OffthreadVideoProps
-> = ({ containerLayout, videoSize, style, ...props }) => {
+> = ({ containerLayout, videoSize, style, enableBlur, ...props }) => {
   const { innerStyle, needsBlur, outerStyle, blurStyle } = useMemo(() => {
     return getBlurLayout({
       containerLayout,
       assetSize: videoSize,
     });
   }, [containerLayout, videoSize]);
+
+  if (!enableBlur) {
+    return (
+      <AbsoluteFill>
+        <OffthreadVideo
+          style={{
+            objectFit: "cover",
+            ...outerStyle,
+            position: "absolute",
+          }}
+          {...props}
+        />
+      </AbsoluteFill>
+    );
+  }
 
   return (
     <AbsoluteFill style={outerStyle}>

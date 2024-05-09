@@ -1,7 +1,25 @@
 import type React from "react";
-import type { Dimensions } from "../../config/layout";
+import type { CanvasLayout, Dimensions } from "../../config/layout";
+import type { SceneAndMetadata } from "../../config/scenes";
 import { fitElementSizeInContainer } from "./fit-element";
 import type { Layout } from "./layout-types";
+
+// Background blur should only be enabled in landscape layout
+// when the webcam is in fullscreen
+export const shouldEnableSceneBackgroundBlur = (
+  scene: SceneAndMetadata,
+  canvasLayout: CanvasLayout,
+) => {
+  if (scene.type !== "video-scene") {
+    return false;
+  }
+
+  if (scene.layout.displayLayout) {
+    return false;
+  }
+
+  return canvasLayout === "landscape";
+};
 
 export const getBlurLayout = ({
   containerLayout,

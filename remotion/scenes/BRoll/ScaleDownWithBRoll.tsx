@@ -50,9 +50,11 @@ export const ScaleDownWithBRoll: React.FC<Props> = ({
     }, 1);
   }, [springs]);
 
-  const style = useMemo(() => {
+  const style: React.CSSProperties = useMemo(() => {
     return {
       scale: String(scale),
+      justifyContent: "center",
+      alignItems: "center",
     };
   }, [scale]);
 
