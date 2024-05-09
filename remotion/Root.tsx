@@ -7325,8 +7325,8 @@ export const Root = () => {
         schema={videoConf}
         defaultProps={{
           theme: "light" as const,
-          canvasLayout: "square" as const,
-          platform: "x",
+          canvasLayout: "landscape" as const,
+          platform: "x" as const,
           scenes: [
             {
               type: "videoscene" as const,
@@ -7443,7 +7443,7 @@ export const Root = () => {
             {
               type: "title" as const,
               durationInFrames: 90,
-              music: "previous",
+              music: "previous" as const,
               subtitle: null,
               title: "Upsides of a VPS",
               transitionToNextScene: true,
@@ -7495,7 +7495,7 @@ export const Root = () => {
             {
               type: "title" as const,
               durationInFrames: 90,
-              music: "previous",
+              music: "previous" as const,
               title: "",
               subtitle:
                 "(You can also stream responses with Vercel, but it is only short-lived and one-directional.)",

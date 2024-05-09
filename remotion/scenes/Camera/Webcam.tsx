@@ -89,22 +89,20 @@ export const Webcam: React.FC<{
 
   return (
     <>
-      <ScaleDownIfBRollRequiresIt
-        canvasLayout={canvasLayout}
-        bRollEnterDirection={bRollEnterDirection}
-        bRolls={bRolls}
-        bRollLayout={bRollLayout}
-        frame={frame}
-        style={container}
-        bRollType={bRollType}
-      >
-        <OffthreadVideo
-          startFrom={startFrom}
-          endAt={endAt}
-          style={style}
-          src={currentScene.pair.webcam.src}
-        />
-      </ScaleDownIfBRollRequiresIt>
+      <div style={container}>
+        <ScaleDownIfBRollRequiresIt
+          bRolls={bRolls}
+          frame={frame}
+          bRollType={bRollType}
+        >
+          <OffthreadVideo
+            startFrom={startFrom}
+            endAt={endAt}
+            style={style}
+            src={currentScene.pair.webcam.src}
+          />
+        </ScaleDownIfBRollRequiresIt>
+      </div>
       <BRollStack
         canvasLayout={canvasLayout}
         bRollEnterDirection={bRollEnterDirection}

@@ -1,6 +1,5 @@
 import React, { useMemo } from "react";
 import { Img, interpolate, OffthreadVideo, useVideoConfig } from "remotion";
-import type { CanvasLayout } from "../../../config/layout";
 import type { BRollWithDimensions } from "../../../config/scenes";
 import { fitElementSizeInContainer } from "../../layout/fit-element";
 import type {
@@ -11,7 +10,6 @@ import type {
 import { ScaleDownIfBRollRequiresIt } from "./ScaleDownWithBRoll";
 
 export const ScaleDownBRoll: React.FC<{
-  canvasLayout: CanvasLayout;
   bRollEnterDirection: BRollEnterDirection;
   bRoll: BRollWithDimensions;
   bRollsBefore: BRollWithDimensions[];
@@ -23,7 +21,6 @@ export const ScaleDownBRoll: React.FC<{
   bRollEnterDirection,
   bRollLayout,
   sceneFrame,
-  canvasLayout,
   bRoll,
   bRollsBefore,
   appearProgress,
@@ -95,19 +92,19 @@ export const ScaleDownBRoll: React.FC<{
   ]);
 
   return (
-    <ScaleDownIfBRollRequiresIt
-      canvasLayout={canvasLayout}
-      frame={sceneFrame}
-      bRolls={bRollsBefore}
-      bRollLayout={bRollLayout}
-      bRollEnterDirection={bRollEnterDirection}
-      style={outerStyle}
-      bRollType={"scale"}
-    >
-      {bRoll.type === "image" ? <Img src={bRoll.source} style={style} /> : null}
-      {bRoll.type === "video" ? (
-        <OffthreadVideo src={bRoll.source} muted style={style} />
-      ) : null}
-    </ScaleDownIfBRollRequiresIt>
+    <div style={outerStyle}>
+      <ScaleDownIfBRollRequiresIt
+        frame={sceneFrame}
+        bRolls={bRollsBefore}
+        bRollType={"scale"}
+      >
+        {bRoll.type === "image" ? (
+          <Img src={bRoll.source} style={style} />
+        ) : null}
+        {bRoll.type === "video" ? (
+          <OffthreadVideo src={bRoll.source} muted style={style} />
+        ) : null}
+      </ScaleDownIfBRollRequiresIt>
+    </div>
   );
 };
