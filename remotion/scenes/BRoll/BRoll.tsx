@@ -1,14 +1,9 @@
-import React, { useMemo } from "react";
+import React from "react";
 import { Sequence, spring, useCurrentFrame, useVideoConfig } from "remotion";
 import type { CanvasLayout } from "../../../config/layout";
 import type { BRollWithDimensions } from "../../../config/scenes";
 import { B_ROLL_TRANSITION_DURATION } from "../../../config/transitions";
-import { fitElementSizeInContainer } from "../../layout/fit-element";
-import type {
-  BRollEnterDirection,
-  Layout,
-  Rect,
-} from "../../layout/layout-types";
+import type { BRollEnterDirection, Layout } from "../../layout/layout-types";
 import { Fade, FadeBRoll } from "./FadeBRoll";
 import { ScaleDownBRoll } from "./ScaleDownBRoll";
 
@@ -51,23 +46,13 @@ const InnerBRoll: React.FC<{
     durationInFrames: B_ROLL_TRANSITION_DURATION,
   });
 
-  const biggestLayout: Rect = useMemo(() => {
-    return fitElementSizeInContainer({
-      containerSize: bRollLayout,
-      elementSize: {
-        height: bRoll.assetHeight,
-        width: bRoll.assetWidth,
-      },
-    });
-  }, [bRoll.assetHeight, bRoll.assetWidth, bRollLayout]);
-
   if (bRollType === "fade") {
     return (
       <Fade
         appearProgress={appearProgress}
         disappearProgress={disappearProgress}
       >
-        <FadeBRoll rect={biggestLayout} bRoll={bRoll} />
+        <FadeBRoll layout={bRollLayout} bRoll={bRoll} />
       </Fade>
     );
   }

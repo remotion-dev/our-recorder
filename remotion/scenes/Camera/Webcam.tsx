@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { OffthreadVideo, useCurrentFrame, useVideoConfig } from "remotion";
+import { useCurrentFrame, useVideoConfig } from "remotion";
 import type { CanvasLayout } from "../../../config/layout";
 import type {
   BRollWithDimensions,
@@ -14,6 +14,7 @@ import type {
 } from "../../layout/layout-types";
 import { BRollStack } from "../BRoll/BRollStack";
 import { ScaleDownIfBRollRequiresIt } from "../BRoll/ScaleDownWithBRoll";
+import { VideoWithBlur } from "./VideoWithBlur";
 
 export const Webcam: React.FC<{
   enterProgress: number;
@@ -75,16 +76,6 @@ export const Webcam: React.FC<{
     };
   }, [webcamLayout]);
 
-  const style: React.CSSProperties = useMemo(() => {
-    return {
-      width: "100%",
-      height: "100%",
-      display: "block",
-      borderRadius: webcamLayout.borderRadius,
-      overflow: "hidden",
-    };
-  }, [webcamLayout.borderRadius]);
-
   return (
     <>
       <div style={container}>
@@ -93,11 +84,12 @@ export const Webcam: React.FC<{
           frame={frame}
           bRollType={bRollType}
         >
-          <OffthreadVideo
+          <VideoWithBlur
             startFrom={startFrom}
             endAt={endAt}
-            style={style}
             src={currentScene.pair.webcam.src}
+            containerLayout={webcamLayout}
+            videoSize={currentScene.videos.webcam}
           />
         </ScaleDownIfBRollRequiresIt>
       </div>
