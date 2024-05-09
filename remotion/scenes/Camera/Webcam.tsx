@@ -16,7 +16,6 @@ import { BRollStack } from "../BRoll/BRollStack";
 import { ScaleDownIfBRollRequiresIt } from "../BRoll/ScaleDownWithBRoll";
 
 export const Webcam: React.FC<{
-  webcamLayout: Layout;
   enterProgress: number;
   exitProgress: number;
   startFrom: number;
@@ -30,7 +29,6 @@ export const Webcam: React.FC<{
   bRollEnterDirection: BRollEnterDirection;
   bRollType: BRollType;
 }> = ({
-  webcamLayout,
   enterProgress,
   exitProgress,
   startFrom,
@@ -83,11 +81,11 @@ export const Webcam: React.FC<{
       height: "100%",
       objectFit: "cover",
       display: "block",
-      borderRadius: webcamLayout.borderRadius,
+      borderRadius: webcamStyle.borderRadius,
       overflow: "hidden",
       transformOrigin: "50% 0%",
     };
-  }, [webcamLayout.borderRadius]);
+  }, [webcamStyle.borderRadius]);
 
   return (
     <>

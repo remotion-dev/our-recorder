@@ -74,6 +74,5 @@ export const whisperWordToWord = (
           lastTimestamp,
         )
       : null,
-    lastTimestampAccuracy: wordForLastTimestamp?.p ?? null,
   };
 };

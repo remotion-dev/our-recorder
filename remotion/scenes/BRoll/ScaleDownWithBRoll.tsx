@@ -80,10 +80,12 @@ export const ScaleDownIfBRollRequiresIt: React.FC<Props> = ({
   bRolls,
   canvasLayout,
   frame,
+  children,
   ...props
 }) => {
   if (bRollType === "fade") {
-    return <div {...props} />;
+    // eslint-disable-next-line react/jsx-no-useless-fragment
+    return <>{children}</>;
   }
 
   return (

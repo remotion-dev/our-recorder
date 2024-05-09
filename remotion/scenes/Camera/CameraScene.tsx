@@ -95,7 +95,6 @@ export const CameraScene: React.FC<{
           enterProgress={enterProgress}
           exitProgress={exitProgress}
           startFrom={startFrom}
-          webcamLayout={sceneAndMetadata.layout.webcamLayout}
           canvasLayout={canvasLayout}
           nextScene={nextScene}
           previousScene={previousScene}
