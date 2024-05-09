@@ -45,7 +45,7 @@ export const Webcam: React.FC<{
   const frame = useCurrentFrame();
   const { height, width } = useVideoConfig();
 
-  const webcamStyle = useMemo(() => {
+  const webcamLayout = useMemo(() => {
     return getWebcamLayout({
       enterProgress,
       exitProgress,
@@ -71,21 +71,19 @@ export const Webcam: React.FC<{
     return {
       overflow: "hidden",
       position: "relative",
-      ...webcamStyle,
+      ...webcamLayout,
     };
-  }, [webcamStyle]);
+  }, [webcamLayout]);
 
   const style: React.CSSProperties = useMemo(() => {
     return {
       width: "100%",
       height: "100%",
-      objectFit: "cover",
       display: "block",
-      borderRadius: webcamStyle.borderRadius,
+      borderRadius: webcamLayout.borderRadius,
       overflow: "hidden",
-      transformOrigin: "50% 0%",
     };
-  }, [webcamStyle.borderRadius]);
+  }, [webcamLayout.borderRadius]);
 
   return (
     <>
