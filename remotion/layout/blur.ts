@@ -15,7 +15,12 @@ export const getBlurLayout = ({
     elementSize: assetSize,
   });
 
-  const outerStyle = { ...containerLayout, overflow: "hidden" };
+  const outerStyle: React.CSSProperties = {
+    ...containerLayout,
+    left: 0,
+    top: 0,
+    overflow: "hidden",
+  };
 
   const innerStyle: React.CSSProperties = {
     position: "absolute",
@@ -23,7 +28,7 @@ export const getBlurLayout = ({
     ...inner,
   };
 
-  const needsBlur = inner.left > 0 || inner.top > 0;
+  const needsBlur = inner.left > 0.000001 || inner.top > 0.000001;
 
   return {
     needsBlur,
