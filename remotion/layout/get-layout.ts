@@ -221,7 +221,6 @@ const getDisplayAndWebcamLayout = ({
     if (canvasLayout === "landscape") {
       const webcamLayout = fullscreenLayout(canvasSize);
       const bRollLayout = fullscreenLayout(canvasSize);
-      console.log({ webcamLayout });
 
       return {
         displayLayout: null,
