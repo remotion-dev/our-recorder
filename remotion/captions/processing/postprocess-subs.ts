@@ -22,22 +22,29 @@ import { removeBlankTokens } from "./remove-blank-tokens";
 import { splitWordIntoMonospaceSegment } from "./split-word-into-monospace-segment";
 import { wordsTogether } from "./words-together";
 
+type WordBalanceStrategy = "fill-box-if-possible" | "equal-width";
+
 const balanceWords = ({
   words,
-  wordsToUse,
+  wordsFitted,
   boxWidth,
   fontSize,
   maxLines,
+  wordBalanceStrategy,
 }: {
   words: Word[];
-  wordsToUse: number;
+  wordsFitted: number;
   boxWidth: number;
   maxLines: number;
   fontSize: number;
+  wordBalanceStrategy: WordBalanceStrategy;
 }) => {
-  let bestCut = wordsToUse;
+  let bestCut =
+    wordBalanceStrategy === "fill-box-if-possible"
+      ? wordsFitted
+      : Math.round(words.length / 2);
 
-  if (wordsToUse / words.length > 0.9) {
+  if (wordsFitted / words.length > 0.9) {
     // Prevent a few hanging words at the end
     bestCut = words.length - 5;
   }
@@ -62,13 +69,21 @@ const balanceWords = ({
   const secondHalf = words.slice(bestCut);
 
   return [
-    { words: firstHalf },
+    // eslint-disable-next-line @typescript-eslint/no-use-before-define
+    ...cutWords({
+      words: firstHalf,
+      boxWidth,
+      maxLines,
+      fontSize,
+      wordBalanceStrategy,
+    }),
     // eslint-disable-next-line @typescript-eslint/no-use-before-define
     ...cutWords({
       words: secondHalf,
       boxWidth,
       maxLines,
       fontSize,
+      wordBalanceStrategy,
     }),
   ];
 };
@@ -78,14 +93,16 @@ const cutWords = ({
   boxWidth,
   maxLines,
   fontSize,
+  wordBalanceStrategy,
 }: {
   words: Word[];
   boxWidth: number;
   maxLines: number;
   fontSize: number;
+  wordBalanceStrategy: WordBalanceStrategy;
 }): Segment[] => {
   const { add } = fillTextBox({ maxBoxWidth: boxWidth, maxLines });
-  let wordsToUse = 0;
+  let wordsFitted = 0;
 
   for (const word of words) {
     const { exceedsBox } = add({
@@ -99,11 +116,11 @@ const cutWords = ({
     if (exceedsBox) {
       break;
     } else {
-      wordsToUse++;
+      wordsFitted++;
     }
   }
 
-  if (wordsToUse === words.length) {
+  if (wordsFitted === words.length) {
     return [{ words }];
   }
 
@@ -112,7 +129,8 @@ const cutWords = ({
     boxWidth,
     fontSize,
     maxLines,
-    wordsToUse,
+    wordsFitted,
+    wordBalanceStrategy,
   });
 };
 
@@ -189,6 +207,9 @@ export const postprocessSubtitles = ({
     return whisperWordToWord(w, blankTokensRemoved[i + 1] ?? null);
   });
 
+  const wordBalanceStrategy =
+    subtitleType === "square" ? "fill-box-if-possible" : "equal-width";
+
   const removeBlankAudioAndPause = removeWhisperBlankWords(words);
   const removeBlankTokensAgain = removeBlankAudioAndPause.filter(
     (w) => w.text.trim() !== "",
@@ -214,6 +235,7 @@ export const postprocessSubtitles = ({
       getBorderWidthForSubtitles(subtitleType) * 2,
     maxLines,
     fontSize,
+    wordBalanceStrategy,
   });
 
   return {
