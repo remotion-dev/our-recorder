@@ -9,7 +9,7 @@ import type {
   Layout,
   Rect,
 } from "../../layout/layout-types";
-import { FadeBRoll } from "./FadeBRoll";
+import { Fade, FadeBRoll } from "./FadeBRoll";
 import { ScaleDownBRoll } from "./ScaleDownBRoll";
 
 const InnerBRoll: React.FC<{
@@ -63,12 +63,12 @@ const InnerBRoll: React.FC<{
 
   if (bRollType === "fade") {
     return (
-      <FadeBRoll
-        rect={biggestLayout}
+      <Fade
         appearProgress={appearProgress}
         disappearProgress={disappearProgress}
-        bRoll={bRoll}
-      />
+      >
+        <FadeBRoll rect={biggestLayout} bRoll={bRoll} />
+      </Fade>
     );
   }
 

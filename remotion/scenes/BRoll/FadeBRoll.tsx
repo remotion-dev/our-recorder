@@ -1,5 +1,5 @@
-import { useMemo } from "react";
-import { Img, OffthreadVideo } from "remotion";
+import React, { useMemo } from "react";
+import { AbsoluteFill, Img, OffthreadVideo } from "remotion";
 import type { BRollWithDimensions } from "../../../config/scenes";
 import type { Rect } from "../../layout/layout-types";
 
@@ -13,22 +13,33 @@ const blurStyle: React.CSSProperties = {
   left: "-5%",
 };
 
-export const FadeBRoll: React.FC<{
-  bRoll: BRollWithDimensions;
+export const Fade: React.FC<{
   appearProgress: number;
   disappearProgress: number;
+  children: React.ReactNode;
+}> = ({ appearProgress, disappearProgress, children }) => {
+  const style: React.CSSProperties = useMemo(() => {
+    return {
+      opacity: appearProgress - disappearProgress,
+    };
+  }, [appearProgress, disappearProgress]);
+
+  return <AbsoluteFill style={style}>{children}</AbsoluteFill>;
+};
+
+export const FadeBRoll: React.FC<{
+  bRoll: BRollWithDimensions;
   rect: Rect;
-}> = ({ bRoll, appearProgress, disappearProgress, rect }) => {
+}> = ({ bRoll, rect }) => {
   const addBlurredAsset = rect.left > 0 || rect.top > 0;
 
   const style: React.CSSProperties = useMemo(() => {
     return {
       position: "absolute",
-      opacity: appearProgress - disappearProgress,
       objectFit: "cover",
       ...rect,
     };
-  }, [appearProgress, rect, disappearProgress]);
+  }, [rect]);
 
   if (bRoll.type === "image") {
     if (addBlurredAsset) {
