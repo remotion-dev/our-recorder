@@ -7,7 +7,7 @@ import React, {
   useState,
 } from "react";
 import { createProject } from "../create-project";
-import { useKeyPress } from "../use-key-press";
+import { useKeyPress } from "../helpers/use-key-press";
 import { Button } from "./ui/button";
 import {
   Dialog,
