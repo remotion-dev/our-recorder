@@ -1,5 +1,5 @@
 import { expect, test } from "bun:test";
-import { formatLabel } from "../src/device-labels";
+import { formatLabel } from "../src/helpers/device-labels";
 type SimpleMediaDeviceInfo = Omit<MediaDeviceInfo, "toJSON">;
 
 const logiStreamCamDefault: SimpleMediaDeviceInfo = {

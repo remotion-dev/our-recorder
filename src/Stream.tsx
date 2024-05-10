@@ -8,7 +8,7 @@ import React, {
 } from "react";
 import { Spinner } from "./components/Spinner";
 import { CropIndicator } from "./CropIndicator";
-import type { SelectedSource } from "./video-source";
+import type { SelectedSource } from "./helpers/get-selected-video-source";
 import type { Prefix } from "./Views";
 
 const container: React.CSSProperties = {
