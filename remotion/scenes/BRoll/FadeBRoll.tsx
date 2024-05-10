@@ -2,8 +2,8 @@ import React, { useMemo } from "react";
 import { AbsoluteFill } from "remotion";
 import type { BRollWithDimensions } from "../../../config/scenes";
 import type { Layout } from "../../layout/layout-types";
-import { ImgWithBlur } from "../Camera/ImgWithBlur";
-import { VideoWithBlur } from "../Camera/VideoWithBlur";
+import { ImgWithBlur } from "../VideoScene/ImgWithBlur";
+import { VideoWithBlur } from "../VideoScene/VideoWithBlur";
 
 export const Fade: React.FC<{
   appearProgress: number;

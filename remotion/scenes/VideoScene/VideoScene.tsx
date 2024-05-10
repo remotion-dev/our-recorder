@@ -17,7 +17,7 @@ import { WaitForFonts } from "../../helpers/WaitForFonts";
 import { Display } from "./Display";
 import { Webcam } from "./Webcam";
 
-export const CameraScene: React.FC<{
+export const VideoScene: React.FC<{
   enterProgress: number;
   exitProgress: number;
   canvasLayout: CanvasLayout;

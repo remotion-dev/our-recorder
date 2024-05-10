@@ -172,7 +172,7 @@ const getFullScreenWebcamSize = ({
   };
 };
 
-export type CameraSceneLayout = {
+export type VideoSceneLayout = {
   webcamLayout: Layout;
   displayLayout: Layout | null;
   bRollLayout: Layout;
@@ -294,7 +294,7 @@ export const getLayout = ({
   videos: SceneVideos;
   canvasLayout: CanvasLayout;
   webcamPosition: FinalWebcamPosition;
-}): CameraSceneLayout => {
+}): VideoSceneLayout => {
   const canvasSize = getDimensionsForLayout(canvasLayout);
 
   const { displayLayout, webcamLayout, bRollLayout, bRollEnterDirection } =
