@@ -136,11 +136,9 @@ export const getSumUpDuration = ({
   previousScene: SceneAndMetadata | null;
   canvasLayout: CanvasLayout;
 }) => {
-  return getShouldTransitionIn({
-    scene,
-    previousScene,
-    canvasLayout,
-  })
-    ? scene.durationInFrames - SCENE_TRANSITION_DURATION
-    : scene.durationInFrames;
+  if (getShouldTransitionIn({ scene, previousScene, canvasLayout })) {
+    return scene.durationInFrames - SCENE_TRANSITION_DURATION;
+  }
+
+  return scene.durationInFrames;
 };

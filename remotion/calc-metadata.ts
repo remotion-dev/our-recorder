@@ -130,45 +130,48 @@ const fetchSubsJson = async (
 const getPairs = (prefix: string) => {
   const files = getStaticFiles().filter((f) => f.name.startsWith(prefix));
 
-  return (
-    files
-      .map((file): Pair | null => {
-        if (!file.name.startsWith(`${prefix}/${WEBCAM_PREFIX}`)) {
-          return null;
-        }
+  const mapFile = (file: StaticFile): Pair | null => {
+    if (!file.name.startsWith(`${prefix}/${WEBCAM_PREFIX}`)) {
+      return null;
+    }
 
-        const timestamp = file.name
-          .toLowerCase()
-          .replace(`${prefix}/${WEBCAM_PREFIX}`, "")
-          .replace(".webm", "")
-          .replace(".mov", "")
-          .replace(".mp4", "");
+    const timestamp = file.name
+      .toLowerCase()
+      .replace(`${prefix}/${WEBCAM_PREFIX}`, "")
+      .replace(".webm", "")
+      .replace(".mov", "")
+      .replace(".mp4", "");
 
-        const display = files.find((_f) =>
-          _f.name.startsWith(`${prefix}/${DISPLAY_PREFIX}${timestamp}.`),
-        );
-        const sub = files.find((_f) =>
-          _f.name.startsWith(`${prefix}/${SUBS_PREFIX}${timestamp}.`),
-        );
-        const alternative1 = files.find((_f) =>
-          _f.name.startsWith(`${prefix}/${ALTERNATIVE1_PREFIX}${timestamp}.`),
-        );
-        const alternative2 = files.find((_f) =>
-          _f.name.startsWith(`${prefix}/${ALTERNATIVE2_PREFIX}${timestamp}.`),
-        );
+    const display = files.find((_f) =>
+      _f.name.startsWith(`${prefix}/${DISPLAY_PREFIX}${timestamp}.`),
+    );
+    const sub = files.find((_f) =>
+      _f.name.startsWith(`${prefix}/${SUBS_PREFIX}${timestamp}.`),
+    );
+    const alternative1 = files.find((_f) =>
+      _f.name.startsWith(`${prefix}/${ALTERNATIVE1_PREFIX}${timestamp}.`),
+    );
+    const alternative2 = files.find((_f) =>
+      _f.name.startsWith(`${prefix}/${ALTERNATIVE2_PREFIX}${timestamp}.`),
+    );
 
-        return {
-          webcam: file,
-          display: display ?? null,
-          subs: sub ?? null,
-          alternative1: alternative1 ?? null,
-          alternative2: alternative2 ?? null,
-          timestamp: parseInt(timestamp, 10),
-        };
-      })
-      .filter(Boolean) as Pair[]
-  ).sort((a, b) => a.timestamp - b.timestamp);
+    return {
+      webcam: file,
+      display: display ?? null,
+      subs: sub ?? null,
+      alternative1: alternative1 ?? null,
+      alternative2: alternative2 ?? null,
+      timestamp: parseInt(timestamp, 10),
+    };
+  };
+
+  return files
+    .map(mapFile)
+    .filter(truthy)
+    .sort((a, b) => a.timestamp - b.timestamp);
 };
+
+const PLACE_HOLDER_DURATION_IN_FRAMES = 60;
 
 export const calcMetadata: CalculateMetadataFunction<MainProps> = async ({
   props,
@@ -190,7 +193,6 @@ export const calcMetadata: CalculateMetadataFunction<MainProps> = async ({
         }
 
         videoIndex += 1;
-        const PLACE_HOLDER_DURATION_IN_FRAMES = 60;
         const p = pairs[videoIndex];
         if (!p) {
           return {
@@ -209,8 +211,8 @@ export const calcMetadata: CalculateMetadataFunction<MainProps> = async ({
           height: webcamHeight,
           width: webcamWidth,
         } = await getVideoMetadata(p.webcam.src);
-        const dim = p.display ? await getVideoMetadata(p.display.src) : null;
 
+        const dim = p.display ? await getVideoMetadata(p.display.src) : null;
         const subsJson = await fetchSubsJson(p.subs);
 
         const subsForTimestamps = subsJson
@@ -281,6 +283,7 @@ export const calcMetadata: CalculateMetadataFunction<MainProps> = async ({
             return getBRollDimensions(bRoll);
           }),
         );
+
         return {
           type: "video-scene",
           scene,
@@ -311,105 +314,104 @@ export const calcMetadata: CalculateMetadataFunction<MainProps> = async ({
   await waitForFonts();
 
   const scenesAndMetadata: SceneAndMetadata[] =
-    props.scenes.length === 0
-      ? [
-          {
-            type: "other-scene" as const,
-            scene: {
-              // TODO: Add correct placeholder
-              type: "noscenes" as const,
-              music: "none",
-              transitionToNextScene: true,
-            },
-            durationInFrames: 90,
-            from: 0,
-          },
-        ]
-      : scenesAndMetadataWithoutDuration.map((sceneAndMetadata, i) => {
-          const previousSceneAndMetaData =
-            scenesAndMetadataWithoutDuration[i - 1] ?? null;
-          const nextSceneAndMetaData =
-            scenesAndMetadataWithoutDuration[i + 1] ?? null;
+    scenesAndMetadataWithoutDuration.map((sceneAndMetadata, i) => {
+      const previousSceneAndMetaData =
+        scenesAndMetadataWithoutDuration[i - 1] ?? null;
+      const nextSceneAndMetaData =
+        scenesAndMetadataWithoutDuration[i + 1] ?? null;
 
-          const isTransitioningIn = previousSceneAndMetaData
-            ? getShouldTransitionIn({
-                previousScene: previousSceneAndMetaData,
-                scene: sceneAndMetadata,
-                canvasLayout: props.canvasLayout,
-              })
-            : false;
-          const isTransitioningOut = getShouldTransitionOut({
-            sceneAndMetadata,
-            nextScene: nextSceneAndMetaData,
+      const isTransitioningIn = previousSceneAndMetaData
+        ? getShouldTransitionIn({
+            previousScene: previousSceneAndMetaData,
+            scene: sceneAndMetadata,
             canvasLayout: props.canvasLayout,
-          });
+          })
+        : false;
+      const isTransitioningOut = getShouldTransitionOut({
+        sceneAndMetadata,
+        nextScene: nextSceneAndMetaData,
+        canvasLayout: props.canvasLayout,
+      });
 
-          if (isTransitioningIn) {
-            addedUpDurations -= SCENE_TRANSITION_DURATION;
-          }
+      if (isTransitioningIn) {
+        addedUpDurations -= SCENE_TRANSITION_DURATION;
+      }
 
-          const from = addedUpDurations;
-          addedUpDurations += sceneAndMetadata.durationInFrames;
+      const from = addedUpDurations;
+      addedUpDurations += sceneAndMetadata.durationInFrames;
 
-          if (sceneAndMetadata.type === "other-scene") {
-            return {
-              ...sceneAndMetadata,
-              from,
-            };
-          }
+      if (sceneAndMetadata.type === "other-scene") {
+        return {
+          ...sceneAndMetadata,
+          from,
+        };
+      }
 
-          let adjustedDuration = sceneAndMetadata.durationInFrames;
+      let adjustedDuration = sceneAndMetadata.durationInFrames;
 
-          let transitionAdjustedStartFrame = sceneAndMetadata.startFrame;
+      let transitionAdjustedStartFrame = sceneAndMetadata.startFrame;
 
-          if (isTransitioningIn) {
-            transitionAdjustedStartFrame = Math.max(
-              0,
-              sceneAndMetadata.startFrame - SCENE_TRANSITION_DURATION,
-            );
+      if (isTransitioningIn) {
+        transitionAdjustedStartFrame = Math.max(
+          0,
+          sceneAndMetadata.startFrame - SCENE_TRANSITION_DURATION,
+        );
 
-            const additionalTransitionFrames =
-              sceneAndMetadata.startFrame - transitionAdjustedStartFrame;
+        const additionalTransitionFrames =
+          sceneAndMetadata.startFrame - transitionAdjustedStartFrame;
 
-            addedUpDurations += additionalTransitionFrames;
-            adjustedDuration += additionalTransitionFrames;
-          }
+        addedUpDurations += additionalTransitionFrames;
+        adjustedDuration += additionalTransitionFrames;
+      }
 
-          if (sceneAndMetadata.scene.newChapter) {
-            currentChapter = sceneAndMetadata.scene.newChapter;
-          }
+      if (sceneAndMetadata.scene.newChapter) {
+        currentChapter = sceneAndMetadata.scene.newChapter;
+      }
 
-          const retValue: SceneAndMetadata = {
-            ...sceneAndMetadata,
-            bRolls: applyBRollRules({
-              bRolls: sceneAndMetadata.bRolls,
-              sceneDurationInFrames: adjustedDuration,
-              willTransitionToNextScene: isTransitioningOut,
-            }),
-            startFrame: transitionAdjustedStartFrame,
-            durationInFrames: adjustedDuration,
-            from,
-            chapter: currentChapter,
-          };
-          if (sceneAndMetadata.scene.stopChapteringAfterThis) {
-            currentChapter = null;
-          }
+      const retValue: SceneAndMetadata = {
+        ...sceneAndMetadata,
+        bRolls: applyBRollRules({
+          bRolls: sceneAndMetadata.bRolls,
+          sceneDurationInFrames: adjustedDuration,
+          willTransitionToNextScene: isTransitioningOut,
+        }),
+        startFrame: transitionAdjustedStartFrame,
+        durationInFrames: adjustedDuration,
+        from,
+        chapter: currentChapter,
+      };
 
-          return retValue;
-        });
+      if (sceneAndMetadata.scene.stopChapteringAfterThis) {
+        currentChapter = null;
+      }
 
-  const durations = scenesAndMetadata.map((s, i) =>
-    getSumUpDuration({
-      scene: s,
-      previousScene: scenesAndMetadata[i - 1] ?? null,
-      canvasLayout: props.canvasLayout,
-    }),
-  );
+      return retValue;
+    });
 
-  const totalDuration = Math.max(
-    1,
-    durations.reduce((a, b) => a + b, 0),
-  );
+  if (scenesAndMetadata.length === 0) {
+    scenesAndMetadata.push({
+      type: "other-scene" as const,
+      scene: {
+        type: "noscenes" as const,
+        music: "none",
+        transitionToNextScene: true,
+      },
+      durationInFrames: 90,
+      from: 0,
+    });
+  }
+
+  const totalDuration = scenesAndMetadata
+    .map((s, i) => {
+      return getSumUpDuration({
+        scene: s,
+        previousScene: scenesAndMetadata[i - 1] ?? null,
+        canvasLayout: props.canvasLayout,
+      });
+    })
+    .reduce((a, b) => a + b, 0);
+
+  console.log(addedUpDurations, totalDuration);
 
   const { height, width } = getDimensionsForLayout(props.canvasLayout);
 

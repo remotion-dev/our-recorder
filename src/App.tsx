@@ -10,9 +10,9 @@ import "./App.css";
 import { Button } from "./components/ui/button";
 import type { Label } from "./helpers/device-labels";
 import { formatLabel } from "./helpers/device-labels";
+import { Prefix } from "./helpers/prefixes";
 import type { MediaSources } from "./RecordButton";
 import { TopBar } from "./TopBar";
-import type { Prefix } from "./Views";
 import { View } from "./Views";
 
 export const getDeviceLabel = (device: MediaDeviceInfo): string => {
