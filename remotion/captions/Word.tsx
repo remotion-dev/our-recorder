@@ -16,18 +16,12 @@ import type { Theme } from "../../config/themes";
 import { COLORS } from "../../config/themes";
 import { useCaptionOverlay } from "./Editor/use-caption-overlay";
 
-export const useSequenceDuration = (trimStart: number) => {
-  const { durationInFrames, fps } = useVideoConfig();
-  const sequenceDuration = (durationInFrames - trimStart) / fps;
-  return sequenceDuration;
-};
-
 type WordColor = {
   appeared: string;
   greyed: string;
 };
 
-export const WORD_FADE_IN_DURATION_IN_MS = 100;
+const WORD_FADE_IN_DURATION_IN_MS = 100;
 
 const getShownWordColor = ({
   appeared,
@@ -83,7 +77,7 @@ const getWordColor = ({
     : normalWordColor;
 };
 
-export const WORD_HIGHLIGHT_BORDER_RADIUS = 10;
+const WORD_HIGHLIGHT_BORDER_RADIUS = 10;
 
 export const WordComp: React.FC<{
   word: Word;

@@ -15,11 +15,7 @@ type Props = {
   children: React.ReactNode;
 };
 
-export const ScaleDownWithBRoll: React.FC<Props> = ({
-  bRolls,
-  frame,
-  children,
-}) => {
+const ScaleDownWithBRoll: React.FC<Props> = ({ bRolls, frame, children }) => {
   const { fps } = useVideoConfig();
 
   const springs = bRolls.map((roll) => {

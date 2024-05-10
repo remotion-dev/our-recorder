@@ -5,7 +5,7 @@ export type Word = {
   monospace?: boolean;
 };
 
-export const autocorrectWord = (word: Word): Word => {
+const autocorrectWord = (word: Word): Word => {
   if (word.text === " github") {
     return {
       ...word,

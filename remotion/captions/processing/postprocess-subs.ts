@@ -11,15 +11,11 @@ import type { CanvasLayout } from "../../../config/layout";
 import { getSafeSpace } from "../../../config/layout";
 import type { SubtitleType } from "../Segment";
 import { getBorderWidthForSubtitles } from "../Segment";
-import {
-  whisperWordToWord,
-  type Segment,
-  type SubTypes,
-  type WhisperOutput,
-} from "../types";
+import { type Segment, type SubTypes, type WhisperOutput } from "../types";
 import { hasMonoSpaceInIt } from "./has-monospace-in-word";
 import { removeBlankTokens } from "./remove-blank-tokens";
 import { splitWordIntoMonospaceSegment } from "./split-word-into-monospace-segment";
+import { whisperWordToWord } from "./whisper-word-to-word";
 import { wordsTogether } from "./words-together";
 
 type WordBalanceStrategy = "fill-box-if-possible" | "equal-width";
@@ -136,7 +132,7 @@ const cutWords = ({
 
 const FILLER_WORDS = ["[PAUSE]", "[BLANK_AUDIO]", "[Silence]"];
 
-export const removeWhisperBlankWords = (original: Word[]): Word[] => {
+const removeWhisperBlankWords = (original: Word[]): Word[] => {
   let firstIdx = 0;
   let concatentatedWord = "";
   let inBlank = false;
