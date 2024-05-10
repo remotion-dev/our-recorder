@@ -119,6 +119,12 @@ export const View: React.FC<{
     [devices],
   );
 
+  const cameraRotateable = canRotateCamera({
+    selectedSource: selectedVideoSource,
+    preferPortrait,
+    resolution,
+  });
+
   return (
     <div style={viewContainer}>
       <div style={viewName}>
@@ -129,11 +135,7 @@ export const View: React.FC<{
             onPressedChange={onToggleCrop}
           />
         ) : null}
-        {canRotateCamera({
-          selectedSource: selectedVideoSource,
-          preferPortrait,
-          resolution,
-        }) ? (
+        {cameraRotateable ? (
           <ToggleRotate
             pressed={preferPortrait}
             onPressedChange={onToggleRotate}

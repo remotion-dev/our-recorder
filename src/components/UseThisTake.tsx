@@ -1,7 +1,7 @@
 import React, { useCallback } from "react";
 import { convertFilesInServer } from "../actions/convert-files";
 import { transcribeVideoInServer } from "../actions/transcribe-video-in-server";
-import { downloadVideo } from "../download-video";
+import { downloadVideo } from "../helpers/download-video";
 import { uploadFileToServer } from "../helpers/upload-file";
 import { Button } from "./ui/button";
 
