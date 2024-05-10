@@ -419,14 +419,8 @@ export const calcMetadata: CalculateMetadataFunction<MainProps> = async ({
     width,
     fps: FPS,
     props: {
-      canvasLayout: props.canvasLayout,
-      prefix: compositionId,
-      scenes: props.scenes,
-      fps: FPS,
-      pairs,
+      ...props,
       scenesAndMetadata,
-      theme: props.theme,
-      platform: props.platform,
     },
   };
 };
