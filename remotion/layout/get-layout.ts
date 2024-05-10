@@ -8,8 +8,8 @@ import {
   getSubtitlesLines,
   getSubtitlesType,
 } from "../captions/Segment";
-import { getSubsLayout } from "../captions/subs-layout";
 import { getDimensionsForLayout } from "./dimensions";
+import { getCaptionsLayout } from "./get-captions-layout";
 import {
   getLandscapeDisplayAndWebcamLayout,
   getSquareBRollLayout,
@@ -311,7 +311,7 @@ export const getLayout = ({
   });
 
   const subtitleFontSize = getSubtitlesFontSize(subtitleType, displayLayout);
-  const subtitleLayout = getSubsLayout({
+  const subtitleLayout = getCaptionsLayout({
     canvasLayout,
     canvasSize,
     displayLayout,
