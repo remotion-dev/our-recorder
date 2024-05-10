@@ -47,7 +47,7 @@ export const VideoScene: React.FC<{
   return (
     <>
       <AbsoluteFill>
-        {sceneAndMetadata.pair.display ? (
+        {sceneAndMetadata.cameras.display ? (
           <Display
             scene={sceneAndMetadata}
             enterProgress={enterProgress}
@@ -89,7 +89,9 @@ export const VideoScene: React.FC<{
           ) : null
         }
         <Webcam
-          bRolls={sceneAndMetadata.pair.display ? [] : sceneAndMetadata.bRolls}
+          bRolls={
+            sceneAndMetadata.cameras.display ? [] : sceneAndMetadata.bRolls
+          }
           currentScene={sceneAndMetadata}
           endAt={endAt}
           enterProgress={enterProgress}
@@ -103,10 +105,10 @@ export const VideoScene: React.FC<{
           bRollType={sceneAndMetadata.layout.bRollType}
         />
       </AbsoluteFill>
-      {sceneAndMetadata.pair.subs ? (
+      {sceneAndMetadata.cameras.subs ? (
         <WaitForFonts>
           <CaptionOverlay
-            file={sceneAndMetadata.pair.subs}
+            file={sceneAndMetadata.cameras.subs}
             theme={theme}
             trimStart={startFrom}
           >

@@ -286,7 +286,7 @@ const getDisplayAndWebcamLayout = ({
   throw new Error(`Unknown canvas layout: ${canvasLayout}`);
 };
 
-export const getLayout = ({
+export const getVideoSceneLayout = ({
   canvasLayout,
   videos,
   webcamPosition,

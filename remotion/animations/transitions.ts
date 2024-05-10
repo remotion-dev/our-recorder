@@ -127,6 +127,8 @@ export const getShouldTransitionIn = ({
   });
 };
 
+// A duration that factors in the transition duration
+// to when added up you get the total duration of a video
 export const getSumUpDuration = ({
   scene,
   previousScene,

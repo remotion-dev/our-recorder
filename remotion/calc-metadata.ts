@@ -11,26 +11,24 @@ import {
 import { waitForFonts } from "../config/fonts";
 import { FPS } from "../config/fps";
 import {
-  type FinalWebcamPosition,
-  type Pair,
+  type Cameras,
   type SceneAndMetadata,
   type SceneVideos,
-  type SelectableScene,
   type WebcamPosition,
 } from "../config/scenes";
 import { SCENE_TRANSITION_DURATION } from "../config/transitions";
+import type { MainProps } from "./Main";
 import {
   getShouldTransitionIn,
   getShouldTransitionOut,
-  getSumUpDuration,
 } from "./animations/transitions";
+import { getFinalWebcamPosition } from "./calculate-metadata/get-final-webcam-position";
 import { postprocessSubtitles } from "./captions/processing/postprocess-subs";
 import type { SubTypes, WhisperOutput } from "./captions/types";
 import { truthy } from "./helpers/truthy";
 import { getDimensionsForLayout } from "./layout/dimensions";
 import { getBRollDimensions } from "./layout/get-broll-dimensions";
-import { getLayout } from "./layout/get-layout";
-import type { MainProps } from "./Main";
+import { getVideoSceneLayout } from "./layout/get-layout";
 import { applyBRollRules } from "./scenes/BRoll/apply-b-roll-rules";
 
 const START_FRAME_PADDING = Math.ceil(FPS / 4);
@@ -127,10 +125,10 @@ const fetchSubsJson = async (
   }
 };
 
-const getPairs = (prefix: string) => {
+const getCameras = (prefix: string) => {
   const files = getStaticFiles().filter((f) => f.name.startsWith(prefix));
 
-  const mapFile = (file: StaticFile): Pair | null => {
+  const mapFile = (file: StaticFile): Cameras | null => {
     if (!file.name.startsWith(`${prefix}/${WEBCAM_PREFIX}`)) {
       return null;
     }
@@ -177,8 +175,17 @@ export const calcMetadata: CalculateMetadataFunction<MainProps> = async ({
   props,
   compositionId,
 }) => {
-  const pairs = getPairs(compositionId);
+  const cameras = getCameras(compositionId);
   let videoIndex = -1;
+
+  const camerasForScene = props.scenes.map((scene) => {
+    if (scene.type !== "videoscene") {
+      return null;
+    }
+
+    videoIndex += 1;
+    return cameras[videoIndex] ?? null;
+  });
 
   const scenesAndMetadataWithoutDuration = (
     await Promise.all(
@@ -192,9 +199,9 @@ export const calcMetadata: CalculateMetadataFunction<MainProps> = async ({
           };
         }
 
-        videoIndex += 1;
-        const p = pairs[videoIndex];
-        if (!p) {
+        const cameras = camerasForScene[videoIndex];
+
+        if (!cameras) {
           return {
             type: "other-scene",
             scene: {
@@ -210,11 +217,14 @@ export const calcMetadata: CalculateMetadataFunction<MainProps> = async ({
           durationInSeconds,
           height: webcamHeight,
           width: webcamWidth,
-        } = await getVideoMetadata(p.webcam.src);
+        } = await getVideoMetadata(cameras.webcam.src);
 
-        const dim = p.display ? await getVideoMetadata(p.display.src) : null;
-        const subsJson = await fetchSubsJson(p.subs);
+        const dim = cameras.display
+          ? await getVideoMetadata(cameras.display.src)
+          : null;
+        const subsJson = await fetchSubsJson(cameras.subs);
 
+        // only interested in postprocessing of the words to get rid of "BLANK_WORDS"
         const subsForTimestamps = subsJson
           ? postprocessSubtitles({
               subTypes: subsJson,
@@ -225,7 +235,6 @@ export const calcMetadata: CalculateMetadataFunction<MainProps> = async ({
               subtitleType: "square",
             })
           : null;
-        // only interested in postprocessing of the words to get rid of "BLANK_WORDS"
 
         const endFrameFromSubs = deriveEndFrameFromSubs(subsForTimestamps);
 
@@ -236,7 +245,6 @@ export const calcMetadata: CalculateMetadataFunction<MainProps> = async ({
 
         const startFrameFromSubs =
           deriveStartFrameFromSubsJSON(subsForTimestamps);
-
         const actualStartFrame = getClampedStartFrame({
           startOffset: scene.startOffset,
           startFrameFromSubs,
@@ -248,6 +256,20 @@ export const calcMetadata: CalculateMetadataFunction<MainProps> = async ({
             ? PLACE_HOLDER_DURATION_IN_FRAMES
             : derivedEndFrame - actualStartFrame;
 
+        const webcamPosition = getFinalWebcamPosition({
+          canvasLayout: props.canvasLayout,
+          index: i,
+          cameras: cameras,
+          scenes: props.scenes,
+          webcamPosition: scene.webcamPosition,
+        });
+
+        const bRollWithDimensions = await Promise.all(
+          scene.bRolls.map((bRoll) => {
+            return getBRollDimensions(bRoll);
+          }),
+        );
+
         const videos: SceneVideos = {
           display: dim,
           webcam: {
@@ -256,34 +278,6 @@ export const calcMetadata: CalculateMetadataFunction<MainProps> = async ({
           },
         };
 
-        // eslint-disable-next-line prefer-destructuring
-        let webcamPosition: FinalWebcamPosition | "previous" =
-          scene.webcamPosition;
-        let idx = i;
-
-        while (webcamPosition === "previous" && idx >= 0) {
-          const prevScene = props.scenes[idx] as SelectableScene;
-          if (prevScene.type === "videoscene") {
-            webcamPosition = prevScene.webcamPosition;
-          }
-
-          if (webcamPosition === "previous" && idx === 0) {
-            webcamPosition = "top-left";
-          }
-
-          idx -= 1;
-        }
-
-        if (props.canvasLayout === "landscape" && !p.display) {
-          webcamPosition = "center";
-        }
-
-        const bRollWithDimensions = await Promise.all(
-          scene.bRolls.map((bRoll) => {
-            return getBRollDimensions(bRoll);
-          }),
-        );
-
         return {
           type: "video-scene",
           scene,
@@ -291,12 +285,12 @@ export const calcMetadata: CalculateMetadataFunction<MainProps> = async ({
           // Intentionally using ||
           // By default, Zod will give it a value of 0, which shifts the timeline
           durationInFrames: scene.duration || Math.round(durationInFrames),
-          layout: getLayout({
+          layout: getVideoSceneLayout({
             webcamPosition: webcamPosition as WebcamPosition,
             videos,
             canvasLayout: props.canvasLayout,
           }),
-          pair: p,
+          cameras: cameras,
           finalWebcamPosition: webcamPosition as WebcamPosition,
           from: 0,
           chapter: scene.newChapter ?? null,
@@ -327,6 +321,7 @@ export const calcMetadata: CalculateMetadataFunction<MainProps> = async ({
             canvasLayout: props.canvasLayout,
           })
         : false;
+
       const isTransitioningOut = getShouldTransitionOut({
         sceneAndMetadata,
         nextScene: nextSceneAndMetaData,
@@ -396,27 +391,16 @@ export const calcMetadata: CalculateMetadataFunction<MainProps> = async ({
         music: "none",
         transitionToNextScene: true,
       },
-      durationInFrames: 90,
+      durationInFrames: PLACE_HOLDER_DURATION_IN_FRAMES,
       from: 0,
     });
+    addedUpDurations += PLACE_HOLDER_DURATION_IN_FRAMES;
   }
-
-  const totalDuration = scenesAndMetadata
-    .map((s, i) => {
-      return getSumUpDuration({
-        scene: s,
-        previousScene: scenesAndMetadata[i - 1] ?? null,
-        canvasLayout: props.canvasLayout,
-      });
-    })
-    .reduce((a, b) => a + b, 0);
-
-  console.log(addedUpDurations, totalDuration);
 
   const { height, width } = getDimensionsForLayout(props.canvasLayout);
 
   return {
-    durationInFrames: totalDuration,
+    durationInFrames: addedUpDurations,
     height,
     width,
     fps: FPS,

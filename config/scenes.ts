@@ -111,7 +111,7 @@ export const videoConf = z.object({
   scenes: z.array(selectableScenes),
 });
 
-export type Pair = {
+export type Cameras = {
   webcam: StaticFile;
   display: StaticFile | null;
   subs: StaticFile | null;
@@ -138,7 +138,7 @@ export type VideoSceneAndMetadata = {
   from: number;
   videos: SceneVideos;
   layout: VideoSceneLayout;
-  pair: Pair;
+  cameras: Cameras;
   finalWebcamPosition: FinalWebcamPosition;
   chapter: string | null;
   startFrame: number;
