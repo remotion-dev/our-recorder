@@ -14,6 +14,9 @@ const container: React.CSSProperties = {
   padding: 60,
   flexDirection: "column",
   lineHeight: 1.5,
+  width: 1080,
+  margin: "auto",
+  justifyContent: "center",
 };
 
 const accent: React.CSSProperties = {
