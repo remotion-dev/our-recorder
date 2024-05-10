@@ -9,13 +9,13 @@ import {
 export const getFinalWebcamPosition = ({
   webcamPosition,
   scenes,
-  index,
+  scene,
   cameras,
   canvasLayout,
 }: {
   webcamPosition: WebcamPosition | "previous";
   scenes: SelectableScene[];
-  index: number;
+  scene: SelectableScene;
   cameras: Cameras;
   canvasLayout: CanvasLayout;
 }): FinalWebcamPosition => {
@@ -23,7 +23,7 @@ export const getFinalWebcamPosition = ({
     return "center";
   }
 
-  let idx = index;
+  let idx = scenes.findIndex((s) => s === scene);
 
   while (webcamPosition === "previous" && idx >= 0) {
     const prevScene = scenes[idx] as SelectableScene;

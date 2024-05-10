@@ -2,7 +2,7 @@ import { Composition, staticFile } from "remotion";
 import { FPS } from "../config/fps";
 import { videoConf } from "../config/scenes";
 
-import { calcMetadata } from "./calc-metadata";
+import { calcMetadata } from "./calculate-metadata/calc-metadata";
 import { Main } from "./Main";
 
 export const Root = () => {
