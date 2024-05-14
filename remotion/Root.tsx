@@ -5135,6 +5135,183 @@ export const Root = () => {
       <Composition
         component={Main}
         fps={FPS}
+        durationInFrames={60}
+        id="lasvegas"
+        schema={videoConf}
+        defaultProps={{
+          theme: "light" as const,
+          canvasLayout: "square" as const,
+          platform: "x" as const,
+          scenes: [
+            {
+              type: "videoscene" as const,
+              webcamPosition: "previous" as const,
+              duration: null,
+              transitionToNextScene: true,
+              newChapter: "",
+              stopChapteringAfterThis: false,
+              music: "previous" as const,
+              startOffset: 0,
+              bRolls: [],
+            },
+            {
+              type: "videoscene" as const,
+              webcamPosition: "previous" as const,
+              duration: null,
+              transitionToNextScene: true,
+              newChapter: "",
+              stopChapteringAfterThis: false,
+              music: "previous" as const,
+              startOffset: 0,
+              bRolls: [],
+            },
+            {
+              type: "videoscene" as const,
+              webcamPosition: "previous" as const,
+              duration: null,
+              transitionToNextScene: true,
+              newChapter: "",
+              stopChapteringAfterThis: false,
+              music: "previous" as const,
+              startOffset: 0,
+              bRolls: [],
+            },
+            {
+              type: "videoscene" as const,
+              webcamPosition: "previous" as const,
+              duration: null,
+              transitionToNextScene: true,
+              newChapter: "",
+              stopChapteringAfterThis: false,
+              music: "previous" as const,
+              startOffset: 0,
+              bRolls: [],
+            },
+            {
+              type: "videoscene" as const,
+              webcamPosition: "previous" as const,
+              duration: null,
+              transitionToNextScene: true,
+              newChapter: "",
+              stopChapteringAfterThis: false,
+              music: "previous" as const,
+              startOffset: 0,
+              bRolls: [
+                {
+                  source: staticFile("lasvegas/run.jpeg"),
+                  durationInFrames: 90,
+                  from: 40,
+                },
+              ],
+            },
+            {
+              type: "videoscene" as const,
+              webcamPosition: "previous" as const,
+              duration: null,
+              transitionToNextScene: true,
+              newChapter: "",
+              stopChapteringAfterThis: false,
+              music: "previous" as const,
+              startOffset: 0,
+              bRolls: [
+                {
+                  source: staticFile("lasvegas/jug.jpg"),
+                  durationInFrames: 90,
+                  from: 40,
+                },
+              ],
+            },
+            {
+              type: "videoscene" as const,
+              webcamPosition: "previous" as const,
+              duration: null,
+              transitionToNextScene: true,
+              newChapter: "",
+              stopChapteringAfterThis: false,
+              music: "previous" as const,
+              startOffset: 0,
+              bRolls: [],
+            },
+            {
+              type: "videoscene" as const,
+              webcamPosition: "previous" as const,
+              duration: null,
+              transitionToNextScene: true,
+              newChapter: "",
+              stopChapteringAfterThis: false,
+              music: "previous" as const,
+              startOffset: 0,
+              bRolls: [],
+            },
+            {
+              type: "videoscene" as const,
+              webcamPosition: "previous" as const,
+              duration: null,
+              transitionToNextScene: true,
+              newChapter: "",
+              stopChapteringAfterThis: false,
+              music: "previous" as const,
+              startOffset: 0,
+              bRolls: [],
+            },
+            {
+              type: "videoscene" as const,
+              webcamPosition: "previous" as const,
+              duration: null,
+              transitionToNextScene: true,
+              newChapter: "",
+              stopChapteringAfterThis: false,
+              music: "previous" as const,
+              startOffset: 0,
+              bRolls: [
+                {
+                  source: staticFile("lasvegas/szymon.jpg"),
+                  durationInFrames: 90,
+                  from: 40,
+                },
+              ],
+            },
+            {
+              type: "videoscene" as const,
+              webcamPosition: "previous" as const,
+              duration: null,
+              transitionToNextScene: true,
+              newChapter: "",
+              stopChapteringAfterThis: false,
+              music: "previous" as const,
+              startOffset: 0,
+              bRolls: [],
+            },
+            {
+              type: "videoscene" as const,
+              webcamPosition: "previous" as const,
+              duration: null,
+              transitionToNextScene: true,
+              newChapter: "",
+              stopChapteringAfterThis: false,
+              music: "previous" as const,
+              startOffset: 0,
+              bRolls: [],
+            },
+            {
+              type: "videoscene" as const,
+              webcamPosition: "previous" as const,
+              duration: null,
+              transitionToNextScene: true,
+              newChapter: "",
+              stopChapteringAfterThis: false,
+              music: "previous" as const,
+              startOffset: 0,
+              bRolls: [],
+            },
+          ],
+          scenesAndMetadata: [],
+        }}
+        calculateMetadata={calcMetadata}
+      />
+      <Composition
+        component={Main}
+        fps={FPS}
         durationInFrames={90}
         id="airportrun"
         schema={videoConf}
