@@ -1,7 +1,7 @@
 import { transcribe } from "@remotion/install-whisper-cpp";
 import { spawn } from "child_process";
-import { existsSync, mkdirSync } from "fs";
-import { tmpdir } from "os";
+import { existsSync, mkdirSync, rmSync, writeFileSync } from "fs";
+import { EOL, tmpdir } from "os";
 import path from "path";
 import { WHISPER_MODEL, WHISPER_PATH } from "../../config/whisper";
 
