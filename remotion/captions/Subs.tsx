@@ -11,14 +11,14 @@ import { shouldInlineTransitionSubtitles } from "../animations/subtitle-transiti
 import { getSubtitleTransform } from "../animations/subtitle-transitions/subtitle-transitions";
 import { Captions } from "./Captions";
 import { useCaptions } from "./Editor/captions-provider";
-import { postprocessSubtitles } from "./processing/postprocess-subs";
 import { getBorderWidthForSubtitles, getSubsAlign } from "./Segment";
 import {
   TransitionFromPreviousSubtitles,
   TransitionToNextSubtitles,
 } from "./TransitionBetweenSubtitles";
+import { postprocessSubtitles } from "./processing/postprocess-subs";
 
-const LINE_HEIGHT = 1.2;
+const LINE_HEIGHT = 2;
 
 export const Subs: React.FC<{
   trimStart: number;
