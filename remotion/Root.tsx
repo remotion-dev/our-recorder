@@ -5136,6 +5136,21 @@ export const Root = () => {
         component={Main}
         fps={FPS}
         durationInFrames={60}
+        id="redwood"
+        schema={videoConf}
+        defaultProps={{
+          theme: "light" as const,
+          canvasLayout: "landscape" as const,
+          platform: "x",
+          scenes: [],
+          scenesAndMetadata: [],
+        }}
+        calculateMetadata={calcMetadata}
+      />
+      <Composition
+        component={Main}
+        fps={FPS}
+        durationInFrames={60}
         id="kent"
         schema={videoConf}
         defaultProps={{
@@ -5178,7 +5193,29 @@ export const Root = () => {
             },
             {
               type: "videoscene" as const,
+              webcamPosition: "bottom-right" as const,
+              duration: 1361,
+              transitionToNextScene: true,
+              newChapter: "",
+              stopChapteringAfterThis: false,
+              music: "previous" as const,
+              startOffset: 0,
+              bRolls: [],
+            },
+            {
+              type: "videoscene" as const,
               webcamPosition: "previous" as const,
+              duration: 2127,
+              transitionToNextScene: true,
+              newChapter: "",
+              stopChapteringAfterThis: false,
+              music: "previous" as const,
+              startOffset: 0,
+              bRolls: [],
+            },
+            {
+              type: "videoscene" as const,
+              webcamPosition: "top-left" as const,
               duration: null,
               transitionToNextScene: true,
               newChapter: "",
@@ -5186,6 +5223,31 @@ export const Root = () => {
               music: "previous" as const,
               startOffset: 0,
               bRolls: [],
+            },
+            {
+              type: "videoscene" as const,
+              webcamPosition: "bottom-left" as const,
+              duration: 501,
+              transitionToNextScene: true,
+              newChapter: "",
+              stopChapteringAfterThis: false,
+              music: "previous" as const,
+              startOffset: 0,
+              bRolls: [],
+            },
+            {
+              music: "previous" as const,
+              transitionToNextScene: true,
+              type: "recorder" as const,
+              durationInFrames: 90,
+            },
+            {
+              music: "previous" as const,
+              transitionToNextScene: true,
+              type: "endcard" as const,
+              durationInFrames: 200,
+              channel: "jonny" as const,
+              links: [],
             },
           ],
           scenesAndMetadata: [],
