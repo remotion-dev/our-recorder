@@ -15,7 +15,7 @@ export const calcMetadata: CalculateMetadataFunction<MainProps> = async ({
     scenes: props.scenes,
   });
 
-  const scenesAndMetadataWithoutDuration = await Promise.all(
+  const withMetadata = await Promise.all(
     scenesWithCameras.map(({ scene, cameras }) =>
       addMetadataToScene({
         scene,
@@ -27,8 +27,8 @@ export const calcMetadata: CalculateMetadataFunction<MainProps> = async ({
     ),
   );
 
-  const { durationInFrames, scenesAndMetadataWithDuration } =
-    addDurationsToScenes(scenesAndMetadataWithoutDuration, props.canvasLayout);
+  const { durationInFrames, scenesAndMetadataWithDuration: withDurations } =
+    addDurationsToScenes(withMetadata, props.canvasLayout);
 
   const { height, width } = getDimensionsForLayout(props.canvasLayout);
 
@@ -39,7 +39,7 @@ export const calcMetadata: CalculateMetadataFunction<MainProps> = async ({
     fps: FPS,
     props: {
       ...props,
-      scenesAndMetadata: scenesAndMetadataWithDuration,
+      scenesAndMetadata: withDurations,
     },
   };
 };

@@ -6,8 +6,7 @@ import {
   getShouldTransitionOut,
 } from "../animations/transitions";
 import { applyBRollRules } from "../scenes/BRoll/apply-b-roll-rules";
-
-const PLACEHOLDER_DURATION_IN_FRAMES = 60;
+import { addPlaceholderIfNoScenes } from "./empty-place-holder";
 
 export const addDurationsToScenes = (
   scenes: SceneAndMetadata[],
@@ -94,22 +93,8 @@ export const addDurationsToScenes = (
     },
   );
 
-  if (scenesAndMetadataWithDuration.length === 0) {
-    scenesAndMetadataWithDuration.push({
-      type: "other-scene" as const,
-      scene: {
-        type: "noscenes" as const,
-        music: "none",
-        transitionToNextScene: true,
-      },
-      durationInFrames: PLACEHOLDER_DURATION_IN_FRAMES,
-      from: 0,
-    });
-    addedUpDurations += PLACEHOLDER_DURATION_IN_FRAMES;
-  }
-
-  return {
+  return addPlaceholderIfNoScenes({
     durationInFrames: addedUpDurations,
-    scenesAndMetadataWithDuration: scenesAndMetadataWithDuration,
-  };
+    scenesAndMetadataWithDuration,
+  });
 };
