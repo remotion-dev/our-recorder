@@ -130,7 +130,7 @@ const cutWords = ({
   });
 };
 
-const FILLER_WORDS = ["[PAUSE]", "[BLANK_AUDIO]", "[Silence]"];
+const FILLER_WORDS = ["[PAUSE]", "[BLANK_AUDIO]", "[Silence]", "[INAUDIBLE]"];
 
 const removeWhisperBlankWords = (original: Word[]): Word[] => {
   let firstIdx = 0;
