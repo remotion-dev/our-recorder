@@ -15,8 +15,7 @@ export const addDurationsToScenes = (
   durationInFrames: number;
   scenesAndMetadataWithDuration: SceneAndMetadata[];
 } => {
-  let addedUpDurations = 0;
-  let currentChapter: string | null = null;
+  let durationInFrames = 0;
 
   const scenesAndMetadataWithDuration: SceneAndMetadata[] = scenes.map(
     (sceneAndMetadata, i) => {
@@ -38,11 +37,11 @@ export const addDurationsToScenes = (
       });
 
       if (isTransitioningIn) {
-        addedUpDurations -= SCENE_TRANSITION_DURATION;
+        durationInFrames -= SCENE_TRANSITION_DURATION;
       }
 
-      const from = addedUpDurations;
-      addedUpDurations += sceneAndMetadata.durationInFrames;
+      const from = durationInFrames;
+      durationInFrames += sceneAndMetadata.durationInFrames;
 
       if (sceneAndMetadata.type === "other-scene") {
         return {
@@ -64,12 +63,8 @@ export const addDurationsToScenes = (
         const additionalTransitionFrames =
           sceneAndMetadata.startFrame - transitionAdjustedStartFrame;
 
-        addedUpDurations += additionalTransitionFrames;
+        durationInFrames += additionalTransitionFrames;
         adjustedDuration += additionalTransitionFrames;
-      }
-
-      if (sceneAndMetadata.scene.newChapter) {
-        currentChapter = sceneAndMetadata.scene.newChapter;
       }
 
       const retValue: SceneAndMetadata = {
@@ -82,19 +77,14 @@ export const addDurationsToScenes = (
         startFrame: transitionAdjustedStartFrame,
         durationInFrames: adjustedDuration,
         from,
-        chapter: currentChapter,
       };
-
-      if (sceneAndMetadata.scene.stopChapteringAfterThis) {
-        currentChapter = null;
-      }
 
       return retValue;
     },
   );
 
   return addPlaceholderIfNoScenes({
-    durationInFrames: addedUpDurations,
+    durationInFrames: durationInFrames,
     scenesAndMetadataWithDuration,
   });
 };

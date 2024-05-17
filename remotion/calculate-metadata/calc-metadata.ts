@@ -2,6 +2,7 @@ import type { CalculateMetadataFunction } from "remotion";
 import { FPS } from "../../config/fps";
 import type { MainProps } from "../Main";
 import { getDimensionsForLayout } from "../layout/dimensions";
+import { addChaptersToScenesAndMetadata } from "./add-chapters-to-scenes";
 import { addDurationsToScenes } from "./add-durations-to-scenes";
 import { addMetadataToScene } from "./add-metadata-to-scene";
 import { getAllCameras } from "./get-camera";
@@ -30,6 +31,8 @@ export const calcMetadata: CalculateMetadataFunction<MainProps> = async ({
   const { durationInFrames, scenesAndMetadataWithDuration: withDurations } =
     addDurationsToScenes(withMetadata, props.canvasLayout);
 
+  const withChapters = addChaptersToScenesAndMetadata(withDurations);
+
   const { height, width } = getDimensionsForLayout(props.canvasLayout);
 
   return {
@@ -39,7 +42,7 @@ export const calcMetadata: CalculateMetadataFunction<MainProps> = async ({
     fps: FPS,
     props: {
       ...props,
-      scenesAndMetadata: withDurations,
+      scenesAndMetadata: withChapters,
     },
   };
 };
