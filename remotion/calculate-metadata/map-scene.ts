@@ -155,7 +155,7 @@ export const mapScene = async ({
   const dim = cameras.display
     ? await getVideoMetadata(cameras.display.src)
     : null;
-  const subsJson = await fetchSubsJson(cameras.subs);
+  const subsJson = await fetchSubsJson(cameras.captions);
 
   // only interested in postprocessing of the words to get rid of "BLANK_WORDS"
   const subsForTimestamps = subsJson

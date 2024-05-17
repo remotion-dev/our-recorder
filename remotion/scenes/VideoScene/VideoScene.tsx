@@ -105,10 +105,10 @@ export const VideoScene: React.FC<{
           bRollType={sceneAndMetadata.layout.bRollType}
         />
       </AbsoluteFill>
-      {sceneAndMetadata.cameras.subs ? (
+      {sceneAndMetadata.cameras.captions ? (
         <WaitForFonts>
           <CaptionOverlay
-            file={sceneAndMetadata.cameras.subs}
+            file={sceneAndMetadata.cameras.captions}
             theme={theme}
             trimStart={startFrom}
           >

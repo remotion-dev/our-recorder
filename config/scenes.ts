@@ -114,7 +114,7 @@ export const videoConf = z.object({
 export type Cameras = {
   webcam: StaticFile;
   display: StaticFile | null;
-  subs: StaticFile | null;
+  captions: StaticFile | null;
   alternative1: StaticFile | null;
   alternative2: StaticFile | null;
   timestamp: number;
