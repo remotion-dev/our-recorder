@@ -1,6 +1,6 @@
 import type { CanvasLayout, Dimensions } from "../../config/layout";
 import { getSafeSpace } from "../../config/layout";
-import type { FinalWebcamPosition, SceneVideos } from "../../config/scenes";
+import type { SceneVideos, WebcamPosition } from "../../config/scenes";
 import { isWebCamAtBottom } from "../animations/webcam-transitions/helpers";
 import type { SubtitleType } from "../captions/Segment";
 import {
@@ -34,7 +34,7 @@ const squareFullscreenWebcamLayout = ({
 }: {
   canvasSize: Dimensions;
   webcamSize: Dimensions;
-  webcamPosition: FinalWebcamPosition;
+  webcamPosition: WebcamPosition;
 }): {
   webcamLayout: Layout;
   bRollLayout: Layout;
@@ -97,7 +97,7 @@ const getSquareBentoBoxWebcamLayout = ({
   canvasSize,
 }: {
   webcamSize: Dimensions;
-  webcamPosition: FinalWebcamPosition;
+  webcamPosition: WebcamPosition;
   canvasSize: Dimensions;
 }): Layout => {
   if (webcamPosition === "bottom-right") {
@@ -191,7 +191,7 @@ const getDisplayAndWebcamLayout = ({
   videos,
 }: {
   canvasSize: Dimensions;
-  webcamPosition: FinalWebcamPosition;
+  webcamPosition: WebcamPosition;
   canvasLayout: CanvasLayout;
   videos: SceneVideos;
 }): RecordingsLayout => {
@@ -289,18 +289,18 @@ const getDisplayAndWebcamLayout = ({
 export const getVideoSceneLayout = ({
   canvasLayout,
   videos,
-  finalWebcamPosition,
+  webcamPosition: webcamPosition,
 }: {
   videos: SceneVideos;
   canvasLayout: CanvasLayout;
-  finalWebcamPosition: FinalWebcamPosition;
+  webcamPosition: WebcamPosition;
 }): VideoSceneLayout => {
   const canvasSize = getDimensionsForLayout(canvasLayout);
 
   const { displayLayout, webcamLayout, bRollLayout, bRollEnterDirection } =
     getDisplayAndWebcamLayout({
       canvasSize,
-      webcamPosition: finalWebcamPosition,
+      webcamPosition,
       canvasLayout,
       videos,
     });
@@ -317,7 +317,7 @@ export const getVideoSceneLayout = ({
     displayLayout,
     subtitleType,
     webcamLayout,
-    webcamPosition: finalWebcamPosition,
+    webcamPosition: webcamPosition,
     fontSize: subtitleFontSize,
   });
 

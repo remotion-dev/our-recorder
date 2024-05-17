@@ -15,9 +15,9 @@ const availablePositions = [
   "bottom-right",
 ] as const;
 
-export type WebcamPosition = (typeof availablePositions)[number];
-export type FinalWebcamPosition = WebcamPosition | "center";
-export type ComparableWebcamPosition = FinalWebcamPosition | "bottom" | "top";
+type DesiredWebcamPosition = (typeof availablePositions)[number];
+export type WebcamPosition = DesiredWebcamPosition | "center";
+export type WebcamPositionForComparison = WebcamPosition | "bottom" | "top";
 
 const availablePositionsAndPrevious = [
   "previous",
@@ -139,7 +139,7 @@ export type VideoSceneAndMetadata = {
   videos: SceneVideos;
   layout: VideoSceneLayout;
   cameras: Cameras;
-  finalWebcamPosition: FinalWebcamPosition;
+  webcamPosition: WebcamPosition;
   chapter: string | null;
   startFrame: number;
   endFrame: number;

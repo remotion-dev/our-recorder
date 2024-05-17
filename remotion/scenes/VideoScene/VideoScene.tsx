@@ -64,14 +64,14 @@ export const VideoScene: React.FC<{
         {
           // TODO: Chapters are disabled if a webcam position is center
           canvasLayout === "landscape" &&
-          sceneAndMetadata.finalWebcamPosition !== "center" &&
+          sceneAndMetadata.webcamPosition !== "center" &&
           !(
             nextScene?.type === "video-scene" &&
-            nextScene.finalWebcamPosition === "center"
+            nextScene.webcamPosition === "center"
           ) &&
           !(
             previousScene?.type === "video-scene" &&
-            previousScene.finalWebcamPosition === "center"
+            previousScene.webcamPosition === "center"
           ) ? (
             <LandscapeChapters
               scene={sceneAndMetadata}

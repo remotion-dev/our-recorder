@@ -1,27 +1,27 @@
 import type { Dimensions } from "@remotion/layout-utils";
 import type { CanvasLayout } from "../../config/layout";
 import type {
-  ComparableWebcamPosition,
   SceneAndMetadata,
   VideoSceneAndMetadata,
+  WebcamPositionForComparison,
 } from "../../config/scenes";
 import { SCENE_TRANSITION_DURATION } from "../../config/transitions";
 
 const getComparableWebcamPosition = (
   sceneAndMetaData: VideoSceneAndMetadata,
   canvasLayout: CanvasLayout,
-): ComparableWebcamPosition => {
+): WebcamPositionForComparison => {
   if (canvasLayout !== "square") {
-    return sceneAndMetaData.finalWebcamPosition;
+    return sceneAndMetaData.webcamPosition;
   }
 
   if (sceneAndMetaData.videos.display) {
-    return sceneAndMetaData.finalWebcamPosition;
+    return sceneAndMetaData.webcamPosition;
   }
 
   if (
-    sceneAndMetaData.finalWebcamPosition === "bottom-left" ||
-    sceneAndMetaData.finalWebcamPosition === "bottom-right"
+    sceneAndMetaData.webcamPosition === "bottom-left" ||
+    sceneAndMetaData.webcamPosition === "bottom-right"
   ) {
     return "bottom";
   }

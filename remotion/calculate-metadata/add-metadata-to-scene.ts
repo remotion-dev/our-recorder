@@ -61,7 +61,7 @@ export const addMetadataToScene = async ({
 
   const durationInFrames = derivedEndFrame - actualStartFrame;
 
-  const finalWebcamPosition = getFinalWebcamPosition({
+  const webcamPosition = getFinalWebcamPosition({
     canvasLayout,
     cameras,
     scenes: allScenes,
@@ -85,12 +85,12 @@ export const addMetadataToScene = async ({
     // By default, Zod will give it a value of 0, which shifts the timeline
     durationInFrames: scene.duration || Math.round(durationInFrames),
     layout: getVideoSceneLayout({
-      finalWebcamPosition: finalWebcamPosition,
+      webcamPosition: webcamPosition,
       videos,
       canvasLayout,
     }),
     cameras,
-    finalWebcamPosition,
+    webcamPosition: webcamPosition,
     from: 0,
     chapter: scene.newChapter ?? null,
     startFrame: actualStartFrame,
