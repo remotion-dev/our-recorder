@@ -5,7 +5,7 @@ export type Theme = z.infer<typeof theme>;
 
 type ColorTheme = {
   BACKGROUND: string;
-  SUBTITLES_BACKGROUND: string;
+  CAPTIONS_BACKGROUND: string;
   BORDER_COLOR: string;
   WORD_COLOR_ON_BG_APPEARED: string;
   WORD_COLOR_ON_BG_GREYED: string;
@@ -19,7 +19,7 @@ type ColorTheme = {
 export const COLORS: { [key in Theme]: ColorTheme } = {
   light: {
     BACKGROUND: "#FAFAFA",
-    SUBTITLES_BACKGROUND: "#fff",
+    CAPTIONS_BACKGROUND: "#fff",
     BORDER_COLOR: "#EBEBEB",
     WORD_COLOR_ON_BG_APPEARED: "black",
     WORD_COLOR_ON_BG_GREYED: "rgba(0, 0, 0, 0.3)",
@@ -31,7 +31,7 @@ export const COLORS: { [key in Theme]: ColorTheme } = {
   },
   dark: {
     BACKGROUND: "#000000",
-    SUBTITLES_BACKGROUND: "#0A0A0A",
+    CAPTIONS_BACKGROUND: "#0A0A0A",
     BORDER_COLOR: "#1F1F1F",
     WORD_COLOR_ON_BG_APPEARED: "white",
     WORD_COLOR_ON_BG_GREYED: "rgba(255, 255, 255, 0.3)",

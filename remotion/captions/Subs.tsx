@@ -73,9 +73,7 @@ export const Subs: React.FC<{
 
   const outer: React.CSSProperties = useMemo(() => {
     const backgroundColor =
-      subtitleType === "square"
-        ? COLORS[theme].SUBTITLES_BACKGROUND
-        : undefined;
+      subtitleType === "square" ? COLORS[theme].CAPTIONS_BACKGROUND : undefined;
 
     return {
       fontSize: subtitleFontSize,
