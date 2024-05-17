@@ -7,7 +7,6 @@ import {
   SceneAndMetadata,
   SceneVideos,
   SelectableScene,
-  WebcamPosition,
 } from "../../config/scenes";
 import { postprocessSubtitles } from "../captions/processing/postprocess-subs";
 import { SubTypes, WhisperOutput } from "../captions/types";
@@ -188,7 +187,7 @@ export const addMetadataToScene = async ({
       ? PLACE_HOLDER_DURATION_IN_FRAMES
       : derivedEndFrame - actualStartFrame;
 
-  const webcamPosition = getFinalWebcamPosition({
+  const finalWebcamPosition = getFinalWebcamPosition({
     canvasLayout: canvasLayout,
     cameras: cameras,
     scenes: allScenes,
@@ -218,12 +217,12 @@ export const addMetadataToScene = async ({
     // By default, Zod will give it a value of 0, which shifts the timeline
     durationInFrames: scene.duration || Math.round(durationInFrames),
     layout: getVideoSceneLayout({
-      webcamPosition: webcamPosition as WebcamPosition,
+      webcamPosition: finalWebcamPosition,
       videos,
-      canvasLayout: canvasLayout,
+      canvasLayout,
     }),
-    cameras: cameras,
-    finalWebcamPosition: webcamPosition as WebcamPosition,
+    cameras,
+    finalWebcamPosition,
     from: 0,
     chapter: scene.newChapter ?? null,
     startFrame: actualStartFrame,
