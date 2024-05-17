@@ -18,7 +18,7 @@ export const addDurationsToScenes = (
   let totalDurationInFrames = 0;
 
   const scenesAndMetadataWithDuration: SceneAndMetadata[] = scenes.map(
-    (sceneAndMetadata, i) => {
+    (sceneAndMetadata, i): SceneAndMetadata => {
       const previousSceneAndMetadata = scenes[i - 1] ?? null;
       const nextSceneAndMetadata = scenes[i + 1] ?? null;
 
@@ -52,10 +52,11 @@ export const addDurationsToScenes = (
       let startFrame = sceneAndMetadata.startFrame;
 
       if (isTransitioningIn) {
-        startFrame = Math.max(
-          0,
-          sceneAndMetadata.startFrame - SCENE_TRANSITION_DURATION,
-        );
+        startFrame -= SCENE_TRANSITION_DURATION;
+
+        if (startFrame < 0) {
+          startFrame = 0;
+        }
 
         const additionalTransitionFrames =
           sceneAndMetadata.startFrame - startFrame;
