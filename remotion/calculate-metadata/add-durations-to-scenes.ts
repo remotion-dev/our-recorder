@@ -47,32 +47,32 @@ export const addDurationsToScenes = (
         };
       }
 
-      let sceneDuration = sceneAndMetadata.durationInFrames;
+      let sceneDurationInFrames = sceneAndMetadata.durationInFrames;
 
-      let transitionAdjustedStartFrame = sceneAndMetadata.startFrame;
+      let startFrame = sceneAndMetadata.startFrame;
 
       if (isTransitioningIn) {
-        transitionAdjustedStartFrame = Math.max(
+        startFrame = Math.max(
           0,
           sceneAndMetadata.startFrame - SCENE_TRANSITION_DURATION,
         );
 
         const additionalTransitionFrames =
-          sceneAndMetadata.startFrame - transitionAdjustedStartFrame;
+          sceneAndMetadata.startFrame - startFrame;
 
         totalDurationInFrames += additionalTransitionFrames;
-        sceneDuration += additionalTransitionFrames;
+        sceneDurationInFrames += additionalTransitionFrames;
       }
 
       const retValue: SceneAndMetadata = {
         ...sceneAndMetadata,
         bRolls: applyBRollRules({
           bRolls: sceneAndMetadata.bRolls,
-          sceneDurationInFrames: sceneDuration,
+          sceneDurationInFrames: sceneDurationInFrames,
           willTransitionToNextScene: isTransitioningOut,
         }),
-        startFrame: transitionAdjustedStartFrame,
-        durationInFrames: sceneDuration,
+        startFrame,
+        durationInFrames: sceneDurationInFrames,
         from,
       };
 
