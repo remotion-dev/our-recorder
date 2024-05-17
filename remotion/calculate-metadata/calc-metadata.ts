@@ -1,5 +1,4 @@
 import type { CalculateMetadataFunction } from "remotion";
-import { waitForFonts } from "../../config/fonts";
 import { FPS } from "../../config/fps";
 import {
   Cameras,
@@ -17,7 +16,7 @@ import { applyBRollRules } from "../scenes/BRoll/apply-b-roll-rules";
 import { getCameras } from "./get-camera";
 import { mapScene } from "./map-scene";
 
-const PLACE_HOLDER_DURATION_IN_FRAMES = 60;
+const PLACEHOLDER_DURATION_IN_FRAMES = 60;
 
 type CamerasAndScene = {
   scene: SelectableScene;
@@ -41,32 +40,19 @@ export const calcMetadata: CalculateMetadataFunction<MainProps> = async ({
   });
 
   const scenesAndMetadataWithoutDuration = await Promise.all(
-    camerasForScene.map(
-      async ({ scene, cameras }): Promise<SceneAndMetadata> => {
-        if (scene.type !== "videoscene") {
-          return {
-            type: "other-scene",
-            scene,
-            durationInFrames: scene.durationInFrames,
-            from: 0,
-          };
-        }
-
-        return mapScene({
-          scene,
-          cameras,
-          videoIndex,
-          allScenes: props.scenes,
-          canvasLayout: props.canvasLayout,
-        });
-      },
-    ),
+    camerasForScene.map(({ scene, cameras }): Promise<SceneAndMetadata> => {
+      return mapScene({
+        scene,
+        cameras,
+        videoIndex,
+        allScenes: props.scenes,
+        canvasLayout: props.canvasLayout,
+      });
+    }),
   );
 
   let addedUpDurations = 0;
   let currentChapter: string | null = null;
-
-  await waitForFonts();
 
   const scenesAndMetadata: SceneAndMetadata[] =
     scenesAndMetadataWithoutDuration.map((sceneAndMetadata, i) => {
@@ -152,10 +138,10 @@ export const calcMetadata: CalculateMetadataFunction<MainProps> = async ({
         music: "none",
         transitionToNextScene: true,
       },
-      durationInFrames: PLACE_HOLDER_DURATION_IN_FRAMES,
+      durationInFrames: PLACEHOLDER_DURATION_IN_FRAMES,
       from: 0,
     });
-    addedUpDurations += PLACE_HOLDER_DURATION_IN_FRAMES;
+    addedUpDurations += PLACEHOLDER_DURATION_IN_FRAMES;
   }
 
   const { height, width } = getDimensionsForLayout(props.canvasLayout);

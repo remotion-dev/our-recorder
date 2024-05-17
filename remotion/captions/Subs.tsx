@@ -7,8 +7,8 @@ import type {
 } from "../../config/scenes";
 import type { Theme } from "../../config/themes";
 import { COLORS } from "../../config/themes";
-import { shouldInlineTransitionSubtitles } from "../animations/subtitle-transitions/should-transition-subtitle";
-import { getSubtitleTransform } from "../animations/subtitle-transitions/subtitle-transitions";
+import { shouldInlineTransitionSubtitles } from "../animations/caption-transitions/should-transition-subtitle";
+import { getSubtitleTransform } from "../animations/caption-transitions/subtitle-transitions";
 import { Captions } from "./Captions";
 import { useCaptions } from "./Editor/captions-provider";
 import { getBorderWidthForSubtitles, getSubsAlign } from "./Segment";
