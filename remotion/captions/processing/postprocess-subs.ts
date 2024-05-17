@@ -11,7 +11,7 @@ import type { CanvasLayout } from "../../../config/layout";
 import { getSafeSpace } from "../../../config/layout";
 import type { SubtitleType } from "../Segment";
 import { getBorderWidthForSubtitles } from "../Segment";
-import { type Segment, type SubTypes, type WhisperOutput } from "../types";
+import { type Segment, type SubTypes, type WhisperCppOutput } from "../types";
 import { hasMonoSpaceInIt } from "./has-monospace-in-word";
 import { removeBlankTokens } from "./remove-blank-tokens";
 import { splitWordIntoMonospaceSegment } from "./split-word-into-monospace-segment";
@@ -191,7 +191,7 @@ export const postprocessSubtitles = ({
   canvasLayout,
   subtitleType,
 }: {
-  subTypes: WhisperOutput;
+  subTypes: WhisperCppOutput;
   boxWidth: number;
   maxLines: number;
   fontSize: number;

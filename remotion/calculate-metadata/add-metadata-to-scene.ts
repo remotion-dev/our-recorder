@@ -1,5 +1,4 @@
 import { getVideoMetadata } from "@remotion/media-utils";
-import { StaticFile } from "remotion";
 import { FPS } from "../../config/fps";
 import { CanvasLayout } from "../../config/layout";
 import {
@@ -9,9 +8,10 @@ import {
   SelectableScene,
 } from "../../config/scenes";
 import { postprocessSubtitles } from "../captions/processing/postprocess-subs";
-import { SubTypes, WhisperOutput } from "../captions/types";
+import { SubTypes } from "../captions/types";
 import { getBRollDimensions } from "../layout/get-broll-dimensions";
 import { getVideoSceneLayout } from "../layout/get-layout";
+import { fetchWhisperCppOutput } from "./fetch-captions";
 import { getFinalWebcamPosition } from "./get-final-webcam-position";
 
 export const PLACE_HOLDER_DURATION_IN_FRAMES = 60;
@@ -93,23 +93,6 @@ const deriveEndFrameFromSubs = (subs: SubTypes | null) => {
   return lastFrame;
 };
 
-const fetchSubsJson = async (
-  file: StaticFile | null,
-): Promise<WhisperOutput | null> => {
-  if (!file) {
-    return null;
-  }
-
-  try {
-    const res = await fetch(file.src);
-    const data = await res.json();
-    return data as WhisperOutput;
-  } catch (error) {
-    console.error("Error fetching WhisperOutput from JSON:", error);
-    return null;
-  }
-};
-
 export const addMetadataToScene = async ({
   scene,
   cameras,
@@ -154,7 +137,7 @@ export const addMetadataToScene = async ({
   const dim = cameras.display
     ? await getVideoMetadata(cameras.display.src)
     : null;
-  const subsJson = await fetchSubsJson(cameras.captions);
+  const subsJson = await fetchWhisperCppOutput(cameras.captions);
 
   // only interested in postprocessing of the words to get rid of "BLANK_WORDS"
   const subsForTimestamps = subsJson

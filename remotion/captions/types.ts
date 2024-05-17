@@ -15,7 +15,7 @@ export type WhisperWord = {
   text: string;
 };
 
-export type WhisperOutput = {
+export type WhisperCppOutput = {
   transcription: WhisperWord[];
   result: {
     language: string;
