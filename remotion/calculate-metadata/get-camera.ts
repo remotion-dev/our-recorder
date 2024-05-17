@@ -6,7 +6,12 @@ import {
   DISPLAY_PREFIX,
   WEBCAM_PREFIX,
 } from "../../config/cameras";
-import { Cameras } from "../../config/scenes";
+import { Cameras, SelectableScene } from "../../config/scenes";
+
+type CamerasAndScene = {
+  scene: SelectableScene;
+  cameras: Cameras | null;
+};
 
 const findMatchingFile = ({
   files,
@@ -26,11 +31,15 @@ const findMatchingFile = ({
   return sub ?? null;
 };
 
-const mapFile = (
-  file: StaticFile,
-  files: StaticFile[],
-  compositionId: string,
-): Cameras | null => {
+const mapFile = ({
+  file,
+  files,
+  compositionId,
+}: {
+  file: StaticFile;
+  files: StaticFile[];
+  compositionId: string;
+}): Cameras | null => {
   if (!file.name.startsWith(`${compositionId}/${WEBCAM_PREFIX}`)) {
     return null;
   }
@@ -83,8 +92,32 @@ export const getCameras = (compositionId: string) => {
   );
 
   const mappedCameras = files
-    .map((f) => mapFile(f, files, compositionId))
+    .map((f) => mapFile({ file: f, files, compositionId }))
     .filter(Boolean) as Cameras[];
 
   return mappedCameras.sort((a, b) => a.timestamp - b.timestamp);
+};
+
+export const getAllCameras = ({
+  compositionId,
+  scenes,
+}: {
+  compositionId: string;
+  scenes: SelectableScene[];
+}) => {
+  const allCameras = getCameras(compositionId);
+  let videoIndex = -1;
+
+  const scenesWithCameras = scenes.map((scene): CamerasAndScene => {
+    if (scene.type !== "videoscene") {
+      return { cameras: null, scene };
+    }
+
+    videoIndex += 1;
+    return { scene, cameras: allCameras[videoIndex] as Cameras };
+  });
+
+  const hasAtLeast1Camera = allCameras.length > 0;
+
+  return { scenesWithCameras, hasAtLeast1Camera };
 };

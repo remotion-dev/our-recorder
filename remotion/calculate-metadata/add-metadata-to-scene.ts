@@ -111,16 +111,16 @@ const fetchSubsJson = async (
   }
 };
 
-export const mapScene = async ({
+export const addMetadataToScene = async ({
   scene,
   cameras,
-  videoIndex,
+  hasAtLeast1Camera,
   allScenes,
   canvasLayout,
 }: {
   scene: SelectableScene;
   cameras: Cameras | null;
-  videoIndex: number;
+  hasAtLeast1Camera: boolean;
   canvasLayout: CanvasLayout;
   allScenes: SelectableScene[];
 }): Promise<SceneAndMetadata> => {
@@ -137,7 +137,7 @@ export const mapScene = async ({
     return {
       type: "other-scene",
       scene: {
-        type: videoIndex > 0 ? "nomorerecordings" : "norecordings",
+        type: hasAtLeast1Camera ? "nomorerecordings" : "norecordings",
         transitionToNextScene: scene.transitionToNextScene,
         music: scene.music,
       },

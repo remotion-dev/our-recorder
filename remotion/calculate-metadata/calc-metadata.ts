@@ -1,10 +1,6 @@
 import type { CalculateMetadataFunction } from "remotion";
 import { FPS } from "../../config/fps";
-import {
-  Cameras,
-  SelectableScene,
-  type SceneAndMetadata,
-} from "../../config/scenes";
+import { type SceneAndMetadata } from "../../config/scenes";
 import { SCENE_TRANSITION_DURATION } from "../../config/transitions";
 import type { MainProps } from "../Main";
 import {
@@ -13,48 +9,36 @@ import {
 } from "../animations/transitions";
 import { getDimensionsForLayout } from "../layout/dimensions";
 import { applyBRollRules } from "../scenes/BRoll/apply-b-roll-rules";
-import { getCameras } from "./get-camera";
-import { mapScene } from "./map-scene";
+import { addMetadataToScene } from "./add-metadata-to-scene";
+import { getAllCameras } from "./get-camera";
 
 const PLACEHOLDER_DURATION_IN_FRAMES = 60;
-
-type CamerasAndScene = {
-  scene: SelectableScene;
-  cameras: Cameras | null;
-};
 
 export const calcMetadata: CalculateMetadataFunction<MainProps> = async ({
   props,
   compositionId,
 }) => {
-  const allCameras = getCameras(compositionId);
-  let videoIndex = -1;
-
-  const camerasForScene = props.scenes.map((scene): CamerasAndScene => {
-    if (scene.type !== "videoscene") {
-      return { cameras: null, scene };
-    }
-
-    videoIndex += 1;
-    return { scene, cameras: allCameras[videoIndex] as Cameras };
+  const { hasAtLeast1Camera, scenesWithCameras } = getAllCameras({
+    compositionId,
+    scenes: props.scenes,
   });
 
   const scenesAndMetadataWithoutDuration = await Promise.all(
-    camerasForScene.map(({ scene, cameras }): Promise<SceneAndMetadata> => {
-      return mapScene({
+    scenesWithCameras.map(({ scene, cameras }) =>
+      addMetadataToScene({
         scene,
         cameras,
-        videoIndex,
+        hasAtLeast1Camera,
         allScenes: props.scenes,
         canvasLayout: props.canvasLayout,
-      });
-    }),
+      }),
+    ),
   );
 
   let addedUpDurations = 0;
   let currentChapter: string | null = null;
 
-  const scenesAndMetadata: SceneAndMetadata[] =
+  const scenesAndMetadataWithDuration: SceneAndMetadata[] =
     scenesAndMetadataWithoutDuration.map((sceneAndMetadata, i) => {
       const previousSceneAndMetaData =
         scenesAndMetadataWithoutDuration[i - 1] ?? null;
@@ -130,8 +114,8 @@ export const calcMetadata: CalculateMetadataFunction<MainProps> = async ({
       return retValue;
     });
 
-  if (scenesAndMetadata.length === 0) {
-    scenesAndMetadata.push({
+  if (scenesAndMetadataWithDuration.length === 0) {
+    scenesAndMetadataWithDuration.push({
       type: "other-scene" as const,
       scene: {
         type: "noscenes" as const,
@@ -153,7 +137,7 @@ export const calcMetadata: CalculateMetadataFunction<MainProps> = async ({
     fps: FPS,
     props: {
       ...props,
-      scenesAndMetadata,
+      scenesAndMetadata: scenesAndMetadataWithDuration,
     },
   };
 };
