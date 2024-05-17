@@ -1,6 +1,6 @@
 import {
-  fontFamily as regularFont,
   loadFont as loadRegular,
+  fontFamily as regularFont,
 } from "@remotion/google-fonts/Inter";
 import {
   cancelRender,
@@ -70,4 +70,6 @@ const delay = delayRender("Loading fonts");
 
 waitForFonts()
   .then(() => continueRender(delay))
-  .catch((err) => cancelRender(err));
+  .catch((err) => {
+    cancelRender(err);
+  });

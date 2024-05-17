@@ -1,7 +1,11 @@
 import type { CalculateMetadataFunction } from "remotion";
 import { waitForFonts } from "../../config/fonts";
 import { FPS } from "../../config/fps";
-import { type SceneAndMetadata } from "../../config/scenes";
+import {
+  Cameras,
+  SelectableScene,
+  type SceneAndMetadata,
+} from "../../config/scenes";
 import { SCENE_TRANSITION_DURATION } from "../../config/transitions";
 import type { MainProps } from "../Main";
 import {
@@ -16,44 +20,49 @@ import { mapScene } from "./map-scene";
 
 const PLACE_HOLDER_DURATION_IN_FRAMES = 60;
 
+type CamerasAndScene = {
+  scene: SelectableScene;
+  cameras: Cameras | null;
+};
+
 export const calcMetadata: CalculateMetadataFunction<MainProps> = async ({
   props,
   compositionId,
 }) => {
-  const cameras = getCameras(compositionId);
+  const allCameras = getCameras(compositionId);
   let videoIndex = -1;
 
-  const camerasForScene = props.scenes.map((scene) => {
+  const camerasForScene = props.scenes.map((scene): CamerasAndScene => {
     if (scene.type !== "videoscene") {
-      return null;
+      return { cameras: null, scene };
     }
 
     videoIndex += 1;
-    return cameras[videoIndex];
+    return { scene, cameras: allCameras[videoIndex] as Cameras };
   });
 
   const scenesAndMetadataWithoutDuration = (
     await Promise.all(
-      props.scenes.map(async (scene, i): Promise<SceneAndMetadata | null> => {
-        if (scene.type !== "videoscene") {
-          return {
-            type: "other-scene",
+      camerasForScene.map(
+        async ({ scene, cameras }): Promise<SceneAndMetadata | null> => {
+          if (scene.type !== "videoscene") {
+            return {
+              type: "other-scene",
+              scene,
+              durationInFrames: scene.durationInFrames,
+              from: 0,
+            };
+          }
+
+          return mapScene({
             scene,
-            durationInFrames: scene.durationInFrames,
-            from: 0,
-          };
-        }
-
-        const cameras = camerasForScene[i] ?? null;
-
-        return mapScene({
-          scene,
-          cameras,
-          videoIndex,
-          allScenes: props.scenes,
-          canvasLayout: props.canvasLayout,
-        });
-      }),
+            cameras,
+            videoIndex,
+            allScenes: props.scenes,
+            canvasLayout: props.canvasLayout,
+          });
+        },
+      ),
     )
   ).filter(truthy);
 
