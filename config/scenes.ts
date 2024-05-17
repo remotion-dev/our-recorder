@@ -44,7 +44,7 @@ const videoScene = z.object({
   bRolls: z.array(bRoll).default([]),
 });
 
-type VideoScene = z.infer<typeof videoScene>;
+export type SelectableVideoScene = z.infer<typeof videoScene>;
 
 const baseScene = z.object({
   music,
@@ -133,7 +133,7 @@ export type BRollWithDimensions = BRoll & {
 
 export type VideoSceneAndMetadata = {
   type: "video-scene";
-  scene: VideoScene;
+  scene: SelectableVideoScene;
   durationInFrames: number;
   from: number;
   videos: SceneVideos;

@@ -1,6 +1,6 @@
 import { SceneAndMetadata } from "../../config/scenes";
 
-const PLACEHOLDER_DURATION_IN_FRAMES = 60;
+export const PLACEHOLDER_DURATION_IN_FRAMES = 60;
 
 export const addPlaceholderIfNoScenes = ({
   totalDurationInFrames,

@@ -1,5 +1,4 @@
 import { getVideoMetadata } from "@remotion/media-utils";
-import { FPS } from "../../config/fps";
 import { CanvasLayout } from "../../config/layout";
 import {
   Cameras,
@@ -8,90 +7,12 @@ import {
   SelectableScene,
 } from "../../config/scenes";
 import { postprocessSubtitles } from "../captions/processing/postprocess-subs";
-import { SubTypes } from "../captions/types";
 import { getBRollDimensions } from "../layout/get-broll-dimensions";
 import { getVideoSceneLayout } from "../layout/get-layout";
+import { PLACEHOLDER_DURATION_IN_FRAMES } from "./empty-place-holder";
 import { fetchWhisperCppOutput } from "./fetch-captions";
 import { getFinalWebcamPosition } from "./get-final-webcam-position";
-
-export const PLACE_HOLDER_DURATION_IN_FRAMES = 60;
-
-const START_FRAME_PADDING = Math.ceil(FPS / 4);
-const END_FRAME_PADDING = FPS / 2;
-
-const deriveStartFrameFromSubsJSON = (subsJSON: SubTypes | null): number => {
-  if (!subsJSON) {
-    return 0;
-  }
-
-  // taking the first real word and take its start timestamp in ms.
-  const startFromInHundrethsOfSec =
-    subsJSON.segments[0]?.words[0]?.firstTimestamp;
-  if (startFromInHundrethsOfSec === undefined) {
-    return 0;
-  }
-
-  const startFromInFrames =
-    Math.floor((startFromInHundrethsOfSec / 1000) * FPS) - START_FRAME_PADDING;
-  return startFromInFrames > 0 ? startFromInFrames : 0;
-};
-
-const getClampedStartFrame = ({
-  startOffset,
-  startFrameFromSubs,
-  derivedEndFrame,
-}: {
-  startOffset: number;
-  startFrameFromSubs: number;
-  derivedEndFrame: number;
-}): number => {
-  const combinedStartFrame = startFrameFromSubs + startOffset;
-
-  if (combinedStartFrame > derivedEndFrame) {
-    return derivedEndFrame;
-  }
-
-  if (combinedStartFrame < 0) {
-    return 0;
-  }
-
-  return combinedStartFrame;
-};
-
-const getClampedEndFrame = ({
-  durationInSeconds,
-  derivedEndFrame,
-}: {
-  durationInSeconds: number;
-  derivedEndFrame: number | null;
-}): number => {
-  const videoDurationInFrames = Math.floor(durationInSeconds * FPS);
-  if (!derivedEndFrame) {
-    return videoDurationInFrames;
-  }
-
-  const paddedEndFrame = derivedEndFrame + END_FRAME_PADDING;
-  if (paddedEndFrame > videoDurationInFrames) {
-    return videoDurationInFrames;
-  }
-
-  return paddedEndFrame;
-};
-
-const deriveEndFrameFromSubs = (subs: SubTypes | null) => {
-  if (!subs) {
-    return null;
-  }
-
-  const lastSegment = subs.segments[subs.segments.length - 1];
-  const lastWord = lastSegment?.words[lastSegment.words.length - 1];
-  if (!lastWord || !lastWord.lastTimestamp) {
-    throw new Error("Last word or its timestampe is undefined");
-  }
-
-  const lastFrame = Math.floor((lastWord.lastTimestamp / 1000) * FPS);
-  return lastFrame;
-};
+import { getStartEndFrame } from "./get-start-end-frame";
 
 export const addMetadataToScene = async ({
   scene,
@@ -123,7 +44,7 @@ export const addMetadataToScene = async ({
         transitionToNextScene: scene.transitionToNextScene,
         music: scene.music,
       },
-      durationInFrames: PLACE_HOLDER_DURATION_IN_FRAMES,
+      durationInFrames: PLACEHOLDER_DURATION_IN_FRAMES,
       from: 0,
     };
   }
@@ -147,18 +68,10 @@ export const addMetadataToScene = async ({
       })
     : null;
 
-  const endFrameFromSubs = deriveEndFrameFromSubs(subsForTimestamps);
-
-  const derivedEndFrame = getClampedEndFrame({
-    durationInSeconds: webcamMetadata.durationInSeconds,
-    derivedEndFrame: endFrameFromSubs,
-  });
-
-  const startFrameFromSubs = deriveStartFrameFromSubsJSON(subsForTimestamps);
-  const actualStartFrame = getClampedStartFrame({
-    startOffset: scene.startOffset,
-    startFrameFromSubs,
-    derivedEndFrame,
+  const { actualStartFrame, derivedEndFrame } = getStartEndFrame({
+    scene,
+    recordingDurationInSeconds: webcamMetadata.durationInSeconds,
+    subsForTimestamps,
   });
 
   const durationInFrames = derivedEndFrame - actualStartFrame;
