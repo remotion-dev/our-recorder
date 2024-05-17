@@ -85,7 +85,7 @@ export const addMetadataToScene = async ({
     // By default, Zod will give it a value of 0, which shifts the timeline
     durationInFrames: scene.duration || Math.round(durationInFrames),
     layout: getVideoSceneLayout({
-      webcamPosition: finalWebcamPosition,
+      finalWebcamPosition: finalWebcamPosition,
       videos,
       canvasLayout,
     }),

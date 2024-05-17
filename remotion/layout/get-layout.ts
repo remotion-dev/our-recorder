@@ -289,18 +289,18 @@ const getDisplayAndWebcamLayout = ({
 export const getVideoSceneLayout = ({
   canvasLayout,
   videos,
-  webcamPosition,
+  finalWebcamPosition,
 }: {
   videos: SceneVideos;
   canvasLayout: CanvasLayout;
-  webcamPosition: FinalWebcamPosition;
+  finalWebcamPosition: FinalWebcamPosition;
 }): VideoSceneLayout => {
   const canvasSize = getDimensionsForLayout(canvasLayout);
 
   const { displayLayout, webcamLayout, bRollLayout, bRollEnterDirection } =
     getDisplayAndWebcamLayout({
       canvasSize,
-      webcamPosition,
+      webcamPosition: finalWebcamPosition,
       canvasLayout,
       videos,
     });
@@ -317,7 +317,7 @@ export const getVideoSceneLayout = ({
     displayLayout,
     subtitleType,
     webcamLayout,
-    webcamPosition,
+    webcamPosition: finalWebcamPosition,
     fontSize: subtitleFontSize,
   });
 
