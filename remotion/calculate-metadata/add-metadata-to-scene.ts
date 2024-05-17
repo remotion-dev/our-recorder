@@ -128,13 +128,9 @@ export const addMetadataToScene = async ({
     };
   }
 
-  const {
-    durationInSeconds,
-    height: webcamHeight,
-    width: webcamWidth,
-  } = await getVideoMetadata(cameras.webcam.src);
+  const webcamMetadata = await getVideoMetadata(cameras.webcam.src);
 
-  const dim = cameras.display
+  const displayMetadata = cameras.display
     ? await getVideoMetadata(cameras.display.src)
     : null;
   const subsJson = await fetchWhisperCppOutput(cameras.captions);
@@ -154,7 +150,7 @@ export const addMetadataToScene = async ({
   const endFrameFromSubs = deriveEndFrameFromSubs(subsForTimestamps);
 
   const derivedEndFrame = getClampedEndFrame({
-    durationInSeconds,
+    durationInSeconds: webcamMetadata.durationInSeconds,
     derivedEndFrame: endFrameFromSubs,
   });
 
@@ -165,10 +161,7 @@ export const addMetadataToScene = async ({
     derivedEndFrame,
   });
 
-  const durationInFrames =
-    durationInSeconds === Infinity
-      ? PLACE_HOLDER_DURATION_IN_FRAMES
-      : derivedEndFrame - actualStartFrame;
+  const durationInFrames = derivedEndFrame - actualStartFrame;
 
   const finalWebcamPosition = getFinalWebcamPosition({
     canvasLayout: canvasLayout,
@@ -179,17 +172,12 @@ export const addMetadataToScene = async ({
   });
 
   const bRollWithDimensions = await Promise.all(
-    scene.bRolls.map((bRoll) => {
-      return getBRollDimensions(bRoll);
-    }),
+    scene.bRolls.map((bRoll) => getBRollDimensions(bRoll)),
   );
 
   const videos: SceneVideos = {
-    display: dim,
-    webcam: {
-      height: webcamHeight,
-      width: webcamWidth,
-    },
+    display: displayMetadata,
+    webcam: webcamMetadata,
   };
 
   return {
