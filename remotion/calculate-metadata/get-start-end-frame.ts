@@ -1,6 +1,9 @@
+import { StaticFile } from "@remotion/studio";
 import { FPS } from "../../config/fps";
 import { SelectableVideoScene } from "../../config/scenes";
+import { postprocessSubtitles } from "../captions/processing/postprocess-subs";
 import { SubTypes } from "../captions/types";
+import { fetchWhisperCppOutput } from "./fetch-captions";
 
 const START_FRAME_PADDING = Math.ceil(FPS / 4);
 const END_FRAME_PADDING = FPS / 2;
@@ -79,15 +82,31 @@ const getClampedEndFrame = ({
   return paddedEndFrame;
 };
 
-export const getStartEndFrame = ({
+export const getStartEndFrame = async ({
   scene,
   recordingDurationInSeconds,
-  subsForTimestamps,
+  captions,
 }: {
   scene: SelectableVideoScene;
   recordingDurationInSeconds: number;
-  subsForTimestamps: SubTypes | null;
+  captions: StaticFile | null;
 }) => {
+  const subsJson = await fetchWhisperCppOutput(captions);
+
+  // We calculate the subtitles only for
+  // the purpose of calculating the durastion
+  // and will not use this value further
+  const subsForTimestamps = subsJson
+    ? postprocessSubtitles({
+        subTypes: subsJson,
+        boxWidth: 200,
+        canvasLayout: "landscape",
+        fontSize: 10,
+        maxLines: 3,
+        subtitleType: "square",
+      })
+    : null;
+
   const endFrameFromSubs = deriveEndFrameFromSubs(subsForTimestamps);
   const derivedEndFrame = getClampedEndFrame({
     durationInSeconds: recordingDurationInSeconds,

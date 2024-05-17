@@ -6,11 +6,9 @@ import {
   SceneVideos,
   SelectableScene,
 } from "../../config/scenes";
-import { postprocessSubtitles } from "../captions/processing/postprocess-subs";
 import { getBRollDimensions } from "../layout/get-broll-dimensions";
 import { getVideoSceneLayout } from "../layout/get-layout";
 import { PLACEHOLDER_DURATION_IN_FRAMES } from "./empty-place-holder";
-import { fetchWhisperCppOutput } from "./fetch-captions";
 import { getFinalWebcamPosition } from "./get-final-webcam-position";
 import { getStartEndFrame } from "./get-start-end-frame";
 
@@ -54,33 +52,19 @@ export const addMetadataToScene = async ({
   const displayMetadata = cameras.display
     ? await getVideoMetadata(cameras.display.src)
     : null;
-  const subsJson = await fetchWhisperCppOutput(cameras.captions);
 
-  // only interested in postprocessing of the words to get rid of "BLANK_WORDS"
-  const subsForTimestamps = subsJson
-    ? postprocessSubtitles({
-        subTypes: subsJson,
-        boxWidth: 200,
-        canvasLayout: "landscape",
-        fontSize: 10,
-        maxLines: 3,
-        subtitleType: "square",
-      })
-    : null;
-
-  const { actualStartFrame, derivedEndFrame } = getStartEndFrame({
+  const { actualStartFrame, derivedEndFrame } = await getStartEndFrame({
     scene,
     recordingDurationInSeconds: webcamMetadata.durationInSeconds,
-    subsForTimestamps,
+    captions: cameras.captions,
   });
 
   const durationInFrames = derivedEndFrame - actualStartFrame;
 
   const finalWebcamPosition = getFinalWebcamPosition({
-    canvasLayout: canvasLayout,
-    cameras: cameras,
+    canvasLayout,
+    cameras,
     scenes: allScenes,
-    webcamPosition: scene.webcamPosition,
     scene,
   });
 
