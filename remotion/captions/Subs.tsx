@@ -16,7 +16,8 @@ import {
   TransitionFromPreviousSubtitles,
   TransitionToNextSubtitles,
 } from "./TransitionBetweenSubtitles";
-import { postprocessSubtitles } from "./processing/postprocess-subs";
+import { layoutCaptions } from "./processing/layout-captions";
+import { postprocessCaptions } from "./processing/postprocess-subs";
 
 const LINE_HEIGHT = 2;
 
@@ -53,14 +54,19 @@ export const Subs: React.FC<{
   });
 
   const whisperOutput = useCaptions();
+
   const postprocessed = useMemo(() => {
-    return postprocessSubtitles({
+    const words = postprocessCaptions({
       subTypes: whisperOutput,
+    });
+
+    return layoutCaptions({
       boxWidth: subtitleLayout.width,
       maxLines: subtitleLines,
       fontSize: subtitleFontSize,
       canvasLayout,
       subtitleType,
+      words,
     });
   }, [
     whisperOutput,

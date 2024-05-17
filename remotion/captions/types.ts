@@ -22,10 +22,10 @@ export type WhisperCppOutput = {
   };
 };
 
-export type SubTypes = {
-  segments: Segment[];
+export type CaptionPage = {
+  words: Word[];
 };
 
-export type Segment = {
-  words: Word[];
+export type LayoutedCaptions = {
+  segments: CaptionPage[];
 };

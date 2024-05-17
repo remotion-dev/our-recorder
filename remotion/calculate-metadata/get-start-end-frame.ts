@@ -1,20 +1,19 @@
 import { StaticFile } from "@remotion/studio";
+import { Word } from "../../config/autocorrect";
 import { FPS } from "../../config/fps";
 import { SelectableVideoScene } from "../../config/scenes";
-import { postprocessSubtitles } from "../captions/processing/postprocess-subs";
-import { SubTypes } from "../captions/types";
+import { postprocessCaptions } from "../captions/processing/postprocess-subs";
 import { fetchWhisperCppOutput } from "./fetch-captions";
 
 const START_FRAME_PADDING = Math.ceil(FPS / 4);
 const END_FRAME_PADDING = FPS / 2;
 
-const deriveEndFrameFromSubs = (subs: SubTypes | null) => {
-  if (!subs) {
+const deriveEndFrameFromSubs = (words: Word[] | null) => {
+  if (!words) {
     return null;
   }
 
-  const lastSegment = subs.segments[subs.segments.length - 1];
-  const lastWord = lastSegment?.words[lastSegment.words.length - 1];
+  const lastWord = words[words.length - 1];
   if (!lastWord || !lastWord.lastTimestamp) {
     throw new Error("Last word or its timestampe is undefined");
   }
@@ -45,14 +44,13 @@ const getClampedStartFrame = ({
   return combinedStartFrame;
 };
 
-const deriveStartFrameFromSubsJSON = (subsJSON: SubTypes | null): number => {
-  if (!subsJSON) {
+const deriveStartFrameFromSubsJSON = (words: Word[] | null): number => {
+  if (!words) {
     return 0;
   }
 
   // taking the first real word and take its start timestamp in ms.
-  const startFromInHundrethsOfSec =
-    subsJSON.segments[0]?.words[0]?.firstTimestamp;
+  const startFromInHundrethsOfSec = words[0]?.firstTimestamp;
   if (startFromInHundrethsOfSec === undefined) {
     return 0;
   }
@@ -64,17 +62,17 @@ const deriveStartFrameFromSubsJSON = (subsJSON: SubTypes | null): number => {
 
 const getClampedEndFrame = ({
   durationInSeconds,
-  derivedEndFrame,
+  endFrameFromCaptions,
 }: {
   durationInSeconds: number;
-  derivedEndFrame: number | null;
+  endFrameFromCaptions: number | null;
 }): number => {
   const videoDurationInFrames = Math.floor(durationInSeconds * FPS);
-  if (!derivedEndFrame) {
+  if (!endFrameFromCaptions) {
     return videoDurationInFrames;
   }
 
-  const paddedEndFrame = derivedEndFrame + END_FRAME_PADDING;
+  const paddedEndFrame = endFrameFromCaptions + END_FRAME_PADDING;
   if (paddedEndFrame > videoDurationInFrames) {
     return videoDurationInFrames;
   }
@@ -97,20 +95,15 @@ export const getStartEndFrame = async ({
   // the purpose of calculating the durastion
   // and will not use this value further
   const subsForTimestamps = subsJson
-    ? postprocessSubtitles({
+    ? postprocessCaptions({
         subTypes: subsJson,
-        boxWidth: 200,
-        canvasLayout: "landscape",
-        fontSize: 10,
-        maxLines: 3,
-        subtitleType: "square",
       })
     : null;
 
-  const endFrameFromSubs = deriveEndFrameFromSubs(subsForTimestamps);
+  const endFrameFromCaptions = deriveEndFrameFromSubs(subsForTimestamps);
   const derivedEndFrame = getClampedEndFrame({
     durationInSeconds: recordingDurationInSeconds,
-    derivedEndFrame: endFrameFromSubs,
+    endFrameFromCaptions,
   });
 
   const startFrameFromSubs = deriveStartFrameFromSubsJSON(subsForTimestamps);
