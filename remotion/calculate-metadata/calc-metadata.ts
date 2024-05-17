@@ -12,7 +12,6 @@ import {
   getShouldTransitionIn,
   getShouldTransitionOut,
 } from "../animations/transitions";
-import { truthy } from "../helpers/truthy";
 import { getDimensionsForLayout } from "../layout/dimensions";
 import { applyBRollRules } from "../scenes/BRoll/apply-b-roll-rules";
 import { getCameras } from "./get-camera";
@@ -41,30 +40,28 @@ export const calcMetadata: CalculateMetadataFunction<MainProps> = async ({
     return { scene, cameras: allCameras[videoIndex] as Cameras };
   });
 
-  const scenesAndMetadataWithoutDuration = (
-    await Promise.all(
-      camerasForScene.map(
-        async ({ scene, cameras }): Promise<SceneAndMetadata | null> => {
-          if (scene.type !== "videoscene") {
-            return {
-              type: "other-scene",
-              scene,
-              durationInFrames: scene.durationInFrames,
-              from: 0,
-            };
-          }
-
-          return mapScene({
+  const scenesAndMetadataWithoutDuration = await Promise.all(
+    camerasForScene.map(
+      async ({ scene, cameras }): Promise<SceneAndMetadata> => {
+        if (scene.type !== "videoscene") {
+          return {
+            type: "other-scene",
             scene,
-            cameras,
-            videoIndex,
-            allScenes: props.scenes,
-            canvasLayout: props.canvasLayout,
-          });
-        },
-      ),
-    )
-  ).filter(truthy);
+            durationInFrames: scene.durationInFrames,
+            from: 0,
+          };
+        }
+
+        return mapScene({
+          scene,
+          cameras,
+          videoIndex,
+          allScenes: props.scenes,
+          canvasLayout: props.canvasLayout,
+        });
+      },
+    ),
+  );
 
   let addedUpDurations = 0;
   let currentChapter: string | null = null;

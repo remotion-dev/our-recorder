@@ -7,7 +7,6 @@ import {
   WEBCAM_PREFIX,
 } from "../../config/cameras";
 import { Cameras } from "../../config/scenes";
-import { truthy } from "../helpers/truthy";
 
 export const getCameras = (prefix: string) => {
   const files = getStaticFiles().filter((f) => f.name.startsWith(prefix));
@@ -47,8 +46,7 @@ export const getCameras = (prefix: string) => {
     };
   };
 
-  return files
-    .map(mapFile)
-    .filter(truthy)
-    .sort((a, b) => a.timestamp - b.timestamp);
+  const mappedCameras = files.map(mapFile).filter(Boolean) as Cameras[];
+
+  return mappedCameras.sort((a, b) => a.timestamp - b.timestamp);
 };

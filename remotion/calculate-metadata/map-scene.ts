@@ -123,7 +123,7 @@ export const mapScene = async ({
   videoIndex: number;
   canvasLayout: CanvasLayout;
   allScenes: SelectableScene[];
-}): Promise<SceneAndMetadata | null> => {
+}): Promise<SceneAndMetadata> => {
   if (scene.type !== "videoscene") {
     return {
       type: "other-scene",
