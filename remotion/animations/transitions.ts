@@ -50,15 +50,15 @@ const getHasSameSize = (
 // We can do a transition if the layout is not the same.
 export const getShouldTransitionOut = ({
   sceneAndMetadata,
-  nextScene,
+  nextSceneAndMetadata,
   canvasLayout,
 }: {
   sceneAndMetadata: SceneAndMetadata;
-  nextScene: SceneAndMetadata | null;
+  nextSceneAndMetadata: SceneAndMetadata | null;
   canvasLayout: CanvasLayout;
 }) => {
   // Can not transition if this is the last scene
-  if (nextScene === null) {
+  if (nextSceneAndMetadata === null) {
     return false;
   }
 
@@ -70,7 +70,7 @@ export const getShouldTransitionOut = ({
   // If not both are video scenes, we can transition (slide)
   if (
     sceneAndMetadata.type !== "video-scene" ||
-    nextScene.type !== "video-scene"
+    nextSceneAndMetadata.type !== "video-scene"
   ) {
     return true;
   }
@@ -78,7 +78,7 @@ export const getShouldTransitionOut = ({
   // If the webcam position changed, we can transition (move webcam)
   if (
     getComparableWebcamPosition(sceneAndMetadata, canvasLayout) !==
-    getComparableWebcamPosition(nextScene, canvasLayout)
+    getComparableWebcamPosition(nextSceneAndMetadata, canvasLayout)
   ) {
     return true;
   }
@@ -87,7 +87,7 @@ export const getShouldTransitionOut = ({
   if (
     !getHasSameSize(
       sceneAndMetadata.layout.webcamLayout,
-      nextScene.layout.webcamLayout,
+      nextSceneAndMetadata.layout.webcamLayout,
     )
   ) {
     return true;
@@ -97,7 +97,7 @@ export const getShouldTransitionOut = ({
   if (
     !getHasSameSize(
       sceneAndMetadata.layout.displayLayout,
-      nextScene.layout.displayLayout,
+      nextSceneAndMetadata.layout.displayLayout,
     )
   ) {
     return true;
@@ -108,21 +108,21 @@ export const getShouldTransitionOut = ({
 };
 
 export const getShouldTransitionIn = ({
-  scene,
-  previousScene,
+  sceneAndMetadata: sceneAndMetadata,
+  previousSceneAndMetadata,
   canvasLayout,
 }: {
-  scene: SceneAndMetadata;
-  previousScene: SceneAndMetadata | null;
+  sceneAndMetadata: SceneAndMetadata;
+  previousSceneAndMetadata: SceneAndMetadata | null;
   canvasLayout: CanvasLayout;
 }) => {
-  if (previousScene === null) {
+  if (previousSceneAndMetadata === null) {
     return false;
   }
 
   return getShouldTransitionOut({
-    sceneAndMetadata: previousScene,
-    nextScene: scene,
+    sceneAndMetadata: previousSceneAndMetadata,
+    nextSceneAndMetadata: sceneAndMetadata,
     canvasLayout,
   });
 };
@@ -138,7 +138,13 @@ export const getSumUpDuration = ({
   previousScene: SceneAndMetadata | null;
   canvasLayout: CanvasLayout;
 }) => {
-  if (getShouldTransitionIn({ scene, previousScene, canvasLayout })) {
+  if (
+    getShouldTransitionIn({
+      sceneAndMetadata: scene,
+      previousSceneAndMetadata: previousScene,
+      canvasLayout,
+    })
+  ) {
     return scene.durationInFrames - SCENE_TRANSITION_DURATION;
   }
 

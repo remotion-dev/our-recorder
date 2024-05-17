@@ -136,8 +136,8 @@ export const VideoScene: React.FC<{
           displayLayout={sceneAndMetadata.layout.displayLayout}
           webcamLayout={sceneAndMetadata.layout.webcamLayout}
           didTransitionIn={getShouldTransitionIn({
-            previousScene,
-            scene: sceneAndMetadata,
+            previousSceneAndMetadata: previousScene,
+            sceneAndMetadata: sceneAndMetadata,
             canvasLayout,
           })}
         />

@@ -3,17 +3,20 @@ import { SceneAndMetadata } from "../../config/scenes";
 const PLACEHOLDER_DURATION_IN_FRAMES = 60;
 
 export const addPlaceholderIfNoScenes = ({
-  durationInFrames,
+  totalDurationInFrames,
   scenesAndMetadataWithDuration,
 }: {
-  durationInFrames: number;
+  totalDurationInFrames: number;
   scenesAndMetadataWithDuration: SceneAndMetadata[];
 }): {
-  durationInFrames: number;
+  totalDurationInFrames: number;
   scenesAndMetadataWithDuration: SceneAndMetadata[];
 } => {
   if (scenesAndMetadataWithDuration.length > 0) {
-    return { scenesAndMetadataWithDuration, durationInFrames };
+    return {
+      scenesAndMetadataWithDuration,
+      totalDurationInFrames,
+    };
   }
 
   return {
@@ -29,6 +32,6 @@ export const addPlaceholderIfNoScenes = ({
         from: 0,
       },
     ],
-    durationInFrames,
+    totalDurationInFrames: PLACEHOLDER_DURATION_IN_FRAMES,
   };
 };

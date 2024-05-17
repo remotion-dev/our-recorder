@@ -12,36 +12,33 @@ export const addDurationsToScenes = (
   scenes: SceneAndMetadata[],
   canvasLayout: CanvasLayout,
 ): {
-  durationInFrames: number;
+  totalDurationInFrames: number;
   scenesAndMetadataWithDuration: SceneAndMetadata[];
 } => {
-  let durationInFrames = 0;
+  let totalDurationInFrames = 0;
 
   const scenesAndMetadataWithDuration: SceneAndMetadata[] = scenes.map(
     (sceneAndMetadata, i) => {
-      const previousSceneAndMetaData = scenes[i - 1] ?? null;
-      const nextSceneAndMetaData = scenes[i + 1] ?? null;
+      const previousSceneAndMetadata = scenes[i - 1] ?? null;
+      const nextSceneAndMetadata = scenes[i + 1] ?? null;
 
-      const isTransitioningIn = previousSceneAndMetaData
-        ? getShouldTransitionIn({
-            previousScene: previousSceneAndMetaData,
-            scene: sceneAndMetadata,
-            canvasLayout: canvasLayout,
-          })
-        : false;
-
+      const isTransitioningIn = getShouldTransitionIn({
+        previousSceneAndMetadata,
+        sceneAndMetadata,
+        canvasLayout,
+      });
       const isTransitioningOut = getShouldTransitionOut({
         sceneAndMetadata,
-        nextScene: nextSceneAndMetaData,
-        canvasLayout: canvasLayout,
+        nextSceneAndMetadata,
+        canvasLayout,
       });
 
       if (isTransitioningIn) {
-        durationInFrames -= SCENE_TRANSITION_DURATION;
+        totalDurationInFrames -= SCENE_TRANSITION_DURATION;
       }
 
-      const from = durationInFrames;
-      durationInFrames += sceneAndMetadata.durationInFrames;
+      const from = totalDurationInFrames;
+      totalDurationInFrames += sceneAndMetadata.durationInFrames;
 
       if (sceneAndMetadata.type === "other-scene") {
         return {
@@ -50,7 +47,7 @@ export const addDurationsToScenes = (
         };
       }
 
-      let adjustedDuration = sceneAndMetadata.durationInFrames;
+      let sceneDuration = sceneAndMetadata.durationInFrames;
 
       let transitionAdjustedStartFrame = sceneAndMetadata.startFrame;
 
@@ -63,19 +60,19 @@ export const addDurationsToScenes = (
         const additionalTransitionFrames =
           sceneAndMetadata.startFrame - transitionAdjustedStartFrame;
 
-        durationInFrames += additionalTransitionFrames;
-        adjustedDuration += additionalTransitionFrames;
+        totalDurationInFrames += additionalTransitionFrames;
+        sceneDuration += additionalTransitionFrames;
       }
 
       const retValue: SceneAndMetadata = {
         ...sceneAndMetadata,
         bRolls: applyBRollRules({
           bRolls: sceneAndMetadata.bRolls,
-          sceneDurationInFrames: adjustedDuration,
+          sceneDurationInFrames: sceneDuration,
           willTransitionToNextScene: isTransitioningOut,
         }),
         startFrame: transitionAdjustedStartFrame,
-        durationInFrames: adjustedDuration,
+        durationInFrames: sceneDuration,
         from,
       };
 
@@ -84,7 +81,7 @@ export const addDurationsToScenes = (
   );
 
   return addPlaceholderIfNoScenes({
-    durationInFrames: durationInFrames,
+    totalDurationInFrames: totalDurationInFrames,
     scenesAndMetadataWithDuration,
   });
 };

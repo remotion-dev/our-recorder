@@ -28,8 +28,10 @@ export const calcMetadata: CalculateMetadataFunction<MainProps> = async ({
     ),
   );
 
-  const { durationInFrames, scenesAndMetadataWithDuration: withDurations } =
-    addDurationsToScenes(withMetadata, props.canvasLayout);
+  const {
+    totalDurationInFrames: durationInFrames,
+    scenesAndMetadataWithDuration: withDurations,
+  } = addDurationsToScenes(withMetadata, props.canvasLayout);
 
   const withChapters = addChaptersToScenesAndMetadata(withDurations);
 
