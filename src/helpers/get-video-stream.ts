@@ -1,4 +1,5 @@
-import { SelectedSource } from "./helpers/get-selected-video-source";
+import { DEFAULT_MINIMUM_FPS } from "../preferred-resolution";
+import { SelectedSource } from "./get-selected-video-source";
 
 const getDisplayStream = async (selectedVideoSource: SelectedSource) => {
   if (selectedVideoSource.type !== "display") {
@@ -12,7 +13,33 @@ const getDisplayStream = async (selectedVideoSource: SelectedSource) => {
   return stream;
 };
 
-const getCameraStram = ({
+export const getCameraStreamConstraints = (
+  selectedVideoSource: SelectedSource,
+  preferPortrait: boolean,
+) => {
+  if (selectedVideoSource.type !== "camera") {
+    return null;
+  }
+  const video: MediaTrackConstraints = {
+    deviceId: selectedVideoSource.deviceId,
+    width: preferPortrait
+      ? undefined
+      : selectedVideoSource.maxWidth
+        ? { ideal: selectedVideoSource.maxWidth }
+        : undefined,
+    height: preferPortrait
+      ? selectedVideoSource.maxHeight
+        ? { ideal: selectedVideoSource.maxHeight }
+        : undefined
+      : undefined,
+    frameRate: {
+      min: selectedVideoSource.minFps ?? DEFAULT_MINIMUM_FPS,
+    },
+  };
+  return video;
+};
+
+export const getCameraStram = ({
   selectedVideoSource,
   preferPortrait,
   recordAudio,
@@ -22,26 +49,14 @@ const getCameraStram = ({
   preferPortrait: boolean;
   recordAudio: boolean;
   selectedAudioSource: ConstrainDOMString | null;
-}) => {
+}): Promise<MediaStream> => {
   if (selectedVideoSource.type !== "camera") {
     throw new Error("Unknown video source type");
   }
-  const video: MediaTrackConstraints = {
-    deviceId: selectedVideoSource.deviceId,
-    width: preferPortrait
-      ? undefined
-      : selectedVideoSource.maxWidth
-        ? { min: selectedVideoSource.maxWidth }
-        : undefined,
-    height: preferPortrait
-      ? selectedVideoSource.maxHeight
-        ? { min: selectedVideoSource.maxHeight }
-        : undefined
-      : undefined,
-  };
+  const video = getCameraStreamConstraints(selectedVideoSource, preferPortrait);
 
   const mediaStreamConstraints: MediaStreamConstraints = {
-    video,
+    video: video ?? undefined,
     audio:
       recordAudio && selectedAudioSource
         ? { deviceId: selectedAudioSource }
@@ -61,7 +76,7 @@ export const getVideoStream = async ({
   preferPortrait: boolean;
   recordAudio: boolean;
   selectedAudioSource: ConstrainDOMString | null;
-}) => {
+}): Promise<MediaStream> => {
   if (selectedVideoSource.type === "display") {
     return getDisplayStream(selectedVideoSource);
   }
