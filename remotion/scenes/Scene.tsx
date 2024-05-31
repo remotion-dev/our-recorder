@@ -21,6 +21,7 @@ import {
   getShouldTransitionOut,
 } from "../animations/transitions";
 import type { ChapterType } from "../chapters/make-chapters";
+import { useScrollToCurrentScene } from "../helpers/scroll-to-current-scene";
 import { EndCard } from "./EndCard";
 import { NoRecordingsScene } from "./Placeholders/NoRecordingsScene";
 import { NoScenes } from "./Placeholders/NoScenes";
@@ -185,6 +186,8 @@ const SceneWithTransition: React.FC<Props> = (props) => {
       endStyle,
     ],
   );
+
+  useScrollToCurrentScene({ index: props.index, fullyEntered: enter === 1 });
 
   return (
     <AbsoluteFill style={style}>
