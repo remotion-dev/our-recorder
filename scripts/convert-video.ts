@@ -1,36 +1,46 @@
-import { execSync } from "node:child_process";
+import { spawn } from "node:child_process";
 import { existsSync, renameSync, unlinkSync } from "node:fs";
 import os from "os";
 import path from "path";
 import { prefixes } from "../src/helpers/prefixes";
 import { getDownloadsFolder } from "./get-downloads-folder";
 import { checkVideoIntegrity } from "./server/check-video-integrity";
+import { parseFfmpegProgress } from "./server/parse-ffmpeg-progress";
 
-export const convertAndRemoveSilence = ({
+export const convertAndRemoveSilence = async ({
   input,
   output,
+  onProgress,
 }: {
   input: string;
   output: string;
+  onProgress: (progress: number) => void;
 }) => {
   const tempFile = path.join(os.tmpdir(), `temp${Math.random()}.mp4`);
-  execSync(
-    [
-      "bunx remotion ffmpeg",
-      "-hide_banner",
-      "-i",
-      input,
-      "-movflags",
-      "+faststart",
-      "-r",
-      "30",
-      "-y",
-      tempFile,
-    ].join(" "),
-    {
-      stdio: "inherit",
-    },
-  );
+  const proc = spawn("bunx", [
+    "remotion",
+    "ffmpeg",
+    "-hide_banner",
+    "-i",
+    input,
+    "-movflags",
+    "+faststart",
+    "-r",
+    "30",
+    "-y",
+    tempFile,
+  ]);
+
+  proc.stderr.on("data", (d) => {
+    const progress = parseFfmpegProgress(d.toString(), 30);
+    if (progress) {
+      onProgress(progress);
+    }
+    console.log("progress", progress);
+    console.log("stderr", d.toString());
+  });
+
+  await new Promise((resolve) => proc.on("close", resolve));
 
   renameSync(tempFile, output);
   checkVideoIntegrity(output);
@@ -49,7 +59,13 @@ type ServerProps = {
   customFileLocation: string;
 };
 
-export const convertVideos = async (props: ScriptProps | ServerProps) => {
+export const convertVideos = async ({
+  props,
+  onProgress,
+}: {
+  props: ScriptProps | ServerProps;
+  onProgress: (progress: number) => void;
+}) => {
   const { latestTimestamp, caller } = props;
 
   let fileLocation;
@@ -71,6 +87,7 @@ export const convertVideos = async (props: ScriptProps | ServerProps) => {
       convertAndRemoveSilence({
         input: src,
         output: path.join(folder, latest.replace(".webm", ".mp4")),
+        onProgress,
       });
     }
   }

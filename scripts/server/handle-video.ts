@@ -3,6 +3,7 @@ import fs, { createWriteStream } from "fs";
 import os from "os";
 import path from "path";
 import { convertAndRemoveSilence } from "../convert-video";
+import { makeStreamPayload } from "./streaming";
 
 export const handleVideoUpload = async (req: Request, res: Response) => {
   try {
@@ -35,13 +36,24 @@ export const handleVideoUpload = async (req: Request, res: Response) => {
 
     await new Promise((resolve) => writeStream.on("finish", resolve));
 
-    convertAndRemoveSilence({
+    await convertAndRemoveSilence({
       input: input,
       output: filePath,
+      onProgress: (progress) => {
+        const payload = makeStreamPayload({
+          message: {
+            type: "converting-progress",
+            payload: {
+              framesConverted: progress,
+            },
+          },
+        });
+        res.write(payload);
+      },
     });
 
     res.statusCode = 200;
-    res.end(JSON.stringify({ success: true }));
+    res.end();
   } catch (e) {
     console.error(e);
     res.statusCode = 500;

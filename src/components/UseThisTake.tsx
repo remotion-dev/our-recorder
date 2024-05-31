@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import { transcribeVideoInServer } from "../actions/transcribe-video-in-server";
 import { downloadVideo } from "../helpers/download-video";
 import { Prefix } from "../helpers/prefixes";
@@ -42,6 +42,8 @@ export const UseThisTake: React.FC<{
   setUploading,
   setTranscribing,
 }) => {
+  const [status, setStatus] = useState<string | null>(null);
+
   const keepVideoOnServer = useCallback(async () => {
     if (currentBlobs.endDate === null) {
       return Promise.resolve();
@@ -63,6 +65,9 @@ export const UseThisTake: React.FC<{
         endDate: currentBlobs.endDate,
         prefix,
         selectedFolder,
+        onProgress: (stat) => {
+          setStatus(stat);
+        },
       });
     }
 
@@ -137,18 +142,26 @@ export const UseThisTake: React.FC<{
   ]);
 
   return (
-    <Button
-      variant="default"
-      type="button"
-      title="Copy this take"
-      disabled={uploading}
-      onClick={handleUseTake}
-    >
-      {uploading
-        ? "Copying..."
-        : window.remotionServerEnabled
-          ? `Copy to public/${selectedFolder}`
-          : "Download this take"}
-    </Button>
+    <>
+      <Button
+        variant="default"
+        type="button"
+        title="Copy this take"
+        disabled={uploading}
+        onClick={handleUseTake}
+      >
+        {uploading
+          ? "Copying..."
+          : window.remotionServerEnabled
+            ? `Copy to public/${selectedFolder}`
+            : "Download this take"}
+      </Button>
+      {status && (
+        <>
+          <br />
+          <span style={{ color: "red" }}>{status}</span>
+        </>
+      )}
+    </>
   );
 };
