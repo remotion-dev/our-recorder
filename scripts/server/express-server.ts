@@ -10,12 +10,11 @@ import { indexHtmlDev } from "../../index-html";
 import {
   CREATE_FOLDER,
   GET_FOLDERS,
-  PROCESS_VIDEOS,
   TRANSCRIBE_VIDEO,
   UPLOAD_VIDEO,
 } from "./constants";
 import { createProject } from "./create-project";
-import { handleVideoConvertRequest, handleVideoUpload } from "./handle-video";
+import { handleVideoUpload } from "./handle-video";
 import { getProjectFolder } from "./projects";
 import { transcribeVideo } from "./transcribe-video";
 
@@ -59,7 +58,6 @@ export const startExpressServer = async () => {
   });
 
   app.post(UPLOAD_VIDEO, handleVideoUpload);
-  app.post(PROCESS_VIDEOS, handleVideoConvertRequest);
   app.post(TRANSCRIBE_VIDEO, (req: Request, res: Response) => {
     transcribeVideo(req, res, publicDir);
   });

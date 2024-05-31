@@ -6,7 +6,7 @@ import { prefixes } from "../src/helpers/prefixes";
 import { getDownloadsFolder } from "./get-downloads-folder";
 import { checkVideoIntegrity } from "./server/check-video-integrity";
 
-const convertAndRemoveSilence = ({
+export const convertAndRemoveSilence = ({
   input,
   output,
 }: {

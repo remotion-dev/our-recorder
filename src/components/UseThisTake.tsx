@@ -1,5 +1,4 @@
 import React, { useCallback } from "react";
-import { convertFilesInServer } from "../actions/convert-files";
 import { transcribeVideoInServer } from "../actions/transcribe-video-in-server";
 import { downloadVideo } from "../helpers/download-video";
 import { Prefix } from "../helpers/prefixes";
@@ -66,11 +65,6 @@ export const UseThisTake: React.FC<{
         selectedFolder,
       });
     }
-
-    await convertFilesInServer({
-      endDate: currentBlobs.endDate,
-      selectedFolder,
-    });
 
     setCurrentBlobs(currentBlobsInitialState);
     return Promise.resolve();
