@@ -1,5 +1,6 @@
 import { execSync } from "node:child_process";
-import { existsSync, unlinkSync } from "node:fs";
+import { existsSync, renameSync, unlinkSync } from "node:fs";
+import os from "os";
 import path from "path";
 import { prefixes } from "../src/helpers/prefixes";
 import { getDownloadsFolder } from "./get-downloads-folder";
@@ -12,6 +13,7 @@ const convertAndRemoveSilence = ({
   input: string;
   output: string;
 }) => {
+  const tempFile = path.join(os.tmpdir(), `temp${Math.random()}.mp4`);
   execSync(
     [
       "bunx remotion ffmpeg",
@@ -23,13 +25,14 @@ const convertAndRemoveSilence = ({
       "-r",
       "30",
       "-y",
-      output,
+      tempFile,
     ].join(" "),
     {
       stdio: "inherit",
     },
   );
 
+  renameSync(tempFile, output);
   checkVideoIntegrity(output);
   unlinkSync(input);
 };
