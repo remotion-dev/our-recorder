@@ -1,9 +1,11 @@
 import { makeStreamPayloadMessage } from "@remotion/streaming";
 
 const convertingProgress = "converting-progress" as const;
+const transcribingProgress = "transcribing-progress" as const;
 
 const messageTypes = {
   "1": { type: convertingProgress },
+  "2": { type: transcribingProgress },
 } as const;
 
 export type MessageTypeId = keyof typeof messageTypes;
@@ -11,14 +13,22 @@ type MessageType = (typeof messageTypes)[MessageTypeId]["type"];
 
 export const formatMap: { [key in MessageType]: "json" | "binary" } = {
   [convertingProgress]: "json",
+  [transcribingProgress]: "json",
 };
 
-export type StreamingPayload = {
-  type: typeof convertingProgress;
-  payload: {
-    framesConverted: number;
-  };
-};
+export type StreamingPayload =
+  | {
+      type: typeof convertingProgress;
+      payload: {
+        framesConverted: number;
+      };
+    }
+  | {
+      type: typeof transcribingProgress;
+      payload: {
+        statusMessage: string;
+      };
+    };
 
 export const messageTypeIdToMessageType = (
   messageTypeId: MessageTypeId,

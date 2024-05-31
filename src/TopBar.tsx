@@ -5,7 +5,6 @@ import { RecordButton } from "./RecordButton";
 import { fetchProjectFolders } from "./actions/fetch-project-folders";
 import { NewFolderDialog } from "./components/NewFolderDialog";
 import { SelectedFolder } from "./components/SelectedFolder";
-import { SmallSpinner } from "./components/SmallSpinner";
 import type { CurrentBlobs } from "./components/UseThisTake";
 import {
   UseThisTake,
@@ -35,16 +34,6 @@ const recordWrapper: React.CSSProperties = {
   gap: 10,
 };
 
-const transcribeIndicator: React.CSSProperties = {
-  fontSize: 10,
-  display: "flex",
-  paddingLeft: 2,
-  alignItems: "center",
-  marginTop: 2,
-  gap: 4,
-  color: "grey",
-};
-
 export const TopBar: React.FC<{
   mediaSources: MediaSources;
 }> = ({ mediaSources }) => {
@@ -55,7 +44,6 @@ export const TopBar: React.FC<{
 
   const [folders, setFolders] = useState<string[] | null>(null);
   const [uploading, setUploading] = useState(false);
-  const [transcribing, setTranscribing] = useState(false);
   const [showHandleVideos, setShowHandleVideos] = useState<boolean>(false);
 
   const folderFromUrl: string | null = useMemo(() => {
@@ -65,13 +53,6 @@ export const TopBar: React.FC<{
   const [preferredSelectedFolder, setSelectedFolder] = useState<string | null>(
     folderFromUrl ?? loadSelectedFolder(),
   );
-
-  const dynamicTranscribeIndicator: React.CSSProperties = useMemo(() => {
-    return {
-      ...transcribeIndicator,
-      visibility: transcribing ? "visible" : "hidden",
-    };
-  }, [transcribing]);
 
   const selectedFolder = useMemo(() => {
     return preferredSelectedFolder ?? folders?.[0] ?? null;
@@ -129,13 +110,8 @@ export const TopBar: React.FC<{
             setShowHandleVideos={setShowHandleVideos}
             uploading={uploading}
             setUploading={setUploading}
-            setTranscribing={setTranscribing}
           />
         ) : null}
-      </div>
-
-      <div style={dynamicTranscribeIndicator}>
-        Transcribing last recording <SmallSpinner />
       </div>
 
       <div style={{ flex: 1 }} />

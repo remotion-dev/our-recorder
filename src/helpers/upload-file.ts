@@ -59,6 +59,9 @@ export const uploadFileToServer = async ({
     if (message.message.type === "converting-progress") {
       onProgress(`Converted ${message.message.payload.framesConverted} frames`);
     }
+    if (message.message.type === "transcribing-progress") {
+      onProgress(message.message.payload.statusMessage);
+    }
   });
 
   const res = await fetch(url, {

@@ -9,10 +9,12 @@ export const captionFile = async ({
   file,
   fileToTranscribe,
   outPath,
+  onProgress,
 }: {
   file: string;
   fileToTranscribe: string;
   outPath: string;
+  onProgress: (progress: string) => void;
 }): Promise<void> => {
   const tmpDir = path.join(tmpdir(), "remotion-recorder");
 
@@ -21,6 +23,8 @@ export const captionFile = async ({
   }
 
   const wavFile = path.join(tmpDir, `${file.split(".")[0]}.wav`);
+
+  onProgress(`Transcribing 0%`);
 
   // extracting audio from mp4 and save it as 16khz wav file
   await new Promise<void>((resolve, reject) => {
@@ -44,6 +48,9 @@ export const captionFile = async ({
     whisperPath: WHISPER_PATH,
     translateToEnglish: false,
     printOutput: true,
+    onProgress: (progress) => {
+      onProgress(`Transcribing ${progress * 100}%`);
+    },
   });
 
   rmSync(wavFile);

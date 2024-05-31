@@ -7,16 +7,10 @@ import { fileURLToPath } from "node:url";
 import { createServer } from "vite";
 import { SERVER_PORT } from "../../config/server";
 import { indexHtmlDev } from "../../index-html";
-import {
-  CREATE_FOLDER,
-  GET_FOLDERS,
-  TRANSCRIBE_VIDEO,
-  UPLOAD_VIDEO,
-} from "./constants";
+import { CREATE_FOLDER, GET_FOLDERS, UPLOAD_VIDEO } from "./constants";
 import { createProject } from "./create-project";
 import { handleVideoUpload } from "./handle-video";
 import { getProjectFolder } from "./projects";
-import { transcribeVideo } from "./transcribe-video";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -58,9 +52,6 @@ export const startExpressServer = async () => {
   });
 
   app.post(UPLOAD_VIDEO, handleVideoUpload);
-  app.post(TRANSCRIBE_VIDEO, (req: Request, res: Response) => {
-    transcribeVideo(req, res, publicDir);
-  });
 
   const port = process.env.PORT || SERVER_PORT;
 

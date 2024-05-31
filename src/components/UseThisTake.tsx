@@ -1,5 +1,4 @@
 import React, { useCallback, useState } from "react";
-import { transcribeVideoInServer } from "../actions/transcribe-video-in-server";
 import { downloadVideo } from "../helpers/download-video";
 import { Prefix } from "../helpers/prefixes";
 import { uploadFileToServer } from "../helpers/upload-file";
@@ -32,7 +31,6 @@ export const UseThisTake: React.FC<{
   readonly setShowHandleVideos: React.Dispatch<React.SetStateAction<boolean>>;
   readonly uploading: boolean;
   readonly setUploading: React.Dispatch<React.SetStateAction<boolean>>;
-  readonly setTranscribing: React.Dispatch<React.SetStateAction<boolean>>;
 }> = ({
   currentBlobs,
   selectedFolder,
@@ -40,7 +38,6 @@ export const UseThisTake: React.FC<{
   setShowHandleVideos,
   uploading,
   setUploading,
-  setTranscribing,
 }) => {
   const [status, setStatus] = useState<string | null>(null);
 
@@ -108,7 +105,6 @@ export const UseThisTake: React.FC<{
 
   const handleUseTake = useCallback(async () => {
     setUploading(true);
-    const { endDate } = currentBlobs;
     try {
       await keepVideos();
       setShowHandleVideos(false);
@@ -119,27 +115,7 @@ export const UseThisTake: React.FC<{
     } finally {
       setUploading(false);
     }
-
-    try {
-      if (endDate && selectedFolder) {
-        setTranscribing(true);
-        await transcribeVideoInServer({ endDate, selectedFolder });
-      }
-    } catch (err) {
-      console.log(err);
-      // eslint-disable-next-line no-alert
-      alert((err as Error).stack);
-    } finally {
-      setTranscribing(false);
-    }
-  }, [
-    currentBlobs,
-    keepVideos,
-    selectedFolder,
-    setShowHandleVideos,
-    setTranscribing,
-    setUploading,
-  ]);
+  }, [keepVideos, setShowHandleVideos, setUploading]);
 
   return (
     <>

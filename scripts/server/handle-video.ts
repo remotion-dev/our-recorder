@@ -4,6 +4,7 @@ import os from "os";
 import path from "path";
 import { convertAndRemoveSilence } from "../convert-video";
 import { makeStreamPayload } from "./streaming";
+import { transcribeVideo } from "./transcribe-video";
 
 export const handleVideoUpload = async (req: Request, res: Response) => {
   try {
@@ -23,7 +24,8 @@ export const handleVideoUpload = async (req: Request, res: Response) => {
 
     const file = `${prefix}${endDateAsString}.mp4`;
 
-    const folderPath = path.join(process.cwd(), "public", folder);
+    const publicDir = path.join(process.cwd(), "public");
+    const folderPath = path.join(publicDir, folder);
     const filePath = path.join(folderPath, file);
     const input = path.join(os.tmpdir(), Math.random() + ".webm");
 
@@ -45,6 +47,23 @@ export const handleVideoUpload = async (req: Request, res: Response) => {
             type: "converting-progress",
             payload: {
               framesConverted: progress,
+            },
+          },
+        });
+        res.write(payload);
+      },
+    });
+
+    await transcribeVideo({
+      endDateAsString,
+      folder,
+      publicDir,
+      onProgress: (status) => {
+        const payload = makeStreamPayload({
+          message: {
+            type: "transcribing-progress",
+            payload: {
+              statusMessage: status,
             },
           },
         });
