@@ -21,6 +21,7 @@ export type StreamingPayload =
       type: typeof convertingProgress;
       payload: {
         framesConverted: number;
+        prefix: string;
       };
     }
   | {

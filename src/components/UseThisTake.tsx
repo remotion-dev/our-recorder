@@ -135,7 +135,7 @@ export const UseThisTake: React.FC<{
       {status && (
         <>
           <br />
-          <span style={{ color: "red" }}>{status}</span>
+          <span style={{ color: "rgba(255, 255, 255, 0.5)" }}>{status}</span>
         </>
       )}
     </>

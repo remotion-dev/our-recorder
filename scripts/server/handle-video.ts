@@ -47,6 +47,7 @@ export const handleVideoUpload = async (req: Request, res: Response) => {
             type: "converting-progress",
             payload: {
               framesConverted: progress,
+              prefix,
             },
           },
         });

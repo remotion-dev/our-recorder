@@ -32,7 +32,14 @@ for (const folder of foldersInPublicFolder) {
       console.log("Already transcribed", outPath);
     } else {
       console.log("Transcribing", fileToTranscribe);
-      await captionFile({ file, outPath, fileToTranscribe });
+      await captionFile({
+        file,
+        outPath,
+        fileToTranscribe,
+        onProgress(progress) {
+          console.log(`${progress}%`);
+        },
+      });
       console.log("Transcribed to", outPath);
     }
   }
