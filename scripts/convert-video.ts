@@ -4,7 +4,6 @@ import os from "os";
 import path from "path";
 import { prefixes } from "../src/helpers/prefixes";
 import { getDownloadsFolder } from "./get-downloads-folder";
-import { checkVideoIntegrity } from "./server/check-video-integrity";
 import { parseFfmpegProgress } from "./server/parse-ffmpeg-progress";
 
 export const convertAndRemoveSilence = async ({
@@ -49,7 +48,6 @@ export const convertAndRemoveSilence = async ({
   await new Promise((resolve) => proc.on("close", resolve));
 
   renameSync(tempFile, output);
-  checkVideoIntegrity(output);
   unlinkSync(input);
 };
 
