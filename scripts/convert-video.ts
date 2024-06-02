@@ -11,11 +11,17 @@ export const convertVideo = async ({
   output,
   onProgress,
   signal,
+  expectedFrames,
 }: {
   input: string;
   output: string;
-  onProgress: (progress: number) => void;
+  onProgress: (options: {
+    framesEncoded: number;
+    progress: number;
+    filename: string;
+  }) => void;
   signal: AbortSignal;
+  expectedFrames: number;
 }) => {
   const tempFile = path.join(os.tmpdir(), `temp${Math.random()}.mp4`);
   const proc = spawn(
@@ -39,9 +45,13 @@ export const convertVideo = async ({
   );
 
   proc.stderr.on("data", (d) => {
-    const progress = parseFfmpegProgress(d.toString(), 30);
-    if (progress) {
-      onProgress(progress);
+    const framesEncoded = parseFfmpegProgress(d.toString(), 30);
+    if (framesEncoded) {
+      onProgress({
+        filename: path.basename(output),
+        framesEncoded: framesEncoded,
+        progress: framesEncoded / expectedFrames,
+      });
     }
   });
 
@@ -67,10 +77,16 @@ export const convertVideos = async ({
   props,
   onProgress,
   abortSignal,
+  expectedFrames,
 }: {
   props: ScriptProps | ServerProps;
-  onProgress: (progress: number) => void;
+  onProgress: (options: {
+    framesEncoded: number;
+    progress: number;
+    filename: string;
+  }) => void;
   abortSignal: AbortSignal;
+  expectedFrames: number;
 }) => {
   const { latestTimestamp, caller } = props;
 
@@ -95,6 +111,7 @@ export const convertVideos = async ({
         output: path.join(folder, latest.replace(".webm", ".mp4")),
         onProgress,
         signal: abortSignal,
+        expectedFrames,
       });
     }
   }

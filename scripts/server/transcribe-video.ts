@@ -14,7 +14,7 @@ export const transcribeVideo = async ({
   endDateAsString: string;
   folder: string;
   publicDir: string;
-  onProgress: (progress: string) => void;
+  onProgress: (options: { filename: string; progress: number }) => void;
   signal: AbortSignal;
 }) => {
   await ensureWhisper();
@@ -45,7 +45,7 @@ export const transcribeVideo = async ({
   }
 
   if (webcamFiles.length > 1) {
-    throw new Error("Dublicate files found.");
+    throw new Error("Duplicate files found.");
   }
 
   const fileName = webcamFiles[0] as string;

@@ -15,6 +15,7 @@ export const handleVideoUpload = async (
   const endDateAsString = params.get("endDateAsString");
   const folder = params.get("folder");
   const prefix = params.get("prefix");
+  const expectedFrames = Number(params.get("expectedFrames"));
   try {
     if (typeof prefix !== "string") {
       throw new Error("No `prefix` provided");
@@ -26,6 +27,10 @@ export const handleVideoUpload = async (
 
     if (typeof folder !== "string") {
       throw new Error("No `folder` provided");
+    }
+
+    if (typeof expectedFrames !== "number") {
+      throw new Error("No `expectedFrames` provided");
     }
 
     // TODO: does not work
@@ -56,31 +61,34 @@ export const handleVideoUpload = async (
     await convertVideo({
       input: input,
       output: filePath,
-      onProgress: (progress) => {
+      onProgress: ({ filename, framesEncoded, progress }) => {
         const payload = makeStreamPayload({
           message: {
             type: "converting-progress",
             payload: {
-              framesConverted: progress,
-              prefix,
+              progress,
+              framesConverted: framesEncoded,
+              filename,
             },
           },
         });
         res.write(payload);
       },
       signal: controller.signal,
+      expectedFrames,
     });
 
     await transcribeVideo({
       endDateAsString,
       folder,
       publicDir,
-      onProgress: (status) => {
+      onProgress: ({ filename, progress }) => {
         const payload = makeStreamPayload({
           message: {
             type: "transcribing-progress",
             payload: {
-              statusMessage: status,
+              filename,
+              progress,
             },
           },
         });

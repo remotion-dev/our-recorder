@@ -15,7 +15,7 @@ export const captionFile = async ({
   file: string;
   fileToTranscribe: string;
   outPath: string;
-  onProgress: (progress: string) => void;
+  onProgress: (options: { filename: string; progress: number }) => void;
   signal: AbortSignal | null;
 }): Promise<void> => {
   const tmpDir = path.join(tmpdir(), "remotion-recorder");
@@ -26,7 +26,7 @@ export const captionFile = async ({
 
   const wavFile = path.join(tmpDir, `${file.split(".")[0]}.wav`);
 
-  onProgress(`Transcribing 0%`);
+  onProgress({ filename: file, progress: 0 });
 
   // extracting audio from mp4 and save it as 16khz wav file
   await new Promise<void>((resolve, reject) => {
@@ -54,7 +54,7 @@ export const captionFile = async ({
     translateToEnglish: false,
     printOutput: true,
     onProgress: (progress) => {
-      onProgress(`Transcribing ${progress * 100}%`);
+      onProgress({ filename: file, progress: Math.round(progress * 100) });
     },
   });
 

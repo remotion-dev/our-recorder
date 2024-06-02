@@ -44,7 +44,9 @@ export const TopBar: React.FC<{
 
   const [folders, setFolders] = useState<string[] | null>(null);
   const [uploading, setUploading] = useState(false);
-  const [showHandleVideos, setShowHandleVideos] = useState<boolean>(false);
+  const [showHandleVideos, setShowHandleVideos] = useState<number | false>(
+    false,
+  );
 
   const folderFromUrl: string | null = useMemo(() => {
     return loadFolderFromUrl();
@@ -102,7 +104,7 @@ export const TopBar: React.FC<{
           />
         )}
 
-        {showHandleVideos ? (
+        {showHandleVideos !== false ? (
           <UseThisTake
             selectedFolder={selectedFolder}
             currentBlobs={currentBlobs}
@@ -110,6 +112,7 @@ export const TopBar: React.FC<{
             setShowHandleVideos={setShowHandleVideos}
             uploading={uploading}
             setUploading={setUploading}
+            durationInFrames={showHandleVideos}
           />
         ) : null}
       </div>

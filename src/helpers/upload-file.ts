@@ -22,12 +22,14 @@ export const uploadFileToServer = async ({
   prefix,
   selectedFolder,
   onProgress,
+  expectedFrames,
 }: {
   blob: Blob;
   endDate: number;
   prefix: string;
   selectedFolder: string;
   onProgress: (status: string) => void;
+  expectedFrames: number;
 }) => {
   const videoFile = new File([blob], "video.webm", { type: blob.type });
 
@@ -37,6 +39,7 @@ export const uploadFileToServer = async ({
     folder: selectedFolder,
     prefix,
     endDateAsString: endDate.toString(),
+    expectedFrames: String(expectedFrames),
   }).toString();
 
   const streamer = makeStreamer((status, messageTypeId, data) => {
@@ -58,11 +61,15 @@ export const uploadFileToServer = async ({
 
     if (message.message.type === "converting-progress") {
       onProgress(
-        `${message.message.payload.prefix}: Converted ${message.message.payload.framesConverted} frames`,
+        `${message.message.payload.filename}: Converted ${message.message.payload.framesConverted} frames`,
       );
     }
     if (message.message.type === "transcribing-progress") {
-      onProgress(message.message.payload.statusMessage);
+      onProgress(
+        message.message.payload.filename +
+          ": " +
+          message.message.payload.progress,
+      );
     }
   });
 

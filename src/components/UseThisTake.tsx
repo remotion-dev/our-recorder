@@ -28,9 +28,12 @@ export const UseThisTake: React.FC<{
   readonly selectedFolder: string | null;
   readonly currentBlobs: CurrentBlobs;
   readonly setCurrentBlobs: React.Dispatch<React.SetStateAction<CurrentBlobs>>;
-  readonly setShowHandleVideos: React.Dispatch<React.SetStateAction<boolean>>;
+  readonly setShowHandleVideos: React.Dispatch<
+    React.SetStateAction<false | number>
+  >;
   readonly uploading: boolean;
   readonly setUploading: React.Dispatch<React.SetStateAction<boolean>>;
+  durationInFrames: number;
 }> = ({
   currentBlobs,
   selectedFolder,
@@ -38,6 +41,7 @@ export const UseThisTake: React.FC<{
   setShowHandleVideos,
   uploading,
   setUploading,
+  durationInFrames,
 }) => {
   const [status, setStatus] = useState<string | null>(null);
 
@@ -65,16 +69,18 @@ export const UseThisTake: React.FC<{
         onProgress: (stat) => {
           setStatus(stat);
         },
+        expectedFrames: durationInFrames,
       });
     }
 
     setCurrentBlobs(currentBlobsInitialState);
     return Promise.resolve();
   }, [
-    selectedFolder,
-    currentBlobs.blobs,
     currentBlobs.endDate,
+    currentBlobs.blobs,
+    selectedFolder,
     setCurrentBlobs,
+    durationInFrames,
   ]);
 
   const keepVideoOnClient = useCallback(() => {

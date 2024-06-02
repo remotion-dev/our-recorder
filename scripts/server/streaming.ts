@@ -21,13 +21,15 @@ export type StreamingPayload =
       type: typeof convertingProgress;
       payload: {
         framesConverted: number;
-        prefix: string;
+        filename: string;
+        progress: number;
       };
     }
   | {
       type: typeof transcribingProgress;
       payload: {
-        statusMessage: string;
+        filename: string;
+        progress: number;
       };
     };
 

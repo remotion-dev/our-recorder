@@ -1,12 +1,12 @@
 import React, { useCallback, useState } from "react";
 import { WEBCAM_PREFIX } from "../config/cameras";
 import { BlinkingCircle, RecordCircle } from "./BlinkingCircle";
-import { Button } from "./components/ui/button";
+import { Timer } from "./Timer";
 import type { CurrentBlobs } from "./components/UseThisTake";
 import { currentBlobsInitialState } from "./components/UseThisTake";
+import { Button } from "./components/ui/button";
 import { Prefix } from "./helpers/prefixes";
 import { useKeyPress } from "./helpers/use-key-press";
-import { Timer } from "./Timer";
 
 export type MediaSources = {
   [key in Prefix]: MediaStream | null;
@@ -25,8 +25,8 @@ export const RecordButton: React.FC<{
   recordingDisabled: boolean;
   setCurrentBlobs: React.Dispatch<React.SetStateAction<CurrentBlobs>>;
   mediaSources: MediaSources;
-  showHandleVideos: boolean;
-  setShowHandleVideos: React.Dispatch<React.SetStateAction<boolean>>;
+  showHandleVideos: boolean | number;
+  setShowHandleVideos: React.Dispatch<React.SetStateAction<false | number>>;
 }> = ({
   recording,
   showHandleVideos,
@@ -96,9 +96,10 @@ export const RecordButton: React.FC<{
     }
 
     endDate = Date.now();
+    const time = endDate - (recording || 0);
     setRecording(false);
-    setShowHandleVideos(true);
-  }, [recorders, setRecording, setShowHandleVideos]);
+    setShowHandleVideos(time);
+  }, [recorders, recording, setRecording, setShowHandleVideos]);
 
   const onPressR = useCallback(() => {
     if (mediaSources.webcam === null || !mediaSources.webcam.active) {
@@ -176,7 +177,7 @@ export const RecordButton: React.FC<{
       <Button
         variant="outline"
         type="button"
-        disabled={disabled}
+        disabled={Boolean(disabled)}
         style={{ display: "flex", alignItems: "center", gap: 10 }}
         title="Press R to start recording"
         onClick={start}
