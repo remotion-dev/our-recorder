@@ -11,33 +11,39 @@ export const convertAndRemoveSilence = async ({
   input,
   output,
   onProgress,
+  signal,
 }: {
   input: string;
   output: string;
   onProgress: (progress: number) => void;
+  signal: AbortSignal;
 }) => {
   const tempFile = path.join(os.tmpdir(), `temp${Math.random()}.mp4`);
-  const proc = spawn("bunx", [
-    "remotion",
-    "ffmpeg",
-    "-hide_banner",
-    "-i",
-    input,
-    "-movflags",
-    "+faststart",
-    "-r",
-    "30",
-    "-y",
-    tempFile,
-  ]);
+  const proc = spawn(
+    "bunx",
+    [
+      "remotion",
+      "ffmpeg",
+      "-hide_banner",
+      "-i",
+      input,
+      "-movflags",
+      "+faststart",
+      "-r",
+      "30",
+      "-y",
+      tempFile,
+    ],
+    {
+      signal,
+    },
+  );
 
   proc.stderr.on("data", (d) => {
     const progress = parseFfmpegProgress(d.toString(), 30);
     if (progress) {
       onProgress(progress);
     }
-    console.log("progress", progress);
-    console.log("stderr", d.toString());
   });
 
   await new Promise((resolve) => proc.on("close", resolve));
@@ -62,9 +68,11 @@ type ServerProps = {
 export const convertVideos = async ({
   props,
   onProgress,
+  abortSignal,
 }: {
   props: ScriptProps | ServerProps;
   onProgress: (progress: number) => void;
+  abortSignal: AbortSignal;
 }) => {
   const { latestTimestamp, caller } = props;
 
@@ -88,6 +96,7 @@ export const convertVideos = async ({
         input: src,
         output: path.join(folder, latest.replace(".webm", ".mp4")),
         onProgress,
+        signal: abortSignal,
       });
     }
   }

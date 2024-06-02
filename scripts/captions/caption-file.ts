@@ -10,11 +10,13 @@ export const captionFile = async ({
   fileToTranscribe,
   outPath,
   onProgress,
+  signal,
 }: {
   file: string;
   fileToTranscribe: string;
   outPath: string;
   onProgress: (progress: string) => void;
+  signal: AbortSignal | null;
 }): Promise<void> => {
   const tmpDir = path.join(tmpdir(), "remotion-recorder");
 
@@ -30,7 +32,10 @@ export const captionFile = async ({
   await new Promise<void>((resolve, reject) => {
     const command = `bunx remotion ffmpeg -hide_banner -i ${fileToTranscribe} -ar 16000 -y ${wavFile}`;
     const [bin, ...args] = command.split(" ");
-    const child = spawn(bin as string, args, { stdio: "ignore" });
+    const child = spawn(bin as string, args, {
+      stdio: "ignore",
+      signal: signal ?? undefined,
+    });
 
     child.on("exit", (code, signal) => {
       if (code !== 0) {

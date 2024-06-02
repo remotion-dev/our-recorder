@@ -1,15 +1,21 @@
-import type { Request, Response } from "express";
 import fs, { createWriteStream } from "fs";
+import { IncomingMessage, ServerResponse } from "http";
 import os from "os";
 import path from "path";
 import { convertAndRemoveSilence } from "../convert-video";
 import { makeStreamPayload } from "./streaming";
 import { transcribeVideo } from "./transcribe-video";
 
-export const handleVideoUpload = async (req: Request, res: Response) => {
+export const handleVideoUpload = async (
+  req: IncomingMessage,
+  res: ServerResponse,
+) => {
+  const url = req.url as string;
+  const params = new URLSearchParams(url.substring(1));
+  const endDateAsString = params.get("endDateAsString");
+  const folder = params.get("folder");
+  const prefix = params.get("prefix");
   try {
-    const { prefix, endDateAsString, folder } = req.query;
-
     if (typeof prefix !== "string") {
       throw new Error("No `prefix` provided");
     }
@@ -21,6 +27,15 @@ export const handleVideoUpload = async (req: Request, res: Response) => {
     if (typeof folder !== "string") {
       throw new Error("No `folder` provided");
     }
+
+    // TODO: does not work
+    const controller = new AbortController();
+
+    res.socket?.on("close", () => {
+      controller.abort();
+
+      console.log("REY has closed the connection or tab.");
+    });
 
     const file = `${prefix}${endDateAsString}.mp4`;
 
@@ -53,6 +68,7 @@ export const handleVideoUpload = async (req: Request, res: Response) => {
         });
         res.write(payload);
       },
+      signal: controller.signal,
     });
 
     await transcribeVideo({
@@ -70,6 +86,7 @@ export const handleVideoUpload = async (req: Request, res: Response) => {
         });
         res.write(payload);
       },
+      signal: controller.signal,
     });
 
     res.statusCode = 200;

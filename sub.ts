@@ -39,6 +39,7 @@ for (const folder of foldersInPublicFolder) {
         onProgress(progress) {
           console.log(`${progress}%`);
         },
+        signal: null,
       });
       console.log("Transcribed to", outPath);
     }

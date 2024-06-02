@@ -9,11 +9,13 @@ export const transcribeVideo = async ({
   folder,
   publicDir,
   onProgress,
+  signal,
 }: {
   endDateAsString: string;
   folder: string;
   publicDir: string;
   onProgress: (progress: string) => void;
+  signal: AbortSignal;
 }) => {
   await ensureWhisper();
 
@@ -63,5 +65,6 @@ export const transcribeVideo = async ({
     outPath,
     fileToTranscribe: filePath,
     onProgress,
+    signal,
   });
 };
