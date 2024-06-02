@@ -6,7 +6,7 @@ import { prefixes } from "../src/helpers/prefixes";
 import { getDownloadsFolder } from "./get-downloads-folder";
 import { parseFfmpegProgress } from "./server/parse-ffmpeg-progress";
 
-export const convertAndRemoveSilence = async ({
+export const convertVideo = async ({
   input,
   output,
   onProgress,
@@ -90,7 +90,7 @@ export const convertVideos = async ({
         : path.join("public", props.prefix);
 
     if (existsSync(src)) {
-      convertAndRemoveSilence({
+      convertVideo({
         input: src,
         output: path.join(folder, latest.replace(".webm", ".mp4")),
         onProgress,

@@ -2,7 +2,7 @@ import fs, { createWriteStream } from "fs";
 import { IncomingMessage, ServerResponse } from "http";
 import os from "os";
 import path from "path";
-import { convertAndRemoveSilence } from "../convert-video";
+import { convertVideo } from "../convert-video";
 import { makeStreamPayload } from "./streaming";
 import { transcribeVideo } from "./transcribe-video";
 
@@ -53,7 +53,7 @@ export const handleVideoUpload = async (
 
     await new Promise((resolve) => writeStream.on("finish", resolve));
 
-    await convertAndRemoveSilence({
+    await convertVideo({
       input: input,
       output: filePath,
       onProgress: (progress) => {
