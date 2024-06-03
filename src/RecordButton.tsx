@@ -1,10 +1,10 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback } from "react";
 import { WEBCAM_PREFIX } from "../config/cameras";
 import { FPS } from "../config/fps";
+import { truthy } from "../remotion/helpers/truthy";
 import { BlinkingCircle, RecordCircle } from "./BlinkingCircle";
 import { Timer } from "./Timer";
 import type { CurrentBlobs } from "./components/UseThisTake";
-import { currentBlobsInitialState } from "./components/UseThisTake";
 import { Button } from "./components/ui/button";
 import { Prefix } from "./helpers/prefixes";
 import { useKeyPress } from "./helpers/use-key-press";
@@ -18,13 +18,27 @@ const mediaRecorderOptions: MediaRecorderOptions = {
   videoBitsPerSecond: 8 * 4000000,
 };
 
-let endDate = 0;
+type FinishedRecording = {
+  prefix: string;
+  data: Blob;
+  endDate: number;
+};
+
+type CurrentRecorder = {
+  recorder: MediaRecorder;
+  waitUntilDone: Promise<FinishedRecording>;
+};
+
+export type OngoingRecording = {
+  startDate: number;
+  recorders: CurrentRecorder[];
+};
 
 export const RecordButton: React.FC<{
-  recording: false | number;
-  setRecording: React.Dispatch<React.SetStateAction<false | number>>;
+  recording: OngoingRecording | null;
+  setRecording: React.Dispatch<React.SetStateAction<OngoingRecording | null>>;
   recordingDisabled: boolean;
-  setCurrentBlobs: React.Dispatch<React.SetStateAction<CurrentBlobs>>;
+  setCurrentBlobs: React.Dispatch<React.SetStateAction<CurrentBlobs | null>>;
   mediaSources: MediaSources;
   showHandleVideos: boolean | number;
   setShowHandleVideos: React.Dispatch<React.SetStateAction<false | number>>;
@@ -37,70 +51,73 @@ export const RecordButton: React.FC<{
   setShowHandleVideos,
   setRecording,
 }) => {
-  const [recorders, setRecorders] = useState<MediaRecorder[] | null>(null);
-
   const discardVideos = useCallback(() => {
-    setCurrentBlobs(currentBlobsInitialState);
+    setCurrentBlobs(null);
   }, [setCurrentBlobs]);
 
   const start = useCallback(() => {
-    setRecording(() => Date.now());
-    const toStart = [];
-    const newRecorders: MediaRecorder[] = [];
-    for (const [prefix, source] of Object.entries(mediaSources)) {
-      if (!source) {
-        continue;
-      }
+    const recorders = Object.entries(mediaSources)
+      .map(([prefix, source]): CurrentRecorder | null => {
+        if (!source) {
+          return null;
+        }
 
-      const mimeType =
-        prefix === WEBCAM_PREFIX
-          ? "video/webm;codecs=vp8,opus"
-          : "video/webm;codecs=vp8";
+        const mimeType =
+          prefix === WEBCAM_PREFIX
+            ? "video/webm;codecs=vp8,opus"
+            : "video/webm;codecs=vp8";
 
-      const completeMediaRecorderOptions = {
-        ...mediaRecorderOptions,
-        mimeType,
-      };
+        const completeMediaRecorderOptions = {
+          ...mediaRecorderOptions,
+          mimeType,
+        };
 
-      const recorder = new MediaRecorder(source, completeMediaRecorderOptions);
-      newRecorders.push(recorder);
+        const recorder = new MediaRecorder(
+          source,
+          completeMediaRecorderOptions,
+        );
 
-      recorder.addEventListener("dataavailable", ({ data }) => {
-        setCurrentBlobs((prev) => ({
-          ...prev,
-          endDate,
-          blobs: {
-            ...prev.blobs,
-            [prefix]: data,
+        const waitUntilDone = new Promise<FinishedRecording>(
+          (resolve, reject) => {
+            recorder.addEventListener("dataavailable", ({ data }) => {
+              resolve({
+                prefix,
+                data,
+                endDate: Date.now(),
+              });
+            });
+
+            recorder.addEventListener("error", (event) => {
+              console.log(event);
+              reject(new Error(`Error recording ${prefix}`));
+            });
           },
-        }));
-      });
+        );
 
-      recorder.addEventListener("error", (event) => {
-        console.log("error: ", prefix, event);
-      });
+        recorder.start();
 
-      toStart.push(() => {
-        return recorder.start();
-      });
-    }
+        return { recorder, waitUntilDone };
+      })
+      .filter(truthy);
 
-    setRecorders(newRecorders);
-    toStart.forEach((f) => f());
-  }, [mediaSources, setCurrentBlobs, setRecording]);
+    return setRecording({ recorders: recorders, startDate: Date.now() });
+  }, [mediaSources, setRecording]);
 
   const onStop = useCallback(() => {
-    if (recorders) {
-      for (const recorder of recorders) {
-        recorder.stop();
+    if (!recording) {
+      return;
+    }
+    if (recording.recorders) {
+      for (const recorder of recording.recorders) {
+        recorder.recorder.stop();
       }
     }
 
-    endDate = Date.now();
-    const expectedFrames = endDate - ((recording || 0) / 1000) * FPS;
-    setRecording(false);
+    const endDate = Date.now();
+    const expectedFrames = endDate - ((recording?.startDate || 0) / 1000) * FPS;
+    setRecording(null);
     setShowHandleVideos(expectedFrames);
-  }, [recorders, recording, setRecording, setShowHandleVideos]);
+  }, [recording, setRecording, setShowHandleVideos]);
 
   const onPressR = useCallback(() => {
     if (mediaSources.webcam === null || !mediaSources.webcam.active) {
@@ -130,8 +147,6 @@ export const RecordButton: React.FC<{
   }, [discardVideos, setShowHandleVideos, start]);
 
   useKeyPress({ keys: ["r"], callback: onPressR, metaKey: false });
-
-  const disabled = recordingDisabled || recording !== false || showHandleVideos;
 
   if (recording) {
     return (
@@ -167,10 +182,13 @@ export const RecordButton: React.FC<{
     );
   }
 
+  const startDisabled =
+    recordingDisabled || recording !== null || showHandleVideos;
+
   return (
     <div
       title={
-        disabled
+        startDisabled
           ? "A webcam and an audio source have to be selected to start the recording"
           : undefined
       }
@@ -178,7 +196,7 @@ export const RecordButton: React.FC<{
       <Button
         variant="outline"
         type="button"
-        disabled={Boolean(disabled)}
+        disabled={Boolean(startDisabled)}
         style={{ display: "flex", alignItems: "center", gap: 10 }}
         title="Press R to start recording"
         onClick={start}

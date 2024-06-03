@@ -1,15 +1,12 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Logo } from "./Logo";
-import type { MediaSources } from "./RecordButton";
+import type { MediaSources, OngoingRecording } from "./RecordButton";
 import { RecordButton } from "./RecordButton";
 import { fetchProjectFolders } from "./actions/fetch-project-folders";
 import { NewFolderDialog } from "./components/NewFolderDialog";
 import { SelectedFolder } from "./components/SelectedFolder";
 import type { CurrentBlobs } from "./components/UseThisTake";
-import {
-  UseThisTake,
-  currentBlobsInitialState,
-} from "./components/UseThisTake";
+import { UseThisTake } from "./components/UseThisTake";
 import { Button } from "./components/ui/button";
 import {
   loadFolderFromUrl,
@@ -37,10 +34,8 @@ const recordWrapper: React.CSSProperties = {
 export const TopBar: React.FC<{
   mediaSources: MediaSources;
 }> = ({ mediaSources }) => {
-  const [recording, setRecording] = useState<false | number>(false);
-  const [currentBlobs, setCurrentBlobs] = useState<CurrentBlobs>(
-    currentBlobsInitialState,
-  );
+  const [recording, setRecording] = useState<OngoingRecording | null>(null);
+  const [currentBlobs, setCurrentBlobs] = useState<CurrentBlobs | null>(null);
 
   const [folders, setFolders] = useState<string[] | null>(null);
   const [uploading, setUploading] = useState(false);

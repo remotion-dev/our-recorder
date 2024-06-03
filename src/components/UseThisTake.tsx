@@ -5,30 +5,17 @@ import { uploadFileToServer } from "../helpers/upload-file";
 import { ProcessStatus, ProcessingStatus } from "./ProcessingStatus";
 import { Button } from "./ui/button";
 
-export type CurrentBlobs =
-  | {
-      endDate: number;
-      blobs: { [key in Prefix]: Blob | null };
-    }
-  | {
-      endDate: null;
-      blobs: { [key in Prefix]: null };
-    };
-
-export const currentBlobsInitialState: CurrentBlobs = {
-  endDate: null,
-  blobs: {
-    webcam: null,
-    display: null,
-    alternative1: null,
-    alternative2: null,
-  },
+export type CurrentBlobs = {
+  endDate: number;
+  blobs: { [key in Prefix]: Blob | null };
 };
 
 export const UseThisTake: React.FC<{
   readonly selectedFolder: string | null;
-  readonly currentBlobs: CurrentBlobs;
-  readonly setCurrentBlobs: React.Dispatch<React.SetStateAction<CurrentBlobs>>;
+  readonly currentBlobs: CurrentBlobs | null;
+  readonly setCurrentBlobs: React.Dispatch<
+    React.SetStateAction<CurrentBlobs | null>
+  >;
   readonly setShowHandleVideos: React.Dispatch<
     React.SetStateAction<false | number>
   >;
@@ -47,7 +34,7 @@ export const UseThisTake: React.FC<{
   const [status, setStatus] = useState<ProcessStatus | null>(null);
 
   const keepVideoOnServer = useCallback(async () => {
-    if (currentBlobs.endDate === null) {
+    if (currentBlobs === null) {
       return Promise.resolve();
     }
 
@@ -74,18 +61,12 @@ export const UseThisTake: React.FC<{
       });
     }
 
-    setCurrentBlobs(currentBlobsInitialState);
+    setCurrentBlobs(null);
     return Promise.resolve();
-  }, [
-    currentBlobs.endDate,
-    currentBlobs.blobs,
-    selectedFolder,
-    setCurrentBlobs,
-    durationInFrames,
-  ]);
+  }, [currentBlobs, selectedFolder, setCurrentBlobs, durationInFrames]);
 
   const keepVideoOnClient = useCallback(() => {
-    if (currentBlobs.endDate === null) {
+    if (currentBlobs === null) {
       return Promise.resolve();
     }
 
@@ -95,11 +76,11 @@ export const UseThisTake: React.FC<{
       }
     }
 
-    setCurrentBlobs(currentBlobsInitialState);
-  }, [currentBlobs.blobs, currentBlobs.endDate, setCurrentBlobs]);
+    setCurrentBlobs(null);
+  }, [currentBlobs, setCurrentBlobs]);
 
   const keepVideos = useCallback(async () => {
-    if (currentBlobs.endDate === null) {
+    if (currentBlobs === null) {
       return Promise.resolve();
     }
 
@@ -108,7 +89,7 @@ export const UseThisTake: React.FC<{
     } else {
       keepVideoOnClient();
     }
-  }, [currentBlobs.endDate, keepVideoOnClient, keepVideoOnServer]);
+  }, [currentBlobs, keepVideoOnClient, keepVideoOnServer]);
 
   const handleUseTake = useCallback(async () => {
     setUploading(true);
