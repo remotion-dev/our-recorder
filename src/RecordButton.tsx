@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from "react";
 import { WEBCAM_PREFIX } from "../config/cameras";
+import { FPS } from "../config/fps";
 import { BlinkingCircle, RecordCircle } from "./BlinkingCircle";
 import { Timer } from "./Timer";
 import type { CurrentBlobs } from "./components/UseThisTake";
@@ -96,9 +97,9 @@ export const RecordButton: React.FC<{
     }
 
     endDate = Date.now();
-    const time = endDate - (recording || 0);
+    const expectedFrames = endDate - ((recording || 0) / 1000) * FPS;
     setRecording(false);
-    setShowHandleVideos(time);
+    setShowHandleVideos(expectedFrames);
   }, [recorders, recording, setRecording, setShowHandleVideos]);
 
   const onPressR = useCallback(() => {

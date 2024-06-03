@@ -2,6 +2,7 @@ import React, { useCallback, useState } from "react";
 import { downloadVideo } from "../helpers/download-video";
 import { Prefix } from "../helpers/prefixes";
 import { uploadFileToServer } from "../helpers/upload-file";
+import { ProcessStatus, ProcessingStatus } from "./ProcessingStatus";
 import { Button } from "./ui/button";
 
 export type CurrentBlobs =
@@ -43,7 +44,7 @@ export const UseThisTake: React.FC<{
   setUploading,
   durationInFrames,
 }) => {
-  const [status, setStatus] = useState<string | null>(null);
+  const [status, setStatus] = useState<ProcessStatus | null>(null);
 
   const keepVideoOnServer = useCallback(async () => {
     if (currentBlobs.endDate === null) {
@@ -138,12 +139,7 @@ export const UseThisTake: React.FC<{
             ? `Copy to public/${selectedFolder}`
             : "Download this take"}
       </Button>
-      {status && (
-        <>
-          <br />
-          <span style={{ color: "rgba(255, 255, 255, 0.5)" }}>{status}</span>
-        </>
-      )}
+      {status && <ProcessingStatus status={status}></ProcessingStatus>}
     </>
   );
 };

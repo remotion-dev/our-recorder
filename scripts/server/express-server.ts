@@ -14,7 +14,6 @@ import { getProjectFolder } from "./projects";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export const startExpressServer = async () => {
-  console.log("Starting recording interface");
   const app = connect();
 
   const rootDir = path.join(__dirname, "..", "..");

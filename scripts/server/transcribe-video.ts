@@ -14,7 +14,10 @@ export const transcribeVideo = async ({
   endDateAsString: string;
   folder: string;
   publicDir: string;
-  onProgress: (options: { filename: string; progress: number }) => void;
+  onProgress: (options: {
+    filename: string;
+    progressInPercent: number;
+  }) => void;
   signal: AbortSignal;
 }) => {
   await ensureWhisper();

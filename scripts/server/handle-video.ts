@@ -82,7 +82,7 @@ export const handleVideoUpload = async (
       endDateAsString,
       folder,
       publicDir,
-      onProgress: ({ filename, progress }) => {
+      onProgress: ({ filename, progressInPercent: progress }) => {
         const payload = makeStreamPayload({
           message: {
             type: "transcribing-progress",

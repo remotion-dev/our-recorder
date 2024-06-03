@@ -6,6 +6,7 @@ import {
   formatMap,
   messageTypeIdToMessageType,
 } from "../../scripts/server/streaming";
+import { ProcessStatus } from "../components/ProcessingStatus";
 
 const parseJsonOrThrowSource = (data: Uint8Array, type: string) => {
   const asString = new TextDecoder("utf-8").decode(data);
@@ -28,7 +29,7 @@ export const uploadFileToServer = async ({
   endDate: number;
   prefix: string;
   selectedFolder: string;
-  onProgress: (status: string) => void;
+  onProgress: (status: ProcessStatus) => void;
   expectedFrames: number;
 }) => {
   const videoFile = new File([blob], "video.webm", { type: blob.type });
@@ -60,16 +61,16 @@ export const uploadFileToServer = async ({
     };
 
     if (message.message.type === "converting-progress") {
-      onProgress(
-        `${message.message.payload.filename}: Converted ${message.message.payload.framesConverted} frames`,
-      );
+      onProgress({
+        title: `Converting ${message.message.payload.filename}`,
+        description: `${message.message.payload.framesConverted} frames (${Math.round(message.message.payload.progress)}%)`,
+      });
     }
     if (message.message.type === "transcribing-progress") {
-      onProgress(
-        message.message.payload.filename +
-          ": " +
-          message.message.payload.progress,
-      );
+      onProgress({
+        title: `Transcribing ${message.message.payload.filename}`,
+        description: `${Math.round(message.message.payload.progress * 100)}%`,
+      });
     }
   });
 
