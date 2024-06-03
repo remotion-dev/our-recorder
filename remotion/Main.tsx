@@ -75,8 +75,7 @@ export const Main: React.FC<MainProps> = ({
           />
         );
       })}
-
-      {scenes.length > scenesAndMetadata.length && scenesAndMetadata ? (
+      {scenes.length > scenesAndMetadata.length ? (
         <Sequence
           name="No more videos"
           from={lastSceneFrame}
