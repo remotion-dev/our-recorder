@@ -35,7 +35,14 @@ export const copyToDownloads = async () => {
     process.exit();
   }
 
-  await convertVideos({ caller: "script", latestTimestamp, prefix });
+  await convertVideos({
+    latestTimestamp,
+    compositionId: prefix,
+    expectedFrames: null,
+    onProgress: (progress) => {
+      console.log(progress);
+    },
+  });
 
   console.log("Copied", latest);
 };

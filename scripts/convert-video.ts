@@ -21,7 +21,7 @@ export const convertVideo = async ({
     filename: string;
   }) => void;
   signal: AbortSignal | undefined;
-  expectedFrames: number;
+  expectedFrames: number | null;
 }) => {
   const tempFile = path.join(os.tmpdir(), `temp${Math.random()}.mp4`);
   const proc = spawn(
@@ -52,73 +52,53 @@ export const convertVideo = async ({
       onProgress({
         filename: path.basename(output),
         framesEncoded: framesEncoded,
-        progress: framesEncoded / expectedFrames,
+        progress: expectedFrames === null ? 0 : framesEncoded / expectedFrames,
       });
     }
   });
 
   await new Promise((resolve) => proc.on("close", resolve));
 
-  onProgress({
-    filename: path.basename(output),
-    framesEncoded: expectedFrames,
-    progress: 1,
-  });
+  if (expectedFrames) {
+    onProgress({
+      filename: path.basename(output),
+      framesEncoded: expectedFrames,
+      progress: 1,
+    });
+  }
 
   renameSync(tempFile, output);
   unlinkSync(input);
 };
 
-type ScriptProps = {
-  caller: "script";
-  latestTimestamp: number;
-  prefix: string;
-};
-
-type ServerProps = {
-  caller: "server";
-  latestTimestamp: number;
-  customFileLocation: string;
-};
-
 export const convertVideos = async ({
-  props,
+  latestTimestamp,
   onProgress,
-  abortSignal,
   expectedFrames,
+  compositionId,
 }: {
-  props: ScriptProps | ServerProps;
   onProgress: (options: {
     framesEncoded: number;
     progress: number;
     filename: string;
   }) => void;
-  abortSignal: AbortSignal;
-  expectedFrames: number;
+  expectedFrames: number | null;
+  latestTimestamp: number;
+  compositionId: string;
 }) => {
-  const { latestTimestamp, caller } = props;
-
-  let fileLocation;
-  if (props.caller === "server") {
-    fileLocation = props.customFileLocation;
-  } else {
-    fileLocation = getDownloadsFolder();
-  }
+  const fileLocation = getDownloadsFolder();
 
   for (const prefix of prefixes) {
     const latest = `${prefix}${latestTimestamp}.webm`;
     const src = path.join(fileLocation, latest);
-    const folder =
-      caller === "server"
-        ? props.customFileLocation
-        : path.join("public", props.prefix);
+    const folder = path.join("public", compositionId);
 
     if (existsSync(src)) {
-      convertVideo({
+      await convertVideo({
         input: src,
         output: path.join(folder, latest.replace(".webm", ".mp4")),
         onProgress,
-        signal: abortSignal,
+        signal: undefined,
         expectedFrames,
       });
     }
