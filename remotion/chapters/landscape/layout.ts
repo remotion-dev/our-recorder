@@ -10,15 +10,22 @@ import type { Layout } from "../../layout/layout-types";
 const getWidescreenChapterLayout = (
   scene: VideoSceneAndMetadata,
   tableOfContentHeight: number,
-) => {
+): Layout => {
   const { layout, webcamPosition } = scene;
 
-  const rightAligned = isWebCamRight(
-    webcamPosition === "center" ? "top-left" : webcamPosition,
-  );
-  const bottomAligned = isWebCamAtBottom(
-    webcamPosition === "center" ? "top-left" : webcamPosition,
-  );
+  if (webcamPosition === "center") {
+    return {
+      height: 1000,
+      borderRadius: 0,
+      opacity: 1,
+      left: getSafeSpace("landscape"),
+      top: getSafeSpace("landscape"),
+      width: 10000,
+    };
+  }
+
+  const rightAligned = isWebCamRight(webcamPosition);
+  const bottomAligned = isWebCamAtBottom(webcamPosition);
 
   const chapterLayout: Layout = {
     height: 1000,

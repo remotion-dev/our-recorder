@@ -61,27 +61,11 @@ export const VideoScene: React.FC<{
             bRollEnterDirection={sceneAndMetadata.layout.bRollEnterDirection}
           />
         ) : null}
-        {
-          // TODO: Chapters are disabled if a webcam position is center
-          canvasLayout === "landscape" ? (
-            <LandscapeChapters
-              scene={sceneAndMetadata}
-              nextVideoScene={
-                nextScene?.type === "video-scene" ? nextScene : null
-              }
-              previousVideoScene={
-                previousScene?.type === "video-scene" ? previousScene : null
-              }
-              enterProgress={enterProgress}
-              exitProgress={exitProgress}
-              theme={theme}
-              chapters={chapters}
-            />
-          ) : null
-        }
         <Webcam
           bRolls={
-            sceneAndMetadata.cameras.display ? [] : sceneAndMetadata.bRolls
+            sceneAndMetadata.cameras.display !== null
+              ? []
+              : sceneAndMetadata.bRolls
           }
           currentScene={sceneAndMetadata}
           endAt={endAt}
@@ -96,6 +80,20 @@ export const VideoScene: React.FC<{
           bRollType={sceneAndMetadata.layout.bRollType}
         />
       </AbsoluteFill>
+      {canvasLayout === "landscape" ? (
+        <LandscapeChapters
+          scene={sceneAndMetadata}
+          nextVideoScene={nextScene?.type === "video-scene" ? nextScene : null}
+          previousVideoScene={
+            previousScene?.type === "video-scene" ? previousScene : null
+          }
+          enterProgress={enterProgress}
+          exitProgress={exitProgress}
+          theme={theme}
+          chapters={chapters}
+        />
+      ) : null}
+
       {sceneAndMetadata.cameras.captions ? (
         <WaitForFonts>
           <CaptionOverlay

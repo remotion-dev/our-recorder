@@ -83,15 +83,13 @@ export const LandscapeChapters: React.FC<{
   const styles = useMemo((): React.CSSProperties => {
     const currentStyle = getWidescreenChapterStyle(scene, tableOfContentHeight);
 
-    const previousChapterStyle =
-      previousVideoScene && previousVideoScene.webcamPosition !== "center"
-        ? getWidescreenChapterStyle(previousVideoScene, tableOfContentHeight)
-        : null;
+    const previousChapterStyle = previousVideoScene
+      ? getWidescreenChapterStyle(previousVideoScene, tableOfContentHeight)
+      : null;
 
-    const nextChapterStyle =
-      nextVideoScene && nextVideoScene.webcamPosition !== "center"
-        ? getWidescreenChapterStyle(nextVideoScene, tableOfContentHeight)
-        : null;
+    const nextChapterStyle = nextVideoScene
+      ? getWidescreenChapterStyle(nextVideoScene, tableOfContentHeight)
+      : null;
 
     return interpolateStyles(
       enterProgress + exitProgress,
@@ -235,16 +233,12 @@ export const LandscapeChapters: React.FC<{
     return true;
   }, [previousVideoScene, scene.chapter, scene.webcamPosition]);
 
-  if (scene.layout.displayLayout === null) {
-    return null;
-  }
-
   const chapter = chapters[chapterIndex];
   if (!chapter) {
     return null;
   }
 
-  const activeIndex = chapter.index;
+  console.log(chapter, styles);
 
   return (
     <AbsoluteFill
@@ -261,12 +255,12 @@ export const LandscapeChapters: React.FC<{
           ...styles,
         }}
       >
-        {shownChapters.map((chap, i) => {
+        {shownChapters.map((chapter, i) => {
           return (
-            <div key={chap.id}>
+            <div key={chapter.id}>
               <WideLayoutChapter
-                activeIndex={activeIndex}
-                chapter={chap}
+                activeIndex={chapter.index}
+                chapter={chapter}
                 enterWithSlide={enterWithSlideFromBottom}
                 slideHighlight={shouldSlideHighlight}
                 fadeOut={i === 0 && exitChapterWithSlideToTop}
