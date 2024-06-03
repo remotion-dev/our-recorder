@@ -14,7 +14,6 @@ export const UseThisTake: React.FC<{
   setStatus: React.Dispatch<React.SetStateAction<ProcessStatus | null>>;
 }> = ({ selectedFolder, recordingStatus, setRecordingStatus, setStatus }) => {
   const keepVideoOnServer = useCallback(async () => {
-    console.log(recordingStatus);
     if (recordingStatus.type !== "recording-finished") {
       return Promise.resolve();
     }
@@ -28,6 +27,10 @@ export const UseThisTake: React.FC<{
     for (const blob of recordingStatus.blobs) {
       currentProcessing = currentProcessing
         .then(() => {
+          setStatus({
+            title: `Processing ${blob.prefix}${blob.endDate}.mp4`,
+            description: "Uploading...",
+          });
           return uploadFileToServer({
             blob: blob.data,
             endDate: recordingStatus.endDate,

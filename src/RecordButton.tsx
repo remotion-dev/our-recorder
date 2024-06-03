@@ -133,7 +133,7 @@ export const RecordButton: React.FC<{
 
     const endDate = Date.now();
     const expectedFrames =
-      endDate - (recordingStatus.ongoing.startDate / 1000) * FPS;
+      ((endDate - recordingStatus.ongoing.startDate) / 1000) * FPS;
 
     setRecordingStatus({
       type: "recording-finished",

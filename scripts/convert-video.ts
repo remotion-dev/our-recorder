@@ -29,6 +29,8 @@ export const convertVideo = async ({
     [
       "remotion",
       "ffmpeg",
+      "-stats_period",
+      "0.1",
       "-hide_banner",
       "-i",
       input,
@@ -46,7 +48,8 @@ export const convertVideo = async ({
 
   proc.stderr.on("data", (d) => {
     const framesEncoded = parseFfmpegProgress(d.toString(), 30);
-    if (framesEncoded) {
+
+    if (framesEncoded !== undefined) {
       onProgress({
         filename: path.basename(output),
         framesEncoded: framesEncoded,
@@ -56,6 +59,12 @@ export const convertVideo = async ({
   });
 
   await new Promise((resolve) => proc.on("close", resolve));
+
+  onProgress({
+    filename: path.basename(output),
+    framesEncoded: expectedFrames,
+    progress: 1,
+  });
 
   renameSync(tempFile, output);
   unlinkSync(input);
