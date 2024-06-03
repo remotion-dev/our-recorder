@@ -1,40 +1,27 @@
 import React, { useCallback, useState } from "react";
+import { RecordingStatus } from "../RecordButton";
 import { downloadVideo } from "../helpers/download-video";
-import { Prefix } from "../helpers/prefixes";
 import { uploadFileToServer } from "../helpers/upload-file";
 import { ProcessStatus, ProcessingStatus } from "./ProcessingStatus";
 import { Button } from "./ui/button";
 
-export type CurrentBlobs = {
-  endDate: number;
-  blobs: { [key in Prefix]: Blob | null };
-};
-
 export const UseThisTake: React.FC<{
   readonly selectedFolder: string | null;
-  readonly currentBlobs: CurrentBlobs | null;
-  readonly setCurrentBlobs: React.Dispatch<
-    React.SetStateAction<CurrentBlobs | null>
-  >;
-  readonly setShowHandleVideos: React.Dispatch<
-    React.SetStateAction<false | number>
-  >;
   readonly uploading: boolean;
   readonly setUploading: React.Dispatch<React.SetStateAction<boolean>>;
-  durationInFrames: number;
+  recordingStatus: RecordingStatus;
+  setRecordingStatus: React.Dispatch<React.SetStateAction<RecordingStatus>>;
 }> = ({
-  currentBlobs,
   selectedFolder,
-  setCurrentBlobs,
-  setShowHandleVideos,
   uploading,
   setUploading,
-  durationInFrames,
+  recordingStatus,
+  setRecordingStatus,
 }) => {
   const [status, setStatus] = useState<ProcessStatus | null>(null);
 
   const keepVideoOnServer = useCallback(async () => {
-    if (currentBlobs === null) {
+    if (recordingStatus.type !== "recording-finished") {
       return Promise.resolve();
     }
 
@@ -44,58 +31,46 @@ export const UseThisTake: React.FC<{
       return Promise.resolve();
     }
 
-    for (const [prefix, blob] of Object.entries(currentBlobs.blobs)) {
-      if (blob === null) {
-        continue;
-      }
-
+    for (const blob of recordingStatus.blobs) {
       await uploadFileToServer({
-        blob,
-        endDate: currentBlobs.endDate,
-        prefix,
+        blob: blob.data,
+        endDate: recordingStatus.endDate,
+        prefix: blob.prefix,
         selectedFolder,
         onProgress: (stat) => {
           setStatus(stat);
         },
-        expectedFrames: durationInFrames,
+        expectedFrames: recordingStatus.expectedFrames,
       });
     }
 
-    setCurrentBlobs(null);
-    return Promise.resolve();
-  }, [currentBlobs, selectedFolder, setCurrentBlobs, durationInFrames]);
+    setRecordingStatus({ type: "idle" });
+  }, [selectedFolder]);
 
   const keepVideoOnClient = useCallback(() => {
-    if (currentBlobs === null) {
+    if (recordingStatus.type !== "recording-finished") {
       return Promise.resolve();
     }
 
-    for (const [prefix, blob] of Object.entries(currentBlobs.blobs)) {
-      if (blob !== null) {
-        downloadVideo(blob, currentBlobs.endDate, prefix);
-      }
+    for (const blob of recordingStatus.blobs) {
+      downloadVideo(blob.data, recordingStatus.endDate, blob.prefix);
     }
 
-    setCurrentBlobs(null);
-  }, [currentBlobs, setCurrentBlobs]);
+    setRecordingStatus({ type: "idle" });
+  }, []);
 
   const keepVideos = useCallback(async () => {
-    if (currentBlobs === null) {
-      return Promise.resolve();
-    }
-
     if (window.remotionServerEnabled) {
       await keepVideoOnServer();
     } else {
       keepVideoOnClient();
     }
-  }, [currentBlobs, keepVideoOnClient, keepVideoOnServer]);
+  }, [keepVideoOnClient, keepVideoOnServer]);
 
   const handleUseTake = useCallback(async () => {
     setUploading(true);
     try {
       await keepVideos();
-      setShowHandleVideos(false);
     } catch (err) {
       console.log(err);
       // eslint-disable-next-line no-alert
@@ -103,7 +78,7 @@ export const UseThisTake: React.FC<{
     } finally {
       setUploading(false);
     }
-  }, [keepVideos, setShowHandleVideos, setUploading]);
+  }, [keepVideos, setUploading]);
 
   return (
     <>

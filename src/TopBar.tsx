@@ -1,11 +1,10 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Logo } from "./Logo";
-import type { MediaSources, OngoingRecording } from "./RecordButton";
+import type { MediaSources, RecordingStatus } from "./RecordButton";
 import { RecordButton } from "./RecordButton";
 import { fetchProjectFolders } from "./actions/fetch-project-folders";
 import { NewFolderDialog } from "./components/NewFolderDialog";
 import { SelectedFolder } from "./components/SelectedFolder";
-import type { CurrentBlobs } from "./components/UseThisTake";
 import { UseThisTake } from "./components/UseThisTake";
 import { Button } from "./components/ui/button";
 import {
@@ -34,14 +33,12 @@ const recordWrapper: React.CSSProperties = {
 export const TopBar: React.FC<{
   mediaSources: MediaSources;
 }> = ({ mediaSources }) => {
-  const [recording, setRecording] = useState<OngoingRecording | null>(null);
-  const [currentBlobs, setCurrentBlobs] = useState<CurrentBlobs | null>(null);
+  const [recordingStatus, setRecordingStatus] = useState<RecordingStatus>({
+    type: "idle",
+  });
 
   const [folders, setFolders] = useState<string[] | null>(null);
   const [uploading, setUploading] = useState(false);
-  const [showHandleVideos, setShowHandleVideos] = useState<number | false>(
-    false,
-  );
 
   const folderFromUrl: string | null = useMemo(() => {
     return loadFolderFromUrl();
@@ -89,25 +86,20 @@ export const TopBar: React.FC<{
       <div style={recordWrapper}>
         {uploading ? null : (
           <RecordButton
-            recording={recording}
-            showHandleVideos={showHandleVideos}
+            recordingStatus={recordingStatus}
             recordingDisabled={recordingDisabled}
-            setCurrentBlobs={setCurrentBlobs}
             mediaSources={mediaSources}
-            setRecording={setRecording}
-            setShowHandleVideos={setShowHandleVideos}
+            setRecordingStatus={setRecordingStatus}
           />
         )}
 
-        {showHandleVideos !== false ? (
+        {recordingStatus.type === "recording-finished" ? (
           <UseThisTake
             selectedFolder={selectedFolder}
-            currentBlobs={currentBlobs}
-            setCurrentBlobs={setCurrentBlobs}
-            setShowHandleVideos={setShowHandleVideos}
             uploading={uploading}
             setUploading={setUploading}
-            durationInFrames={showHandleVideos}
+            recordingStatus={recordingStatus}
+            setRecordingStatus={setRecordingStatus}
           />
         ) : null}
       </div>

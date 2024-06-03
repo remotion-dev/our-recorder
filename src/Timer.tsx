@@ -1,20 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { OngoingRecording } from "./RecordButton";
 import { formatTime } from "./helpers/format-time";
 
 export const Timer: React.FC<{
-  recording: OngoingRecording;
-}> = ({ recording }) => {
+  startDate: number;
+}> = ({ startDate }) => {
   const [, setTime] = useState(0);
   useEffect(() => {
     const int = setInterval(() => {
-      setTime(Date.now() - recording.startDate);
+      setTime(Date.now() - startDate);
     }, 1000);
 
     return () => {
       clearInterval(int);
     };
-  }, [recording]);
+  }, [startDate]);
 
-  return <>{formatTime(Date.now() - recording.startDate)}</>;
+  return <>{formatTime(Date.now() - startDate)}</>;
 };
