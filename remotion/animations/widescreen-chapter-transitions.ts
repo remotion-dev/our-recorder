@@ -2,6 +2,7 @@ import { interpolate } from "remotion";
 import type {
   SceneAndMetadata,
   VideoSceneAndMetadata,
+  WebcamPosition,
 } from "../../config/scenes";
 import {
   isGrowingFromMiniature,
@@ -25,7 +26,11 @@ export const getChapterOutTransition = ({
   currentScene: VideoSceneAndMetadata;
   nextScene: SceneAndMetadata | null;
 }): OutTransition => {
-  const isCurrentlyLeft = !isWebCamRight(currentScene.webcamPosition);
+  const currentWebcamPositiopn: WebcamPosition =
+    currentScene.webcamPosition === "center"
+      ? "top-left"
+      : currentScene.webcamPosition;
+  const isCurrentlyLeft = !isWebCamRight(currentWebcamPositiopn);
 
   if (nextScene === null || nextScene.type !== "video-scene") {
     return "left";
@@ -35,9 +40,14 @@ export const getChapterOutTransition = ({
     return "none";
   }
 
-  const isCurrentlyTop = !isWebCamAtBottom(currentScene.webcamPosition);
-  const isNextLeft = !isWebCamRight(nextScene.webcamPosition);
-  const isNextTop = !isWebCamAtBottom(nextScene.webcamPosition);
+  const nextWebcamPositiopn: WebcamPosition =
+    nextScene.webcamPosition === "center"
+      ? "top-left"
+      : nextScene?.webcamPosition;
+
+  const isCurrentlyTop = !isWebCamAtBottom(currentWebcamPositiopn);
+  const isNextLeft = !isWebCamRight(nextWebcamPositiopn);
+  const isNextTop = !isWebCamAtBottom(nextWebcamPositiopn);
 
   if (isCurrentlyLeft && !isNextLeft) {
     return "left";
@@ -58,7 +68,13 @@ export const getChapterOutTransition = ({
   if (
     isGrowingFromMiniature({ firstScene: currentScene, secondScene: nextScene })
   ) {
-    if (isWebCamAtBottom(nextScene.webcamPosition)) {
+    if (
+      isWebCamAtBottom(
+        nextScene.webcamPosition === "center"
+          ? "top-left"
+          : nextScene.webcamPosition,
+      )
+    ) {
       return "up";
     }
 

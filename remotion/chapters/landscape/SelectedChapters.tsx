@@ -76,7 +76,9 @@ export const LandscapeChapters: React.FC<{
     (CHAPTER_HEIGHT + CHAPTER_VERTICAL_MARGIN * 2) * shownChapters.length -
     CHAPTER_VERTICAL_MARGIN * 2;
 
-  const rightAligned = isWebCamRight(scene.webcamPosition);
+  const rightAligned = isWebCamRight(
+    scene.webcamPosition === "center" ? "top-left" : scene.webcamPosition,
+  );
 
   const styles = useMemo((): React.CSSProperties => {
     const currentStyle = getWidescreenChapterStyle(scene, tableOfContentHeight);

@@ -13,8 +13,12 @@ const getWidescreenChapterLayout = (
 ) => {
   const { layout, webcamPosition } = scene;
 
-  const rightAligned = isWebCamRight(webcamPosition);
-  const bottomAligned = isWebCamAtBottom(webcamPosition);
+  const rightAligned = isWebCamRight(
+    webcamPosition === "center" ? "top-left" : webcamPosition,
+  );
+  const bottomAligned = isWebCamAtBottom(
+    webcamPosition === "center" ? "top-left" : webcamPosition,
+  );
 
   const chapterLayout: Layout = {
     height: 1000,
@@ -50,7 +54,9 @@ export const getWidescreenChapterStyle = (
 ) => {
   const chapterLayout = getWidescreenChapterLayout(scene, tableOfContentHeight);
 
-  const rightAligned = isWebCamRight(scene.webcamPosition);
+  const rightAligned = isWebCamRight(
+    scene.webcamPosition === "center" ? "top-left" : scene.webcamPosition,
+  );
 
   const style: React.CSSProperties = {
     left: chapterLayout.left,
