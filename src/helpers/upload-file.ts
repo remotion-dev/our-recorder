@@ -66,10 +66,11 @@ export const uploadFileToServer = async ({
         description: `${message.message.payload.framesConverted} frames (${Math.round(message.message.payload.progress)}%)`,
       });
     }
+
     if (message.message.type === "transcribing-progress") {
       onProgress({
         title: `Transcribing ${message.message.payload.filename}`,
-        description: `${Math.round(message.message.payload.progress * 100)}%`,
+        description: `${message.message.payload.progress}%`,
       });
     }
   });

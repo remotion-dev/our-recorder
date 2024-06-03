@@ -2,8 +2,7 @@ import React, { useCallback } from "react";
 import { WEBCAM_PREFIX } from "../config/cameras";
 import { FPS } from "../config/fps";
 import { truthy } from "../remotion/helpers/truthy";
-import { BlinkingCircle, RecordCircle } from "./BlinkingCircle";
-import { Timer } from "./Timer";
+import { RecordCircle } from "./BlinkingCircle";
 import { Button } from "./components/ui/button";
 import { Prefix } from "./helpers/prefixes";
 import { useKeyPress } from "./helpers/use-key-press";
@@ -188,12 +187,6 @@ export const RecordButton: React.FC<{
         >
           Stop recording
         </Button>
-        {recordingStatus.type === "recording" ? (
-          <>
-            <BlinkingCircle />
-            <Timer startDate={recordingStatus.ongoing.startDate} />
-          </>
-        ) : null}
       </>
     );
   }

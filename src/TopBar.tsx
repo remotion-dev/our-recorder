@@ -1,9 +1,12 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
+import { BlinkingCircle } from "./BlinkingCircle";
 import { Logo } from "./Logo";
 import type { MediaSources, RecordingStatus } from "./RecordButton";
 import { RecordButton } from "./RecordButton";
+import { Timer } from "./Timer";
 import { fetchProjectFolders } from "./actions/fetch-project-folders";
 import { NewFolderDialog } from "./components/NewFolderDialog";
+import { ProcessStatus, ProcessingStatus } from "./components/ProcessingStatus";
 import { SelectedFolder } from "./components/SelectedFolder";
 import { UseThisTake } from "./components/UseThisTake";
 import { Button } from "./components/ui/button";
@@ -38,7 +41,7 @@ export const TopBar: React.FC<{
   });
 
   const [folders, setFolders] = useState<string[] | null>(null);
-  const [uploading, setUploading] = useState(false);
+  const [status, setStatus] = useState<ProcessStatus | null>(null);
 
   const folderFromUrl: string | null = useMemo(() => {
     return loadFolderFromUrl();
@@ -84,24 +87,28 @@ export const TopBar: React.FC<{
     <div style={topBarContainer}>
       <Logo></Logo>
       <div style={recordWrapper}>
-        {uploading ? null : (
-          <RecordButton
-            recordingStatus={recordingStatus}
-            recordingDisabled={recordingDisabled}
-            mediaSources={mediaSources}
-            setRecordingStatus={setRecordingStatus}
-          />
-        )}
-
-        {recordingStatus.type === "recording-finished" ? (
+        <RecordButton
+          recordingStatus={recordingStatus}
+          recordingDisabled={recordingDisabled}
+          mediaSources={mediaSources}
+          setRecordingStatus={setRecordingStatus}
+        />
+        {recordingStatus.type === "recording" ? (
+          <>
+            <BlinkingCircle />
+            <Timer startDate={recordingStatus.ongoing.startDate} />
+          </>
+        ) : null}
+        {recordingStatus.type === "recording-finished" ||
+        recordingStatus.type === "processing-recording" ? (
           <UseThisTake
             selectedFolder={selectedFolder}
-            uploading={uploading}
-            setUploading={setUploading}
             recordingStatus={recordingStatus}
             setRecordingStatus={setRecordingStatus}
+            setStatus={setStatus}
           />
         ) : null}
+        {status && <ProcessingStatus status={status}></ProcessingStatus>}
       </div>
 
       <div style={{ flex: 1 }} />
