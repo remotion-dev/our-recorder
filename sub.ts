@@ -37,7 +37,7 @@ for (const folder of foldersInPublicFolder) {
         outPath,
         fileToTranscribe,
         onProgress(progress) {
-          console.log(`${progress}%`);
+          console.log(`${progress.progressInPercent}%`);
         },
         signal: null,
       });

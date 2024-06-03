@@ -1,5 +1,5 @@
 import { spawn } from "node:child_process";
-import { existsSync, renameSync, unlinkSync } from "node:fs";
+import { existsSync, mkdirSync, renameSync, unlinkSync } from "node:fs";
 import os from "os";
 import path from "path";
 import { prefixes } from "../src/helpers/prefixes";
@@ -65,6 +65,10 @@ export const convertVideo = async ({
       framesEncoded: expectedFrames,
       progress: 1,
     });
+  }
+
+  if (!existsSync(path.dirname(output))) {
+    mkdirSync(path.dirname(output), { recursive: true });
   }
 
   renameSync(tempFile, output);
