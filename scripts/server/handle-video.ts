@@ -33,15 +33,6 @@ export const handleVideoUpload = async (
       throw new Error("No `expectedFrames` provided");
     }
 
-    // TODO: does not work
-    const controller = new AbortController();
-
-    res.socket?.on("close", () => {
-      controller.abort();
-
-      console.log("REY has closed the connection or tab.");
-    });
-
     const file = `${prefix}${endDateAsString}.mp4`;
 
     const publicDir = path.join(process.cwd(), "public");
@@ -74,7 +65,7 @@ export const handleVideoUpload = async (
         });
         res.write(payload);
       },
-      signal: controller.signal,
+      signal: undefined,
       expectedFrames,
     });
 
@@ -94,7 +85,7 @@ export const handleVideoUpload = async (
         });
         res.write(payload);
       },
-      signal: controller.signal,
+      signal: null,
     });
 
     res.statusCode = 200;

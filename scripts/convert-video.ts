@@ -20,7 +20,7 @@ export const convertVideo = async ({
     progress: number;
     filename: string;
   }) => void;
-  signal: AbortSignal;
+  signal: AbortSignal | undefined;
   expectedFrames: number;
 }) => {
   const tempFile = path.join(os.tmpdir(), `temp${Math.random()}.mp4`);
@@ -48,7 +48,6 @@ export const convertVideo = async ({
 
   proc.stderr.on("data", (d) => {
     const framesEncoded = parseFfmpegProgress(d.toString(), 30);
-
     if (framesEncoded !== undefined) {
       onProgress({
         filename: path.basename(output),

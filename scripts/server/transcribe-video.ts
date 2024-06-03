@@ -18,7 +18,7 @@ export const transcribeVideo = async ({
     filename: string;
     progressInPercent: number;
   }) => void;
-  signal: AbortSignal;
+  signal: AbortSignal | null;
 }) => {
   await ensureWhisper();
 
