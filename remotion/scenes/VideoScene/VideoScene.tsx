@@ -93,7 +93,6 @@ export const VideoScene: React.FC<{
           chapters={chapters}
         />
       ) : null}
-
       {sceneAndMetadata.cameras.captions ? (
         <WaitForFonts>
           <CaptionOverlay
