@@ -80,13 +80,7 @@ export const VideoScene: React.FC<{
           bRollType={sceneAndMetadata.layout.bRollType}
         />
       </AbsoluteFill>
-      {canvasLayout === "landscape" ? (
-        <LandscapeChapters
-          scene={sceneAndMetadata}
-          theme={theme}
-          chapters={chapters}
-        />
-      ) : null}
+
       {sceneAndMetadata.cameras.captions ? (
         <WaitForFonts>
           <CaptionOverlay
@@ -122,6 +116,13 @@ export const VideoScene: React.FC<{
             sceneAndMetadata: sceneAndMetadata,
             canvasLayout,
           })}
+        />
+      ) : null}
+      {canvasLayout === "landscape" ? (
+        <LandscapeChapters
+          scene={sceneAndMetadata}
+          theme={theme}
+          chapters={chapters}
         />
       ) : null}
     </>

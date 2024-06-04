@@ -43,12 +43,14 @@ const getWidescreenChapterLayout = (
             layout.webcamLayout.top -
             tableOfContentHeight -
             getSafeSpace("landscape"),
+          bottom: undefined,
         }
       : {
           top:
             getSafeSpace("landscape") +
             layout.webcamLayout.top +
             layout.webcamLayout.height,
+          bottom: undefined,
         }),
   };
 
@@ -66,10 +68,7 @@ export const getWidescreenChapterStyle = (
   );
 
   const style: React.CSSProperties = {
-    left: chapterLayout.left,
-    top: chapterLayout.top,
-    width: chapterLayout.width,
-    height: chapterLayout.height,
+    ...chapterLayout,
     ...(rightAligned
       ? {
           alignSelf: "flex-end",

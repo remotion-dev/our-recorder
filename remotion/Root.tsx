@@ -3622,7 +3622,7 @@ export const Root = () => {
             {
               type: "videoscene" as const,
               bRolls: [],
-              webcamPosition: "top-left" as const,
+              webcamPosition: "top-right" as const,
               startOffset: 0,
               endOffset: 0,
               transitionToNextScene: false,
