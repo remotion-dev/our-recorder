@@ -10,7 +10,7 @@ import { getShouldTransitionIn } from "../../animations/transitions";
 import { CaptionOverlay } from "../../captions/Editor/CaptionOverlay";
 import { NoCaptionsPlaceholder } from "../../captions/NoCaptionsPlaceholder";
 import { Subs } from "../../captions/Subs";
-import { LandscapeChapters } from "../../chapters/landscape/SelectedChapters";
+import { LandscapeChapters } from "../../chapters/landscape/LandscapeChapters";
 import type { ChapterType } from "../../chapters/make-chapters";
 import { SquareChapter } from "../../chapters/square/SquareChapter";
 import { WaitForFonts } from "../../helpers/WaitForFonts";
@@ -83,12 +83,6 @@ export const VideoScene: React.FC<{
       {canvasLayout === "landscape" ? (
         <LandscapeChapters
           scene={sceneAndMetadata}
-          nextVideoScene={nextScene?.type === "video-scene" ? nextScene : null}
-          previousVideoScene={
-            previousScene?.type === "video-scene" ? previousScene : null
-          }
-          enterProgress={enterProgress}
-          exitProgress={exitProgress}
           theme={theme}
           chapters={chapters}
         />

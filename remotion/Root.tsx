@@ -3561,8 +3561,8 @@ export const Root = () => {
         schema={videoConf}
         defaultProps={{
           theme: "light" as const,
-          canvasLayout: "square" as const,
-          platform: "x",
+          canvasLayout: "landscape" as const,
+          platform: "x" as const,
           scenes: [
             {
               type: "videoscene" as const,
@@ -3575,7 +3575,6 @@ export const Root = () => {
               stopChapteringAfterThis: false,
               music: "previous" as const,
             },
-
             {
               type: "videoscene" as const,
               bRolls: [],
@@ -3746,7 +3745,7 @@ export const Root = () => {
               durationInFrames: 200,
               music: "previous" as const,
               channel: "remotion" as const,
-              platform: "linkedin" as const,
+              platform: "linkedin",
               links: [{ link: "remotion.dev/transitions" }],
               transitionToNextScene: true,
             },
