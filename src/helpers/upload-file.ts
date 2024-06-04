@@ -82,7 +82,7 @@ export const uploadFileToServer = async ({
     if (message.type === "downloading-whisper-model-progress") {
       onProgress({
         title: `Downloading Whisper model`,
-        description: `${message.payload.progressInPercent}%`,
+        description: `${Math.round(message.payload.progressInPercent)}%`,
       });
     }
   });
