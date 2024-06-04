@@ -182,7 +182,7 @@ const SceneWithTransition: React.FC<Props> = (props) => {
   const style = interpolateStyles(
     enter + exit,
     [0, 1, 2],
-    [startStyle, {}, endStyle],
+    [startStyle, { left: 0 }, endStyle],
   );
 
   useRefreshOnPublicFolderChange(id);

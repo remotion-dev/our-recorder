@@ -3561,8 +3561,8 @@ export const Root = () => {
         schema={videoConf}
         defaultProps={{
           theme: "light" as const,
-          canvasLayout: "square" as const,
-          platform: "x",
+          canvasLayout: "landscape" as const,
+          platform: "x" as const,
           scenes: [
             {
               type: "videoscene" as const,
@@ -3575,7 +3575,6 @@ export const Root = () => {
               stopChapteringAfterThis: false,
               music: "previous" as const,
             },
-
             {
               type: "videoscene" as const,
               bRolls: [],
@@ -3615,7 +3614,7 @@ export const Root = () => {
               webcamPosition: "top-left" as const,
               startOffset: 0,
               endOffset: 0,
-              transitionToNextScene: false,
+              transitionToNextScene: true,
               newChapter: "",
               stopChapteringAfterThis: false,
               music: "previous" as const,
@@ -3623,7 +3622,7 @@ export const Root = () => {
             {
               type: "videoscene" as const,
               bRolls: [],
-              webcamPosition: "top-left" as const,
+              webcamPosition: "top-right" as const,
               startOffset: 0,
               endOffset: 0,
               transitionToNextScene: false,
@@ -3746,7 +3745,7 @@ export const Root = () => {
               durationInFrames: 200,
               music: "previous" as const,
               channel: "remotion" as const,
-              platform: "linkedin" as const,
+              platform: "linkedin",
               links: [{ link: "remotion.dev/transitions" }],
               transitionToNextScene: true,
             },
