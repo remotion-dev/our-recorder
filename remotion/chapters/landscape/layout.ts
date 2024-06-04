@@ -1,3 +1,4 @@
+import React from "react";
 import { getSafeSpace } from "../../../config/layout";
 import type { VideoSceneAndMetadata } from "../../../config/scenes";
 import {} from "../../animations/webcam-transitions";
@@ -60,14 +61,14 @@ const getWidescreenChapterLayout = (
 export const getWidescreenChapterStyle = (
   scene: VideoSceneAndMetadata,
   tableOfContentHeight: number,
-) => {
+): React.CSSProperties => {
   const chapterLayout = getWidescreenChapterLayout(scene, tableOfContentHeight);
 
   const rightAligned = isWebCamRight(
     scene.webcamPosition === "center" ? "top-left" : scene.webcamPosition,
   );
 
-  const style: React.CSSProperties = {
+  return {
     ...chapterLayout,
     ...(rightAligned
       ? {
@@ -76,5 +77,4 @@ export const getWidescreenChapterStyle = (
         }
       : {}),
   };
-  return style;
 };
