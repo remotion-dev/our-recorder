@@ -11,7 +11,7 @@ import type { Layout } from "../../layout/layout-types";
 const getWidescreenChapterLayout = (
   scene: VideoSceneAndMetadata,
   tableOfContentHeight: number,
-): Layout => {
+): React.CSSProperties => {
   const { layout, webcamPosition } = scene;
 
   if (webcamPosition === "center") {
@@ -20,8 +20,9 @@ const getWidescreenChapterLayout = (
       borderRadius: 0,
       opacity: 1,
       left: getSafeSpace("landscape"),
-      top: getSafeSpace("landscape"),
+      bottom: getSafeSpace("landscape"),
       width: 10000,
+      top: undefined,
     };
   }
 
@@ -65,7 +66,7 @@ export const getWidescreenChapterStyle = (
   const chapterLayout = getWidescreenChapterLayout(scene, tableOfContentHeight);
 
   const rightAligned = isWebCamRight(
-    scene.webcamPosition === "center" ? "top-left" : scene.webcamPosition,
+    scene.webcamPosition === "center" ? "bottom-left" : scene.webcamPosition,
   );
 
   return {
