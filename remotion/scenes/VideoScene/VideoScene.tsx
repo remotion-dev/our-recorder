@@ -1,5 +1,4 @@
 import React from "react";
-import { AbsoluteFill } from "remotion";
 import type { CanvasLayout } from "../../../config/layout";
 import type {
   SceneAndMetadata,
@@ -44,43 +43,46 @@ export const VideoScene: React.FC<{
     throw new Error("Not a camera scene");
   }
 
+  const didTransitionIn = getShouldTransitionIn({
+    previousSceneAndMetadata: previousScene,
+    sceneAndMetadata: sceneAndMetadata,
+    canvasLayout,
+  });
+
   return (
     <>
-      <AbsoluteFill>
-        {sceneAndMetadata.cameras.display ? (
-          <Display
-            scene={sceneAndMetadata}
-            enterProgress={enterProgress}
-            exitProgress={exitProgress}
-            nextScene={nextScene}
-            previousScene={previousScene}
-            startFrom={startFrom}
-            endAt={endAt}
-            canvasLayout={canvasLayout}
-            bRollLayout={sceneAndMetadata.layout.bRollLayout}
-            bRollEnterDirection={sceneAndMetadata.layout.bRollEnterDirection}
-          />
-        ) : null}
-        <Webcam
-          bRolls={
-            sceneAndMetadata.cameras.display !== null
-              ? []
-              : sceneAndMetadata.bRolls
-          }
-          currentScene={sceneAndMetadata}
-          endAt={endAt}
+      {sceneAndMetadata.cameras.display ? (
+        <Display
+          scene={sceneAndMetadata}
           enterProgress={enterProgress}
           exitProgress={exitProgress}
-          startFrom={startFrom}
-          canvasLayout={canvasLayout}
           nextScene={nextScene}
           previousScene={previousScene}
+          startFrom={startFrom}
+          endAt={endAt}
+          canvasLayout={canvasLayout}
           bRollLayout={sceneAndMetadata.layout.bRollLayout}
           bRollEnterDirection={sceneAndMetadata.layout.bRollEnterDirection}
-          bRollType={sceneAndMetadata.layout.bRollType}
         />
-      </AbsoluteFill>
-
+      ) : null}
+      <Webcam
+        bRolls={
+          sceneAndMetadata.cameras.display !== null
+            ? []
+            : sceneAndMetadata.bRolls
+        }
+        currentScene={sceneAndMetadata}
+        endAt={endAt}
+        enterProgress={enterProgress}
+        exitProgress={exitProgress}
+        startFrom={startFrom}
+        canvasLayout={canvasLayout}
+        nextScene={nextScene}
+        previousScene={previousScene}
+        bRollLayout={sceneAndMetadata.layout.bRollLayout}
+        bRollEnterDirection={sceneAndMetadata.layout.bRollEnterDirection}
+        bRollType={sceneAndMetadata.layout.bRollType}
+      />
       {sceneAndMetadata.cameras.captions ? (
         <WaitForFonts>
           <CaptionOverlay
@@ -111,11 +113,7 @@ export const VideoScene: React.FC<{
           title={sceneAndMetadata.scene.newChapter}
           displayLayout={sceneAndMetadata.layout.displayLayout}
           webcamLayout={sceneAndMetadata.layout.webcamLayout}
-          didTransitionIn={getShouldTransitionIn({
-            previousSceneAndMetadata: previousScene,
-            sceneAndMetadata: sceneAndMetadata,
-            canvasLayout,
-          })}
+          didTransitionIn={didTransitionIn}
         />
       ) : null}
       {canvasLayout === "landscape" ? (
@@ -123,6 +121,7 @@ export const VideoScene: React.FC<{
           scene={sceneAndMetadata}
           theme={theme}
           chapters={chapters}
+          didTransitionIn={didTransitionIn}
         />
       ) : null}
     </>

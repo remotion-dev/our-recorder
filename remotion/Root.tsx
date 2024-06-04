@@ -3614,7 +3614,7 @@ export const Root = () => {
               webcamPosition: "top-left" as const,
               startOffset: 0,
               endOffset: 0,
-              transitionToNextScene: false,
+              transitionToNextScene: true,
               newChapter: "",
               stopChapteringAfterThis: false,
               music: "previous" as const,
