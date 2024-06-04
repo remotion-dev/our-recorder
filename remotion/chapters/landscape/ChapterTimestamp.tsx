@@ -1,28 +1,50 @@
-import React from "react";
+import { measureText } from "@remotion/layout-utils";
+import React, { useMemo } from "react";
 import { TITLE_FONT_FAMILY, TITLE_FONT_WEIGHT } from "../../../config/fonts";
+import { FPS } from "../../../config/fps";
+import { formatTime } from "../../../src/helpers/format-time";
 import { ChapterType } from "../make-chapters";
+
+const chapterFontFamily = TITLE_FONT_FAMILY;
+const chapterFontWeight = TITLE_FONT_WEIGHT;
+const chapterFontSize = 32;
+
+export const getChapterWidth = (text: string) => {
+  return measureText({
+    text,
+    fontFamily: chapterFontFamily,
+    fontWeight: chapterFontWeight,
+    fontSize: chapterFontSize,
+  }).width;
+};
+
+const PADDING_VERTICAL = 12;
+const PADDING_HORIZONTAL = 18;
 
 export const ChapterTimestamp: React.FC<{
   chapter: ChapterType;
-}> = ({ chapter }) => {
-  return (
-    <div
-      style={{
-        backgroundColor: "black",
-        color: "white",
-        padding: "12px 0px",
-        fontSize: 32,
-        fontFamily: TITLE_FONT_FAMILY,
-        width: 65,
-        textAlign: "center",
-        height: "100%",
-        fontWeight: TITLE_FONT_WEIGHT,
-        justifyContent: "center",
-        alignItems: "center",
-        display: "flex",
-      }}
-    >
-      {chapter.index + 1}
-    </div>
+  timestampOfLastChapter: number;
+}> = ({ chapter, timestampOfLastChapter }) => {
+  const biggestWidth = getChapterWidth(
+    formatTime(timestampOfLastChapter * FPS),
   );
+
+  const style: React.CSSProperties = useMemo(() => {
+    return {
+      backgroundColor: "black",
+      color: "white",
+      padding: `${PADDING_VERTICAL}px 0px`,
+      fontSize: chapterFontSize,
+      fontFamily: chapterFontFamily,
+      width: biggestWidth + PADDING_HORIZONTAL * 2,
+      textAlign: "center",
+      height: "100%",
+      fontWeight: chapterFontWeight,
+      justifyContent: "center",
+      alignItems: "center",
+      display: "flex",
+    };
+  }, [biggestWidth]);
+
+  return <div style={style}>{formatTime(chapter.start * FPS)}</div>;
 };

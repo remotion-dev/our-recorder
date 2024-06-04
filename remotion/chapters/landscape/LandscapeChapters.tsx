@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import {
   AbsoluteFill,
   interpolate,
@@ -29,13 +29,16 @@ export const LandscapeChapters: React.FC<{
   const { fps, width } = useVideoConfig();
   const chapterIndex = chapters.findIndex((c) => c.title === scene.chapter);
 
-  const shownChapters =
-    chapterIndex === 0
-      ? chapters.slice(0, 3)
-      : chapters.slice(
-          Math.max(0, chapterIndex - 1),
-          Math.min(chapters.length, chapterIndex + 2),
-        );
+  const shownChapters = useMemo(() => {
+    if (chapterIndex === 0) {
+      return chapters.slice(0, 3);
+    }
+
+    return chapters.slice(
+      Math.max(0, chapterIndex - 1),
+      Math.min(chapters.length, chapterIndex + 2),
+    );
+  }, [chapterIndex, chapters]);
 
   const tableOfContentHeight =
     (CHAPTER_HEIGHT + CHAPTER_VERTICAL_MARGIN * 2) * shownChapters.length -
@@ -69,11 +72,6 @@ export const LandscapeChapters: React.FC<{
 
   const styles = getWidescreenChapterStyle(scene, tableOfContentHeight);
 
-  const chapter = chapters[chapterIndex];
-  if (!chapter) {
-    return null;
-  }
-
   return (
     <AbsoluteFill
       style={
@@ -100,6 +98,9 @@ export const LandscapeChapters: React.FC<{
               isLastShown={i === shownChapters.length - 1}
               rightAligned={rightAligned}
               theme={theme}
+              timestampOfLastChapter={
+                (shownChapters[shownChapters.length - 1] as ChapterType).start
+              }
             />
           );
         })}

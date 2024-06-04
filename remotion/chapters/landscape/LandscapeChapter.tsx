@@ -14,6 +14,7 @@ export const LandscapeChapter: React.FC<{
   isLastShown: boolean;
   rightAligned: boolean;
   theme: Theme;
+  timestampOfLastChapter: number;
 }> = ({
   chapter,
   activeIndex,
@@ -21,6 +22,7 @@ export const LandscapeChapter: React.FC<{
   isFirstShown,
   rightAligned,
   theme,
+  timestampOfLastChapter,
 }) => {
   const style: React.CSSProperties = useMemo(() => {
     return {
@@ -40,7 +42,10 @@ export const LandscapeChapter: React.FC<{
   return (
     <div>
       <div style={style}>
-        <ChapterTimestamp chapter={chapter} />
+        <ChapterTimestamp
+          timestampOfLastChapter={timestampOfLastChapter}
+          chapter={chapter}
+        />
         <ChapterTitle
           chapter={chapter}
           rightAligned={rightAligned}
