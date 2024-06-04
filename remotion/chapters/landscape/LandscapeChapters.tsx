@@ -84,7 +84,6 @@ export const LandscapeChapters: React.FC<{
     >
       <AbsoluteFill
         style={{
-          display: "flex",
           flexDirection: "column",
           height: tableOfContentHeight,
           flex: 1,
