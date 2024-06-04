@@ -91,7 +91,7 @@ export const LandscapeChapters: React.FC<{
         {shownChapters.map((chapter, i) => {
           return (
             <LandscapeChapter
-              key={chapter.id}
+              key={chapter.index}
               activeIndex={chapterIndex}
               chapter={chapter}
               isFirstShown={i === 0}

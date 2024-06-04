@@ -116,7 +116,7 @@ export const VideoScene: React.FC<{
           didTransitionIn={didTransitionIn}
         />
       ) : null}
-      {canvasLayout === "landscape" ? (
+      {sceneAndMetadata.scene.newChapter && canvasLayout === "landscape" ? (
         <LandscapeChapters
           scene={sceneAndMetadata}
           theme={theme}

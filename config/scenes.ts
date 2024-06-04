@@ -53,7 +53,7 @@ const baseScene = z.object({
 
 const titleScene = baseScene.extend({
   type: z.literal("title"),
-  title: z.string(),
+  title: z.string().default("Lorem Ipsum"),
   subtitle: z.string().nullable(),
   durationInFrames: z.number().int().default(50),
 });

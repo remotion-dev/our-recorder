@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { useVideoConfig } from "remotion";
-import { TITLE_FONT_FAMILY, TITLE_FONT_WEIGHT } from "../../../config/fonts";
-import { formatTime } from "../../../src/helpers/format-time";
+import { REGULAR_FONT_WEIGHT, TITLE_FONT_FAMILY } from "../../../config/fonts";
+import { formatMilliseconds } from "../../../src/helpers/format-time";
 
 export const TableOfContentItem: React.FC<{
   title: string;
@@ -18,7 +18,7 @@ export const TableOfContentItem: React.FC<{
       style={{
         fontFamily: TITLE_FONT_FAMILY,
         fontSize: 46,
-        fontWeight: TITLE_FONT_WEIGHT,
+        fontWeight: REGULAR_FONT_WEIGHT,
         display: "flex",
         flexDirection: "row",
         width: "100%",
@@ -33,7 +33,7 @@ export const TableOfContentItem: React.FC<{
           fontVariantNumeric: "tabular-nums",
         }}
       >
-        {formatTime(time)}
+        {formatMilliseconds(time * 1000)}
       </div>
     </div>
   );
