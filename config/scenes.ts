@@ -125,12 +125,10 @@ export type SceneVideos = {
   display: Dimensions | null;
 };
 
-export type BRollType = "image" | "video";
-
 export type BRollWithDimensions = BRoll & {
   assetWidth: number;
   assetHeight: number;
-  type: BRollType;
+  type: "image" | "video";
 };
 
 export type VideoSceneAndMetadata = {

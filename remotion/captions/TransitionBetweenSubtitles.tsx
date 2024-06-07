@@ -42,7 +42,7 @@ export const TransitionFromPreviousSubtitles: React.FC<{
     );
   }
 
-  throw new Error(`Unknown subtitle type: ${subtitleType satisfies never}`);
+  throw new Error("Unknown subtitle type: " + subtitleType);
 };
 
 export const TransitionToNextSubtitles: React.FC<{
@@ -94,5 +94,5 @@ export const TransitionToNextSubtitles: React.FC<{
     );
   }
 
-  throw new Error(`Unknown subtitle type: ${subtitleType satisfies never}`);
+  throw new Error("Unknown subtitle type: " + subtitleType);
 };
