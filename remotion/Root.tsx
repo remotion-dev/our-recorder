@@ -5123,9 +5123,125 @@ export const Root = () => {
         schema={videoConf}
         defaultProps={{
           theme: "light" as const,
+          canvasLayout: "square" as const,
+          platform: "x" as const,
+          scenes: [],
+          scenesAndMetadata: [],
+        }}
+        calculateMetadata={calcMetadata}
+      />
+      <Composition
+        component={Main}
+        fps={FPS}
+        durationInFrames={60}
+        id="tall"
+        schema={videoConf}
+        defaultProps={{
+          theme: "light" as const,
           canvasLayout: "landscape" as const,
           platform: "x",
           scenes: [],
+          scenesAndMetadata: [],
+        }}
+        calculateMetadata={calcMetadata}
+      />
+      <Composition
+        component={Main}
+        fps={FPS}
+        durationInFrames={60}
+        id="recorderlaunch"
+        schema={videoConf}
+        defaultProps={{
+          theme: "light" as const,
+          canvasLayout: "square" as const,
+          platform: "x" as const,
+          scenes: [
+            {
+              type: "videoscene" as const,
+              webcamPosition: "previous" as const,
+              startOffset: 0,
+              endOffset: -20,
+              transitionToNextScene: true,
+              newChapter: "",
+              stopChapteringAfterThis: false,
+              music: "previous" as const,
+              bRolls: [],
+            },
+            {
+              type: "videoscene" as const,
+              webcamPosition: "bottom-left" as const,
+              startOffset: 0,
+              endOffset: -20,
+              transitionToNextScene: true,
+              newChapter: "",
+              stopChapteringAfterThis: false,
+              music: "previous" as const,
+              bRolls: [],
+            },
+            {
+              type: "videoscene" as const,
+              webcamPosition: "bottom-right" as const,
+              startOffset: 0,
+              endOffset: 0,
+              transitionToNextScene: true,
+              newChapter: "",
+              stopChapteringAfterThis: false,
+              music: "previous" as const,
+              bRolls: [],
+            },
+            {
+              type: "videoscene" as const,
+              webcamPosition: "top-right" as const,
+              startOffset: 0,
+              endOffset: -25,
+              transitionToNextScene: true,
+              newChapter: "",
+              stopChapteringAfterThis: false,
+              music: "previous" as const,
+              bRolls: [],
+            },
+            {
+              type: "videoscene" as const,
+              webcamPosition: "top-left" as const,
+              startOffset: 0,
+              endOffset: -25,
+              transitionToNextScene: true,
+              newChapter: "",
+              stopChapteringAfterThis: false,
+              music: "previous" as const,
+              bRolls: [],
+            },
+            {
+              type: "videoscene" as const,
+              webcamPosition: "bottom-left" as const,
+              startOffset: 0,
+              endOffset: -20,
+              transitionToNextScene: true,
+              newChapter: "",
+              stopChapteringAfterThis: false,
+              music: "previous" as const,
+              bRolls: [],
+            },
+            {
+              type: "videoscene" as const,
+              webcamPosition: "top-left" as const,
+              startOffset: 0,
+              endOffset: 0,
+              transitionToNextScene: true,
+              newChapter: "",
+              stopChapteringAfterThis: false,
+              music: "previous" as const,
+              bRolls: [],
+            },
+            {
+              music: "soft" as const,
+              transitionToNextScene: true,
+              type: "endcard" as const,
+              durationInFrames: 200,
+              channel: "jonny" as const,
+              links: [],
+            },
+          ],
           scenesAndMetadata: [],
         }}
         calculateMetadata={calcMetadata}
