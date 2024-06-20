@@ -8,6 +8,7 @@ import { COLORS } from "../config/themes";
 import { AudioTrack } from "./audio/AudioTrack";
 import { captionEditorPortal } from "./captions/editor/layout";
 import { RenderOnFirstFrame } from "./captions/srt/RenderOnFirstFrame";
+import { SimulatedSrt } from "./captions/srt/SimulatedSrt";
 import { makeChapters } from "./chapters/make-chapters";
 import { Scene } from "./scenes/Scene";
 import { NoDataScene } from "./scenes/VideoScene/NoDataScene";
@@ -74,6 +75,8 @@ export const Main: React.FC<MainProps> = ({
           <NoDataScene theme={theme} />
         </Sequence>
       ) : null}
+      {srtFile ? <SimulatedSrt srt={srtFile}></SimulatedSrt> : null}
+
       <AudioTrack
         scenesAndMetadata={scenesAndMetadata}
         canvasLayout={canvasLayout}

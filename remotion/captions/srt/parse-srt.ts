@@ -1,9 +1,11 @@
-type Line = {
+export type ParsedSrtLine = {
   index: number;
   text: string;
-  start: number;
-  end: number;
+  startInSeconds: number;
+  endInSeconds: number;
 };
+
+export type ParsedSrt = ParsedSrtLine[];
 
 function toSeconds(time: string) {
   const [first, second, third] = time.split(":");
@@ -33,9 +35,9 @@ function toSeconds(time: string) {
   );
 }
 
-export const parseSrt = (input: string) => {
+export const parseSrt = (input: string): ParsedSrt => {
   const inputLines = input.split("\n");
-  const lines: Line[] = [];
+  const lines: ParsedSrtLine[] = [];
 
   for (let i = 0; i < inputLines.length; i++) {
     const line = inputLines[i];
@@ -47,17 +49,17 @@ export const parseSrt = (input: string) => {
       lines.push({
         index: Number(line),
         text: "",
-        start,
-        end,
+        startInSeconds: start,
+        endInSeconds: end,
       });
     } else if (line?.includes(" --> ")) {
       continue;
     } else if (line?.trim() === "") {
-      (lines[lines.length - 1] as Line).text = (
-        lines[lines.length - 1] as Line
+      (lines[lines.length - 1] as ParsedSrtLine).text = (
+        lines[lines.length - 1] as ParsedSrtLine
       ).text.trim();
     } else {
-      (lines[lines.length - 1] as Line).text += line + "\n";
+      (lines[lines.length - 1] as ParsedSrtLine).text += line + "\n";
     }
   }
 
