@@ -1,10 +1,17 @@
 import React from "react";
-import { Artifact } from "remotion";
+import { Artifact, useCurrentFrame } from "remotion";
 
 export const RenderOnFirstFrame: React.FC<{
   srtFile: string | null;
 }> = ({ srtFile }) => {
-  return (
-    <>{srtFile && <Artifact content={srtFile} filename="captions.srt" />}</>
-  );
+  const frame = useCurrentFrame();
+  if (!srtFile) {
+    return null;
+  }
+
+  if (frame !== 0) {
+    return null;
+  }
+
+  return <Artifact content={srtFile} filename="captions.srt" />;
 };
