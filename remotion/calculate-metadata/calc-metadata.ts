@@ -1,6 +1,7 @@
 import type { CalculateMetadataFunction } from "remotion";
 import { FPS } from "../../config/fps";
 import type { MainProps } from "../Main";
+import { serializeSrt } from "../captions/srt/calculate-srt";
 import { getDimensionsForLayout } from "../layout/dimensions";
 import { addChaptersToScenesAndMetadata } from "./add-chapters-to-scenes";
 import { addDurationsToScenes } from "./add-durations-to-scenes";
@@ -32,6 +33,18 @@ export const calcMetadata: CalculateMetadataFunction<MainProps> = async ({
     totalDurationInFrames: durationInFrames,
     scenesAndMetadataWithDuration: withDurations,
   } = addDurationsToScenes(withMetadata, props.canvasLayout);
+
+  console.log({ withDurations });
+  console.log(
+    serializeSrt(
+      withDurations.map((d) => {
+        return {
+          offsetInMs: Math.round((d.from * 1000) / FPS),
+          srts: d.type === "video-scene" ? d.srt : [],
+        };
+      }),
+    ),
+  );
 
   const withChapters = addChaptersToScenesAndMetadata(withDurations);
 
