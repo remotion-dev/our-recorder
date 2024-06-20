@@ -34,16 +34,13 @@ export const calcMetadata: CalculateMetadataFunction<MainProps> = async ({
     scenesAndMetadataWithDuration: withDurations,
   } = addDurationsToScenes(withMetadata, props.canvasLayout);
 
-  console.log({ withDurations });
-  console.log(
-    serializeSrt(
-      withDurations.map((d) => {
-        return {
-          offsetInMs: Math.round((d.from * 1000) / FPS),
-          srts: d.type === "video-scene" ? d.srt : [],
-        };
-      }),
-    ),
+  const srtFile = serializeSrt(
+    withDurations.map((d) => {
+      return {
+        offsetInMs: Math.round((d.from * 1000) / FPS),
+        srts: d.type === "video-scene" ? d.srt : [],
+      };
+    }),
   );
 
   const withChapters = addChaptersToScenesAndMetadata(withDurations);
@@ -58,6 +55,7 @@ export const calcMetadata: CalculateMetadataFunction<MainProps> = async ({
     props: {
       ...props,
       scenesAndMetadata: withChapters,
+      srtFile,
     },
   };
 };

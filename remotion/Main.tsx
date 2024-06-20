@@ -7,6 +7,7 @@ import type { Theme } from "../config/themes";
 import { COLORS } from "../config/themes";
 import { AudioTrack } from "./audio/AudioTrack";
 import { captionEditorPortal } from "./captions/editor/layout";
+import { RenderOnFirstFrame } from "./captions/srt/RenderOnFirstFrame";
 import { makeChapters } from "./chapters/make-chapters";
 import { Scene } from "./scenes/Scene";
 import { NoDataScene } from "./scenes/VideoScene/NoDataScene";
@@ -17,6 +18,7 @@ export type MainProps = {
   scenesAndMetadata: SceneAndMetadata[];
   theme: Theme;
   platform: Platform;
+  srtFile: string | null;
 };
 
 export const Main: React.FC<MainProps> = ({
@@ -25,6 +27,7 @@ export const Main: React.FC<MainProps> = ({
   theme,
   platform,
   scenes,
+  srtFile,
 }) => {
   const chapters = useMemo(() => {
     return makeChapters({ scenes: scenesAndMetadata });
@@ -46,6 +49,7 @@ export const Main: React.FC<MainProps> = ({
         background: COLORS[theme].BACKGROUND,
       }}
     >
+      <RenderOnFirstFrame srtFile={srtFile} />
       {scenesAndMetadata.map((sceneAndMetadata, i) => {
         return (
           <Scene
