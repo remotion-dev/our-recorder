@@ -1,5 +1,5 @@
 import { interpolateStyles } from "@remotion/animation-utils";
-import React from "react";
+import React, { useMemo } from "react";
 import {
   AbsoluteFill,
   Sequence,
@@ -211,15 +211,26 @@ export const Scene: React.FC<Props> = ({
   theme,
   platform,
 }) => {
-  const chapter =
-    sceneAndMetadata.scene.type === "videoscene"
-      ? sceneAndMetadata.scene.newChapter
-      : undefined;
+  const chapter = useMemo(() => {
+    if (sceneAndMetadata.scene.type === "videoscene") {
+      return sceneAndMetadata.scene.newChapter;
+    }
+
+    return undefined;
+  }, [sceneAndMetadata.scene]);
+
+  const sequenceName = useMemo(() => {
+    if (chapter) {
+      return `Scene ${index} (${chapter})`;
+    }
+
+    return `Scene ${index}`;
+  }, [index, chapter]);
 
   return (
     <Sequence
       premountFor={30}
-      name={`Scene ${index} ${chapter ? `(${chapter})` : ""}`}
+      name={sequenceName}
       from={sceneAndMetadata.from}
       durationInFrames={Math.max(1, sceneAndMetadata.durationInFrames)}
     >

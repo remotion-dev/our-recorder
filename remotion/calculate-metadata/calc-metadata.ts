@@ -34,16 +34,16 @@ export const calcMetadata: CalculateMetadataFunction<MainProps> = async ({
     scenesAndMetadataWithDuration: withDurations,
   } = addDurationsToScenes(withMetadata, props.canvasLayout);
 
+  const withChapters = addChaptersToScenesAndMetadata(withDurations);
+
   const srtFile = serializeSrt(
-    withDurations.map((d) => {
+    withChapters.map((d) => {
       return {
         offsetInMs: Math.round((d.from * 1000) / FPS),
         srts: d.type === "video-scene" ? d.srt : [],
       };
     }),
   );
-
-  const withChapters = addChaptersToScenesAndMetadata(withDurations);
 
   const { height, width } = getDimensionsForLayout(props.canvasLayout);
 
