@@ -12,17 +12,28 @@ const MAX_CHARS_PER_LINE = 42;
 const segmentWords = (word: Word[]) => {
   const segments: Word[][] = [];
   let currentSegment: Word[] = [];
-  for (const w of word) {
+
+  for (let i = 0; i < word.length; i++) {
+    const w = word[i] as Word;
+    const remainingWords = word.slice(i + 1);
+    const filledCharactersInLine = currentSegment
+      .map((s) => s.text.length)
+      .reduce((a, b) => a + b, 0);
+
+    const preventOrphanWord =
+      remainingWords.length <= 2 &&
+      filledCharactersInLine > MAX_CHARS_PER_LINE / 2;
+
     if (
-      currentSegment.map((s) => s.text.length).reduce((a, b) => a + b, 0) +
-        w.text.length >
-      MAX_CHARS_PER_LINE
+      filledCharactersInLine + w.text.length > MAX_CHARS_PER_LINE ||
+      preventOrphanWord
     ) {
       segments.push(currentSegment);
       currentSegment = [];
     }
     currentSegment.push(w);
   }
+
   segments.push(currentSegment);
   return segments;
 };

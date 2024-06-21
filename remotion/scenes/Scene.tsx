@@ -130,6 +130,13 @@ const InnerScene: React.FC<
   );
 };
 
+const roundProgress = (progress: number) => {
+  if (progress > 0.999) {
+    return 1;
+  }
+  return progress;
+};
+
 const SceneWithTransition: React.FC<Props> = (props) => {
   const { fps, durationInFrames, width, id } = useVideoConfig();
   const frame = useCurrentFrame();
@@ -146,26 +153,32 @@ const SceneWithTransition: React.FC<Props> = (props) => {
   });
 
   const enter = shouldEnter
-    ? spring({
-        fps,
-        frame,
-        config: {
-          damping: 200,
-        },
-        durationInFrames: SCENE_TRANSITION_DURATION,
-      })
+    ? roundProgress(
+        spring({
+          fps,
+          frame,
+          config: {
+            damping: 200,
+          },
+          durationInFrames: SCENE_TRANSITION_DURATION,
+          durationRestThreshold: 0.001,
+        }),
+      )
     : 1;
 
   const exit = shouldExit
-    ? spring({
-        fps,
-        frame,
-        config: {
-          damping: 200,
-        },
-        durationInFrames: SCENE_TRANSITION_DURATION,
-        delay: durationInFrames - SCENE_TRANSITION_DURATION,
-      })
+    ? roundProgress(
+        spring({
+          fps,
+          frame,
+          config: {
+            damping: 200,
+          },
+          durationInFrames: SCENE_TRANSITION_DURATION,
+          durationRestThreshold: 0.001,
+          delay: durationInFrames - SCENE_TRANSITION_DURATION,
+        }),
+      )
     : 0;
 
   const startStyle = getSceneEnter({
