@@ -6,7 +6,7 @@ import type {
 } from "../../../config/scenes";
 import type { Theme } from "../../../config/themes";
 import { getShouldTransitionIn } from "../../animations/transitions";
-import { SimulatedSrt } from "../../captions/srt/SimulatedSrt";
+import { SrtPreview } from "../../captions/srt/SrtPreview";
 import { serializeSrt } from "../../captions/srt/helpers/serialize-srt";
 import { LandscapeChapters } from "../../chapters/landscape/LandscapeChapters";
 import type { ChapterType } from "../../chapters/make-chapters";
@@ -114,12 +114,12 @@ export const VideoScene: React.FC<{
       {srtFile &&
       canvasLayout === "landscape" &&
       sceneAndMetadata.cameras.captions ? (
-        <SimulatedSrt
+        <SrtPreview
           captions={sceneAndMetadata.cameras.captions}
           startFrom={startFrom}
-          srt={srtFile}
+          srt={sceneAndMetadata.srt}
           theme={theme}
-        ></SimulatedSrt>
+        ></SrtPreview>
       ) : null}
     </>
   );
