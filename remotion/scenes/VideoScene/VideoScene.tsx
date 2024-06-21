@@ -111,8 +111,15 @@ export const VideoScene: React.FC<{
           didTransitionIn={didTransitionIn}
         />
       ) : null}
-      {srtFile && canvasLayout === "landscape" ? (
-        <SimulatedSrt srt={srtFile}></SimulatedSrt>
+      {srtFile &&
+      canvasLayout === "landscape" &&
+      sceneAndMetadata.cameras.captions ? (
+        <SimulatedSrt
+          captions={sceneAndMetadata.cameras.captions}
+          startFrom={startFrom}
+          srt={srtFile}
+          theme={theme}
+        ></SimulatedSrt>
       ) : null}
     </>
   );

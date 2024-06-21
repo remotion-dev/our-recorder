@@ -22,7 +22,7 @@ import { postprocessCaptions } from "./processing/postprocess-subs";
 const LINE_HEIGHT = 2;
 const SUBTITLES_FONT_SIZE = 56;
 
-export const Subs: React.FC<{
+export const AnimatedCaptions: React.FC<{
   trimStart: number;
   scene: VideoSceneAndMetadata;
   enterProgress: number;

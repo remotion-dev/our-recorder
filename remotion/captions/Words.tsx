@@ -1,6 +1,6 @@
 import React from "react";
 import type { Theme } from "../../config/themes";
-import { WordComp } from "./Word";
+import { SingleWord } from "./SingleWord";
 import type { CaptionPage } from "./types";
 
 export const Words: React.FC<{
@@ -12,7 +12,7 @@ export const Words: React.FC<{
     <>
       {segment.words.map((word, index) => {
         return (
-          <WordComp
+          <SingleWord
             key={word.firstTimestamp + word.text + index}
             isLast={index === segment.words.length - 1}
             word={word}

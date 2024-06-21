@@ -4,8 +4,8 @@ import {
   VideoSceneAndMetadata,
 } from "../../../config/scenes";
 import { Theme } from "../../../config/themes";
+import { AnimatedCaptions } from "../../captions/AnimatedCaptions";
 import { NoCaptionsPlaceholder } from "../../captions/NoCaptionsPlaceholder";
-import { Subs } from "../../captions/Subs";
 import { CaptionOverlay } from "../../captions/editor/CaptionOverlay";
 import { WaitForFonts } from "../../helpers/WaitForFonts";
 
@@ -26,34 +26,41 @@ export const BoxedCaptions: React.FC<{
   previousScene,
   startFrom,
 }) => {
-  return (
-    <>
-      {sceneAndMetadata.layout.subtitleLayout &&
-      sceneAndMetadata.cameras.captions ? (
-        <WaitForFonts>
-          <CaptionOverlay
-            file={sceneAndMetadata.cameras.captions}
-            theme={theme}
-            trimStart={startFrom}
-          >
-            <Subs
-              trimStart={startFrom}
-              enterProgress={enterProgress}
-              exitProgress={exitProgress}
-              scene={sceneAndMetadata}
-              nextScene={nextScene}
-              previousScene={previousScene}
-              theme={theme}
-              subtitleLayout={sceneAndMetadata.layout.subtitleLayout}
-            />
-          </CaptionOverlay>
-        </WaitForFonts>
-      ) : sceneAndMetadata.layout.subtitleLayout ? (
-        <NoCaptionsPlaceholder
-          layout={sceneAndMetadata.layout.subtitleLayout}
+  if (!sceneAndMetadata.layout.subtitleLayout) {
+    return null;
+  }
+
+  if (sceneAndMetadata.cameras.captions) {
+    return (
+      <WaitForFonts>
+        <CaptionOverlay
+          file={sceneAndMetadata.cameras.captions}
           theme={theme}
-        />
-      ) : null}
-    </>
-  );
+          trimStart={startFrom}
+        >
+          <AnimatedCaptions
+            trimStart={startFrom}
+            enterProgress={enterProgress}
+            exitProgress={exitProgress}
+            scene={sceneAndMetadata}
+            nextScene={nextScene}
+            previousScene={previousScene}
+            theme={theme}
+            subtitleLayout={sceneAndMetadata.layout.subtitleLayout}
+          />
+        </CaptionOverlay>
+      </WaitForFonts>
+    );
+  }
+
+  if (sceneAndMetadata.layout.subtitleLayout) {
+    return (
+      <NoCaptionsPlaceholder
+        layout={sceneAndMetadata.layout.subtitleLayout}
+        theme={theme}
+      />
+    );
+  }
+
+  return null;
 };
