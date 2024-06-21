@@ -4,10 +4,10 @@ import {
   VideoSceneAndMetadata,
 } from "../../../config/scenes";
 import { Theme } from "../../../config/themes";
-import { AnimatedCaptions } from "../../captions/boxed/AnimatedCaptions";
-import { NoCaptionsPlaceholder } from "../../captions/boxed/NoCaptionsPlaceholder";
-import { CaptionOverlay } from "../../captions/editor/CaptionOverlay";
 import { WaitForFonts } from "../../helpers/WaitForFonts";
+import { CaptionOverlay } from "../editor/CaptionOverlay";
+import { AnimatedCaptions } from "./components/AnimatedCaptions";
+import { NoCaptionsPlaceholder } from "./components/NoCaptionsPlaceholder";
 
 export const BoxedCaptions: React.FC<{
   sceneAndMetadata: VideoSceneAndMetadata;

@@ -1,9 +1,13 @@
 import React from "react";
-import { Sequence, useVideoConfig } from "remotion";
-import type { Word } from "../../../config/autocorrect";
-import type { Theme } from "../../../config/themes";
-import type { CaptionPage } from "../types";
-import { FadeSentence } from "./FadeSentence";
+import {
+  Sequence,
+  interpolate,
+  useCurrentFrame,
+  useVideoConfig,
+} from "remotion";
+import type { Word } from "../../../../config/autocorrect";
+import type { Theme } from "../../../../config/themes";
+import type { CaptionPage } from "../../types";
 import { LINE_HEIGHT, SquareSubtitles } from "./SquareSubtitles";
 
 const getStartOfSegment = (segment: CaptionPage) => {
@@ -43,6 +47,25 @@ export const getSubtitlesLines = ({
 
 export const getBorderWidthForSubtitles = () => {
   return 3;
+};
+
+const FadeSentence: React.FC<{
+  children: React.ReactNode;
+}> = ({ children }) => {
+  const frame = useCurrentFrame();
+  const { durationInFrames } = useVideoConfig();
+
+  const opacity = interpolate(
+    frame,
+    [0, 5, Math.max(6, durationInFrames - 5), Math.max(7, durationInFrames)],
+    [0, 1, 1, 0],
+    {
+      extrapolateRight: "clamp",
+      extrapolateLeft: "clamp",
+    },
+  );
+
+  return <div style={{ opacity }}>{children}</div>;
 };
 
 export const CaptionSentence: React.FC<{

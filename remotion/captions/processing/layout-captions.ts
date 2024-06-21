@@ -7,7 +7,7 @@ import {
   REGULAR_FONT_WEIGHT,
 } from "../../../config/fonts";
 import { getSafeSpace } from "../../../config/layout";
-import { getBorderWidthForSubtitles } from "../boxed/CaptionSentence";
+import { getBorderWidthForSubtitles } from "../boxed/components/CaptionSentence";
 import { CaptionPage, LayoutedCaptions } from "../types";
 import { hasMonoSpaceInIt } from "./has-monospace-in-word";
 import { splitWordIntoMonospaceSegment } from "./split-word-into-monospace-segment";

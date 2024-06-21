@@ -4,35 +4,7 @@ import { AbsoluteFill, Sequence, useVideoConfig } from "remotion";
 import { Theme } from "../../../../config/themes";
 import { CaptionOverlay } from "../../editor/CaptionOverlay";
 import { UnserializedSrt } from "../helpers/serialize-srt";
-
-const Text: React.FC<{
-  text: string;
-}> = ({ text }) => {
-  return (
-    <AbsoluteFill
-      style={{
-        justifyContent: "flex-end",
-        alignItems: "center",
-        fontSize: 48,
-        paddingBottom: 50,
-        pointerEvents: "none",
-      }}
-    >
-      <div
-        style={{
-          backgroundColor: "rgba(0, 0, 0, 0.8)",
-          padding: "12px 15px",
-          color: "white",
-          fontFamily: "Helvetica, Arial, sans-serif",
-          pointerEvents: "unset",
-          borderRadius: 10,
-        }}
-      >
-        {text}
-      </div>
-    </AbsoluteFill>
-  );
-};
+import { SrtPreviewLine } from "./SrtPreviewLine";
 
 export const SrtPreview: React.FC<{
   srt: UnserializedSrt[];
@@ -64,7 +36,7 @@ export const SrtPreview: React.FC<{
                 pointerEvents: "none",
               }}
             >
-              <Text text={segment.text} />
+              <SrtPreviewLine text={segment.text} />
             </Sequence>
           );
         })}

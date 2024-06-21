@@ -5,16 +5,16 @@ import {
   useCurrentFrame,
   useVideoConfig,
 } from "remotion";
-import type { Word } from "../../../config/autocorrect";
+import type { Word } from "../../../../config/autocorrect";
 import {
   MONOSPACE_FONT_FAMILY,
   MONOSPACE_FONT_WEIGHT,
   REGULAR_FONT_FAMILY,
   REGULAR_FONT_WEIGHT,
-} from "../../../config/fonts";
-import type { Theme } from "../../../config/themes";
-import { COLORS } from "../../../config/themes";
-import { useCaptionOverlay } from "../editor/use-caption-overlay";
+} from "../../../../config/fonts";
+import type { Theme } from "../../../../config/themes";
+import { COLORS } from "../../../../config/themes";
+import { useCaptionOverlay } from "../../editor/use-caption-overlay";
 
 type WordColor = {
   appeared: string;

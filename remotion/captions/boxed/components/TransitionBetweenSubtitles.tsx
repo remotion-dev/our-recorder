@@ -1,6 +1,6 @@
 import React from "react";
 import { interpolate, useCurrentFrame, useVideoConfig } from "remotion";
-import { SCENE_TRANSITION_DURATION } from "../../../config/transitions";
+import { SCENE_TRANSITION_DURATION } from "../../../../config/transitions";
 
 export const TransitionFromPreviousSubtitles: React.FC<{
   children: React.ReactNode;

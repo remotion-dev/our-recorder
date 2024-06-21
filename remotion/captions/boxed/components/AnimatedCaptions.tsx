@@ -3,20 +3,20 @@ import { AbsoluteFill, useVideoConfig } from "remotion";
 import type {
   SceneAndMetadata,
   VideoSceneAndMetadata,
-} from "../../../config/scenes";
-import type { Theme } from "../../../config/themes";
-import { COLORS } from "../../../config/themes";
-import { shouldInlineTransitionSubtitles } from "../../animations/caption-transitions/should-transition-subtitle";
-import { getSubtitleTransform } from "../../animations/caption-transitions/subtitle-transitions";
-import { Layout } from "../../layout/layout-types";
-import { useCaptions } from "../editor/captions-provider";
-import { layoutCaptions } from "../processing/layout-captions";
-import { postprocessCaptions } from "../processing/postprocess-subs";
+} from "../../../../config/scenes";
+import type { Theme } from "../../../../config/themes";
+import { COLORS } from "../../../../config/themes";
+import { shouldInlineTransitionSubtitles } from "../../../animations/caption-transitions/should-transition-subtitle";
+import { getSubtitleTransform } from "../../../animations/caption-transitions/subtitle-transitions";
+import { Layout } from "../../../layout/layout-types";
+import { useCaptions } from "../../editor/captions-provider";
+import { layoutCaptions } from "../../processing/layout-captions";
+import { postprocessCaptions } from "../../processing/postprocess-subs";
 import {
+  CaptionSentence,
   getBorderWidthForSubtitles,
   getSubtitlesLines,
 } from "./CaptionSentence";
-import { Captions } from "./Captions";
 import {
   TransitionFromPreviousSubtitles,
   TransitionToNextSubtitles,
@@ -118,13 +118,20 @@ export const AnimatedCaptions: React.FC<{
         <TransitionToNextSubtitles
           shouldTransitionToNextsSubtitles={shouldTransitionToNext}
         >
-          <Captions
-            fontSize={SUBTITLES_FONT_SIZE}
-            lines={subtitleLines}
-            segments={postprocessed.segments}
-            theme={theme}
-            trimStart={trimStart}
-          />
+          {postprocessed.segments.map((segment, index) => {
+            return (
+              <CaptionSentence
+                key={index}
+                isFirst={index === 0}
+                isLast={index === postprocessed.segments.length - 1}
+                segment={segment}
+                trimStart={trimStart}
+                theme={theme}
+                fontSize={SUBTITLES_FONT_SIZE}
+                lines={subtitleLines}
+              />
+            );
+          })}
         </TransitionToNextSubtitles>
       </TransitionFromPreviousSubtitles>
     </AbsoluteFill>

@@ -1,16 +1,13 @@
 import React, { useMemo } from "react";
 import { AbsoluteFill, Sequence } from "remotion";
 import type { Platform } from "../config/endcard";
-import { FPS } from "../config/fps";
 import type { CanvasLayout } from "../config/layout";
 import type { SceneAndMetadata, SelectableScene } from "../config/scenes";
 import type { Theme } from "../config/themes";
 import { COLORS } from "../config/themes";
 import { AudioTrack } from "./audio/AudioTrack";
 import { captionEditorPortal } from "./captions/editor/layout";
-import { EmitSrt } from "./captions/srt/EmitSrt";
-import { combineSrt } from "./captions/srt/helpers/combine-srt";
-import { serializeSrt } from "./captions/srt/helpers/serialize-srt";
+import { EmitSrtFile } from "./captions/srt/EmitSrtFile";
 import { makeChapters } from "./chapters/make-chapters";
 import { Scene } from "./scenes/Scene";
 import { NoDataScene } from "./scenes/VideoScene/NoDataScene";
@@ -30,19 +27,6 @@ export const Main: React.FC<MainProps> = ({
   platform,
   scenes,
 }) => {
-  const srtFile = useMemo(() => {
-    const toCombine = scenesAndMetadata.map((scene) => {
-      return {
-        offsetInMs: Math.round((scene.from * 1000) / FPS),
-        srts: scene.type === "video-scene" ? scene.srt : [],
-      };
-    });
-
-    const combined = combineSrt(toCombine);
-
-    return serializeSrt(combined);
-  }, [scenesAndMetadata]);
-
   const chapters = useMemo(() => {
     return makeChapters({ scenes: scenesAndMetadata });
   }, [scenesAndMetadata]);
@@ -63,7 +47,6 @@ export const Main: React.FC<MainProps> = ({
         background: COLORS[theme].BACKGROUND,
       }}
     >
-      <EmitSrt srtFile={srtFile} />
       {scenesAndMetadata.map((sceneAndMetadata, i) => {
         return (
           <Scene
@@ -92,6 +75,9 @@ export const Main: React.FC<MainProps> = ({
         scenesAndMetadata={scenesAndMetadata}
         canvasLayout={canvasLayout}
       />
+      {canvasLayout === "landscape" ? (
+        <EmitSrtFile scenesAndMetadata={scenesAndMetadata} />
+      ) : null}
       <div ref={captionEditorPortal} />
     </AbsoluteFill>
   );
