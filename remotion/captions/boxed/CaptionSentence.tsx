@@ -1,10 +1,10 @@
 import React from "react";
 import { Sequence, useVideoConfig } from "remotion";
-import type { Word } from "../../config/autocorrect";
-import type { Theme } from "../../config/themes";
+import type { Word } from "../../../config/autocorrect";
+import type { Theme } from "../../../config/themes";
+import type { CaptionPage } from "../types";
 import { FadeSentence } from "./FadeSentence";
-import type { CaptionPage } from "./types";
-import { LINE_HEIGHT, SquareSubtitles } from "./variants/SquareSubtitles";
+import { LINE_HEIGHT, SquareSubtitles } from "./SquareSubtitles";
 
 const getStartOfSegment = (segment: CaptionPage) => {
   if (segment.words.length === 0) {

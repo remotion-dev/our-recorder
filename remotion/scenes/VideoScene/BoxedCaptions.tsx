@@ -4,8 +4,8 @@ import {
   VideoSceneAndMetadata,
 } from "../../../config/scenes";
 import { Theme } from "../../../config/themes";
-import { AnimatedCaptions } from "../../captions/AnimatedCaptions";
-import { NoCaptionsPlaceholder } from "../../captions/NoCaptionsPlaceholder";
+import { AnimatedCaptions } from "../../captions/boxed/AnimatedCaptions";
+import { NoCaptionsPlaceholder } from "../../captions/boxed/NoCaptionsPlaceholder";
 import { CaptionOverlay } from "../../captions/editor/CaptionOverlay";
 import { WaitForFonts } from "../../helpers/WaitForFonts";
 

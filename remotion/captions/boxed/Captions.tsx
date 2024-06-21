@@ -1,6 +1,6 @@
-import type { Theme } from "../../config/themes";
-import { CaptionSentence } from "./Segment";
-import type { CaptionPage } from "./types";
+import type { Theme } from "../../../config/themes";
+import type { CaptionPage } from "../types";
+import { CaptionSentence } from "./CaptionSentence";
 
 export const Captions: React.FC<{
   trimStart: number;

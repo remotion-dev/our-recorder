@@ -1,5 +1,6 @@
-import { Word } from "../../../config/autocorrect";
-import { FPS } from "../../../config/fps";
+import { Word } from "../../../../config/autocorrect";
+import { FPS } from "../../../../config/fps";
+import { UnserializedSrt } from "./serialize-srt";
 
 // The SRT standard recommends not more than 42 characters per line
 
@@ -21,25 +22,6 @@ const segmentWords = (word: Word[]) => {
   }
   segments.push(currentSegment);
   return segments;
-};
-
-const formatSingleSrtTimestamp = (timestamp: number) => {
-  const hours = Math.floor(timestamp / 3600000);
-  const minutes = Math.floor((timestamp % 3600000) / 60000);
-  const seconds = Math.floor((timestamp % 60000) / 1000);
-  const milliseconds = Math.floor(timestamp % 1000);
-
-  return `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")},${String(milliseconds).padStart(3, "0")}`;
-};
-
-const formatSrtTimestamp = (startMs: number, endMs: number) => {
-  return `${formatSingleSrtTimestamp(startMs)} --> ${formatSingleSrtTimestamp(endMs)}`;
-};
-
-export type UnserializedSrt = {
-  firstTimestamp: number;
-  lastTimestamp: number;
-  text: string;
 };
 
 export const calculateSrt = ({
@@ -86,40 +68,4 @@ export const calculateSrt = ({
     srtSegments.push(unserialized);
   }
   return srtSegments;
-};
-
-type SrtsToCombine = {
-  offsetInMs: number;
-  srts: UnserializedSrt[];
-};
-
-export const combineSrt = (srt: SrtsToCombine[]): UnserializedSrt[] => {
-  return srt
-    .map((line) => {
-      return line.srts.map((s): UnserializedSrt => {
-        return {
-          text: s.text,
-          firstTimestamp: s.firstTimestamp + line.offsetInMs,
-          lastTimestamp: s.lastTimestamp + line.offsetInMs,
-        };
-      });
-    })
-    .flat(1);
-};
-
-export const serializeSrt = (srt: UnserializedSrt[]) => {
-  let currentIndex = 0;
-
-  return srt
-    .map((s) => {
-      currentIndex++;
-      return [
-        // Index
-        currentIndex,
-        formatSrtTimestamp(s.firstTimestamp, s.lastTimestamp),
-        // Text
-        s.text,
-      ].join("\n");
-    })
-    .join("\n\n");
 };

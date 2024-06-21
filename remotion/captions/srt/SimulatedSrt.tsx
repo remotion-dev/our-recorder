@@ -3,7 +3,7 @@ import React, { useMemo } from "react";
 import { AbsoluteFill, Sequence, useVideoConfig } from "remotion";
 import { Theme } from "../../../config/themes";
 import { CaptionOverlay } from "../editor/CaptionOverlay";
-import { parseSrt } from "./parse-srt";
+import { parseSrt } from "./helpers/parse-srt";
 
 const Text: React.FC<{
   text: string;

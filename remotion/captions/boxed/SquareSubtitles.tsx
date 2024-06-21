@@ -1,8 +1,8 @@
 import React, { useMemo } from "react";
 import type { Theme } from "../../../config/themes";
-import { Words } from "../Words";
 import { getHorizontalPaddingForSubtitles } from "../processing/layout-captions";
 import type { CaptionPage } from "../types";
+import { Words } from "./Words";
 
 export const LINE_HEIGHT = 1.2;
 

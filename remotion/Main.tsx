@@ -8,8 +8,9 @@ import type { Theme } from "../config/themes";
 import { COLORS } from "../config/themes";
 import { AudioTrack } from "./audio/AudioTrack";
 import { captionEditorPortal } from "./captions/editor/layout";
-import { RenderOnFirstFrame } from "./captions/srt/RenderOnFirstFrame";
-import { combineSrt, serializeSrt } from "./captions/srt/calculate-srt";
+import { EmitSrt } from "./captions/srt/EmitSrt";
+import { combineSrt } from "./captions/srt/helpers/combine-srt";
+import { serializeSrt } from "./captions/srt/helpers/serialize-srt";
 import { makeChapters } from "./chapters/make-chapters";
 import { Scene } from "./scenes/Scene";
 import { NoDataScene } from "./scenes/VideoScene/NoDataScene";
@@ -62,7 +63,7 @@ export const Main: React.FC<MainProps> = ({
         background: COLORS[theme].BACKGROUND,
       }}
     >
-      <RenderOnFirstFrame srtFile={srtFile} />
+      <EmitSrt srtFile={srtFile} />
       {scenesAndMetadata.map((sceneAndMetadata, i) => {
         return (
           <Scene

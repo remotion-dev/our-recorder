@@ -1,7 +1,7 @@
 import React from "react";
-import type { Theme } from "../../config/themes";
+import type { Theme } from "../../../config/themes";
+import type { CaptionPage } from "../types";
 import { SingleWord } from "./SingleWord";
-import type { CaptionPage } from "./types";
 
 export const Words: React.FC<{
   segment: CaptionPage;

@@ -7,7 +7,7 @@ import type {
 import type { Theme } from "../../../config/themes";
 import { getShouldTransitionIn } from "../../animations/transitions";
 import { SimulatedSrt } from "../../captions/srt/SimulatedSrt";
-import { serializeSrt } from "../../captions/srt/calculate-srt";
+import { serializeSrt } from "../../captions/srt/helpers/serialize-srt";
 import { LandscapeChapters } from "../../chapters/landscape/LandscapeChapters";
 import type { ChapterType } from "../../chapters/make-chapters";
 import { SquareChapter } from "../../chapters/square/SquareChapter";

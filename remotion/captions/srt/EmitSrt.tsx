@@ -1,7 +1,9 @@
 import React from "react";
 import { Artifact, useCurrentFrame } from "remotion";
 
-export const RenderOnFirstFrame: React.FC<{
+// Rendering this component will cause an captions.srt file to be generated
+// while rendering.
+export const EmitSrt: React.FC<{
   srtFile: string | null;
 }> = ({ srtFile }) => {
   const frame = useCurrentFrame();

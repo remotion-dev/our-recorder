@@ -7,7 +7,7 @@ import {
   SelectableScene,
 } from "../../config/scenes";
 import { postprocessCaptions } from "../captions/processing/postprocess-subs";
-import { calculateSrt } from "../captions/srt/calculate-srt";
+import { calculateSrt } from "../captions/srt/helpers/calculate-srt";
 import { getBRollDimensions } from "../layout/get-broll-dimensions";
 import { getVideoSceneLayout } from "../layout/get-layout";
 import { PLACEHOLDER_DURATION_IN_FRAMES } from "./empty-place-holder";
