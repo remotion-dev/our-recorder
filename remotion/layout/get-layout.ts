@@ -10,7 +10,6 @@ import {
   getSquareDisplayLayout,
 } from "./get-display-layout";
 import { getDisplaySize } from "./get-display-size";
-import { getBottomSafeSpace } from "./get-safe-space";
 import { getNonFullscreenWebcamSize } from "./get-webcam-size";
 import type {
   BRollEnterDirection,
@@ -98,7 +97,7 @@ const getSquareBentoBoxWebcamLayout = ({
     return {
       ...webcamSize,
       left: canvasSize.width - webcamSize.width - getSafeSpace("square"),
-      top: canvasSize.height - webcamSize.height - getBottomSafeSpace("square"),
+      top: canvasSize.height - webcamSize.height - getSafeSpace("square"),
       borderRadius,
       opacity: 1,
     };
@@ -108,7 +107,7 @@ const getSquareBentoBoxWebcamLayout = ({
     return {
       ...webcamSize,
       left: getSafeSpace("square"),
-      top: canvasSize.height - webcamSize.height - getBottomSafeSpace("square"),
+      top: canvasSize.height - webcamSize.height - getSafeSpace("square"),
       borderRadius,
       opacity: 1,
     };
