@@ -14,7 +14,7 @@ export const SquareSubtitles: React.FC<{
   fontSize: number;
   lines: number;
 }> = ({ segment, startFrame, theme, canvasLayout, fontSize, lines }) => {
-  const padding = getHorizontalPaddingForSubtitles("square", canvasLayout);
+  const padding = getHorizontalPaddingForSubtitles(canvasLayout);
 
   return (
     <div

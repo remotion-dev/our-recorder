@@ -96,15 +96,15 @@ type SrtsToStitch = {
 export const serializeSrt = (srt: SrtsToStitch[]) => {
   let currentIndex = 0;
   return srt
-    .map((_) => {
-      return _.srts.map((s, i) => {
+    .map((line) => {
+      return line.srts.map((s) => {
         currentIndex++;
         return [
           // Index
           currentIndex,
           formatSrtTimestamp(
-            s.firstTimestamp + _.offsetInMs,
-            s.lastTimestamp + _.offsetInMs,
+            s.firstTimestamp + line.offsetInMs,
+            s.lastTimestamp + line.offsetInMs,
           ),
           // Text
           s.text,

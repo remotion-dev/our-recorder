@@ -2,12 +2,6 @@ import type { CanvasLayout, Dimensions } from "../../config/layout";
 import { getSafeSpace } from "../../config/layout";
 import type { SceneVideos, WebcamPosition } from "../../config/scenes";
 import { isWebCamAtBottom } from "../animations/webcam-transitions/helpers";
-import type { SubtitleType } from "../captions/Segment";
-import {
-  getSubtitlesFontSize,
-  getSubtitlesLines,
-  getSubtitlesType,
-} from "../captions/Segment";
 import { getDimensionsForLayout } from "./dimensions";
 import { getCaptionsLayout } from "./get-captions-layout";
 import {
@@ -177,10 +171,7 @@ export type VideoSceneLayout = {
   displayLayout: Layout | null;
   bRollLayout: Layout;
   bRollType: BRollType;
-  subtitleLayout: Layout;
-  subtitleType: SubtitleType;
-  subtitleFontSize: number;
-  subtitleLines: number;
+  subtitleLayout: Layout | null;
   bRollEnterDirection: BRollEnterDirection;
 };
 
@@ -305,26 +296,12 @@ export const getVideoSceneLayout = ({
       videos,
     });
 
-  const subtitleType = getSubtitlesType({
-    canvasLayout,
-    displayLayout,
-  });
-
-  const subtitleFontSize = getSubtitlesFontSize(subtitleType, displayLayout);
   const subtitleLayout = getCaptionsLayout({
     canvasLayout,
     canvasSize,
     displayLayout,
-    subtitleType,
     webcamLayout,
     webcamPosition: webcamPosition,
-    fontSize: subtitleFontSize,
-  });
-
-  const subtitleLines = getSubtitlesLines({
-    boxHeight: subtitleLayout.height,
-    fontSize: subtitleFontSize,
-    subtitleType,
   });
 
   const bRollType =
@@ -335,9 +312,6 @@ export const getVideoSceneLayout = ({
     webcamLayout,
     bRollLayout,
     subtitleLayout,
-    subtitleType,
-    subtitleFontSize,
-    subtitleLines,
     bRollEnterDirection,
     bRollType,
   };

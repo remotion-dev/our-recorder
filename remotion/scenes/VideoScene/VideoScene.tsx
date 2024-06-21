@@ -83,7 +83,8 @@ export const VideoScene: React.FC<{
         bRollEnterDirection={sceneAndMetadata.layout.bRollEnterDirection}
         bRollType={sceneAndMetadata.layout.bRollType}
       />
-      {sceneAndMetadata.cameras.captions ? (
+      {sceneAndMetadata.layout.subtitleLayout &&
+      sceneAndMetadata.cameras.captions ? (
         <WaitForFonts>
           <CaptionOverlay
             file={sceneAndMetadata.cameras.captions}
@@ -99,15 +100,16 @@ export const VideoScene: React.FC<{
               nextScene={nextScene}
               previousScene={previousScene}
               theme={theme}
+              subtitleLayout={sceneAndMetadata.layout.subtitleLayout}
             />
           </CaptionOverlay>
         </WaitForFonts>
-      ) : (
+      ) : sceneAndMetadata.layout.subtitleLayout ? (
         <NoCaptionsPlaceholder
           layout={sceneAndMetadata.layout.subtitleLayout}
           theme={theme}
         />
-      )}
+      ) : null}
       {sceneAndMetadata.scene.newChapter && canvasLayout === "square" ? (
         <SquareChapter
           title={sceneAndMetadata.scene.newChapter}
