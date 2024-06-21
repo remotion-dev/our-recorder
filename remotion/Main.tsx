@@ -10,7 +10,7 @@ import { AudioTrack } from "./audio/AudioTrack";
 import { captionEditorPortal } from "./captions/editor/layout";
 import { RenderOnFirstFrame } from "./captions/srt/RenderOnFirstFrame";
 import { SimulatedSrt } from "./captions/srt/SimulatedSrt";
-import { serializeSrt } from "./captions/srt/calculate-srt";
+import { combineSrt, serializeSrt } from "./captions/srt/calculate-srt";
 import { makeChapters } from "./chapters/make-chapters";
 import { Scene } from "./scenes/Scene";
 import { NoDataScene } from "./scenes/VideoScene/NoDataScene";
@@ -31,14 +31,16 @@ export const Main: React.FC<MainProps> = ({
   scenes,
 }) => {
   const srtFile = useMemo(() => {
-    return serializeSrt(
-      scenesAndMetadata.map((d) => {
-        return {
-          offsetInMs: Math.round((d.from * 1000) / FPS),
-          srts: d.type === "video-scene" ? d.srt : [],
-        };
-      }),
-    );
+    const toCombine = scenesAndMetadata.map((scene) => {
+      return {
+        offsetInMs: Math.round((scene.from * 1000) / FPS),
+        srts: scene.type === "video-scene" ? scene.srt : [],
+      };
+    });
+
+    const combined = combineSrt(toCombine);
+
+    return serializeSrt(combined);
   }, [scenesAndMetadata]);
 
   const chapters = useMemo(() => {

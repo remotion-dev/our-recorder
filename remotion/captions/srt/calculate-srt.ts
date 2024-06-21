@@ -88,29 +88,38 @@ export const calculateSrt = ({
   return srtSegments;
 };
 
-type SrtsToStitch = {
+type SrtsToCombine = {
   offsetInMs: number;
   srts: UnserializedSrt[];
 };
 
-export const serializeSrt = (srt: SrtsToStitch[]) => {
-  let currentIndex = 0;
+export const combineSrt = (srt: SrtsToCombine[]): UnserializedSrt[] => {
   return srt
     .map((line) => {
-      return line.srts.map((s) => {
-        currentIndex++;
-        return [
-          // Index
-          currentIndex,
-          formatSrtTimestamp(
-            s.firstTimestamp + line.offsetInMs,
-            s.lastTimestamp + line.offsetInMs,
-          ),
-          // Text
-          s.text,
-        ].join("\n");
+      return line.srts.map((s): UnserializedSrt => {
+        return {
+          text: s.text,
+          firstTimestamp: s.firstTimestamp + line.offsetInMs,
+          lastTimestamp: s.lastTimestamp + line.offsetInMs,
+        };
       });
     })
-    .flat(1)
+    .flat(1);
+};
+
+export const serializeSrt = (srt: UnserializedSrt[]) => {
+  let currentIndex = 0;
+
+  return srt
+    .map((s) => {
+      currentIndex++;
+      return [
+        // Index
+        currentIndex,
+        formatSrtTimestamp(s.firstTimestamp, s.lastTimestamp),
+        // Text
+        s.text,
+      ].join("\n");
+    })
     .join("\n\n");
 };
