@@ -9,7 +9,6 @@ import { COLORS } from "../config/themes";
 import { AudioTrack } from "./audio/AudioTrack";
 import { captionEditorPortal } from "./captions/editor/layout";
 import { RenderOnFirstFrame } from "./captions/srt/RenderOnFirstFrame";
-import { SimulatedSrt } from "./captions/srt/SimulatedSrt";
 import { combineSrt, serializeSrt } from "./captions/srt/calculate-srt";
 import { makeChapters } from "./chapters/make-chapters";
 import { Scene } from "./scenes/Scene";
@@ -87,9 +86,6 @@ export const Main: React.FC<MainProps> = ({
         >
           <NoDataScene theme={theme} />
         </Sequence>
-      ) : null}
-      {srtFile && canvasLayout === "landscape" ? (
-        <SimulatedSrt srt={srtFile}></SimulatedSrt>
       ) : null}
       <AudioTrack
         scenesAndMetadata={scenesAndMetadata}

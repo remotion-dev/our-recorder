@@ -56,6 +56,7 @@ export const SimulatedSrt: React.FC<{
             key={segment.index}
             durationInFrames={durationInFrames}
             from={from}
+            showInTimeline={false}
             style={{
               pointerEvents: "none",
             }}
