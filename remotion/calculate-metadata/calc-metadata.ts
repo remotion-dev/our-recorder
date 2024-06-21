@@ -1,7 +1,6 @@
 import type { CalculateMetadataFunction } from "remotion";
 import { FPS } from "../../config/fps";
 import type { MainProps } from "../Main";
-import { serializeSrt } from "../captions/srt/calculate-srt";
 import { getDimensionsForLayout } from "../layout/dimensions";
 import { addChaptersToScenesAndMetadata } from "./add-chapters-to-scenes";
 import { addDurationsToScenes } from "./add-durations-to-scenes";
@@ -36,15 +35,6 @@ export const calcMetadata: CalculateMetadataFunction<MainProps> = async ({
 
   const withChapters = addChaptersToScenesAndMetadata(withDurations);
 
-  const srtFile = serializeSrt(
-    withChapters.map((d) => {
-      return {
-        offsetInMs: Math.round((d.from * 1000) / FPS),
-        srts: d.type === "video-scene" ? d.srt : [],
-      };
-    }),
-  );
-
   const { height, width } = getDimensionsForLayout(props.canvasLayout);
 
   return {
@@ -55,7 +45,6 @@ export const calcMetadata: CalculateMetadataFunction<MainProps> = async ({
     props: {
       ...props,
       scenesAndMetadata: withChapters,
-      srtFile,
     },
   };
 };

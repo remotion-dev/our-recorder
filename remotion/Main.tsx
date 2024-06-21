@@ -1,6 +1,7 @@
 import React, { useMemo } from "react";
 import { AbsoluteFill, Sequence } from "remotion";
 import type { Platform } from "../config/endcard";
+import { FPS } from "../config/fps";
 import type { CanvasLayout } from "../config/layout";
 import type { SceneAndMetadata, SelectableScene } from "../config/scenes";
 import type { Theme } from "../config/themes";
@@ -9,6 +10,7 @@ import { AudioTrack } from "./audio/AudioTrack";
 import { captionEditorPortal } from "./captions/editor/layout";
 import { RenderOnFirstFrame } from "./captions/srt/RenderOnFirstFrame";
 import { SimulatedSrt } from "./captions/srt/SimulatedSrt";
+import { serializeSrt } from "./captions/srt/calculate-srt";
 import { makeChapters } from "./chapters/make-chapters";
 import { Scene } from "./scenes/Scene";
 import { NoDataScene } from "./scenes/VideoScene/NoDataScene";
@@ -19,7 +21,6 @@ export type MainProps = {
   scenesAndMetadata: SceneAndMetadata[];
   theme: Theme;
   platform: Platform;
-  srtFile: string | null;
 };
 
 export const Main: React.FC<MainProps> = ({
@@ -28,8 +29,18 @@ export const Main: React.FC<MainProps> = ({
   theme,
   platform,
   scenes,
-  srtFile,
 }) => {
+  const srtFile = useMemo(() => {
+    return serializeSrt(
+      scenesAndMetadata.map((d) => {
+        return {
+          offsetInMs: Math.round((d.from * 1000) / FPS),
+          srts: d.type === "video-scene" ? d.srt : [],
+        };
+      }),
+    );
+  }, [scenesAndMetadata]);
+
   const chapters = useMemo(() => {
     return makeChapters({ scenes: scenesAndMetadata });
   }, [scenesAndMetadata]);
