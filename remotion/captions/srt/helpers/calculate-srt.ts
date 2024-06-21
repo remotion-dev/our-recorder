@@ -58,8 +58,11 @@ export const calculateSrt = ({
     const offset = -(startFrame / FPS) * 1000;
 
     const firstTimestamp = Math.round(firstSegment.firstTimestamp + offset);
-    // TODO: Can be null! Need to handle
-    const lastTimestamp = (lastSegment.lastTimestamp as number) + offset;
+    if (lastSegment.lastTimestamp === null) {
+      throw new Error("Cannot serialize .srt file: lastTimestamp is null");
+    }
+
+    const lastTimestamp = lastSegment.lastTimestamp + offset;
 
     const unserialized: UnserializedSrt = {
       firstTimestamp,

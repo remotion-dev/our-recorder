@@ -53,14 +53,10 @@ export const BoxedCaptions: React.FC<{
     );
   }
 
-  if (sceneAndMetadata.layout.subtitleLayout) {
-    return (
-      <NoCaptionsPlaceholder
-        layout={sceneAndMetadata.layout.subtitleLayout}
-        theme={theme}
-      />
-    );
-  }
-
-  return null;
+  return (
+    <NoCaptionsPlaceholder
+      layout={sceneAndMetadata.layout.subtitleLayout}
+      theme={theme}
+    />
+  );
 };

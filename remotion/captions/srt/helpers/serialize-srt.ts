@@ -4,7 +4,7 @@ export type UnserializedSrt = {
   firstTimestamp: number;
   lastTimestamp: number;
   text: string;
-  // Not effectively used, but allows for clicking on a word to jump to it
+  // Not effectively used for SRT serializing, but allows for clicking on a word to jump to it
   words: Word[];
 };
 
