@@ -10,18 +10,19 @@ const Text: React.FC<{
       style={{
         justifyContent: "flex-end",
         alignItems: "center",
-        fontSize: 50,
+        fontSize: 48,
         paddingBottom: 50,
         pointerEvents: "none",
       }}
     >
       <div
         style={{
-          backgroundColor: "red",
-          padding: 15,
+          backgroundColor: "black",
+          padding: "12px 15px",
           color: "white",
           fontFamily: "Helvetica, Arial, sans-serif",
           pointerEvents: "unset",
+          borderRadius: 10,
         }}
       >
         {text}

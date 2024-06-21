@@ -75,8 +75,9 @@ export const Main: React.FC<MainProps> = ({
           <NoDataScene theme={theme} />
         </Sequence>
       ) : null}
-      {srtFile ? <SimulatedSrt srt={srtFile}></SimulatedSrt> : null}
-
+      {srtFile && canvasLayout === "landscape" ? (
+        <SimulatedSrt srt={srtFile}></SimulatedSrt>
+      ) : null}
       <AudioTrack
         scenesAndMetadata={scenesAndMetadata}
         canvasLayout={canvasLayout}

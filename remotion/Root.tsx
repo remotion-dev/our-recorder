@@ -5177,7 +5177,7 @@ export const Root = () => {
         defaultProps={{
           theme: "light" as const,
           srtFile: null,
-          canvasLayout: "square" as const,
+          canvasLayout: "landscape" as const,
           platform: "x" as const,
           scenes: [
             {
