@@ -11,10 +11,12 @@ export const SrtPreview: React.FC<{
   const { fps } = useVideoConfig();
   const captions = useCaptions();
 
-  const words = useMemo(() => {
-    return postprocessCaptions({ subTypes: captions });
-  }, [captions]);
-  const srt = calculateSrt({ words, actualStartFrame: startFrame });
+  const srt = useMemo(() => {
+    return calculateSrt({
+      words: postprocessCaptions({ subTypes: captions }),
+      startFrame,
+    });
+  }, [captions, startFrame]);
 
   return (
     <>

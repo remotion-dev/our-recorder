@@ -25,11 +25,11 @@ const segmentWords = (word: Word[]) => {
 };
 
 export const calculateSrt = ({
-  actualStartFrame,
+  startFrame,
   words,
 }: {
   words: Word[];
-  actualStartFrame: number;
+  startFrame: number;
 }) => {
   const segments = segmentWords(words);
 
@@ -52,7 +52,7 @@ export const calculateSrt = ({
     }
 
     const firstTimestamp = Math.round(
-      firstSegment.firstTimestamp - (actualStartFrame / FPS) * 1000,
+      firstSegment.firstTimestamp - (startFrame / FPS) * 1000,
     );
     // TODO: Can be null! Need to handle
     const lastTimestamp = lastSegment.lastTimestamp as number;

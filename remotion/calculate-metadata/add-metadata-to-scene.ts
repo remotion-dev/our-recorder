@@ -68,7 +68,7 @@ export const addMetadataToScene = async ({
 
   const srt = words
     ? calculateSrt({
-        actualStartFrame,
+        startFrame: actualStartFrame,
         words,
       })
     : [];
