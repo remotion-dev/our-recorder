@@ -20,7 +20,7 @@ export const Display: React.FC<{
   exitProgress: number;
   nextScene: SceneAndMetadata | null;
   previousScene: SceneAndMetadata | null;
-  startFrom: number;
+  startFrame: number;
   endAt: number | undefined;
   canvasLayout: CanvasLayout;
 }> = ({
@@ -31,7 +31,7 @@ export const Display: React.FC<{
   canvasLayout,
   previousScene,
   endAt,
-  startFrom,
+  startFrame,
 }) => {
   if (scene.layout.displayLayout === null) {
     throw new Error("No display");
@@ -83,7 +83,7 @@ export const Display: React.FC<{
         >
           <OffthreadVideo
             muted
-            startFrom={startFrom}
+            startFrom={startFrame}
             endAt={endAt}
             src={scene.cameras.display.src}
             style={{

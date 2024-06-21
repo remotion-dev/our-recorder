@@ -1,21 +1,23 @@
-import { StaticFile } from "@remotion/studio";
-import React from "react";
+import React, { useMemo } from "react";
 import { Sequence, useVideoConfig } from "remotion";
-import { Theme } from "../../../../config/themes";
-import { CaptionOverlay } from "../../editor/CaptionOverlay";
-import { UnserializedSrt } from "../helpers/serialize-srt";
+import { useCaptions } from "../../editor/captions-provider";
+import { postprocessCaptions } from "../../processing/postprocess-subs";
+import { calculateSrt } from "../helpers/calculate-srt";
 import { SrtPreviewLine } from "./SrtPreviewLine";
 
 export const SrtPreview: React.FC<{
-  srt: UnserializedSrt[];
-  captions: StaticFile;
-  startFrom: number;
-  theme: Theme;
-}> = ({ srt, captions, startFrom, theme }) => {
+  startFrame: number;
+}> = ({ startFrame }) => {
   const { fps } = useVideoConfig();
+  const captions = useCaptions();
+
+  const words = useMemo(() => {
+    return postprocessCaptions({ subTypes: captions });
+  }, [captions]);
+  const srt = calculateSrt({ words, actualStartFrame: startFrame });
 
   return (
-    <CaptionOverlay file={captions} theme={theme} trimStart={startFrom}>
+    <>
       {srt.map((segment, index) => {
         // TODO: Should by default have a minimum duration
 
@@ -37,6 +39,6 @@ export const SrtPreview: React.FC<{
           </Sequence>
         );
       })}
-    </CaptionOverlay>
+    </>
   );
 };

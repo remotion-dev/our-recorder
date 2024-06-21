@@ -7,7 +7,7 @@ import type {
 import type { Theme } from "../../../config/themes";
 import { getShouldTransitionIn } from "../../animations/transitions";
 import { BoxedCaptions } from "../../captions/boxed/BoxedCaptions";
-import { SrtPreview } from "../../captions/srt/SrtPreview/SrtPreview";
+import { SrtPreviewAndEditor } from "../../captions/srt/SrtPreviewAndEditor/SrtPreviewAndEditor";
 import { LandscapeChapters } from "../../chapters/landscape/LandscapeChapters";
 import type { ChapterType } from "../../chapters/make-chapters";
 import { SquareChapter } from "../../chapters/square/SquareChapter";
@@ -34,7 +34,7 @@ export const VideoScene: React.FC<{
   theme,
   chapters,
 }) => {
-  const startFrom = sceneAndMetadata.startFrame;
+  const startFrame = sceneAndMetadata.startFrame;
   const endAt = sceneAndMetadata.endFrame;
 
   if (sceneAndMetadata.type !== "video-scene") {
@@ -63,7 +63,7 @@ export const VideoScene: React.FC<{
           exitProgress={exitProgress}
           nextScene={nextScene}
           previousScene={previousScene}
-          startFrom={startFrom}
+          startFrame={startFrame}
           endAt={endAt}
           canvasLayout={canvasLayout}
         />
@@ -74,7 +74,7 @@ export const VideoScene: React.FC<{
         endAt={endAt}
         enterProgress={enterProgress}
         exitProgress={exitProgress}
-        startFrom={startFrom}
+        startFrame={startFrame}
         canvasLayout={canvasLayout}
         nextScene={nextScene}
         previousScene={previousScene}
@@ -86,7 +86,7 @@ export const VideoScene: React.FC<{
           nextScene={nextScene}
           previousScene={previousScene}
           sceneAndMetadata={sceneAndMetadata}
-          startFrom={startFrom}
+          startFrame={startFrame}
           theme={theme}
         />
       ) : null}
@@ -107,12 +107,11 @@ export const VideoScene: React.FC<{
         />
       ) : null}
       {canvasLayout === "landscape" && sceneAndMetadata.cameras.captions ? (
-        <SrtPreview
+        <SrtPreviewAndEditor
           captions={sceneAndMetadata.cameras.captions}
-          startFrom={startFrom}
-          srt={sceneAndMetadata.srt}
+          startFrame={startFrame}
           theme={theme}
-        ></SrtPreview>
+        ></SrtPreviewAndEditor>
       ) : null}
     </>
   );

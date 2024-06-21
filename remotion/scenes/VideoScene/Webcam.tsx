@@ -15,7 +15,7 @@ import { VideoWithBlur } from "./VideoWithBlur";
 export const Webcam: React.FC<{
   enterProgress: number;
   exitProgress: number;
-  startFrom: number;
+  startFrame: number;
   endAt: number | undefined;
   canvasLayout: CanvasLayout;
   nextScene: SceneAndMetadata | null;
@@ -25,7 +25,7 @@ export const Webcam: React.FC<{
 }> = ({
   enterProgress,
   exitProgress,
-  startFrom,
+  startFrame,
   endAt,
   nextScene,
   previousScene,
@@ -75,7 +75,7 @@ export const Webcam: React.FC<{
           bRollType={currentScene.layout.bRollType}
         >
           <VideoWithBlur
-            startFrom={startFrom}
+            startFrom={startFrame}
             endAt={endAt}
             src={currentScene.cameras.webcam.src}
             containerLayout={webcamLayout}

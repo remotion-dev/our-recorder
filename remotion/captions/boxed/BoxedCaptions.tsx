@@ -12,7 +12,7 @@ import { NoCaptionsPlaceholder } from "./components/NoCaptionsPlaceholder";
 export const BoxedCaptions: React.FC<{
   sceneAndMetadata: VideoSceneAndMetadata;
   theme: Theme;
-  startFrom: number;
+  startFrame: number;
   enterProgress: number;
   exitProgress: number;
   nextScene: SceneAndMetadata | null;
@@ -24,7 +24,7 @@ export const BoxedCaptions: React.FC<{
   exitProgress,
   nextScene,
   previousScene,
-  startFrom,
+  startFrame,
 }) => {
   if (!sceneAndMetadata.layout.subtitleLayout) {
     return null;
@@ -36,10 +36,10 @@ export const BoxedCaptions: React.FC<{
         <CaptionOverlay
           file={sceneAndMetadata.cameras.captions}
           theme={theme}
-          trimStart={startFrom}
+          trimStart={startFrame}
         >
           <AnimatedCaptions
-            trimStart={startFrom}
+            trimStart={startFrame}
             enterProgress={enterProgress}
             exitProgress={exitProgress}
             scene={sceneAndMetadata}
