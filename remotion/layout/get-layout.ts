@@ -74,7 +74,7 @@ const squareFullscreenWebcamLayout = ({
   };
 };
 
-const fullscreenLayout = (canvasSize: Dimensions): Layout => {
+export const fullscreenLayout = (canvasSize: Dimensions): Layout => {
   return {
     ...canvasSize,
     left: 0,
@@ -265,7 +265,6 @@ const getDisplayAndWebcamLayout = ({
 
   if (canvasLayout === "landscape") {
     return getLandscapeDisplayAndWebcamLayout({
-      displaySize,
       webcamSize,
       canvasLayout,
       canvasSize,
