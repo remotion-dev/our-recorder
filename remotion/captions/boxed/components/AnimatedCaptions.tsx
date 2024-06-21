@@ -63,9 +63,7 @@ export const AnimatedCaptions: React.FC<{
   });
 
   const postprocessed = useMemo(() => {
-    const words = postprocessCaptions({
-      subTypes: whisperOutput,
-    });
+    const words = postprocessCaptions(whisperOutput);
 
     return layoutCaptions({
       boxWidth: subtitleLayout.width,

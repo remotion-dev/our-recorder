@@ -84,19 +84,17 @@ const getClampedEndFrame = ({
 export const getStartEndFrame = async ({
   scene,
   recordingDurationInSeconds,
-  subsJson,
+  whisperCppOutput,
 }: {
   scene: SelectableVideoScene;
   recordingDurationInSeconds: number;
-  subsJson: WhisperCppOutput | null;
+  whisperCppOutput: WhisperCppOutput | null;
 }) => {
   // We calculate the subtitles only for
   // the purpose of calculating the durastion
   // and will not use this value further
-  const subsForTimestamps = subsJson
-    ? postprocessCaptions({
-        subTypes: subsJson,
-      })
+  const subsForTimestamps = whisperCppOutput
+    ? postprocessCaptions(whisperCppOutput)
     : null;
 
   const endFrameFromCaptions = deriveEndFrameFromSubs(subsForTimestamps);

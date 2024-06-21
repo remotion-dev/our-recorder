@@ -43,11 +43,7 @@ const removeWhisperBlankWords = (original: Word[]): Word[] => {
   return words;
 };
 
-export const postprocessCaptions = ({
-  subTypes,
-}: {
-  subTypes: WhisperCppOutput;
-}): Word[] => {
+export const postprocessCaptions = (subTypes: WhisperCppOutput): Word[] => {
   const blankTokensRemoved = removeBlankTokens(subTypes.transcription);
   const words = blankTokensRemoved.map((w, i) => {
     return whisperWordToWord(w, blankTokensRemoved[i + 1] ?? null);

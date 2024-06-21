@@ -34,9 +34,7 @@ export const calculateSrt = ({
   whisperCppOutput: WhisperCppOutput;
   startFrame: number;
 }) => {
-  const postprocessed = joinBackticks(
-    postprocessCaptions({ subTypes: whisperCppOutput }),
-  );
+  const postprocessed = joinBackticks(postprocessCaptions(whisperCppOutput));
   const segments = segmentWords(postprocessed);
 
   const srtSegments: UnserializedSrt[] = [];

@@ -60,7 +60,7 @@ export const addMetadataToScene = async ({
   const { actualStartFrame, derivedEndFrame } = await getStartEndFrame({
     scene,
     recordingDurationInSeconds: webcamMetadata.durationInSeconds,
-    subsJson: whisperCppOutput,
+    whisperCppOutput: whisperCppOutput,
   });
 
   const srt = whisperCppOutput
