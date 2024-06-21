@@ -79,7 +79,7 @@ export const calculateSrt = ({
       firstTimestamp,
       lastTimestamp,
       text: segment
-        .map((s) => s.text)
+        .map((s) => s.text.trim())
         .join(" ")
         .trim(),
       words: segment,
