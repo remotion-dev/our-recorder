@@ -16,7 +16,6 @@ export const Root = () => {
         schema={videoConf}
         defaultProps={{
           theme: "light" as const,
-
           platform: "x",
           canvasLayout: "landscape" as const,
           scenesAndMetadata: [],
@@ -131,7 +130,6 @@ export const Root = () => {
         schema={videoConf}
         defaultProps={{
           theme: "light",
-
           platform: "x",
           canvasLayout: "landscape",
           scenes: [
@@ -156,7 +154,6 @@ export const Root = () => {
         schema={videoConf}
         defaultProps={{
           theme: "light",
-
           canvasLayout: "landscape",
           platform: "x",
           scenes: [
@@ -415,7 +412,6 @@ export const Root = () => {
         schema={videoConf}
         defaultProps={{
           theme: "light",
-
           canvasLayout: "landscape",
           platform: "x",
           scenes: [
@@ -632,7 +628,6 @@ export const Root = () => {
         schema={videoConf}
         defaultProps={{
           theme: "light",
-
           canvasLayout: "landscape",
           platform: "x",
           scenes: [
@@ -801,7 +796,6 @@ export const Root = () => {
         schema={videoConf}
         defaultProps={{
           theme: "light",
-
           canvasLayout: "landscape",
           platform: "x",
           scenes: [
@@ -872,7 +866,6 @@ export const Root = () => {
         schema={videoConf}
         defaultProps={{
           theme: "light",
-
           canvasLayout: "landscape",
           platform: "x",
           scenes: [
@@ -979,7 +972,6 @@ export const Root = () => {
         schema={videoConf}
         defaultProps={{
           theme: "light",
-
           canvasLayout: "landscape",
           platform: "x",
           scenes: [
@@ -1176,7 +1168,6 @@ export const Root = () => {
         schema={videoConf}
         defaultProps={{
           theme: "light",
-
           canvasLayout: "landscape",
           platform: "x",
           scenes: [
@@ -1256,7 +1247,6 @@ export const Root = () => {
         schema={videoConf}
         defaultProps={{
           theme: "light",
-
           canvasLayout: "landscape",
           platform: "x",
           scenes: [
@@ -1444,7 +1434,6 @@ export const Root = () => {
         schema={videoConf}
         defaultProps={{
           theme: "light",
-
           canvasLayout: "landscape",
           platform: "x",
           scenes: [
@@ -1587,7 +1576,6 @@ export const Root = () => {
         schema={videoConf}
         defaultProps={{
           theme: "light",
-
           canvasLayout: "landscape",
           platform: "x",
           scenes: [
@@ -1756,7 +1744,6 @@ export const Root = () => {
         schema={videoConf}
         defaultProps={{
           theme: "light",
-
           canvasLayout: "square" as const,
           platform: "x",
           scenes: [
@@ -1908,7 +1895,6 @@ export const Root = () => {
         schema={videoConf}
         defaultProps={{
           theme: "light",
-
           canvasLayout: "square" as const,
           platform: "x",
           scenes: [
@@ -2024,7 +2010,6 @@ export const Root = () => {
         schema={videoConf}
         defaultProps={{
           theme: "light",
-
           canvasLayout: "landscape" as const,
           platform: "x",
           scenes: [
@@ -2202,7 +2187,6 @@ export const Root = () => {
         schema={videoConf}
         defaultProps={{
           theme: "light",
-
           canvasLayout: "square" as const,
           platform: "x",
           scenes: [
@@ -2398,7 +2382,6 @@ export const Root = () => {
         schema={videoConf}
         defaultProps={{
           theme: "light",
-
           canvasLayout: "square" as const,
           platform: "x",
           scenes: [
@@ -2585,7 +2568,6 @@ export const Root = () => {
         schema={videoConf}
         defaultProps={{
           theme: "light",
-
           canvasLayout: "square" as const,
           platform: "x",
           scenes: [
@@ -2744,7 +2726,6 @@ export const Root = () => {
         schema={videoConf}
         defaultProps={{
           theme: "light",
-
           platform: "x",
           canvasLayout: "landscape",
           scenesAndMetadata: [],
@@ -2760,7 +2741,6 @@ export const Root = () => {
         schema={videoConf}
         defaultProps={{
           theme: "light",
-
           canvasLayout: "square" as const,
           platform: "x",
           scenes: [
@@ -2920,7 +2900,6 @@ export const Root = () => {
         schema={videoConf}
         defaultProps={{
           theme: "light",
-
           canvasLayout: "square" as const,
           platform: "x",
           scenes: [
@@ -3056,7 +3035,6 @@ export const Root = () => {
         schema={videoConf}
         defaultProps={{
           theme: "light",
-
           canvasLayout: "square" as const,
           platform: "x",
           scenes: [
@@ -3171,7 +3149,6 @@ export const Root = () => {
         schema={videoConf}
         defaultProps={{
           theme: "light",
-
           canvasLayout: "square" as const,
           platform: "x",
           scenes: [
@@ -3274,7 +3251,6 @@ export const Root = () => {
         schema={videoConf}
         defaultProps={{
           theme: "light",
-
           canvasLayout: "square" as const,
           platform: "x",
           scenes: [
@@ -3425,7 +3401,6 @@ export const Root = () => {
         defaultProps={{
           platform: "x",
           theme: "light",
-
           canvasLayout: "landscape",
           scenesAndMetadata: [],
           scenes: [],
@@ -3440,7 +3415,6 @@ export const Root = () => {
         schema={videoConf}
         defaultProps={{
           theme: "light",
-
           canvasLayout: "square" as const,
           platform: "x",
           scenes: [
@@ -3587,7 +3561,6 @@ export const Root = () => {
         schema={videoConf}
         defaultProps={{
           theme: "light" as const,
-
           canvasLayout: "landscape" as const,
           platform: "x" as const,
           scenes: [
@@ -3789,7 +3762,6 @@ export const Root = () => {
         schema={videoConf}
         defaultProps={{
           theme: "light",
-
           canvasLayout: "square" as const,
           platform: "x",
           scenes: [
@@ -3947,7 +3919,6 @@ export const Root = () => {
         schema={videoConf}
         defaultProps={{
           theme: "light" as const,
-
           canvasLayout: "square" as const,
           platform: "x",
           scenes: [
@@ -4039,7 +4010,6 @@ export const Root = () => {
         schema={videoConf}
         defaultProps={{
           theme: "light" as const,
-
           canvasLayout: "landscape" as const,
           platform: "x",
           scenes: [
@@ -4318,7 +4288,6 @@ export const Root = () => {
         schema={videoConf}
         defaultProps={{
           theme: "light" as const,
-
           canvasLayout: "square" as const,
           platform: "x",
           scenes: [
@@ -4369,7 +4338,6 @@ export const Root = () => {
         schema={videoConf}
         defaultProps={{
           theme: "light" as const,
-
           canvasLayout: "square" as const,
           platform: "x",
           scenes: [
@@ -4538,7 +4506,6 @@ export const Root = () => {
         schema={videoConf}
         defaultProps={{
           theme: "light" as const,
-
           canvasLayout: "square" as const,
           platform: "x",
           scenes: [
@@ -4663,7 +4630,6 @@ export const Root = () => {
         schema={videoConf}
         defaultProps={{
           theme: "light" as const,
-
           canvasLayout: "square" as const,
           platform: "x",
           scenes: [
@@ -4801,7 +4767,6 @@ export const Root = () => {
         schema={videoConf}
         defaultProps={{
           theme: "light" as const,
-
           canvasLayout: "square" as const,
           platform: "x",
           scenes: [
@@ -4893,7 +4858,6 @@ export const Root = () => {
         schema={videoConf}
         defaultProps={{
           theme: "light" as const,
-
           canvasLayout: "square" as const,
           platform: "x",
           scenes: [
@@ -5057,7 +5021,6 @@ export const Root = () => {
         schema={videoConf}
         defaultProps={{
           theme: "dark" as const,
-
           canvasLayout: "square" as const,
           platform: "x",
           scenes: [
@@ -5160,7 +5123,6 @@ export const Root = () => {
         schema={videoConf}
         defaultProps={{
           theme: "light" as const,
-
           canvasLayout: "square" as const,
           platform: "x" as const,
           scenes: [],
@@ -5176,8 +5138,7 @@ export const Root = () => {
         schema={videoConf}
         defaultProps={{
           theme: "light" as const,
-
-          canvasLayout: "landscape" as const,
+          canvasLayout: "square" as const,
           platform: "x" as const,
           scenes: [
             {
@@ -5380,7 +5341,6 @@ export const Root = () => {
         schema={videoConf}
         defaultProps={{
           theme: "light" as const,
-
           canvasLayout: "square" as const,
           platform: "linkedin" as const,
           scenes: [
@@ -5477,7 +5437,6 @@ export const Root = () => {
         schema={videoConf}
         defaultProps={{
           theme: "light" as const,
-
           canvasLayout: "square" as const,
           platform: "x" as const,
           scenes: [
@@ -5579,7 +5538,6 @@ export const Root = () => {
         schema={videoConf}
         defaultProps={{
           theme: "light" as const,
-
           canvasLayout: "square" as const,
           platform: "linkedin" as const,
           scenes: [
@@ -5693,7 +5651,6 @@ export const Root = () => {
         schema={videoConf}
         defaultProps={{
           theme: "light" as const,
-
           canvasLayout: "square" as const,
           platform: "x" as const,
           scenes: [
@@ -5801,7 +5758,6 @@ export const Root = () => {
         schema={videoConf}
         defaultProps={{
           theme: "light" as const,
-
           canvasLayout: "square" as const,
           platform: "x" as const,
           scenes: [
@@ -5988,7 +5944,6 @@ export const Root = () => {
         schema={videoConf}
         defaultProps={{
           theme: "light" as const,
-
           canvasLayout: "square" as const,
           platform: "x" as const,
           scenes: [
@@ -6119,7 +6074,6 @@ export const Root = () => {
         schema={videoConf}
         defaultProps={{
           theme: "light" as const,
-
           canvasLayout: "square" as const,
           platform: "x" as const,
           scenes: [
@@ -6203,7 +6157,6 @@ export const Root = () => {
         schema={videoConf}
         defaultProps={{
           theme: "light" as const,
-
           canvasLayout: "square" as const,
           platform: "x" as const,
           scenes: [
@@ -6361,7 +6314,6 @@ export const Root = () => {
         schema={videoConf}
         defaultProps={{
           theme: "light" as const,
-
           canvasLayout: "square" as const,
           platform: "x" as const,
           scenes: [
@@ -6553,7 +6505,6 @@ export const Root = () => {
         schema={videoConf}
         defaultProps={{
           theme: "light" as const,
-
           canvasLayout: "landscape" as const,
           platform: "x" as const,
           scenes: [
@@ -6701,7 +6652,6 @@ export const Root = () => {
         schema={videoConf}
         defaultProps={{
           theme: "light" as const,
-
           canvasLayout: "square" as const,
           platform: "x" as const,
           scenes: [
@@ -6853,7 +6803,6 @@ export const Root = () => {
         schema={videoConf}
         defaultProps={{
           theme: "light" as const,
-
           canvasLayout: "square" as const,
           platform: "x" as const,
           scenes: [
@@ -6887,7 +6836,6 @@ export const Root = () => {
         schema={videoConf}
         defaultProps={{
           theme: "light" as const,
-
           canvasLayout: "square" as const,
           platform: "x" as const,
           scenes: [
@@ -7017,7 +6965,6 @@ export const Root = () => {
         schema={videoConf}
         defaultProps={{
           theme: "light" as const,
-
           canvasLayout: "landscape" as const,
           platform: "youtube" as const,
           scenes: [
@@ -7125,7 +7072,6 @@ export const Root = () => {
         schema={videoConf}
         defaultProps={{
           theme: "light" as const,
-
           canvasLayout: "square" as const,
           platform: "x" as const,
           scenes: [
@@ -7198,7 +7144,6 @@ export const Root = () => {
         schema={videoConf}
         defaultProps={{
           theme: "light" as const,
-
           canvasLayout: "square" as const,
           platform: "x",
           scenes: [
@@ -7343,7 +7288,6 @@ export const Root = () => {
         schema={videoConf}
         defaultProps={{
           theme: "light" as const,
-
           canvasLayout: "landscape" as const,
           platform: "youtube" as const,
           scenes: [
@@ -7495,7 +7439,6 @@ export const Root = () => {
         schema={videoConf}
         defaultProps={{
           theme: "light" as const,
-
           canvasLayout: "square" as const,
           platform: "x",
           scenes: [
@@ -7675,7 +7618,6 @@ export const Root = () => {
         schema={videoConf}
         defaultProps={{
           theme: "light",
-
           canvasLayout: "square" as const,
           platform: "x",
           scenes: [
@@ -7850,7 +7792,6 @@ export const Root = () => {
         schema={videoConf}
         defaultProps={{
           theme: "light" as const,
-
           canvasLayout: "square" as const,
           platform: "x",
           scenes: [
@@ -7919,7 +7860,6 @@ export const Root = () => {
         schema={videoConf}
         defaultProps={{
           theme: "light" as const,
-
           canvasLayout: "square" as const,
           platform: "x",
           scenes: [
@@ -8187,7 +8127,6 @@ export const Root = () => {
         schema={videoConf}
         defaultProps={{
           theme: "light" as const,
-
           canvasLayout: "landscape" as const,
           platform: "x",
           scenes: [
@@ -8422,7 +8361,6 @@ export const Root = () => {
         schema={videoConf}
         defaultProps={{
           theme: "light" as const,
-
           canvasLayout: "square" as const,
           platform: "x",
           scenes: [
@@ -8656,7 +8594,6 @@ export const Root = () => {
         schema={videoConf}
         defaultProps={{
           theme: "light" as const,
-
           canvasLayout: "square" as const,
           platform: "x",
           scenes: [
@@ -8731,7 +8668,6 @@ export const Root = () => {
         schema={videoConf}
         defaultProps={{
           theme: "light" as const,
-
           canvasLayout: "square" as const,
           platform: "x",
           scenes: [
@@ -8823,7 +8759,6 @@ export const Root = () => {
         schema={videoConf}
         defaultProps={{
           theme: "light" as const,
-
           canvasLayout: "landscape" as const,
           platform: "x" as const,
           scenes: [
@@ -9066,7 +9001,6 @@ export const Root = () => {
         schema={videoConf}
         defaultProps={{
           theme: "light" as const,
-
           canvasLayout: "square" as const,
           platform: "x",
           scenes: [
