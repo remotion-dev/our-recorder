@@ -11,11 +11,7 @@ import { shouldInlineTransitionSubtitles } from "../animations/caption-transitio
 import { getSubtitleTransform } from "../animations/caption-transitions/subtitle-transitions";
 import { Layout } from "../layout/layout-types";
 import { Captions } from "./Captions";
-import {
-  getBorderWidthForSubtitles,
-  getSubtitlesFontSize,
-  getSubtitlesLines,
-} from "./Segment";
+import { getBorderWidthForSubtitles, getSubtitlesLines } from "./Segment";
 import {
   TransitionFromPreviousSubtitles,
   TransitionToNextSubtitles,
@@ -25,6 +21,7 @@ import { layoutCaptions } from "./processing/layout-captions";
 import { postprocessCaptions } from "./processing/postprocess-subs";
 
 const LINE_HEIGHT = 2;
+const SUBTITLES_FONT_SIZE = 56;
 
 export const Subs: React.FC<{
   trimStart: number;
@@ -60,11 +57,9 @@ export const Subs: React.FC<{
 
   const whisperOutput = useCaptions();
 
-  const subtitleFontSize = getSubtitlesFontSize();
-
   const subtitleLines = getSubtitlesLines({
     boxHeight: subtitleLayout.height,
-    fontSize: subtitleFontSize,
+    fontSize: SUBTITLES_FONT_SIZE,
   });
 
   const postprocessed = useMemo(() => {
@@ -75,23 +70,17 @@ export const Subs: React.FC<{
     return layoutCaptions({
       boxWidth: subtitleLayout.width,
       maxLines: subtitleLines,
-      fontSize: subtitleFontSize,
+      fontSize: SUBTITLES_FONT_SIZE,
       canvasLayout,
       words,
     });
-  }, [
-    whisperOutput,
-    subtitleLayout,
-    subtitleLines,
-    subtitleFontSize,
-    canvasLayout,
-  ]);
+  }, [whisperOutput, subtitleLayout, subtitleLines, canvasLayout]);
 
   const outer: React.CSSProperties = useMemo(() => {
     const backgroundColor = COLORS[theme].CAPTIONS_BACKGROUND;
 
     return {
-      fontSize: subtitleFontSize,
+      fontSize: SUBTITLES_FONT_SIZE,
       display: "flex",
       lineHeight: LINE_HEIGHT,
       borderWidth: getBorderWidthForSubtitles(),
@@ -117,7 +106,7 @@ export const Subs: React.FC<{
     nextScene,
     previousScene,
     scene,
-    subtitleFontSize,
+    subtitleLayout,
     theme,
     width,
   ]);
@@ -132,7 +121,7 @@ export const Subs: React.FC<{
         >
           <Captions
             canvasLayout={canvasLayout}
-            fontSize={subtitleFontSize}
+            fontSize={SUBTITLES_FONT_SIZE}
             lines={subtitleLines}
             segments={postprocessed.segments}
             theme={theme}
