@@ -64,6 +64,7 @@ export const calculateSrt = ({
         .map((s) => s.text)
         .join(" ")
         .trim(),
+      words: segment,
     };
     srtSegments.push(unserialized);
   }

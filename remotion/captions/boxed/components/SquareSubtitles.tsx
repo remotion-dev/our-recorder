@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import type { Theme } from "../../../../config/themes";
 import { getHorizontalPaddingForSubtitles } from "../../processing/layout-captions";
 import type { CaptionPage } from "../../types";
-import { SingleWord } from "./SingleWord";
+import { BoxedSingleWord } from "./SingleWord";
 
 export const LINE_HEIGHT = 1.2;
 
@@ -37,7 +37,7 @@ export const SquareSubtitles: React.FC<{
       <span style={style}>
         {segment.words.map((word, index) => {
           return (
-            <SingleWord
+            <BoxedSingleWord
               key={word.firstTimestamp + word.text + index}
               isLast={index === segment.words.length - 1}
               word={word}

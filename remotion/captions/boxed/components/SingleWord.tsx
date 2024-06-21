@@ -79,7 +79,7 @@ const getWordColor = ({
 
 const WORD_HIGHLIGHT_BORDER_RADIUS = 10;
 
-export const SingleWord: React.FC<{
+export const BoxedSingleWord: React.FC<{
   word: Word;
   isLast: boolean;
   theme: Theme;

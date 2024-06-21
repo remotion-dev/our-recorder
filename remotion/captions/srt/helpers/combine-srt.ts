@@ -13,6 +13,7 @@ export const combineSrt = (srt: SrtsToCombine[]): UnserializedSrt[] => {
           text: s.text,
           firstTimestamp: s.firstTimestamp + line.offsetInMs,
           lastTimestamp: s.lastTimestamp + line.offsetInMs,
+          words: s.words,
         };
       });
     })

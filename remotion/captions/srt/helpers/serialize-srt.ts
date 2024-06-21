@@ -1,7 +1,11 @@
+import { Word } from "../../../../config/autocorrect";
+
 export type UnserializedSrt = {
   firstTimestamp: number;
   lastTimestamp: number;
   text: string;
+  // Not effectively used, but allows for clicking on a word to jump to it
+  words: Word[];
 };
 
 const formatSingleSrtTimestamp = (timestamp: number) => {

@@ -1,12 +1,15 @@
 import React from "react";
-import { AbsoluteFill } from "remotion";
+import { UnserializedSrt } from "../helpers/serialize-srt";
+import { SrtSingleWord } from "./SingleWord";
 
 const container: React.CSSProperties = {
   justifyContent: "flex-end",
   alignItems: "center",
-  fontSize: 48,
-  paddingBottom: 50,
-  pointerEvents: "none",
+  position: "absolute",
+  bottom: 0,
+  width: "100%",
+  display: "flex",
+  flexDirection: "column",
 };
 
 const inner: React.CSSProperties = {
@@ -16,14 +19,26 @@ const inner: React.CSSProperties = {
   fontFamily: "Helvetica, Arial, sans-serif",
   pointerEvents: "unset",
   borderRadius: 10,
+  fontSize: 48,
+  bottom: 50,
+  position: "absolute",
 };
 
 export const SrtPreviewLine: React.FC<{
-  text: string;
-}> = ({ text }) => {
+  segment: UnserializedSrt;
+}> = ({ segment }) => {
   return (
-    <AbsoluteFill style={container}>
-      <div style={inner}>{text}</div>
-    </AbsoluteFill>
+    <div style={container}>
+      <div style={inner}>
+        {segment.words.map((word) => {
+          return (
+            <SrtSingleWord
+              word={word}
+              key={word.firstTimestamp}
+            ></SrtSingleWord>
+          );
+        })}
+      </div>
+    </div>
   );
 };
