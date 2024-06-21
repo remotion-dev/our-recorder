@@ -1,9 +1,9 @@
 import { StaticFile } from "@remotion/studio";
 import React from "react";
 import { AbsoluteFill, Sequence, useVideoConfig } from "remotion";
-import { Theme } from "../../../config/themes";
-import { CaptionOverlay } from "../editor/CaptionOverlay";
-import { UnserializedSrt } from "./helpers/serialize-srt";
+import { Theme } from "../../../../config/themes";
+import { CaptionOverlay } from "../../editor/CaptionOverlay";
+import { UnserializedSrt } from "../helpers/serialize-srt";
 
 const Text: React.FC<{
   text: string;
