@@ -21,7 +21,8 @@ const segmentWords = (word: Word[]) => {
       .reduce((a, b) => a + b, 0);
 
     const preventOrphanWord =
-      remainingWords.length <= 2 &&
+      remainingWords.length < 4 &&
+      remainingWords.length > 1 &&
       filledCharactersInLine > MAX_CHARS_PER_LINE / 2;
 
     if (
