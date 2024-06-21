@@ -1,9 +1,9 @@
 import type { Word } from "../../../config/autocorrect";
 import { autocorrectWords } from "../../../config/autocorrect";
 import { type WhisperCppOutput } from "../types";
+import { fixBackticks } from "./fix-backticks";
 import { removeBlankTokens } from "./remove-blank-tokens";
 import { whisperWordToWord } from "./whisper-word-to-word";
-import { wordsTogether } from "./words-together";
 
 const FILLER_WORDS = ["[PAUSE]", "[BLANK_AUDIO]", "[Silence]", "[INAUDIBLE]"];
 
@@ -60,14 +60,5 @@ export const postprocessCaptions = ({
 
   const correctedWords = autocorrectWords(removeBlankTokensAgain);
 
-  const movedBackTickToWord = correctedWords.map((word) => {
-    return {
-      ...word,
-      text: word.text.replaceAll(/`\s/g, " `"),
-    };
-  });
-
-  const allWords = wordsTogether(movedBackTickToWord);
-
-  return allWords;
+  return fixBackticks(correctedWords);
 };

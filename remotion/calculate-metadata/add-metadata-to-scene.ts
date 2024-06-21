@@ -6,7 +6,6 @@ import {
   SceneVideos,
   SelectableScene,
 } from "../../config/scenes";
-import { postprocessCaptions } from "../captions/processing/postprocess-subs";
 import { calculateSrt } from "../captions/srt/helpers/calculate-srt";
 import { getBRollDimensions } from "../layout/get-broll-dimensions";
 import { getVideoSceneLayout } from "../layout/get-layout";
@@ -56,20 +55,18 @@ export const addMetadataToScene = async ({
     ? await getVideoMetadata(cameras.display.src)
     : null;
 
-  const subsJson = await fetchWhisperCppOutput(cameras.captions);
+  const whisperCppOutput = await fetchWhisperCppOutput(cameras.captions);
 
   const { actualStartFrame, derivedEndFrame } = await getStartEndFrame({
     scene,
     recordingDurationInSeconds: webcamMetadata.durationInSeconds,
-    subsJson,
+    subsJson: whisperCppOutput,
   });
 
-  const words = subsJson ? postprocessCaptions({ subTypes: subsJson }) : null;
-
-  const srt = words
+  const srt = whisperCppOutput
     ? calculateSrt({
         startFrame: actualStartFrame,
-        words,
+        whisperCppOutput,
       })
     : [];
 

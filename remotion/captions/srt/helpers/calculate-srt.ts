@@ -1,5 +1,8 @@
 import { Word } from "../../../../config/autocorrect";
 import { FPS } from "../../../../config/fps";
+import { joinBackticks } from "../../processing/join-backticks";
+import { postprocessCaptions } from "../../processing/postprocess-subs";
+import { WhisperCppOutput } from "../../types";
 import { UnserializedSrt } from "./serialize-srt";
 
 // The SRT standard recommends not more than 42 characters per line
@@ -26,12 +29,15 @@ const segmentWords = (word: Word[]) => {
 
 export const calculateSrt = ({
   startFrame,
-  words,
+  whisperCppOutput,
 }: {
-  words: Word[];
+  whisperCppOutput: WhisperCppOutput;
   startFrame: number;
 }) => {
-  const segments = segmentWords(words);
+  const postprocessed = joinBackticks(
+    postprocessCaptions({ subTypes: whisperCppOutput }),
+  );
+  const segments = segmentWords(postprocessed);
 
   const srtSegments: UnserializedSrt[] = [];
 
@@ -51,11 +57,11 @@ export const calculateSrt = ({
       throw new Error("lastSegment is undefined");
     }
 
-    const firstTimestamp = Math.round(
-      firstSegment.firstTimestamp - (startFrame / FPS) * 1000,
-    );
+    const offset = -(startFrame / FPS) * 1000;
+
+    const firstTimestamp = Math.round(firstSegment.firstTimestamp + offset);
     // TODO: Can be null! Need to handle
-    const lastTimestamp = lastSegment.lastTimestamp as number;
+    const lastTimestamp = (lastSegment.lastTimestamp as number) + offset;
 
     const unserialized: UnserializedSrt = {
       firstTimestamp,
@@ -68,5 +74,6 @@ export const calculateSrt = ({
     };
     srtSegments.push(unserialized);
   }
+
   return srtSegments;
 };

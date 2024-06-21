@@ -1,7 +1,6 @@
 import React, { useMemo } from "react";
 import { Sequence, useVideoConfig } from "remotion";
 import { useCaptions } from "../../editor/captions-provider";
-import { postprocessCaptions } from "../../processing/postprocess-subs";
 import { calculateSrt } from "../helpers/calculate-srt";
 import { SrtPreviewLine } from "./SrtPreviewLine";
 
@@ -13,7 +12,7 @@ export const SrtPreview: React.FC<{
 
   const srt = useMemo(() => {
     return calculateSrt({
-      words: postprocessCaptions({ subTypes: captions }),
+      whisperCppOutput: captions,
       startFrame,
     });
   }, [captions, startFrame]);
@@ -21,12 +20,8 @@ export const SrtPreview: React.FC<{
   return (
     <>
       {srt.map((segment, index) => {
-        // TODO: Should by default have a minimum duration
-
-        const durationInFrames = Math.max(
-          1,
-          ((segment.lastTimestamp - segment.firstTimestamp) / 1000) * fps,
-        );
+        const durationInFrames =
+          ((segment.lastTimestamp - segment.firstTimestamp) / 1000) * fps;
         const from = (segment.firstTimestamp / 1000) * fps;
 
         return (
