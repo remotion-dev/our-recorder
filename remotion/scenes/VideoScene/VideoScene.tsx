@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import type { CanvasLayout } from "../../../config/layout";
 import type {
   SceneAndMetadata,
@@ -6,13 +6,10 @@ import type {
 } from "../../../config/scenes";
 import type { Theme } from "../../../config/themes";
 import { getShouldTransitionIn } from "../../animations/transitions";
-import { NoCaptionsPlaceholder } from "../../captions/NoCaptionsPlaceholder";
-import { Subs } from "../../captions/Subs";
-import { CaptionOverlay } from "../../captions/editor/CaptionOverlay";
 import { LandscapeChapters } from "../../chapters/landscape/LandscapeChapters";
 import type { ChapterType } from "../../chapters/make-chapters";
 import { SquareChapter } from "../../chapters/square/SquareChapter";
-import { WaitForFonts } from "../../helpers/WaitForFonts";
+import { BoxedCaptions } from "./BoxedCaptions";
 import { Display } from "./Display";
 import { Webcam } from "./Webcam";
 
@@ -49,6 +46,13 @@ export const VideoScene: React.FC<{
     canvasLayout,
   });
 
+  const bRollsOnTopOfWebcam = useMemo(() => {
+    if (sceneAndMetadata.cameras.display !== null) {
+      return [];
+    }
+    return sceneAndMetadata.bRolls;
+  }, [sceneAndMetadata.bRolls, sceneAndMetadata.cameras.display]);
+
   return (
     <>
       {sceneAndMetadata.cameras.display ? (
@@ -61,16 +65,10 @@ export const VideoScene: React.FC<{
           startFrom={startFrom}
           endAt={endAt}
           canvasLayout={canvasLayout}
-          bRollLayout={sceneAndMetadata.layout.bRollLayout}
-          bRollEnterDirection={sceneAndMetadata.layout.bRollEnterDirection}
         />
       ) : null}
       <Webcam
-        bRolls={
-          sceneAndMetadata.cameras.display !== null
-            ? []
-            : sceneAndMetadata.bRolls
-        }
+        bRolls={bRollsOnTopOfWebcam}
         currentScene={sceneAndMetadata}
         endAt={endAt}
         enterProgress={enterProgress}
@@ -79,34 +77,15 @@ export const VideoScene: React.FC<{
         canvasLayout={canvasLayout}
         nextScene={nextScene}
         previousScene={previousScene}
-        bRollLayout={sceneAndMetadata.layout.bRollLayout}
-        bRollEnterDirection={sceneAndMetadata.layout.bRollEnterDirection}
-        bRollType={sceneAndMetadata.layout.bRollType}
       />
-      {sceneAndMetadata.layout.subtitleLayout &&
-      sceneAndMetadata.cameras.captions ? (
-        <WaitForFonts>
-          <CaptionOverlay
-            file={sceneAndMetadata.cameras.captions}
-            theme={theme}
-            trimStart={startFrom}
-          >
-            <Subs
-              canvasLayout={canvasLayout}
-              trimStart={startFrom}
-              enterProgress={enterProgress}
-              exitProgress={exitProgress}
-              scene={sceneAndMetadata}
-              nextScene={nextScene}
-              previousScene={previousScene}
-              theme={theme}
-              subtitleLayout={sceneAndMetadata.layout.subtitleLayout}
-            />
-          </CaptionOverlay>
-        </WaitForFonts>
-      ) : sceneAndMetadata.layout.subtitleLayout ? (
-        <NoCaptionsPlaceholder
-          layout={sceneAndMetadata.layout.subtitleLayout}
+      {canvasLayout === "square" ? (
+        <BoxedCaptions
+          enterProgress={enterProgress}
+          exitProgress={exitProgress}
+          nextScene={nextScene}
+          previousScene={previousScene}
+          sceneAndMetadata={sceneAndMetadata}
+          startFrom={startFrom}
           theme={theme}
         />
       ) : null}

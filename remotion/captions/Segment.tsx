@@ -1,7 +1,6 @@
 import React from "react";
 import { Sequence, useVideoConfig } from "remotion";
 import type { Word } from "../../config/autocorrect";
-import type { CanvasLayout } from "../../config/layout";
 import type { Theme } from "../../config/themes";
 import { FadeSentence } from "./FadeSentence";
 import type { CaptionPage } from "./types";
@@ -51,20 +50,10 @@ export const CaptionSentence: React.FC<{
   isFirst: boolean;
   isLast: boolean;
   trimStart: number;
-  canvasLayout: CanvasLayout;
   theme: Theme;
   fontSize: number;
   lines: number;
-}> = ({
-  segment,
-  trimStart,
-  canvasLayout,
-  isFirst,
-  isLast,
-  theme,
-  fontSize,
-  lines,
-}) => {
+}> = ({ segment, trimStart, isFirst, isLast, theme, fontSize, lines }) => {
   const { fps } = useVideoConfig();
   const normalStartFrame = (getStartOfSegment(segment) / 1000) * fps;
   // If first caption of a segment, show it a bit earlier to avoid flicker
@@ -88,7 +77,6 @@ export const CaptionSentence: React.FC<{
     >
       <FadeSentence>
         <SquareSubtitles
-          canvasLayout={canvasLayout}
           segment={segment}
           startFrame={startFrame}
           theme={theme}

@@ -1,4 +1,3 @@
-import type { CanvasLayout } from "../../../config/layout";
 import type { Theme } from "../../../config/themes";
 import { getHorizontalPaddingForSubtitles } from "../processing/layout-captions";
 import type { CaptionPage } from "../types";
@@ -10,11 +9,10 @@ export const SquareSubtitles: React.FC<{
   segment: CaptionPage;
   startFrame: number;
   theme: Theme;
-  canvasLayout: CanvasLayout;
   fontSize: number;
   lines: number;
-}> = ({ segment, startFrame, theme, canvasLayout, fontSize, lines }) => {
-  const padding = getHorizontalPaddingForSubtitles(canvasLayout);
+}> = ({ segment, startFrame, theme, fontSize, lines }) => {
+  const padding = getHorizontalPaddingForSubtitles();
 
   return (
     <div

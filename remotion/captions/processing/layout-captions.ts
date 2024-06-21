@@ -6,7 +6,7 @@ import {
   REGULAR_FONT_FAMILY,
   REGULAR_FONT_WEIGHT,
 } from "../../../config/fonts";
-import { CanvasLayout, getSafeSpace } from "../../../config/layout";
+import { getSafeSpace } from "../../../config/layout";
 import { getBorderWidthForSubtitles } from "../Segment";
 import { CaptionPage, LayoutedCaptions } from "../types";
 import { hasMonoSpaceInIt } from "./has-monospace-in-word";
@@ -112,10 +112,8 @@ const cutWords = ({
   });
 };
 
-export const getHorizontalPaddingForSubtitles = (
-  canvasLayout: CanvasLayout,
-) => {
-  return getSafeSpace(canvasLayout);
+export const getHorizontalPaddingForSubtitles = () => {
+  return getSafeSpace("square");
 };
 
 export const layoutCaptions = ({
@@ -123,19 +121,17 @@ export const layoutCaptions = ({
   boxWidth,
   fontSize,
   maxLines,
-  canvasLayout,
 }: {
   words: Word[];
   boxWidth: number;
   maxLines: number;
   fontSize: number;
-  canvasLayout: CanvasLayout;
 }): LayoutedCaptions => {
   const segments = cutWords({
     words,
     boxWidth:
       boxWidth -
-      getHorizontalPaddingForSubtitles(canvasLayout) * 2 -
+      getHorizontalPaddingForSubtitles() * 2 -
       getBorderWidthForSubtitles() * 2,
     maxLines,
     fontSize,

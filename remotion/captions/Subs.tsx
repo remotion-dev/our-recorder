@@ -1,6 +1,5 @@
 import React, { useMemo } from "react";
 import { AbsoluteFill, useVideoConfig } from "remotion";
-import type { CanvasLayout } from "../../config/layout";
 import type {
   SceneAndMetadata,
   VideoSceneAndMetadata,
@@ -25,7 +24,6 @@ const SUBTITLES_FONT_SIZE = 56;
 
 export const Subs: React.FC<{
   trimStart: number;
-  canvasLayout: CanvasLayout;
   scene: VideoSceneAndMetadata;
   enterProgress: number;
   exitProgress: number;
@@ -35,7 +33,6 @@ export const Subs: React.FC<{
   subtitleLayout: Layout;
 }> = ({
   trimStart,
-  canvasLayout,
   scene,
   enterProgress,
   exitProgress,
@@ -71,10 +68,9 @@ export const Subs: React.FC<{
       boxWidth: subtitleLayout.width,
       maxLines: subtitleLines,
       fontSize: SUBTITLES_FONT_SIZE,
-      canvasLayout,
       words,
     });
-  }, [whisperOutput, subtitleLayout, subtitleLines, canvasLayout]);
+  }, [whisperOutput, subtitleLayout, subtitleLines]);
 
   const outer: React.CSSProperties = useMemo(() => {
     const backgroundColor = COLORS[theme].CAPTIONS_BACKGROUND;
@@ -120,7 +116,6 @@ export const Subs: React.FC<{
           shouldTransitionToNextsSubtitles={shouldTransitionToNext}
         >
           <Captions
-            canvasLayout={canvasLayout}
             fontSize={SUBTITLES_FONT_SIZE}
             lines={subtitleLines}
             segments={postprocessed.segments}
