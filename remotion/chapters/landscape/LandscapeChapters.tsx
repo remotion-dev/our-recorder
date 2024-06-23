@@ -73,37 +73,39 @@ export const LandscapeChapters: React.FC<{
   const styles = getWidescreenChapterStyle(scene, tableOfContentHeight);
 
   return (
-    <AbsoluteFill
-      style={
-        rightAligned
-          ? { right: enterTranslation, left: undefined }
-          : { left: enterTranslation, right: undefined }
-      }
-    >
+    <AbsoluteFill style={{ overflow: "hidden" }}>
       <AbsoluteFill
-        style={{
-          flexDirection: "column",
-          height: tableOfContentHeight,
-          flex: 1,
-          ...styles,
-        }}
+        style={
+          rightAligned
+            ? { right: enterTranslation, left: undefined }
+            : { left: enterTranslation, right: undefined }
+        }
       >
-        {shownChapters.map((chapter, i) => {
-          return (
-            <LandscapeChapter
-              key={chapter.index}
-              activeIndex={chapterIndex}
-              chapter={chapter}
-              isFirstShown={i === 0}
-              isLastShown={i === shownChapters.length - 1}
-              rightAligned={rightAligned}
-              theme={theme}
-              timestampOfLastChapter={
-                (shownChapters[shownChapters.length - 1] as ChapterType).start
-              }
-            />
-          );
-        })}
+        <AbsoluteFill
+          style={{
+            flexDirection: "column",
+            height: tableOfContentHeight,
+            flex: 1,
+            ...styles,
+          }}
+        >
+          {shownChapters.map((chapter, i) => {
+            return (
+              <LandscapeChapter
+                key={chapter.index}
+                activeIndex={chapterIndex}
+                chapter={chapter}
+                isFirstShown={i === 0}
+                isLastShown={i === shownChapters.length - 1}
+                rightAligned={rightAligned}
+                theme={theme}
+                timestampOfLastChapter={
+                  (shownChapters[shownChapters.length - 1] as ChapterType).start
+                }
+              />
+            );
+          })}
+        </AbsoluteFill>
       </AbsoluteFill>
     </AbsoluteFill>
   );
