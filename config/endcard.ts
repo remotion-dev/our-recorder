@@ -7,7 +7,7 @@ import { staticFile } from "remotion";
 import { z } from "zod";
 
 // TODO: 1. Replace with your own channels (e.g personal and company)
-export const brand = z.enum(["jonny", "remotion"]);
+export const brand = z.enum(["jonny", "remotion", "recorder"]);
 export type Brand = z.infer<typeof brand>;
 
 export const platform = z.enum([
@@ -44,12 +44,21 @@ export const channels: {
     discord: null,
     isLinkedInBusinessPage: true,
   },
+  recorder: {
+    instagram: "@remotion",
+    linkedin: "Remotion",
+    x: "@RemotionRec",
+    youtube: "@remotion_dev",
+    discord: null,
+    isLinkedInBusinessPage: true,
+  },
 };
 
 // TODO: 3. Add your own avatars
 export const avatars: { [key in Brand]: string } = {
   jonny: "https://jonny.io/avatar.png",
   remotion: staticFile("remotion.png"),
+  recorder: staticFile("recorder.jpg"),
 };
 
 export const linkType = z.object({
