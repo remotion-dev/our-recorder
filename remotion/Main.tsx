@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { AbsoluteFill, Img, Sequence, staticFile } from "remotion";
+import { AbsoluteFill, Sequence } from "remotion";
 import type { Platform } from "../config/endcard";
 import type { CanvasLayout } from "../config/layout";
 import type { SceneAndMetadata, SelectableScene } from "../config/scenes";
@@ -31,6 +31,17 @@ export const Main: React.FC<MainProps> = ({
     return makeChapters({ scenes: scenesAndMetadata });
   }, [scenesAndMetadata]);
 
+  const containerStyle: React.CSSProperties = useMemo(() => {
+    if (canvasLayout === "portrait") {
+      return {
+        background: "black",
+      };
+    }
+    return {
+      background: COLORS[theme].BACKGROUND,
+    };
+  }, [canvasLayout, theme]);
+
   if (scenesAndMetadata.length === 0) {
     return <NoDataScene theme={theme} />;
   }
@@ -42,11 +53,7 @@ export const Main: React.FC<MainProps> = ({
     lastSceneIndex.from + lastSceneIndex.durationInFrames - 1;
 
   return (
-    <AbsoluteFill
-      style={{
-        background: COLORS[theme].BACKGROUND,
-      }}
-    >
+    <AbsoluteFill style={containerStyle}>
       {scenesAndMetadata.map((sceneAndMetadata, i) => {
         return (
           <Scene
@@ -79,9 +86,6 @@ export const Main: React.FC<MainProps> = ({
         <EmitSrtFile scenesAndMetadata={scenesAndMetadata} />
       ) : null}
       <div ref={captionEditorPortal} />
-      <AbsoluteFill>
-        <Img src={staticFile("safe.png")}></Img>
-      </AbsoluteFill>
     </AbsoluteFill>
   );
 };

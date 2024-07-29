@@ -8,7 +8,7 @@ import {
   getSquareDisplayLayout,
 } from "./display-layout/get-display-layout";
 import { getLandscapeDisplayAndWebcamLayout } from "./display-layout/landscape";
-import { getPortraitDisplayAndWebcamLayout } from "./display-layout/webcam";
+import { getPortraitDisplayAndWebcamLayout } from "./display-layout/portrait";
 import { getSquareDisplaySize } from "./display-size/square";
 import { getCaptionsLayout } from "./get-captions-layout";
 import type {
@@ -288,6 +288,7 @@ const getDisplayAndWebcamLayout = ({
     return getPortraitDisplayAndWebcamLayout({
       canvasSize,
       webcamPosition,
+      displayDimensions: videos.display,
     });
   }
 
