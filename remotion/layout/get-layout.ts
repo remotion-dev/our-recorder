@@ -3,6 +3,7 @@ import { getSafeSpace } from "../../config/layout";
 import type { SceneVideos, WebcamPosition } from "../../config/scenes";
 import { isWebCamAtBottom } from "../animations/webcam-transitions/helpers";
 import { getDimensionsForLayout } from "./dimensions";
+import { getSquareDisplaySize } from "./display-size/square";
 import { getCaptionsLayout } from "./get-captions-layout";
 import {
   getLandscapeDisplayAndWebcamLayout,
@@ -10,7 +11,6 @@ import {
   getSquareBRollLayout,
   getSquareDisplayLayout,
 } from "./get-display-layout";
-import { getDisplaySize } from "./get-display-size";
 import type {
   BRollEnterDirection,
   BRollType,
@@ -236,14 +236,13 @@ const getDisplayAndWebcamLayout = ({
     throw new Error(`Unknown canvas layout: ${canvasLayout satisfies never}`);
   }
 
-  const displaySize = getDisplaySize({
-    canvasLayout,
-    canvasSize,
-    videoHeight: videos.display.height,
-    videoWidth: videos.display.width,
-  });
-
   if (canvasLayout === "square") {
+    const displaySize = getSquareDisplaySize({
+      canvasSize,
+      videoHeight: videos.display.height,
+      videoWidth: videos.display.width,
+    });
+
     const webcamSize: Dimensions = getSquareWebcamSize({
       canvasSize,
       canvasLayout,
@@ -276,11 +275,7 @@ const getDisplayAndWebcamLayout = ({
   }
 
   if (canvasLayout === "landscape") {
-    const webcamSize: Dimensions = getLandscapeWebcamSize({
-      canvasSize,
-      canvasLayout,
-      displaySize,
-    });
+    const webcamSize: Dimensions = getLandscapeWebcamSize();
     return getLandscapeDisplayAndWebcamLayout({
       webcamSize,
       canvasLayout,
