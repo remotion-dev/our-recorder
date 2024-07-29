@@ -6,6 +6,8 @@ import { Layout, RecordingsLayout } from "../layout-types";
 
 const TOP_SAFE_ZONE = 220;
 
+const MIN_WEBCAM_HEIGHT = 500;
+
 export const getPortraitDisplayAndWebcamLayout = ({
   canvasSize,
   webcamPosition,
@@ -20,7 +22,7 @@ export const getPortraitDisplayAndWebcamLayout = ({
   const fitDisplay = fitElementSizeInContainer({
     containerSize: {
       width: canvasSize.width,
-      height: totalUsableSpace / 2,
+      height: totalUsableSpace,
     },
     elementSize: displayDimensions,
   });
@@ -34,13 +36,20 @@ export const getPortraitDisplayAndWebcamLayout = ({
     top: TOP_SAFE_ZONE,
   };
 
+  const webcamHeight = Math.max(
+    MIN_WEBCAM_HEIGHT,
+    totalUsableSpace - fitDisplay.height,
+  );
+
+  const top = canvasSize.height - webcamHeight;
+
   const webcamLayout: Layout = {
     borderRadius: 0,
-    height: totalUsableSpace - fitDisplay.height,
+    height: webcamHeight,
     width: canvasSize.width,
     opacity: 1,
     left: 0,
-    top: fitDisplay.height + TOP_SAFE_ZONE,
+    top,
   };
 
   return {
