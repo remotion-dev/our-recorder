@@ -41,7 +41,11 @@ export const PortraitWords: React.FC<{
             showInTimeline={false}
             layout="none"
           >
-            <PortraitLine segment={segment} webcamLayout={webcamLayout} />
+            <PortraitLine
+              startFrame={startFrame + from}
+              segment={segment}
+              webcamLayout={webcamLayout}
+            />
           </Sequence>
         );
       })}

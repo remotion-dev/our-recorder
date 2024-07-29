@@ -1,4 +1,11 @@
 import React, { useMemo } from "react";
+import {
+  interpolate,
+  interpolateColors,
+  spring,
+  useCurrentFrame,
+  useVideoConfig,
+} from "remotion";
 import { Layout } from "../../layout/layout-types";
 import { ClickableWord } from "../srt/SrtPreviewAndEditor/ClickableWord";
 import { UnserializedSrt } from "../srt/helpers/serialize-srt";
@@ -6,10 +13,8 @@ import { UnserializedSrt } from "../srt/helpers/serialize-srt";
 const FONT_SIZE = 80;
 
 const inner: React.CSSProperties = {
-  color: "white",
   fontFamily: "Helvetica, Arial, sans-serif",
   pointerEvents: "unset",
-  fontSize: FONT_SIZE,
   position: "absolute",
   fontWeight: 700,
   WebkitTextStroke: "20px black",
@@ -20,7 +25,11 @@ const inner: React.CSSProperties = {
 export const PortraitLine: React.FC<{
   segment: UnserializedSrt;
   webcamLayout: Layout;
-}> = ({ segment, webcamLayout }) => {
+  startFrame: number;
+}> = ({ segment, webcamLayout, startFrame }) => {
+  const { fps } = useVideoConfig();
+  const frame = useCurrentFrame();
+
   const container: React.CSSProperties = useMemo(() => {
     return {
       alignItems: "center",
@@ -29,6 +38,7 @@ export const PortraitLine: React.FC<{
       width: "100%",
       display: "flex",
       flexDirection: "column",
+      justifyContent: "flex-end",
       height: FONT_SIZE,
       lineHeight: 1,
     };
@@ -38,8 +48,48 @@ export const PortraitLine: React.FC<{
     <div style={container}>
       <div style={inner}>
         {segment.words.map((word) => {
+          const start = (word.firstTimestamp / 1000) * fps - startFrame - 8;
+          const end =
+            ((word.lastTimestamp ?? word.firstTimestamp + 500) / 1000) * fps -
+            startFrame -
+            8;
+
+          const progress =
+            spring({
+              fps,
+              frame,
+              config: {
+                damping: 200,
+              },
+              durationInFrames: 15,
+              delay: start,
+            }) -
+            spring({
+              fps,
+              frame,
+              config: {
+                damping: 200,
+              },
+              durationInFrames: 5,
+              delay: end,
+            });
+          const color = interpolateColors(progress, [0, 1], ["#ddd", "white"]);
+          const fontSize = interpolate(
+            progress,
+            [0, 1],
+            [FONT_SIZE * 0.7, FONT_SIZE],
+          );
+
           return (
-            <span key={word.firstTimestamp}>
+            <span
+              key={word.firstTimestamp}
+              style={{
+                display: "inline-block",
+                fontSize,
+                whiteSpace: "pre",
+                color,
+              }}
+            >
               <ClickableWord word={word}></ClickableWord>
             </span>
           );
