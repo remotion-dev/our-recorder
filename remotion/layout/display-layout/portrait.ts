@@ -2,7 +2,7 @@ import { Dimensions } from "@remotion/layout-utils";
 import { WebcamPosition } from "../../../config/scenes";
 import { isWebCamAtBottom } from "../../animations/webcam-transitions/helpers";
 import { fitElementSizeInContainer } from "../fit-element";
-import { Layout, RecordingsLayout } from "../layout-types";
+import { Layout, RecordingsLayout, Rect } from "../layout-types";
 
 const TOP_SAFE_ZONE = 220;
 
@@ -52,10 +52,18 @@ export const getPortraitDisplayAndWebcamLayout = ({
     top,
   };
 
+  const displayBlurLayout: Rect = {
+    height: TOP_SAFE_ZONE + webcamHeight,
+    width: canvasSize.width,
+    left: 0,
+    top: 0,
+  };
+
   return {
     displayLayout,
     webcamLayout,
     bRollLayout: displayLayout,
     bRollEnterDirection: isWebCamAtBottom(webcamPosition) ? "top" : "bottom",
+    displayBlurLayout,
   };
 };

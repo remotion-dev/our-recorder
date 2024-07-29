@@ -39,5 +39,6 @@ export const getLandscapeDisplayAndWebcamLayout = ({
     webcamLayout,
     bRollLayout: displayLayout,
     bRollEnterDirection: isWebCamAtBottom(webcamPosition) ? "top" : "bottom",
+    displayBlurLayout: null,
   };
 };

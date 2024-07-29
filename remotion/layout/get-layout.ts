@@ -16,6 +16,7 @@ import type {
   BRollType,
   Layout,
   RecordingsLayout,
+  Rect,
 } from "./layout-types";
 import { getLandscapeWebcamSize } from "./webcam-size/landscape";
 import { getSquareWebcamSize } from "./webcam-size/square";
@@ -170,6 +171,7 @@ const getFullScreenWebcamSize = ({
 export type VideoSceneLayout = {
   webcamLayout: Layout;
   displayLayout: Layout | null;
+  displayBlurLayout: Rect | null;
   bRollLayout: Layout;
   bRollType: BRollType;
   subtitleLayout: Layout | null;
@@ -207,6 +209,7 @@ const getDisplayAndWebcamLayout = ({
         webcamLayout,
         bRollLayout,
         bRollEnterDirection,
+        displayBlurLayout: null,
       };
     }
 
@@ -219,6 +222,7 @@ const getDisplayAndWebcamLayout = ({
         bRollLayout,
         webcamLayout,
         bRollEnterDirection: "top",
+        displayBlurLayout: null,
       };
     }
     if (canvasLayout === "portrait") {
@@ -230,6 +234,7 @@ const getDisplayAndWebcamLayout = ({
         bRollLayout,
         webcamLayout,
         bRollEnterDirection: "top",
+        displayBlurLayout: null,
       };
     }
 
@@ -271,6 +276,7 @@ const getDisplayAndWebcamLayout = ({
       webcamLayout,
       bRollLayout,
       bRollEnterDirection,
+      displayBlurLayout: null,
     };
   }
 
@@ -306,13 +312,18 @@ export const getVideoSceneLayout = ({
 }): VideoSceneLayout => {
   const canvasSize = getDimensionsForLayout(canvasLayout);
 
-  const { displayLayout, webcamLayout, bRollLayout, bRollEnterDirection } =
-    getDisplayAndWebcamLayout({
-      canvasSize,
-      webcamPosition,
-      canvasLayout,
-      videos,
-    });
+  const {
+    displayLayout,
+    webcamLayout,
+    bRollLayout,
+    bRollEnterDirection,
+    displayBlurLayout,
+  } = getDisplayAndWebcamLayout({
+    canvasSize,
+    webcamPosition,
+    canvasLayout,
+    videos,
+  });
 
   const subtitleLayout = getCaptionsLayout({
     canvasLayout,
@@ -332,5 +343,6 @@ export const getVideoSceneLayout = ({
     subtitleLayout,
     bRollEnterDirection,
     bRollType,
+    displayBlurLayout,
   };
 };

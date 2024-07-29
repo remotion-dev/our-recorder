@@ -32,15 +32,10 @@ export const Main: React.FC<MainProps> = ({
   }, [scenesAndMetadata]);
 
   const containerStyle: React.CSSProperties = useMemo(() => {
-    if (canvasLayout === "portrait") {
-      return {
-        background: "black",
-      };
-    }
     return {
       background: COLORS[theme].BACKGROUND,
     };
-  }, [canvasLayout, theme]);
+  }, [theme]);
 
   if (scenesAndMetadata.length === 0) {
     return <NoDataScene theme={theme} />;

@@ -12,6 +12,7 @@ import { LandscapeChapters } from "../../chapters/landscape/LandscapeChapters";
 import type { ChapterType } from "../../chapters/make-chapters";
 import { SquareChapter } from "../../chapters/square/SquareChapter";
 import { Display } from "./Display";
+import { DisplayBlur } from "./DisplayBlur";
 import { Webcam } from "./Webcam";
 
 export const VideoScene: React.FC<{
@@ -56,6 +57,13 @@ export const VideoScene: React.FC<{
 
   return (
     <>
+      {sceneAndMetadata.cameras.display &&
+      sceneAndMetadata.layout.displayBlurLayout ? (
+        <DisplayBlur
+          dimensions={sceneAndMetadata.layout.displayBlurLayout}
+          src={sceneAndMetadata.cameras.display.src}
+        />
+      ) : null}
       {sceneAndMetadata.cameras.display ? (
         <Display
           scene={sceneAndMetadata}
