@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import { Layout } from "../../layout/layout-types";
-import { SrtSingleWord } from "../srt/SrtPreviewAndEditor/SingleWord";
+import { ClickableWord } from "../srt/SrtPreviewAndEditor/ClickableWord";
 import { UnserializedSrt } from "../srt/helpers/serialize-srt";
 
 const FONT_SIZE = 80;
@@ -12,9 +12,9 @@ const inner: React.CSSProperties = {
   fontSize: FONT_SIZE,
   position: "absolute",
   fontWeight: 700,
-  WebkitTextStroke: "10px black",
+  WebkitTextStroke: "20px black",
   paintOrder: "stroke",
-  textShadow: "0 20px 40px black",
+  filter: "drop-shadow(0 1px 40px rgba(255, 255, 255, 0.5))",
 };
 
 export const PortraitLine: React.FC<{
@@ -25,7 +25,7 @@ export const PortraitLine: React.FC<{
     return {
       alignItems: "center",
       position: "absolute",
-      top: webcamLayout.top + 50,
+      top: webcamLayout.top - FONT_SIZE / 2,
       width: "100%",
       display: "flex",
       flexDirection: "column",
@@ -39,10 +39,9 @@ export const PortraitLine: React.FC<{
       <div style={inner}>
         {segment.words.map((word) => {
           return (
-            <SrtSingleWord
-              word={word}
-              key={word.firstTimestamp}
-            ></SrtSingleWord>
+            <span key={word.firstTimestamp}>
+              <ClickableWord word={word}></ClickableWord>
+            </span>
           );
         })}
       </div>

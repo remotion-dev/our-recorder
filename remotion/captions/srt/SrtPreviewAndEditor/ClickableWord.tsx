@@ -2,7 +2,7 @@ import React, { useCallback, useMemo, useState } from "react";
 import { Word } from "../../../../config/autocorrect";
 import { useCaptionOverlay } from "../../editor/use-caption-overlay";
 
-export const SrtSingleWord: React.FC<{
+export const ClickableWord: React.FC<{
   word: Word;
 }> = ({ word }) => {
   const overlay = useCaptionOverlay();

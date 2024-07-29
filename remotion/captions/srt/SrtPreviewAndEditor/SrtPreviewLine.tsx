@@ -1,6 +1,6 @@
 import React from "react";
 import { UnserializedSrt } from "../helpers/serialize-srt";
-import { SrtSingleWord } from "./SingleWord";
+import { ClickableWord } from "./ClickableWord";
 
 const container: React.CSSProperties = {
   justifyContent: "flex-end",
@@ -32,10 +32,10 @@ export const SrtPreviewLine: React.FC<{
       <div style={inner}>
         {segment.words.map((word) => {
           return (
-            <SrtSingleWord
+            <ClickableWord
               word={word}
               key={word.firstTimestamp}
-            ></SrtSingleWord>
+            ></ClickableWord>
           );
         })}
       </div>
