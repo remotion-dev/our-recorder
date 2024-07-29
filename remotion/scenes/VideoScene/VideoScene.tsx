@@ -7,6 +7,7 @@ import type {
 import type { Theme } from "../../../config/themes";
 import { getShouldTransitionIn } from "../../animations/transitions";
 import { BoxedCaptions } from "../../captions/boxed/BoxedCaptions";
+import { PortraitCaptions } from "../../captions/portrait/PortraitCaptions";
 import { SrtPreviewAndEditor } from "../../captions/srt/SrtPreviewAndEditor/SrtPreviewAndEditor";
 import { LandscapeChapters } from "../../chapters/landscape/LandscapeChapters";
 import type { ChapterType } from "../../chapters/make-chapters";
@@ -120,6 +121,13 @@ export const VideoScene: React.FC<{
           startFrame={startFrame}
           theme={theme}
         ></SrtPreviewAndEditor>
+      ) : null}
+      {canvasLayout === "portrait" && sceneAndMetadata.cameras.captions ? (
+        <PortraitCaptions
+          captions={sceneAndMetadata.cameras.captions}
+          startFrame={startFrame}
+          theme={theme}
+        ></PortraitCaptions>
       ) : null}
     </>
   );
