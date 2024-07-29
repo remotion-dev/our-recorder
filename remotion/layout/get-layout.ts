@@ -3,14 +3,14 @@ import { getSafeSpace } from "../../config/layout";
 import type { SceneVideos, WebcamPosition } from "../../config/scenes";
 import { isWebCamAtBottom } from "../animations/webcam-transitions/helpers";
 import { getDimensionsForLayout } from "./dimensions";
-import { getSquareDisplaySize } from "./display-size/square";
-import { getCaptionsLayout } from "./get-captions-layout";
 import {
-  getLandscapeDisplayAndWebcamLayout,
-  getPortraitDisplayAndWebcamLayout,
   getSquareBRollLayout,
   getSquareDisplayLayout,
-} from "./get-display-layout";
+} from "./display-layout/get-display-layout";
+import { getLandscapeDisplayAndWebcamLayout } from "./display-layout/landscape";
+import { getPortraitDisplayAndWebcamLayout } from "./display-layout/webcam";
+import { getSquareDisplaySize } from "./display-size/square";
+import { getCaptionsLayout } from "./get-captions-layout";
 import type {
   BRollEnterDirection,
   BRollType,
