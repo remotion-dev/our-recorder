@@ -219,6 +219,17 @@ const getDisplayAndWebcamLayout = ({
         bRollEnterDirection: "top",
       };
     }
+    if (canvasLayout === "portrait") {
+      const webcamLayout = fullscreenLayout(canvasSize);
+      const bRollLayout = fullscreenLayout(canvasSize);
+
+      return {
+        displayLayout: null,
+        bRollLayout,
+        webcamLayout,
+        bRollEnterDirection: "top",
+      };
+    }
 
     throw new Error(`Unknown canvas layout: ${canvasLayout satisfies never}`);
   }
@@ -264,6 +275,15 @@ const getDisplayAndWebcamLayout = ({
   }
 
   if (canvasLayout === "landscape") {
+    return getLandscapeDisplayAndWebcamLayout({
+      webcamSize,
+      canvasLayout,
+      canvasSize,
+      webcamPosition,
+    });
+  }
+
+  if (canvasLayout === "portrait") {
     return getLandscapeDisplayAndWebcamLayout({
       webcamSize,
       canvasLayout,

@@ -22,6 +22,12 @@ export const getNonFullscreenWebcamSize = ({
       width: remainingHeight * (1 / webcamRatio),
     };
   }
+  if (canvasLayout === "portrait") {
+    return {
+      width: canvasSize.width,
+      height: canvasSize.width,
+    };
+  }
 
   if (canvasLayout === "landscape") {
     const remainingWidth =
