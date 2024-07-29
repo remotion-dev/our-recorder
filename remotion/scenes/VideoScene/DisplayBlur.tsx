@@ -2,6 +2,8 @@ import React from "react";
 import { AbsoluteFill, OffthreadVideo } from "remotion";
 import { Rect } from "../../layout/layout-types";
 
+const OVERSCAN = 20;
+
 export const DisplayBlur: React.FC<{
   src: string;
   dimensions: Rect;
@@ -14,17 +16,17 @@ export const DisplayBlur: React.FC<{
     >
       <OffthreadVideo
         style={{
-          width: dimensions.width + 40,
-          height: dimensions.height + 40,
-          top: dimensions.top - 20,
-          left: dimensions.left - 20,
+          width: dimensions.width + OVERSCAN * 2,
+          height: dimensions.height + OVERSCAN * 2,
+          top: dimensions.top - OVERSCAN,
+          left: dimensions.left - OVERSCAN,
           position: "absolute",
           objectFit: "cover",
-          filter: "blur(20px)",
+          filter: `blur(${OVERSCAN}px)`,
           opacity: 0.5,
         }}
         src={src}
-      ></OffthreadVideo>
+      />
     </AbsoluteFill>
   );
 };
