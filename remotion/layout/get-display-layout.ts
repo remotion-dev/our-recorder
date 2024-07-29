@@ -12,7 +12,7 @@ import type {
   RecordingsLayout,
 } from "./layout-types";
 
-const getYForDisplayLayout = ({
+const getYForSquareDisplayLayout = ({
   webcamPosition,
   canvasSize,
   displayHeight,
@@ -39,7 +39,7 @@ export const getSquareDisplayLayout = ({
 }): Layout => {
   return {
     left: (canvasSize.width - displaySize.width) / 2,
-    top: getYForDisplayLayout({
+    top: getYForSquareDisplayLayout({
       webcamPosition,
       canvasSize,
       displayHeight: displaySize.height,
@@ -64,7 +64,7 @@ export const getSquareBRollLayout = ({
     bRollEnterDirection: isWebCamAtBottom(webcamPosition) ? "top" : "bottom",
     bRollLayout: {
       left: getSafeSpace("square"),
-      top: getYForDisplayLayout({
+      top: getYForSquareDisplayLayout({
         webcamPosition,
         canvasSize,
         displayHeight: displaySize.height,
@@ -101,6 +101,39 @@ export const getLandscapeDisplayAndWebcamLayout = ({
     top: isWebCamAtBottom(webcamPosition)
       ? canvasSize.height - webcamSize.height - getSafeSpace(canvasLayout)
       : getSafeSpace("landscape"),
+  };
+
+  return {
+    displayLayout,
+    webcamLayout,
+    bRollLayout: displayLayout,
+    bRollEnterDirection: isWebCamAtBottom(webcamPosition) ? "top" : "bottom",
+  };
+};
+
+export const getPortraitDisplayAndWebcamLayout = ({
+  canvasSize,
+  webcamPosition,
+}: {
+  canvasSize: Dimensions;
+  webcamPosition: WebcamPosition;
+}): RecordingsLayout => {
+  const displayLayout: Layout = {
+    borderRadius: 0,
+    height: canvasSize.height / 2,
+    width: canvasSize.width,
+    opacity: 1,
+    left: 0,
+    top: isWebCamAtBottom(webcamPosition) ? 0 : canvasSize.height / 2,
+  };
+
+  const webcamLayout: Layout = {
+    borderRadius: 0,
+    height: canvasSize.height / 2,
+    width: canvasSize.width,
+    opacity: 1,
+    left: 0,
+    top: isWebCamAtBottom(webcamPosition) ? canvasSize.height / 2 : 0,
   };
 
   return {

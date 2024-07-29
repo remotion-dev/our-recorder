@@ -6,17 +6,19 @@ import { getDimensionsForLayout } from "./dimensions";
 import { getCaptionsLayout } from "./get-captions-layout";
 import {
   getLandscapeDisplayAndWebcamLayout,
+  getPortraitDisplayAndWebcamLayout,
   getSquareBRollLayout,
   getSquareDisplayLayout,
 } from "./get-display-layout";
 import { getDisplaySize } from "./get-display-size";
-import { getNonFullscreenWebcamSize } from "./get-webcam-size";
 import type {
   BRollEnterDirection,
   BRollType,
   Layout,
   RecordingsLayout,
 } from "./layout-types";
+import { getLandscapeWebcamSize } from "./webcam-size/landscape";
+import { getSquareWebcamSize } from "./webcam-size/square";
 
 export const borderRadius = 20;
 
@@ -241,13 +243,12 @@ const getDisplayAndWebcamLayout = ({
     videoWidth: videos.display.width,
   });
 
-  const webcamSize: Dimensions = getNonFullscreenWebcamSize({
-    canvasSize,
-    canvasLayout,
-    displaySize,
-  });
-
   if (canvasLayout === "square") {
+    const webcamSize: Dimensions = getSquareWebcamSize({
+      canvasSize,
+      canvasLayout,
+      displaySize,
+    });
     const displayLayout = getSquareDisplayLayout({
       canvasSize,
       webcamPosition,
@@ -275,6 +276,11 @@ const getDisplayAndWebcamLayout = ({
   }
 
   if (canvasLayout === "landscape") {
+    const webcamSize: Dimensions = getLandscapeWebcamSize({
+      canvasSize,
+      canvasLayout,
+      displaySize,
+    });
     return getLandscapeDisplayAndWebcamLayout({
       webcamSize,
       canvasLayout,
@@ -284,9 +290,7 @@ const getDisplayAndWebcamLayout = ({
   }
 
   if (canvasLayout === "portrait") {
-    return getLandscapeDisplayAndWebcamLayout({
-      webcamSize,
-      canvasLayout,
+    return getPortraitDisplayAndWebcamLayout({
       canvasSize,
       webcamPosition,
     });

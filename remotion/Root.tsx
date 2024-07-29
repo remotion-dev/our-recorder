@@ -9314,8 +9314,8 @@ export const Root = () => {
         schema={videoConf}
         defaultProps={{
           theme: "light" as const,
-          canvasLayout: "square" as const,
-          platform: "x",
+          canvasLayout: "portrait" as const,
+          platform: "x" as const,
           scenes: [
             {
               type: "videoscene" as const,
@@ -9491,8 +9491,8 @@ export const Root = () => {
         schema={videoConf}
         defaultProps={{
           theme: "light" as const,
-          canvasLayout: "square" as const,
-          platform: "x",
+          canvasLayout: "portrait" as const,
+          platform: "x" as const,
           scenes: [
             {
               type: "videoscene" as const,

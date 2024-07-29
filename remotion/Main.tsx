@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { AbsoluteFill, Sequence } from "remotion";
+import { AbsoluteFill, Img, Sequence, staticFile } from "remotion";
 import type { Platform } from "../config/endcard";
 import type { CanvasLayout } from "../config/layout";
 import type { SceneAndMetadata, SelectableScene } from "../config/scenes";
@@ -79,6 +79,9 @@ export const Main: React.FC<MainProps> = ({
         <EmitSrtFile scenesAndMetadata={scenesAndMetadata} />
       ) : null}
       <div ref={captionEditorPortal} />
+      <AbsoluteFill>
+        <Img src={staticFile("safe.png")}></Img>
+      </AbsoluteFill>
     </AbsoluteFill>
   );
 };
