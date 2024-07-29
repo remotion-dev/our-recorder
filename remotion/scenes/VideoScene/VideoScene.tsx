@@ -127,6 +127,7 @@ export const VideoScene: React.FC<{
           captions={sceneAndMetadata.cameras.captions}
           startFrame={startFrame}
           theme={theme}
+          webcamLayout={sceneAndMetadata.layout.webcamLayout}
         ></PortraitCaptions>
       ) : null}
     </>
