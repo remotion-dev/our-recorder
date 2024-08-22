@@ -6,6 +6,7 @@ import type {
 import type { Layout, LayoutAndFade } from "../../layout/layout-types";
 import { interpolateLayoutAndFade } from "../interpolate-layout";
 import { getLandscapeWebCamStartOrEndLayout } from "./landscape";
+import { getPortraitWebcamStartOrEndLayout } from "./portrait";
 import { getSquareWebcamStartOrEndLayout } from "./square";
 
 const getWebCamStartOrEndLayout = ({
@@ -34,6 +35,12 @@ const getWebCamStartOrEndLayout = ({
       currentScene,
       canvasHeight,
       otherScene,
+    });
+  }
+
+  if (canvasLayout === "portrait") {
+    return getPortraitWebcamStartOrEndLayout({
+      currentScene,
     });
   }
 

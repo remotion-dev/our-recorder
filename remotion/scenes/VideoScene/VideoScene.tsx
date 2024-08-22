@@ -7,11 +7,13 @@ import type {
 import type { Theme } from "../../../config/themes";
 import { getShouldTransitionIn } from "../../animations/transitions";
 import { BoxedCaptions } from "../../captions/boxed/BoxedCaptions";
+import { PortraitCaptions } from "../../captions/portrait/PortraitCaptions";
 import { SrtPreviewAndEditor } from "../../captions/srt/SrtPreviewAndEditor/SrtPreviewAndEditor";
 import { LandscapeChapters } from "../../chapters/landscape/LandscapeChapters";
 import type { ChapterType } from "../../chapters/make-chapters";
 import { SquareChapter } from "../../chapters/square/SquareChapter";
 import { Display } from "./Display";
+import { DisplayBlur } from "./DisplayBlur";
 import { Webcam } from "./Webcam";
 
 export const VideoScene: React.FC<{
@@ -56,6 +58,13 @@ export const VideoScene: React.FC<{
 
   return (
     <>
+      {sceneAndMetadata.cameras.display &&
+      sceneAndMetadata.layout.displayBlurLayout ? (
+        <DisplayBlur
+          dimensions={sceneAndMetadata.layout.displayBlurLayout}
+          src={sceneAndMetadata.cameras.display.src}
+        />
+      ) : null}
       {sceneAndMetadata.cameras.display ? (
         <Display
           scene={sceneAndMetadata}
@@ -112,6 +121,14 @@ export const VideoScene: React.FC<{
           startFrame={startFrame}
           theme={theme}
         ></SrtPreviewAndEditor>
+      ) : null}
+      {canvasLayout === "portrait" && sceneAndMetadata.cameras.captions ? (
+        <PortraitCaptions
+          captions={sceneAndMetadata.cameras.captions}
+          startFrame={startFrame}
+          theme={theme}
+          webcamLayout={sceneAndMetadata.layout.webcamLayout}
+        ></PortraitCaptions>
       ) : null}
     </>
   );

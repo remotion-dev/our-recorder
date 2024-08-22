@@ -6,7 +6,8 @@ import {
   SceneVideos,
   SelectableScene,
 } from "../../config/scenes";
-import { calculateSrt } from "../captions/srt/helpers/calculate-srt";
+import { MAX_SRT_CHARS_PER_LINE } from "../captions/srt/SrtPreviewAndEditor/srt-max-chars-per-line";
+import { subtitleLines } from "../captions/srt/helpers/calculate-srt";
 import { getBRollDimensions } from "../layout/get-broll-dimensions";
 import { getVideoSceneLayout } from "../layout/get-layout";
 import { PLACEHOLDER_DURATION_IN_FRAMES } from "./empty-place-holder";
@@ -64,9 +65,10 @@ export const addMetadataToScene = async ({
   });
 
   const srt = whisperCppOutput
-    ? calculateSrt({
+    ? subtitleLines({
         startFrame: actualStartFrame,
         whisperCppOutput,
+        maxCharsPerLine: MAX_SRT_CHARS_PER_LINE,
       })
     : [];
 

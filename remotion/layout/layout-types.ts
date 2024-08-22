@@ -17,6 +17,7 @@ export type LayoutAndFade = {
 
 export type RecordingsLayout = {
   displayLayout: Layout | null;
+  displayBlurLayout: Rect | null;
   webcamLayout: Layout;
   bRollLayout: Layout;
   bRollEnterDirection: BRollEnterDirection;

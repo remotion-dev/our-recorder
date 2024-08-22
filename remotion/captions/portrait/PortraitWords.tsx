@@ -1,30 +1,37 @@
 import React, { useMemo } from "react";
 import { Sequence, useVideoConfig } from "remotion";
-import { useCaptions } from "../../editor/captions-provider";
-import { subtitleLines } from "../helpers/calculate-srt";
-import { SrtPreviewLine } from "./SrtPreviewLine";
-import { MAX_SRT_CHARS_PER_LINE } from "./srt-max-chars-per-line";
+import { Layout } from "../../layout/layout-types";
+import { useCaptions } from "../editor/captions-provider";
+import { subtitleLines } from "../srt/helpers/calculate-srt";
+import { PortraitLine } from "./PortraitLine";
 
-export const SrtPreview: React.FC<{
+const MAX_PORTRAIT_CHARS_PER_LINE = 20;
+
+export const PortraitWords: React.FC<{
   startFrame: number;
-}> = ({ startFrame }) => {
+  webcamLayout: Layout;
+}> = ({ startFrame, webcamLayout }) => {
   const { fps } = useVideoConfig();
   const captions = useCaptions();
 
-  const srt = useMemo(() => {
+  const lines = useMemo(() => {
     return subtitleLines({
       whisperCppOutput: captions,
       startFrame,
-      maxCharsPerLine: MAX_SRT_CHARS_PER_LINE,
+      maxCharsPerLine: MAX_PORTRAIT_CHARS_PER_LINE,
     });
   }, [captions, startFrame]);
 
   return (
     <>
-      {srt.map((segment, index) => {
+      {lines.map((segment, index) => {
         const durationInFrames =
           ((segment.lastTimestamp - segment.firstTimestamp) / 1000) * fps;
         const from = (segment.firstTimestamp / 1000) * fps;
+
+        if (durationInFrames === 0) {
+          return null;
+        }
 
         return (
           <Sequence
@@ -34,7 +41,11 @@ export const SrtPreview: React.FC<{
             showInTimeline={false}
             layout="none"
           >
-            <SrtPreviewLine segment={segment} />
+            <PortraitLine
+              startFrame={startFrame + from}
+              segment={segment}
+              webcamLayout={webcamLayout}
+            />
           </Sequence>
         );
       })}

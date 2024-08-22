@@ -31,6 +31,12 @@ export const Main: React.FC<MainProps> = ({
     return makeChapters({ scenes: scenesAndMetadata });
   }, [scenesAndMetadata]);
 
+  const containerStyle: React.CSSProperties = useMemo(() => {
+    return {
+      background: COLORS[theme].BACKGROUND,
+    };
+  }, [theme]);
+
   if (scenesAndMetadata.length === 0) {
     return <NoDataScene theme={theme} />;
   }
@@ -42,11 +48,7 @@ export const Main: React.FC<MainProps> = ({
     lastSceneIndex.from + lastSceneIndex.durationInFrames - 1;
 
   return (
-    <AbsoluteFill
-      style={{
-        background: COLORS[theme].BACKGROUND,
-      }}
-    >
+    <AbsoluteFill style={containerStyle}>
       {scenesAndMetadata.map((sceneAndMetadata, i) => {
         return (
           <Scene
