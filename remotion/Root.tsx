@@ -9741,6 +9741,103 @@ export const Root = () => {
         }}
         calculateMetadata={calcMetadata}
       />
+      <Composition
+        component={Main}
+        fps={FPS}
+        durationInFrames={10205}
+        id="vjeux"
+        schema={videoConf}
+        defaultProps={{
+          theme: "light" as const,
+          canvasLayout: "square" as const,
+          platform: "x" as const,
+          scenes: [
+            {
+              type: "videoscene" as const,
+              bRolls: [
+                {
+                  source: staticFile("vjeux/hdl.png"),
+                  durationInFrames: 90,
+                  from: 100,
+                },
+              ],
+              webcamPosition: "previous" as const,
+              startOffset: -10,
+              endOffset: -5,
+              transitionToNextScene: true,
+              newChapter: "",
+              stopChapteringAfterThis: false,
+              music: "euphoric" as const,
+            },
+            {
+              type: "videoscene" as const,
+              bRolls: [],
+              webcamPosition: "top-left" as const,
+              startOffset: 0,
+              endOffset: -20,
+              transitionToNextScene: true,
+              newChapter: "",
+              stopChapteringAfterThis: false,
+              music: "none" as const,
+            },
+            {
+              type: "videoscene" as const,
+              bRolls: [],
+              webcamPosition: "previous" as const,
+              startOffset: 0,
+              endOffset: -30,
+              transitionToNextScene: true,
+              newChapter: "",
+              stopChapteringAfterThis: false,
+              music: "euphoric" as const,
+            },
+            {
+              type: "videoscene" as const,
+              bRolls: [
+                {
+                  source: staticFile("vjeux/resources.png"),
+                  durationInFrames: 200,
+                  from: 1910,
+                },
+              ],
+              webcamPosition: "top-right" as const,
+              startOffset: 0,
+              endOffset: -5,
+              transitionToNextScene: true,
+              newChapter: "",
+              stopChapteringAfterThis: false,
+              music: "epic" as const,
+            },
+            {
+              type: "videoscene" as const,
+              bRolls: [],
+              webcamPosition: "bottom-right" as const,
+              startOffset: 0,
+              endOffset: 0,
+              transitionToNextScene: true,
+              newChapter: "",
+              stopChapteringAfterThis: false,
+              music: "previous" as const,
+            },
+            {
+              music: "previous" as const,
+              transitionToNextScene: true,
+              type: "recorder" as const,
+              durationInFrames: 90,
+            },
+            {
+              music: "previous" as const,
+              transitionToNextScene: true,
+              type: "endcard" as const,
+              durationInFrames: 200,
+              channel: "jonny" as const,
+              links: [{ link: "x.com/vjeux" }],
+            },
+          ],
+          scenesAndMetadata: [],
+        }}
+        calculateMetadata={calcMetadata}
+      />
     </>
   );
 };
