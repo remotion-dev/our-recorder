@@ -1,3 +1,4 @@
+import { Caption } from "@remotion/captions";
 import React from "react";
 import {
   Sequence,
@@ -5,25 +6,24 @@ import {
   useCurrentFrame,
   useVideoConfig,
 } from "remotion";
-import type { Word } from "../../../../config/autocorrect";
 import type { Theme } from "../../../../config/themes";
 import type { CaptionPage } from "../../types";
 import { LINE_HEIGHT, SquareSubtitles } from "./SquareSubtitles";
 
 const getStartOfSegment = (segment: CaptionPage) => {
-  if (segment.words.length === 0) {
+  if (segment.captions.length === 0) {
     return 0;
   }
 
-  return (segment.words[0] as Word).firstTimestamp;
+  return (segment.captions[0] as Caption).startMs;
 };
 
 const getEndOfSegment = (segment: CaptionPage) => {
-  if (segment.words.length === 0) {
+  if (segment.captions.length === 0) {
     return 0;
   }
 
-  return (segment.words[segment.words.length - 1] as Word).lastTimestamp;
+  return (segment.captions[segment.captions.length - 1] as Caption).endMs;
 };
 
 export const getSubtitlesFontSize = () => {

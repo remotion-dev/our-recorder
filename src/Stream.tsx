@@ -37,6 +37,7 @@ export const Stream: React.FC<{
   selectedVideoSource: SelectedSource | null;
   selectedAudioSource: ConstrainDOMString | null;
   preferPortrait: boolean;
+  clear: () => void;
 }> = ({
   prefix,
   mediaStream,
@@ -46,6 +47,7 @@ export const Stream: React.FC<{
   selectedVideoSource,
   selectedAudioSource,
   preferPortrait,
+  clear,
 }) => {
   const [streamState, setStreamState] = useState<StreamState>({
     type: "initial",
@@ -116,6 +118,15 @@ export const Stream: React.FC<{
           throw new Error("No video track");
         }
 
+        videoTrack.addEventListener(
+          "ended",
+          () => {
+            clear();
+            setMediaStream(prefix, null);
+          },
+          { once: true },
+        );
+
         const settings = videoTrack.getSettings();
         if (!settings) {
           throw new Error("No video settings");
@@ -167,6 +178,7 @@ export const Stream: React.FC<{
       cleanup.forEach((f) => f());
     };
   }, [
+    clear,
     preferPortrait,
     prefix,
     recordAudio,
@@ -175,6 +187,28 @@ export const Stream: React.FC<{
     setMediaStream,
     setResolution,
   ]);
+
+  useEffect(() => {
+    const resized = () => {
+      setResolution((r) => ({
+        width: sourceRef.current?.videoWidth ?? 0,
+        height: sourceRef.current?.videoHeight ?? 0,
+        fps: r?.fps ?? 0,
+      }));
+    };
+
+    const { current } = sourceRef;
+
+    if (!current) {
+      return;
+    }
+
+    current.addEventListener("resize", resized);
+
+    return () => {
+      current.removeEventListener("resize", resized);
+    };
+  }, [setResolution]);
 
   return (
     <AbsoluteFill style={container} id={prefix + "-video-container"}>

@@ -1,4 +1,5 @@
 import React, { useMemo } from "react";
+import { getRemotionEnvironment } from "remotion";
 import type { CanvasLayout } from "../../../config/layout";
 import type {
   SceneAndMetadata,
@@ -11,6 +12,7 @@ import { SrtPreviewAndEditor } from "../../captions/srt/SrtPreviewAndEditor/SrtP
 import { LandscapeChapters } from "../../chapters/landscape/LandscapeChapters";
 import type { ChapterType } from "../../chapters/make-chapters";
 import { SquareChapter } from "../../chapters/square/SquareChapter";
+import { Actions } from "./ActionOverlay/Actions";
 import { Display } from "./Display";
 import { Webcam } from "./Webcam";
 
@@ -23,7 +25,8 @@ export const VideoScene: React.FC<{
   previousScene: SceneAndMetadata | null;
   theme: Theme;
   chapters: ChapterType[];
-  willTransitionToNextScene: boolean;
+  sceneIndex: number;
+  hovered: boolean;
 }> = ({
   enterProgress,
   exitProgress,
@@ -33,6 +36,8 @@ export const VideoScene: React.FC<{
   previousScene,
   theme,
   chapters,
+  sceneIndex,
+  hovered,
 }) => {
   const startFrame = sceneAndMetadata.startFrame;
   const endAt = sceneAndMetadata.endFrame;
@@ -112,6 +117,13 @@ export const VideoScene: React.FC<{
           startFrame={startFrame}
           theme={theme}
         ></SrtPreviewAndEditor>
+      ) : null}
+      {getRemotionEnvironment().isStudio ? (
+        <Actions
+          visible={hovered}
+          sceneIndex={sceneIndex}
+          cameras={sceneAndMetadata.cameras}
+        />
       ) : null}
     </>
   );

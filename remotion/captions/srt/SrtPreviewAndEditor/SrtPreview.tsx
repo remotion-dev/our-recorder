@@ -12,7 +12,7 @@ export const SrtPreview: React.FC<{
 
   const srt = useMemo(() => {
     return calculateSrt({
-      whisperCppOutput: captions,
+      captions,
       startFrame,
     });
   }, [captions, startFrame]);
@@ -21,8 +21,8 @@ export const SrtPreview: React.FC<{
     <>
       {srt.map((segment, index) => {
         const durationInFrames =
-          ((segment.lastTimestamp - segment.firstTimestamp) / 1000) * fps;
-        const from = (segment.firstTimestamp / 1000) * fps;
+          ((segment.lastTimestampMs - segment.firstTimestampMs) / 1000) * fps;
+        const from = (segment.firstTimestampMs / 1000) * fps;
 
         return (
           <Sequence
