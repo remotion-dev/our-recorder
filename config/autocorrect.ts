@@ -1,3 +1,5 @@
+import { Caption } from "@remotion/captions";
+
 export type Word = {
   text: string;
   firstTimestamp: number;
@@ -5,7 +7,7 @@ export type Word = {
   monospace?: boolean;
 };
 
-const autocorrectWord = (word: Word): Word => {
+const autocorrectWord = (word: Caption): Caption => {
   if (word.text === " github") {
     return {
       ...word,
@@ -50,6 +52,6 @@ const autocorrectWord = (word: Word): Word => {
   };
 };
 
-export const autocorrectWords = (words: Word[]): Word[] => {
+export const autocorrectWords = (words: Caption[]): Caption[] => {
   return words.map(autocorrectWord);
 };
