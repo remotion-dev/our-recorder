@@ -1,3 +1,5 @@
+import { webFileReader } from "@remotion/media-parser/web-file";
+import { convertMedia } from "@remotion/webcodecs";
 import React, { useCallback } from "react";
 import { RecordingStatus } from "../RecordButton";
 import { downloadVideo } from "../helpers/download-video";
@@ -31,8 +33,16 @@ export const UseThisTake: React.FC<{
             title: `Processing ${blob.prefix}${blob.endDate}.mp4`,
             description: "Uploading...",
           });
-          return uploadFileToServer({
-            blob: blob.data,
+          return convertMedia({
+            container: "mp4",
+            src: blob.data,
+            reader: webFileReader,
+          });
+        })
+        .then((d) => d.save())
+        .then((convertedBlob) => {
+          uploadFileToServer({
+            blob: convertedBlob,
             endDate: recordingStatus.endDate,
             prefix: blob.prefix,
             selectedFolder,
