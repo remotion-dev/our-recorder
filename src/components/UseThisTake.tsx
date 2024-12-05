@@ -3,6 +3,7 @@ import { convertMedia } from "@remotion/webcodecs";
 import React, { useCallback } from "react";
 import { RecordingStatus } from "../RecordButton";
 import { downloadVideo } from "../helpers/download-video";
+import { formatMilliseconds } from "../helpers/format-time";
 import { uploadFileToServer } from "../helpers/upload-file";
 import { ProcessStatus } from "./ProcessingStatus";
 import { Button } from "./ui/button";
@@ -30,13 +31,19 @@ export const UseThisTake: React.FC<{
       currentProcessing = currentProcessing
         .then(() => {
           setStatus({
-            title: `Processing ${blob.prefix}${blob.endDate}.mp4`,
-            description: "Uploading...",
+            title: `Converting ${blob.prefix}${blob.endDate}.mp4`,
+            description: "Starting...",
           });
           return convertMedia({
             container: "mp4",
             src: blob.data,
             reader: webFileReader,
+            onProgress: ({ millisecondsWritten }) => {
+              setStatus({
+                title: `Converting ${blob.prefix}${blob.endDate}.mp4`,
+                description: `${formatMilliseconds(millisecondsWritten)} processed`,
+              });
+            },
           });
         })
         .then((d) => d.save())
