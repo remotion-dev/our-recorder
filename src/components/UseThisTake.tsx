@@ -80,11 +80,11 @@ export const UseThisTake: React.FC<{
     }
 
     for (const blob of recordingStatus.blobs) {
-      downloadVideo(blob.data, recordingStatus.endDate, blob.prefix);
+      downloadVideo(blob.data, recordingStatus.endDate, blob.prefix, setStatus);
     }
 
     setRecordingStatus({ type: "idle" });
-  }, [recordingStatus, setRecordingStatus]);
+  }, [recordingStatus, setRecordingStatus, setStatus]);
 
   const keepVideos = useCallback(async () => {
     if (window.remotionServerEnabled) {
