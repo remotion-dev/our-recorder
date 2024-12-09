@@ -48,7 +48,11 @@ export const UseThisTake: React.FC<{
         })
         .then((d) => d.save())
         .then((convertedBlob) => {
-          uploadFileToServer({
+          setStatus({
+            title: `Transcribing...`,
+            description: "Initiating Whisper.cpp",
+          });
+          return uploadFileToServer({
             blob: convertedBlob,
             endDate: recordingStatus.endDate,
             prefix: blob.prefix,
