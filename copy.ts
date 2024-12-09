@@ -1,6 +1,6 @@
 import fs from "fs";
 import { WEBCAM_PREFIX } from "./config/cameras";
-import { convertVideos } from "./scripts/convert-video";
+import { copyVideos } from "./scripts/copy-videos";
 import { getDownloadsFolder } from "./scripts/get-downloads-folder";
 
 const prefix = "empty";
@@ -34,11 +34,7 @@ try {
   process.exit();
 }
 
-await convertVideos({
+copyVideos({
   latestTimestamp,
   compositionId: prefix,
-  expectedFrames: null,
-  onProgress: (progress) => {
-    console.log(progress.filename, progress.framesEncoded, "frames");
-  },
 });
