@@ -31,7 +31,7 @@ export const downloadVideo = async (
   const link = document.createElement("a");
   const blobUrl = URL.createObjectURL(saved);
   link.href = blobUrl;
-  link.download = `${prefix}${endDate}.webm`;
+  link.download = `${prefix}${endDate}.mp4`;
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);

@@ -74,13 +74,18 @@ export const UseThisTake: React.FC<{
     setRecordingStatus({ type: "idle" });
   }, [recordingStatus, selectedFolder, setRecordingStatus, setStatus]);
 
-  const keepVideoOnClient = useCallback(() => {
+  const keepVideoOnClient = useCallback(async () => {
     if (recordingStatus.type !== "recording-finished") {
       return Promise.resolve();
     }
 
     for (const blob of recordingStatus.blobs) {
-      downloadVideo(blob.data, recordingStatus.endDate, blob.prefix, setStatus);
+      await downloadVideo(
+        blob.data,
+        recordingStatus.endDate,
+        blob.prefix,
+        setStatus,
+      );
     }
 
     setRecordingStatus({ type: "idle" });
