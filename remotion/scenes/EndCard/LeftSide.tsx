@@ -1,9 +1,9 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import {
   AbsoluteFill,
+  Img,
   continueRender,
   delayRender,
-  Img,
   interpolate,
   spring,
   useCurrentFrame,
@@ -133,6 +133,9 @@ export const LeftSide: React.FC<{
       if (c === platform) {
         continue;
       }
+      if (name === "isLinkedInBusinessPage") {
+        continue;
+      }
 
       configs.push({
         name,
@@ -147,6 +150,7 @@ export const LeftSide: React.FC<{
 
   const padding = 80;
   const maxWidth = width - padding * 2;
+
   return (
     <AbsoluteFill
       style={{
