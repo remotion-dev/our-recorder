@@ -17,7 +17,7 @@ export const transcribeVideo = async ({
     filename: string;
     progressInPercent: number;
   }) => void;
-  signal: AbortSignal | null;
+  signal: AbortSignal;
 }) => {
   if (typeof endDateAsString !== "string") {
     throw new Error("No `endDate` provided");
@@ -40,7 +40,7 @@ export const transcribeVideo = async ({
 
   if (webcamFiles.length === 0) {
     throw new Error(
-      `Webcam file ${WEBCAM_PREFIX}${endDateAsString}.mp4  not found.`,
+      `Webcam file ${WEBCAM_PREFIX}${endDateAsString}.mp4 not found.`,
     );
   }
 

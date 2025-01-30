@@ -5133,6 +5133,55 @@ export const Root = () => {
       <Composition
         component={Main}
         fps={FPS}
+        durationInFrames={100}
+        id="run2025"
+        schema={videoConf}
+        defaultProps={{
+          theme: "light" as const,
+          canvasLayout: "square" as const,
+          platform: "x" as const,
+          scenes: [
+            {
+              type: "videoscene" as const,
+              webcamPosition: "previous" as const,
+              startOffset: 0,
+              endOffset: 0,
+              transitionToNextScene: true,
+              newChapter: "",
+              stopChapteringAfterThis: false,
+              music: "previous" as const,
+              bRolls: [],
+            },
+            {
+              type: "videoscene" as const,
+              webcamPosition: "previous" as const,
+              startOffset: 0,
+              endOffset: 0,
+              transitionToNextScene: true,
+              newChapter: "",
+              stopChapteringAfterThis: false,
+              music: "previous" as const,
+              bRolls: [],
+            },
+            {
+              type: "videoscene" as const,
+              webcamPosition: "previous" as const,
+              startOffset: 0,
+              endOffset: 0,
+              transitionToNextScene: true,
+              newChapter: "",
+              stopChapteringAfterThis: false,
+              music: "previous" as const,
+              bRolls: [],
+            },
+          ],
+          scenesAndMetadata: [],
+        }}
+        calculateMetadata={calcMetadata}
+      />
+      <Composition
+        component={Main}
+        fps={FPS}
         durationInFrames={60}
         id="mediaparsernextsteps"
         schema={videoConf}
@@ -9994,6 +10043,161 @@ export const Root = () => {
               durationInFrames: 200,
               channel: "jonny" as const,
               links: [{ link: "x.com/vjeux" }],
+            },
+          ],
+          scenesAndMetadata: [],
+        }}
+        calculateMetadata={calcMetadata}
+      />
+      <Composition
+        component={Main}
+        fps={FPS}
+        durationInFrames={8472}
+        id="animated-emoji"
+        schema={videoConf}
+        defaultProps={{
+          theme: "light" as const,
+          canvasLayout: "square" as const,
+          platform: "x" as const,
+          scenes: [],
+          scenesAndMetadata: [],
+        }}
+        calculateMetadata={calcMetadata}
+      />
+      <Composition
+        component={Main}
+        fps={FPS}
+        durationInFrames={3005}
+        id="wrapped2024"
+        schema={videoConf}
+        defaultProps={{
+          theme: "light" as const,
+          canvasLayout: "square" as const,
+          platform: "x" as const,
+          scenes: [
+            {
+              type: "videoscene" as const,
+              bRolls: [],
+              webcamPosition: "previous" as const,
+              startOffset: 0,
+              endOffset: 0,
+              transitionToNextScene: true,
+              newChapter: "",
+              stopChapteringAfterThis: false,
+              music: "none" as const,
+            },
+            {
+              type: "videoscene" as const,
+              bRolls: [],
+              webcamPosition: "previous" as const,
+              startOffset: 0,
+              endOffset: 0,
+              transitionToNextScene: true,
+              newChapter: "",
+              stopChapteringAfterThis: false,
+              music: "none" as const,
+            },
+            {
+              type: "videoscene" as const,
+              bRolls: [],
+              webcamPosition: "previous" as const,
+              startOffset: 0,
+              endOffset: 0,
+              transitionToNextScene: true,
+              newChapter: "",
+              stopChapteringAfterThis: false,
+              music: "none" as const,
+            },
+            {
+              type: "videoscene" as const,
+              webcamPosition: "previous" as const,
+              startOffset: 0,
+              endOffset: 0,
+              transitionToNextScene: true,
+              newChapter: "",
+              stopChapteringAfterThis: false,
+              music: "none" as const,
+              bRolls: [],
+            },
+            {
+              type: "videoscene" as const,
+              webcamPosition: "previous" as const,
+              startOffset: 0,
+              endOffset: 0,
+              transitionToNextScene: true,
+              newChapter: "",
+              stopChapteringAfterThis: false,
+              music: "previous" as const,
+              bRolls: [],
+            },
+            {
+              type: "videoscene" as const,
+              webcamPosition: "previous" as const,
+              startOffset: 0,
+              endOffset: 10,
+              transitionToNextScene: true,
+              newChapter: "",
+              stopChapteringAfterThis: false,
+              music: "previous" as const,
+              bRolls: [],
+            },
+            {
+              type: "videoscene" as const,
+              webcamPosition: "previous" as const,
+              startOffset: 0,
+              endOffset: 0,
+              transitionToNextScene: true,
+              newChapter: "",
+              stopChapteringAfterThis: false,
+              music: "previous" as const,
+              bRolls: [],
+            },
+            {
+              type: "videoscene" as const,
+              webcamPosition: "previous" as const,
+              startOffset: 0,
+              endOffset: 0,
+              transitionToNextScene: true,
+              newChapter: "",
+              stopChapteringAfterThis: false,
+              music: "previous" as const,
+              bRolls: [],
+            },
+            {
+              type: "videoscene" as const,
+              webcamPosition: "previous" as const,
+              startOffset: 0,
+              endOffset: 0,
+              transitionToNextScene: true,
+              newChapter: "",
+              stopChapteringAfterThis: false,
+              music: "previous" as const,
+              bRolls: [],
+            },
+            {
+              type: "videoscene" as const,
+              webcamPosition: "previous" as const,
+              startOffset: 0,
+              endOffset: 0,
+              transitionToNextScene: true,
+              newChapter: "",
+              stopChapteringAfterThis: false,
+              music: "previous" as const,
+              bRolls: [],
+            },
+            {
+              music: "previous" as const,
+              transitionToNextScene: true,
+              type: "recorder" as const,
+              durationInFrames: 90,
+            },
+            {
+              music: "previous" as const,
+              transitionToNextScene: true,
+              type: "endcard" as const,
+              durationInFrames: 200,
+              channel: "jonny" as const,
+              links: [{ link: "https://github.com/JonnyBurger/wrapped-2024" }],
             },
           ],
           scenesAndMetadata: [],

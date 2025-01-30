@@ -1,19 +1,8 @@
 import { CameraIcon } from "lucide-react";
-import React, { useCallback } from "react";
+import React, { useCallback, useMemo } from "react";
 import { DisplayIcon } from "../DeviceItem";
 import { Resolution } from "../PrefixAndResolution";
 import { ResolutionAndFps } from "../Stream";
-import { Divider } from "./Divider";
-
-const container: React.CSSProperties = {
-  display: "flex",
-  flexDirection: "row",
-  fontSize: 13,
-  alignItems: "center",
-  flex: 1,
-  lineHeight: 1.4,
-  cursor: "pointer",
-};
 
 const spacer: React.CSSProperties = {
   width: 12,
@@ -32,6 +21,7 @@ export const CurrentVideo: React.FC<{
   onClick: () => void;
   setResolutionLimiterOpen: React.Dispatch<React.SetStateAction<boolean>>;
   canShowResolutionLimiter: boolean | null;
+  disabled: boolean;
 }> = ({
   label,
   resolution,
@@ -39,6 +29,7 @@ export const CurrentVideo: React.FC<{
   onClick,
   setResolutionLimiterOpen,
   canShowResolutionLimiter,
+  disabled,
 }) => {
   const onOpen: React.MouseEventHandler<HTMLButtonElement> = useCallback(
     (e) => {
@@ -47,9 +38,30 @@ export const CurrentVideo: React.FC<{
     },
     [setResolutionLimiterOpen],
   );
+
+  const container: React.CSSProperties = useMemo(() => {
+    return {
+      display: "flex",
+      flexDirection: "row",
+      fontSize: 13,
+      alignItems: "center",
+      flex: 1,
+      lineHeight: 1.4,
+      cursor: "pointer",
+      paddingTop: 4,
+      paddingBottom: 4,
+      paddingLeft: 10,
+      minHeight: 48,
+    };
+  }, []);
+
   return (
-    <div style={container} onClick={onClick}>
-      <Divider></Divider>
+    <div
+      style={container}
+      data-disabled={disabled}
+      className="hover:bg-slate-950 data-[disabled=true]:opacity-50 data-[disabled=true]:pointer-events-none"
+      onClick={onClick}
+    >
       {isScreenshare ? <DisplayIcon></DisplayIcon> : <CameraIcon></CameraIcon>}
       <div style={spacer}></div>
       <div>
@@ -68,7 +80,7 @@ export const CurrentVideo: React.FC<{
                 <>
                   <div style={{ width: 4 }}></div>
                   <button onClick={onOpen} style={buttonStyle}>
-                    Change
+                    Settings
                   </button>
                 </>
               ) : null}

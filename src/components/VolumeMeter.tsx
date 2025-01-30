@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { StreamState } from "../state/media-sources";
 
 const GREEN = "#0b800b";
 const YELLOW = "#bda615";
@@ -21,18 +22,22 @@ const gradientStyle: React.CSSProperties = {
 };
 
 export const VolumeMeter: React.FC<{
-  mediaStream: MediaStream | null;
+  mediaStream: StreamState;
 }> = ({ mediaStream }) => {
   const [currentVolume, setCurrentVolume] = useState(0);
 
   useEffect(() => {
-    if (!mediaStream || mediaStream.getAudioTracks().length === 0) {
+    if (mediaStream.type !== "loaded") {
+      return;
+    }
+
+    if (mediaStream.stream.getAudioTracks().length === 0) {
       return;
     }
 
     const audioContext = new AudioContext();
     const analyser = audioContext.createAnalyser();
-    const microphone = audioContext.createMediaStreamSource(mediaStream);
+    const microphone = audioContext.createMediaStreamSource(mediaStream.stream);
     const scriptProcessor = audioContext.createScriptProcessor(512, 1, 1); // (bufferSize, inputChannels, outputChannels).
 
     analyser.smoothingTimeConstant = 0.9;
@@ -81,6 +86,10 @@ export const VolumeMeter: React.FC<{
     };
   }, [widthPercent]);
 
+  if (mediaStream.type !== "loaded") {
+    return null;
+  }
+
   return (
     <div style={container}>
       <div style={gradientStyle}>
@@ -88,8 +97,4 @@ export const VolumeMeter: React.FC<{
       </div>
     </div>
   );
-};
-
-export const NoVolumeMeter: React.FC = () => {
-  return <div style={{ height: 4, backgroundColor: "#242424" }}></div>;
 };

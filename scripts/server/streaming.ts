@@ -1,37 +1,29 @@
 import { makeStreamPayloadMessage } from "@remotion/streaming";
 
-const convertingProgress = "converting-progress" as const;
 const transcribingProgress = "transcribing-progress" as const;
 const installWhisperProgress = "install-whisper-progress" as const;
 const downloadingWhisperModelProgress =
   "downloading-whisper-model-progress" as const;
+const whisperAbort = "whisper-abort" as const;
 
 const messageTypes = {
-  "1": { type: convertingProgress },
   "2": { type: transcribingProgress },
   "3": { type: installWhisperProgress },
   "4": { type: downloadingWhisperModelProgress },
+  "5": { type: whisperAbort },
 } as const;
 
 export type MessageTypeId = keyof typeof messageTypes;
 type MessageType = (typeof messageTypes)[MessageTypeId]["type"];
 
 export const formatMap: { [key in MessageType]: "json" | "binary" } = {
-  [convertingProgress]: "json",
   [transcribingProgress]: "json",
   [installWhisperProgress]: "json",
   [downloadingWhisperModelProgress]: "json",
+  [whisperAbort]: "json",
 };
 
 type StreamingPayload =
-  | {
-      type: typeof convertingProgress;
-      payload: {
-        framesConverted: number;
-        filename: string;
-        progress: number;
-      };
-    }
   | {
       type: typeof transcribingProgress;
       payload: {
@@ -48,6 +40,10 @@ type StreamingPayload =
       payload: {
         progressInPercent: number;
       };
+    }
+  | {
+      type: typeof whisperAbort;
+      payload: Record<string, never>;
     };
 
 export const messageTypeIdToMessageType = (
