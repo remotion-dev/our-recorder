@@ -2,6 +2,7 @@ import {
   loadFont as loadRegular,
   fontFamily as regularFont,
 } from "@remotion/google-fonts/Inter";
+import React from "react";
 import {
   cancelRender,
   continueRender,
@@ -54,17 +55,26 @@ export const waitForFonts = async () => {
   await gtPlanarRegular;
 };
 
-export const REGULAR_FONT_FAMILY = regularFont;
-export const REGULAR_FONT_WEIGHT = 600;
+export const REGULAR_FONT: React.CSSProperties = {
+  fontFamily: regularFont,
+  fontWeight: 600,
+};
 
-export const MONOSPACE_FONT_FAMILY = gtPlanar;
-export const MONOSPACE_FONT_WEIGHT = 500;
+export const MONOSPACE_FONT: React.CSSProperties = {
+  fontFamily: gtPlanar,
+  fontWeight: 500,
+  fontFeatureSettings: '"ss03" on',
+};
 
-export const TITLE_FONT_FAMILY = regularFont;
-export const TITLE_FONT_WEIGHT = 700;
+export const TITLE_FONT: React.CSSProperties = {
+  fontFamily: regularFont,
+  fontWeight: 700,
+};
 
-export const ENDCARD_FONT_FAMILY = gtPlanar;
-export const ENDCARD_FONT_WEIGHT = 500;
+export const ENDCARD_FONT: React.CSSProperties = {
+  fontFamily: gtPlanar,
+  fontWeight: 500,
+};
 
 const delay = delayRender("Loading fonts");
 
