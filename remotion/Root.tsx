@@ -5334,7 +5334,10 @@ export const Root = () => {
               type: "endcard" as const,
               durationInFrames: 200,
               channel: "jonny" as const,
-              links: [],
+              links: [
+                { link: "remotion.dev/media-parser" },
+                { link: "remotion.dev/webcodecs" },
+              ],
             },
           ],
           scenesAndMetadata: [],
