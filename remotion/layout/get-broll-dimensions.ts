@@ -37,6 +37,10 @@ export const getBRollDimensions = async (
       src: bRoll.source,
       fields: { dimensions: true },
     });
+    if (!metadata.dimensions) {
+      throw new Error(`Could not get dimensions for video ${bRoll.source}.`);
+    }
+
     return {
       ...bRoll,
       type: "video",
