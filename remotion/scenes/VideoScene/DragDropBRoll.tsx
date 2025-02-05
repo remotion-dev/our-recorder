@@ -27,7 +27,7 @@ export const onBRollDropHandler = async ({
       filePath: `${composition}/${file.name}`,
     });
     bRolls.push({
-      source: staticFile(`${composition}/${file.name}`),
+      source: staticFile(`${composition}/${decodeURIComponent(file.name)}`),
       durationInFrames: 100,
       from,
     });

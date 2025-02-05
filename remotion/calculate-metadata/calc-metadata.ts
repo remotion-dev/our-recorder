@@ -1,6 +1,7 @@
-import type { CalculateMetadataFunction } from "remotion";
+import { type CalculateMetadataFunction } from "remotion";
 import { FPS } from "../../config/fps";
 import type { MainProps } from "../Main";
+import { getSidebarWidth } from "../MainWithSidebar";
 import { getDimensionsForLayout } from "../layout/dimensions";
 import { addChaptersToScenesAndMetadata } from "./add-chapters-to-scenes";
 import { addDurationsToScenes } from "./add-durations-to-scenes";
@@ -40,7 +41,7 @@ export const calcMetadata: CalculateMetadataFunction<MainProps> = async ({
   return {
     durationInFrames,
     height,
-    width,
+    width: width + getSidebarWidth(),
     fps: FPS,
     props: {
       ...props,

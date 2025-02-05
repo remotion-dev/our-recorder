@@ -3,13 +3,13 @@ import { FPS } from "../config/fps";
 import { videoConf } from "../config/scenes";
 
 import { calcMetadata } from "./calculate-metadata/calc-metadata";
-import { Main } from "./Main";
+import { MainWithSidebar } from "./MainWithSidebar";
 
 export const Root = () => {
   return (
     <>
       <Composition
-        component={Main}
+        component={MainWithSidebar}
         fps={FPS}
         durationInFrames={100}
         id="day2"
@@ -123,7 +123,7 @@ export const Root = () => {
         calculateMetadata={calcMetadata}
       />
       <Composition
-        component={Main}
+        component={MainWithSidebar}
         fps={FPS}
         durationInFrames={100}
         id="day3"
@@ -147,7 +147,7 @@ export const Root = () => {
         calculateMetadata={calcMetadata}
       />
       <Composition
-        component={Main}
+        component={MainWithSidebar}
         fps={FPS}
         durationInFrames={100}
         id="day4"
@@ -405,7 +405,7 @@ export const Root = () => {
         calculateMetadata={calcMetadata}
       />
       <Composition
-        component={Main}
+        component={MainWithSidebar}
         fps={FPS}
         durationInFrames={100}
         id="day5"
@@ -621,7 +621,7 @@ export const Root = () => {
         calculateMetadata={calcMetadata}
       />
       <Composition
-        component={Main}
+        component={MainWithSidebar}
         fps={FPS}
         durationInFrames={100}
         id="bts"
@@ -789,7 +789,7 @@ export const Root = () => {
         calculateMetadata={calcMetadata}
       />
       <Composition
-        component={Main}
+        component={MainWithSidebar}
         fps={FPS}
         durationInFrames={100}
         id="asyncproblem"
@@ -859,7 +859,7 @@ export const Root = () => {
         calculateMetadata={calcMetadata}
       />{" "}
       <Composition
-        component={Main}
+        component={MainWithSidebar}
         fps={FPS}
         durationInFrames={100}
         id="july"
@@ -965,7 +965,7 @@ export const Root = () => {
         calculateMetadata={calcMetadata}
       />
       <Composition
-        component={Main}
+        component={MainWithSidebar}
         fps={FPS}
         durationInFrames={100}
         id="saas-inflation"
@@ -1161,7 +1161,7 @@ export const Root = () => {
         calculateMetadata={calcMetadata}
       />{" "}
       <Composition
-        component={Main}
+        component={MainWithSidebar}
         fps={FPS}
         durationInFrames={100}
         id="get-silent-parts"
@@ -1240,7 +1240,7 @@ export const Root = () => {
         calculateMetadata={calcMetadata}
       />
       <Composition
-        component={Main}
+        component={MainWithSidebar}
         fps={FPS}
         durationInFrames={100}
         id="lambda-setup"
@@ -1427,7 +1427,7 @@ export const Root = () => {
         calculateMetadata={calcMetadata}
       />
       <Composition
-        component={Main}
+        component={MainWithSidebar}
         fps={FPS}
         durationInFrames={100}
         id="lambda-rendering"
@@ -1569,7 +1569,7 @@ export const Root = () => {
         calculateMetadata={calcMetadata}
       />
       <Composition
-        component={Main}
+        component={MainWithSidebar}
         fps={FPS}
         durationInFrames={100}
         id="lambda-debugging"
@@ -1737,7 +1737,7 @@ export const Root = () => {
         calculateMetadata={calcMetadata}
       />
       <Composition
-        component={Main}
+        component={MainWithSidebar}
         fps={FPS}
         durationInFrames={100}
         id="dvd"
@@ -1888,7 +1888,7 @@ export const Root = () => {
         calculateMetadata={calcMetadata}
       />
       <Composition
-        component={Main}
+        component={MainWithSidebar}
         fps={FPS}
         durationInFrames={100}
         id="dvd-2"
@@ -2003,7 +2003,7 @@ export const Root = () => {
         calculateMetadata={calcMetadata}
       />
       <Composition
-        component={Main}
+        component={MainWithSidebar}
         fps={FPS}
         durationInFrames={100}
         id="million"
@@ -2180,7 +2180,7 @@ export const Root = () => {
         calculateMetadata={calcMetadata}
       />{" "}
       <Composition
-        component={Main}
+        component={MainWithSidebar}
         fps={FPS}
         durationInFrames={100}
         id="scope"
@@ -2375,7 +2375,7 @@ export const Root = () => {
         calculateMetadata={calcMetadata}
       />{" "}
       <Composition
-        component={Main}
+        component={MainWithSidebar}
         fps={FPS}
         durationInFrames={100}
         id="uber-for-coding"
@@ -2561,7 +2561,7 @@ export const Root = () => {
         calculateMetadata={calcMetadata}
       />{" "}
       <Composition
-        component={Main}
+        component={MainWithSidebar}
         fps={FPS}
         durationInFrames={100}
         id="rome"
@@ -2719,7 +2719,7 @@ export const Root = () => {
         calculateMetadata={calcMetadata}
       />{" "}
       <Composition
-        component={Main}
+        component={MainWithSidebar}
         fps={FPS}
         durationInFrames={100}
         id="karaoketeaser"
@@ -2734,7 +2734,7 @@ export const Root = () => {
         calculateMetadata={calcMetadata}
       />{" "}
       <Composition
-        component={Main}
+        component={MainWithSidebar}
         fps={FPS}
         durationInFrames={100}
         id="bunbun"
@@ -2893,7 +2893,7 @@ export const Root = () => {
         calculateMetadata={calcMetadata}
       />{" "}
       <Composition
-        component={Main}
+        component={MainWithSidebar}
         fps={FPS}
         durationInFrames={100}
         id="davinci"
@@ -3028,7 +3028,7 @@ export const Root = () => {
         calculateMetadata={calcMetadata}
       />{" "}
       <Composition
-        component={Main}
+        component={MainWithSidebar}
         fps={FPS}
         durationInFrames={100}
         id="september"
@@ -3142,7 +3142,7 @@ export const Root = () => {
         calculateMetadata={calcMetadata}
       />{" "}
       <Composition
-        component={Main}
+        component={MainWithSidebar}
         fps={FPS}
         durationInFrames={100}
         id="handoff"
@@ -3244,7 +3244,7 @@ export const Root = () => {
         calculateMetadata={calcMetadata}
       />{" "}
       <Composition
-        component={Main}
+        component={MainWithSidebar}
         fps={FPS}
         durationInFrames={100}
         id="pro"
@@ -3393,7 +3393,7 @@ export const Root = () => {
         calculateMetadata={calcMetadata}
       />{" "}
       <Composition
-        component={Main}
+        component={MainWithSidebar}
         fps={FPS}
         durationInFrames={100}
         id="court"
@@ -3408,7 +3408,7 @@ export const Root = () => {
         calculateMetadata={calcMetadata}
       />{" "}
       <Composition
-        component={Main}
+        component={MainWithSidebar}
         fps={FPS}
         durationInFrames={100}
         id="betray"
@@ -3554,7 +3554,7 @@ export const Root = () => {
         calculateMetadata={calcMetadata}
       />{" "}
       <Composition
-        component={Main}
+        component={MainWithSidebar}
         fps={FPS}
         durationInFrames={100}
         id="transitions"
@@ -3755,7 +3755,7 @@ export const Root = () => {
         calculateMetadata={calcMetadata}
       />{" "}
       <Composition
-        component={Main}
+        component={MainWithSidebar}
         fps={FPS}
         durationInFrames={100}
         id="mistakes"
@@ -3912,7 +3912,7 @@ export const Root = () => {
         calculateMetadata={calcMetadata}
       />{" "}
       <Composition
-        component={Main}
+        component={MainWithSidebar}
         fps={FPS}
         durationInFrames={100}
         id="webzurich"
@@ -4003,7 +4003,7 @@ export const Root = () => {
         calculateMetadata={calcMetadata}
       />{" "}
       <Composition
-        component={Main}
+        component={MainWithSidebar}
         fps={FPS}
         durationInFrames={100}
         id="october"
@@ -4281,7 +4281,7 @@ export const Root = () => {
         calculateMetadata={calcMetadata}
       />
       <Composition
-        component={Main}
+        component={MainWithSidebar}
         fps={FPS}
         durationInFrames={100}
         id="tibo"
@@ -4331,7 +4331,7 @@ export const Root = () => {
         calculateMetadata={calcMetadata}
       />
       <Composition
-        component={Main}
+        component={MainWithSidebar}
         fps={FPS}
         durationInFrames={100}
         id="dm"
@@ -4499,7 +4499,7 @@ export const Root = () => {
         calculateMetadata={calcMetadata}
       />
       <Composition
-        component={Main}
+        component={MainWithSidebar}
         fps={FPS}
         durationInFrames={100}
         id="sbf"
@@ -4623,7 +4623,7 @@ export const Root = () => {
         calculateMetadata={calcMetadata}
       />
       <Composition
-        component={Main}
+        component={MainWithSidebar}
         fps={FPS}
         durationInFrames={100}
         id="costs"
@@ -4760,7 +4760,7 @@ export const Root = () => {
         calculateMetadata={calcMetadata}
       />
       <Composition
-        component={Main}
+        component={MainWithSidebar}
         fps={FPS}
         durationInFrames={100}
         id="projection"
@@ -4851,7 +4851,7 @@ export const Root = () => {
         calculateMetadata={calcMetadata}
       />
       <Composition
-        component={Main}
+        component={MainWithSidebar}
         fps={FPS}
         durationInFrames={100}
         id="timeline"
@@ -5014,7 +5014,7 @@ export const Root = () => {
         calculateMetadata={calcMetadata}
       />
       <Composition
-        component={Main}
+        component={MainWithSidebar}
         fps={FPS}
         durationInFrames={100}
         id="reacthack"
@@ -5116,7 +5116,7 @@ export const Root = () => {
         calculateMetadata={calcMetadata}
       />{" "}
       <Composition
-        component={Main}
+        component={MainWithSidebar}
         fps={FPS}
         durationInFrames={100}
         id="empty"
@@ -5131,7 +5131,7 @@ export const Root = () => {
         calculateMetadata={calcMetadata}
       />
       <Composition
-        component={Main}
+        component={MainWithSidebar}
         fps={FPS}
         durationInFrames={100}
         id="run2025"
@@ -5180,7 +5180,7 @@ export const Root = () => {
         calculateMetadata={calcMetadata}
       />
       <Composition
-        component={Main}
+        component={MainWithSidebar}
         fps={FPS}
         durationInFrames={60}
         id="mediaparsernextsteps"
@@ -5199,7 +5199,15 @@ export const Root = () => {
               newChapter: "",
               stopChapteringAfterThis: false,
               music: "previous" as const,
-              bRolls: [],
+              bRolls: [
+                {
+                  source: staticFile(
+                    "mediaparsernextsteps/mediaparserannouncement.mp4",
+                  ),
+                  durationInFrames: 170,
+                  from: 197,
+                },
+              ],
             },
             {
               type: "videoscene" as const,
@@ -5210,7 +5218,15 @@ export const Root = () => {
               newChapter: "",
               stopChapteringAfterThis: false,
               music: "previous" as const,
-              bRolls: [],
+              bRolls: [
+                {
+                  source: staticFile(
+                    "mediaparsernextsteps/Screenshot 2025-01-31 at 08.13.54.png",
+                  ),
+                  durationInFrames: 100,
+                  from: 156,
+                },
+              ],
             },
             {
               type: "videoscene" as const,
@@ -5345,7 +5361,7 @@ export const Root = () => {
         calculateMetadata={calcMetadata}
       />
       <Composition
-        component={Main}
+        component={MainWithSidebar}
         fps={FPS}
         durationInFrames={60}
         id="recorderwalkthrough"
@@ -5567,7 +5583,7 @@ export const Root = () => {
         calculateMetadata={calcMetadata}
       />
       <Composition
-        component={Main}
+        component={MainWithSidebar}
         fps={FPS}
         durationInFrames={60}
         id="nixos"
@@ -5658,7 +5674,7 @@ export const Root = () => {
         calculateMetadata={calcMetadata}
       />
       <Composition
-        component={Main}
+        component={MainWithSidebar}
         fps={FPS}
         durationInFrames={60}
         id="euro"
@@ -5861,7 +5877,7 @@ export const Root = () => {
         calculateMetadata={calcMetadata}
       />
       <Composition
-        component={Main}
+        component={MainWithSidebar}
         fps={FPS}
         durationInFrames={60}
         id="tall"
@@ -5957,7 +5973,7 @@ export const Root = () => {
         calculateMetadata={calcMetadata}
       />
       <Composition
-        component={Main}
+        component={MainWithSidebar}
         fps={FPS}
         durationInFrames={60}
         id="recorderlaunch"
@@ -6058,7 +6074,7 @@ export const Root = () => {
         calculateMetadata={calcMetadata}
       />
       <Composition
-        component={Main}
+        component={MainWithSidebar}
         fps={FPS}
         durationInFrames={60}
         id="redwood"
@@ -6171,7 +6187,7 @@ export const Root = () => {
         calculateMetadata={calcMetadata}
       />
       <Composition
-        component={Main}
+        component={MainWithSidebar}
         fps={FPS}
         durationInFrames={60}
         id="kent"
@@ -6278,7 +6294,7 @@ export const Root = () => {
         calculateMetadata={calcMetadata}
       />
       <Composition
-        component={Main}
+        component={MainWithSidebar}
         fps={FPS}
         durationInFrames={60}
         id="reactqa"
@@ -6464,7 +6480,7 @@ export const Root = () => {
         calculateMetadata={calcMetadata}
       />
       <Composition
-        component={Main}
+        component={MainWithSidebar}
         fps={FPS}
         durationInFrames={60}
         id="delba"
@@ -6594,7 +6610,7 @@ export const Root = () => {
         calculateMetadata={calcMetadata}
       />
       <Composition
-        component={Main}
+        component={MainWithSidebar}
         fps={FPS}
         durationInFrames={60}
         id="radix"
@@ -6677,7 +6693,7 @@ export const Root = () => {
         calculateMetadata={calcMetadata}
       />
       <Composition
-        component={Main}
+        component={MainWithSidebar}
         fps={FPS}
         durationInFrames={60}
         id="reactpreconf"
@@ -6834,7 +6850,7 @@ export const Root = () => {
         calculateMetadata={calcMetadata}
       />
       <Composition
-        component={Main}
+        component={MainWithSidebar}
         fps={FPS}
         durationInFrames={60}
         id="lasvegas"
@@ -7025,7 +7041,7 @@ export const Root = () => {
         calculateMetadata={calcMetadata}
       />
       <Composition
-        component={Main}
+        component={MainWithSidebar}
         fps={FPS}
         durationInFrames={90}
         id="airportrun"
@@ -7172,7 +7188,7 @@ export const Root = () => {
         calculateMetadata={calcMetadata}
       />
       <Composition
-        component={Main}
+        component={MainWithSidebar}
         fps={FPS}
         durationInFrames={90}
         id="light-leak"
@@ -7323,7 +7339,7 @@ export const Root = () => {
         calculateMetadata={calcMetadata}
       />
       <Composition
-        component={Main}
+        component={MainWithSidebar}
         fps={FPS}
         durationInFrames={90}
         id="vscodebug"
@@ -7356,7 +7372,7 @@ export const Root = () => {
         calculateMetadata={calcMetadata}
       />
       <Composition
-        component={Main}
+        component={MainWithSidebar}
         fps={FPS}
         durationInFrames={90}
         id="mp4-parser"
@@ -7485,7 +7501,7 @@ export const Root = () => {
         calculateMetadata={calcMetadata}
       />
       <Composition
-        component={Main}
+        component={MainWithSidebar}
         fps={FPS}
         durationInFrames={1}
         id="installwhispercpp"
@@ -7592,7 +7608,7 @@ export const Root = () => {
         calculateMetadata={calcMetadata}
       />
       <Composition
-        component={Main}
+        component={MainWithSidebar}
         fps={FPS}
         durationInFrames={1}
         id="homebrew"
@@ -7666,7 +7682,7 @@ export const Root = () => {
         calculateMetadata={calcMetadata}
       />
       <Composition
-        component={Main}
+        component={MainWithSidebar}
         id="zoomblur"
         schema={videoConf}
         defaultProps={{
@@ -7810,7 +7826,7 @@ export const Root = () => {
         calculateMetadata={calcMetadata}
       />
       <Composition
-        component={Main}
+        component={MainWithSidebar}
         id="loadingstate"
         schema={videoConf}
         defaultProps={{
@@ -7959,7 +7975,7 @@ export const Root = () => {
         calculateMetadata={calcMetadata}
       />
       <Composition
-        component={Main}
+        component={MainWithSidebar}
         fps={FPS}
         durationInFrames={100}
         id="license"
@@ -8138,7 +8154,7 @@ export const Root = () => {
         calculateMetadata={calcMetadata}
       />
       <Composition
-        component={Main}
+        component={MainWithSidebar}
         fps={FPS}
         durationInFrames={100}
         id="augustupdate"
@@ -8312,7 +8328,7 @@ export const Root = () => {
         calculateMetadata={calcMetadata}
       />
       <Composition
-        component={Main}
+        component={MainWithSidebar}
         fps={FPS}
         durationInFrames={100}
         id="test"
@@ -8380,7 +8396,7 @@ export const Root = () => {
         calculateMetadata={calcMetadata}
       />
       <Composition
-        component={Main}
+        component={MainWithSidebar}
         fps={FPS}
         durationInFrames={100}
         id="timing"
@@ -8647,7 +8663,7 @@ export const Root = () => {
         calculateMetadata={calcMetadata}
       />
       <Composition
-        component={Main}
+        component={MainWithSidebar}
         fps={FPS}
         durationInFrames={100}
         id="january"
@@ -8881,7 +8897,7 @@ export const Root = () => {
         calculateMetadata={calcMetadata}
       />{" "}
       <Composition
-        component={Main}
+        component={MainWithSidebar}
         fps={FPS}
         durationInFrames={100}
         id="pirates"
@@ -9115,7 +9131,7 @@ export const Root = () => {
         calculateMetadata={calcMetadata}
       />
       <Composition
-        component={Main}
+        component={MainWithSidebar}
         fps={FPS}
         id="duplicate"
         schema={videoConf}
@@ -9189,7 +9205,7 @@ export const Root = () => {
         calculateMetadata={calcMetadata}
       />
       <Composition
-        component={Main}
+        component={MainWithSidebar}
         fps={FPS}
         id="reactconf"
         schema={videoConf}
@@ -9280,7 +9296,7 @@ export const Root = () => {
         calculateMetadata={calcMetadata}
       />
       <Composition
-        component={Main}
+        component={MainWithSidebar}
         fps={FPS}
         id="vps"
         schema={videoConf}
@@ -9522,7 +9538,7 @@ export const Root = () => {
         calculateMetadata={calcMetadata}
       />
       <Composition
-        component={Main}
+        component={MainWithSidebar}
         fps={FPS}
         id="marathon"
         schema={videoConf}
@@ -9698,7 +9714,7 @@ export const Root = () => {
         calculateMetadata={calcMetadata}
       />{" "}
       <Composition
-        component={Main}
+        component={MainWithSidebar}
         fps={FPS}
         durationInFrames={100}
         id="tiktok"
@@ -9780,7 +9796,7 @@ export const Root = () => {
         calculateMetadata={calcMetadata}
       />
       <Composition
-        component={Main}
+        component={MainWithSidebar}
         fps={FPS}
         durationInFrames={3277}
         id="webcodecs"
@@ -9956,7 +9972,7 @@ export const Root = () => {
         calculateMetadata={calcMetadata}
       />
       <Composition
-        component={Main}
+        component={MainWithSidebar}
         fps={FPS}
         durationInFrames={10205}
         id="vjeux"
@@ -10053,7 +10069,7 @@ export const Root = () => {
         calculateMetadata={calcMetadata}
       />
       <Composition
-        component={Main}
+        component={MainWithSidebar}
         fps={FPS}
         durationInFrames={8472}
         id="animated-emoji"
@@ -10068,7 +10084,7 @@ export const Root = () => {
         calculateMetadata={calcMetadata}
       />
       <Composition
-        component={Main}
+        component={MainWithSidebar}
         fps={FPS}
         durationInFrames={3005}
         id="wrapped2024"
