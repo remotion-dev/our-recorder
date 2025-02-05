@@ -1,28 +1,23 @@
 import { Caption } from "@remotion/captions";
-import React, { useContext, useMemo } from "react";
+import React, { useContext } from "react";
 
 type CaptionOverlayContext = {
-  open: Caption | false;
-  setOpen: React.Dispatch<React.SetStateAction<Caption | false>>;
+  open: Caption | boolean;
+  hasContext: boolean;
+  setOpen: React.Dispatch<React.SetStateAction<Caption | boolean>>;
 };
 
 const context = React.createContext<CaptionOverlayContext>({
   open: false,
+  hasContext: false,
   setOpen: () => {
     throw new Error("React Context not initialized");
   },
 });
 
-export const useCaptionOverlay = (): {
-  isOpen: Caption | false;
-  setOpen: React.Dispatch<React.SetStateAction<Caption | false>>;
-} => {
+export const useCaptionOverlay = () => {
   const ctx = useContext(context);
-
-  return useMemo(
-    () => ({ isOpen: ctx.open, setOpen: ctx.setOpen }),
-    [ctx.open, ctx.setOpen],
-  );
+  return ctx;
 };
 
 export const CaptionOverlayProvider: React.FC<{

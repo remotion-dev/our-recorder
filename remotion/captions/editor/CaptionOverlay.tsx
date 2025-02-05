@@ -4,6 +4,7 @@ import type { StaticFile } from "remotion";
 import { continueRender, delayRender, watchStaticFile } from "remotion";
 import type { Theme } from "../../../config/themes";
 import { CaptionsEditor } from "./CaptionsEditor";
+import { OpenCaptionEditorExternally } from "./OpenCaptionEditorExternally";
 import type { CaptionsContextType } from "./captions-provider";
 import { CaptionsProvider } from "./captions-provider";
 import { CaptionOverlayProvider } from "./use-caption-overlay";
@@ -17,13 +18,13 @@ export const CaptionOverlay: React.FC<{
   const [captions, setCaptions] = useState<Caption[] | null>(null);
   const [handle] = useState(() => delayRender());
 
-  const [subEditorOpen, setSubEditorOpen] = useState<Caption | false>(false);
+  const [subEditorOpen, setSubEditorOpen] = useState<Caption | boolean>(false);
   const [changeStatus, setChangeStatus] = useState<
     "initial" | "changed" | "unchanged"
   >("initial");
 
   const state = useMemo(() => {
-    return { open: subEditorOpen, setOpen: setSubEditorOpen };
+    return { open: subEditorOpen, setOpen: setSubEditorOpen, hasContext: true };
   }, [subEditorOpen, setSubEditorOpen]);
 
   useEffect(() => {
@@ -71,10 +72,13 @@ export const CaptionOverlay: React.FC<{
 
   return (
     <CaptionOverlayProvider state={state}>
-      <CaptionsProvider state={captionState}>{children}</CaptionsProvider>
+      <CaptionsProvider state={captionState}>
+        <OpenCaptionEditorExternally />
+        {children}
+      </CaptionsProvider>
       {subEditorOpen && captions ? (
         <CaptionsEditor
-          initialCaption={subEditorOpen}
+          initialCaption={subEditorOpen === true ? null : subEditorOpen}
           setCaptions={setCaptions}
           captions={captions}
           filePath={file.name}

@@ -175,6 +175,7 @@ export const EditCaption: React.FC<{
             fontFamily: isMonospaced ? "monospace" : "Helvetica",
             backgroundColor: "transparent",
             border: "none",
+            width: "100%",
             color: isMonospaced ? COLORS[theme].ACCENT_COLOR : "black",
           }}
           value={caption.text}
@@ -182,6 +183,7 @@ export const EditCaption: React.FC<{
           onChange={onChange}
         />
       </div>
+      <div style={{ width: 20 }}></div>
       <div>
         <div
           style={{

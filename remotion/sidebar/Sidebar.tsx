@@ -2,10 +2,11 @@ import React from "react";
 import { AbsoluteFill, useCurrentFrame } from "remotion";
 import { SceneAndMetadata } from "../../config/scenes";
 import { DeleteRecordingAction } from "../scenes/VideoScene/ActionOverlay/DeleteRecordingAction";
+import { EditCaptionsAction } from "../scenes/VideoScene/ActionOverlay/EditCaptionsAction";
 import {
   NextSceneAction,
   PreviousSceneAction,
-} from "../scenes/VideoScene/ActionOverlay/NextSceneAction";
+} from "../scenes/VideoScene/ActionOverlay/PreviousNextSceneAction";
 import { SceneTitle } from "./SceneTitle";
 
 const style: React.CSSProperties = {
@@ -33,6 +34,7 @@ export const Sidebar: React.FC<{
         currentSceneIndex={currentSceneIndex}
         scenesAndMetadata={scenesAndMetadata}
       />
+      <EditCaptionsAction />
       {currentScene && currentScene.type === "video-scene" ? (
         <DeleteRecordingAction
           sceneIndex={currentSceneIndex}

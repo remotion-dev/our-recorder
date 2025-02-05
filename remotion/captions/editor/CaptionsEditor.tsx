@@ -14,7 +14,7 @@ export const CaptionsEditor: React.FC<{
   captions: Caption[];
   setCaptions: React.Dispatch<React.SetStateAction<Caption[] | null>>;
   filePath: string;
-  initialCaption: Caption;
+  initialCaption: Caption | null;
   trimStart: number;
   theme: Theme;
 }> = ({
@@ -116,7 +116,11 @@ export const CaptionsEditor: React.FC<{
               index={i}
               longestNumberLength={longestNumberLength}
               caption={caption}
-              isInitialCaption={caption.startMs === initialCaption.endMs}
+              isInitialCaption={
+                initialCaption
+                  ? caption.startMs === initialCaption.endMs
+                  : false
+              }
               trimStart={trimStart}
               onUpdateText={onChangeText}
             />
