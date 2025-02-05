@@ -2,7 +2,7 @@ import { deleteStaticFile, saveDefaultProps } from "@remotion/studio";
 import React, { useCallback } from "react";
 import { useVideoConfig } from "remotion";
 import { z } from "zod";
-import { Cameras, videoConf } from "../../../../config/scenes";
+import { Cameras, videoConf } from "../../config/scenes";
 import { ActionContainer } from "./Action";
 
 export const DeleteRecordingAction: React.FC<{

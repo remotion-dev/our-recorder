@@ -9,7 +9,7 @@ const style: React.CSSProperties = {
 };
 
 export const SceneTitle: React.FC<{
-  sceneIndex: number;
-}> = ({ sceneIndex }) => {
-  return <div style={style}>Scene {sceneIndex}</div>;
+  children: React.ReactNode;
+}> = ({ children }) => {
+  return <div style={style}>{children}</div>;
 };

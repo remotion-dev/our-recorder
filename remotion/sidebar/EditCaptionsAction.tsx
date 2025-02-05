@@ -1,6 +1,6 @@
 import React, { useCallback } from "react";
-import { VideoSceneAndMetadata } from "../../../../config/scenes";
-import { captionsRef } from "../../../captions/editor/OpenCaptionEditorExternally";
+import { VideoSceneAndMetadata } from "../../config/scenes";
+import { captionsRef } from "../captions/editor/OpenCaptionEditorExternally";
 import { ActionContainer } from "./Action";
 
 export const EditCaptionsAction: React.FC<{

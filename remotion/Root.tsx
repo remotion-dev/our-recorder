@@ -5237,7 +5237,15 @@ export const Root = () => {
               newChapter: "",
               stopChapteringAfterThis: false,
               music: "previous" as const,
-              bRolls: [],
+              bRolls: [
+                {
+                  source: staticFile(
+                    "mediaparsernextsteps/Screenshot 2025-02-05 at 16.40.39.png",
+                  ),
+                  durationInFrames: 100,
+                  from: 496,
+                },
+              ],
             },
             {
               type: "videoscene" as const,

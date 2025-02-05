@@ -1,32 +1,18 @@
-import React, { useMemo } from "react";
+import React from "react";
 import { AbsoluteFill, useCurrentFrame } from "remotion";
-import { TITLE_FONT } from "../../config/fonts";
 import { SceneAndMetadata } from "../../config/scenes";
-import { COLORS } from "../../config/themes";
-import { DeleteRecordingAction } from "../scenes/VideoScene/ActionOverlay/DeleteRecordingAction";
-import { EditCaptionsAction } from "../scenes/VideoScene/ActionOverlay/EditCaptionsAction";
+import { BRollEditor } from "./BRollEditor";
+import { DeleteRecordingAction } from "./DeleteRecordingAction";
+import { EditCaptionsAction } from "./EditCaptionsAction";
 import {
   NextSceneAction,
   PreviousSceneAction,
-} from "../scenes/VideoScene/ActionOverlay/PreviousNextSceneAction";
+} from "./PreviousNextSceneAction";
 import { SceneTitle } from "./SceneTitle";
 
 const style: React.CSSProperties = {
   padding: 30,
   backgroundColor: "#eee",
-};
-
-const DragToAddBRoll: React.FC = () => {
-  const style: React.CSSProperties = useMemo(() => {
-    return {
-      ...TITLE_FONT,
-      fontSize: 20,
-      color: COLORS.light.WORD_COLOR_ON_BG_GREYED,
-      marginTop: 40,
-    };
-  }, []);
-
-  return <div style={style}>Drag assets to add B-Rolls</div>;
 };
 
 export const Sidebar: React.FC<{
@@ -43,7 +29,7 @@ export const Sidebar: React.FC<{
 
   return (
     <AbsoluteFill style={style}>
-      <SceneTitle sceneIndex={currentSceneIndex} />
+      <SceneTitle>Scene {currentSceneIndex}</SceneTitle>
       <PreviousSceneAction
         currentSceneIndex={currentSceneIndex}
         scenesAndMetadata={scenesAndMetadata}
@@ -61,7 +47,9 @@ export const Sidebar: React.FC<{
           cameras={currentScene.cameras}
         />
       ) : null}
-      <DragToAddBRoll />
+      {currentScene.type === "video-scene" ? (
+        <BRollEditor sceneIndex={currentSceneIndex} scene={currentScene} />
+      ) : null}
     </AbsoluteFill>
   );
 };

@@ -1,6 +1,6 @@
 import { seek } from "@remotion/studio";
 import { useCallback } from "react";
-import { SceneAndMetadata } from "../../../../config/scenes";
+import { SceneAndMetadata } from "../../config/scenes";
 import { ActionContainer } from "./Action";
 
 export const NextSceneAction: React.FC<{
