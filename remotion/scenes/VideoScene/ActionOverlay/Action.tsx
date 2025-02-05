@@ -3,7 +3,8 @@ import React, { useCallback, useState } from "react";
 export const ActionContainer: React.FC<{
   children: React.ReactNode;
   onClick: () => void;
-}> = ({ children, onClick }) => {
+  disabled?: boolean;
+}> = ({ children, onClick, disabled }) => {
   const [hovered, setHovered] = useState(false);
   const onPointerEnter = useCallback(() => {
     setHovered(true);
@@ -15,6 +16,7 @@ export const ActionContainer: React.FC<{
 
   return (
     <button
+      disabled={disabled}
       onClick={onClick}
       onPointerEnter={onPointerEnter}
       onPointerLeave={onPointerLeave}
@@ -27,7 +29,8 @@ export const ActionContainer: React.FC<{
         display: "flex",
         flexDirection: "row",
         alignItems: "center",
-        paddingTop: 20,
+        paddingTop: 12,
+        paddingBottom: 12,
         gap: 20,
         cursor: "pointer",
         appearance: "none",
@@ -35,7 +38,7 @@ export const ActionContainer: React.FC<{
         borderRadius: 0,
         background: "none",
         color: "black",
-        opacity: hovered ? 1 : 0.7,
+        opacity: disabled ? 0.5 : hovered ? 1 : 0.7,
       }}
     >
       {children}

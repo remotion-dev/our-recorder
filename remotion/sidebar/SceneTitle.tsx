@@ -5,6 +5,7 @@ const style: React.CSSProperties = {
   color: "black",
   fontFamily: "Arial, sans-serif",
   fontWeight: "bold",
+  marginBottom: 20,
 };
 
 export const SceneTitle: React.FC<{

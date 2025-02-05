@@ -1,7 +1,11 @@
 import React from "react";
 import { AbsoluteFill, useCurrentFrame } from "remotion";
 import { SceneAndMetadata } from "../../config/scenes";
-import { Actions } from "../scenes/VideoScene/ActionOverlay/Actions";
+import { DeleteRecordingAction } from "../scenes/VideoScene/ActionOverlay/DeleteRecordingAction";
+import {
+  NextSceneAction,
+  PreviousSceneAction,
+} from "../scenes/VideoScene/ActionOverlay/NextSceneAction";
 import { SceneTitle } from "./SceneTitle";
 
 const style: React.CSSProperties = {
@@ -21,10 +25,18 @@ export const Sidebar: React.FC<{
   return (
     <AbsoluteFill style={style}>
       <SceneTitle sceneIndex={currentSceneIndex} />
+      <PreviousSceneAction
+        currentSceneIndex={currentSceneIndex}
+        scenesAndMetadata={scenesAndMetadata}
+      />
+      <NextSceneAction
+        currentSceneIndex={currentSceneIndex}
+        scenesAndMetadata={scenesAndMetadata}
+      />
       {currentScene && currentScene.type === "video-scene" ? (
-        <Actions
+        <DeleteRecordingAction
           sceneIndex={currentSceneIndex}
-          cameras={currentScene!.cameras}
+          cameras={currentScene.cameras}
         />
       ) : null}
     </AbsoluteFill>
