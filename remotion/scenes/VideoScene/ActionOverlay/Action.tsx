@@ -20,25 +20,22 @@ export const ActionContainer: React.FC<{
       onPointerLeave={onPointerLeave}
       type="button"
       style={{
-        height: 100,
-        width: 150,
-        fontSize: 16,
+        width: "100%",
+        fontSize: 24,
         fontFamily: "sans-serif",
         fontWeight: "bold",
         display: "flex",
-        flexDirection: "column",
-        justifyContent: "flex-start",
+        flexDirection: "row",
         alignItems: "center",
-        textAlign: "center",
         paddingTop: 20,
-        gap: 10,
+        gap: 20,
         cursor: "pointer",
         appearance: "none",
         border: "none",
         borderRadius: 0,
         background: "none",
         color: "black",
-        opacity: hovered ? 1 : 0.8,
+        opacity: hovered ? 1 : 0.7,
       }}
     >
       {children}
