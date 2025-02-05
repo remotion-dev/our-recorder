@@ -22,6 +22,9 @@ export const Sidebar: React.FC<{
     return frame >= scene.from;
   });
   const currentScene = scenesAndMetadata[currentSceneIndex];
+  if (!currentScene) {
+    throw new Error("No current scene");
+  }
 
   return (
     <AbsoluteFill style={style}>
@@ -34,8 +37,10 @@ export const Sidebar: React.FC<{
         currentSceneIndex={currentSceneIndex}
         scenesAndMetadata={scenesAndMetadata}
       />
-      <EditCaptionsAction />
-      {currentScene && currentScene.type === "video-scene" ? (
+      {currentScene.type === "video-scene" ? (
+        <EditCaptionsAction currentScene={currentScene} />
+      ) : null}
+      {currentScene.type === "video-scene" ? (
         <DeleteRecordingAction
           sceneIndex={currentSceneIndex}
           cameras={currentScene.cameras}

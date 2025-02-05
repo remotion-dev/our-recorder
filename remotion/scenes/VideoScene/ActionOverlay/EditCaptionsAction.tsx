@@ -1,11 +1,18 @@
 import React, { useCallback } from "react";
+import { VideoSceneAndMetadata } from "../../../../config/scenes";
 import { captionsRef } from "../../../captions/editor/OpenCaptionEditorExternally";
 import { ActionContainer } from "./Action";
 
-export const EditCaptionsAction: React.FC = () => {
+export const EditCaptionsAction: React.FC<{
+  currentScene: VideoSceneAndMetadata;
+}> = ({ currentScene }) => {
   const onClick = useCallback(async () => {
     captionsRef.current?.open();
   }, []);
+
+  if (!currentScene.cameras.captions) {
+    return null;
+  }
 
   return (
     <ActionContainer onClick={onClick}>
