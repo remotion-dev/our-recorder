@@ -65,7 +65,7 @@ export const SingleBRollEdit: React.FC<{
         Start: {bRoll.from}
         <button onClick={add1Sec}>+1sec</button>
       </div>
-      <div>Duration: {bRoll.durationInFrames} frames</div>
+      <div>Duration: {bRoll.durationInFrames}</div>
     </div>
   );
 };
