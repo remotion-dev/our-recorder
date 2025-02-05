@@ -14,7 +14,8 @@ import { LandscapeChapters } from "../../chapters/landscape/LandscapeChapters";
 import type { ChapterType } from "../../chapters/make-chapters";
 import { SquareChapter } from "../../chapters/square/SquareChapter";
 import { Display } from "./Display";
-import { onBRollDragOver, onBRollDropHandler } from "./DragDropBRoll";
+import { onBRollDropHandler, useAllowDrop } from "./DragDropBRoll";
+import { DropHint } from "./DropHint";
 import { Webcam } from "./Webcam";
 
 export const VideoScene: React.FC<{
@@ -73,8 +74,14 @@ export const VideoScene: React.FC<{
     [frame, id, sceneIndex],
   );
 
+  const { dragged, onBRollDragOver, onBRollLeave } = useAllowDrop();
+
   return (
-    <AbsoluteFill onDragOver={onBRollDragOver} onDrop={onDrop}>
+    <AbsoluteFill
+      onDragLeave={onBRollLeave}
+      onDragOver={onBRollDragOver}
+      onDrop={onDrop}
+    >
       {sceneAndMetadata.cameras.display ? (
         <Display
           scene={sceneAndMetadata}
@@ -132,6 +139,7 @@ export const VideoScene: React.FC<{
           theme={theme}
         ></SrtPreviewAndEditor>
       ) : null}
+      {dragged && <DropHint theme={theme} />}
     </AbsoluteFill>
   );
 };

@@ -5223,8 +5223,8 @@ export const Root = () => {
                   source: staticFile(
                     "mediaparsernextsteps/Screenshot 2025-01-31 at 08.13.54.png",
                   ),
-                  durationInFrames: 100,
-                  from: 156,
+                  durationInFrames: 170,
+                  from: 190,
                 },
               ],
             },

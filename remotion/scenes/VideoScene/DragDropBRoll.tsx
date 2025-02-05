@@ -1,5 +1,5 @@
 import { updateDefaultProps, writeStaticFile } from "@remotion/studio";
-import React from "react";
+import React, { useState } from "react";
 import { staticFile } from "remotion";
 import {
   BRoll,
@@ -56,6 +56,21 @@ export const onBRollDropHandler = async ({
   });
 };
 
-export const onBRollDragOver = (e: React.DragEvent<HTMLDivElement>) => {
-  e.preventDefault();
+export const useAllowDrop = () => {
+  const [dragged, setDragged] = useState(false);
+  const onBRollDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setDragged(true);
+  };
+
+  const onBRollLeave = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setDragged(false);
+  };
+
+  return {
+    onBRollDragOver,
+    onBRollLeave,
+    dragged,
+  };
 };
