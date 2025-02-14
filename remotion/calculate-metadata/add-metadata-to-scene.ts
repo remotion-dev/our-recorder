@@ -50,6 +50,7 @@ export const addMetadataToScene = async ({
   }
 
   const webcamMetadata = await parseMedia({
+    acknowledgeRemotionLicense: true,
     src: cameras.webcam.src,
     fields: {
       slowDurationInSeconds: true,
@@ -63,6 +64,7 @@ export const addMetadataToScene = async ({
 
   const displayMetadata = cameras.display
     ? await parseMedia({
+        acknowledgeRemotionLicense: true,
         src: cameras.display.src,
         fields: { dimensions: true, slowDurationInSeconds: true },
       })

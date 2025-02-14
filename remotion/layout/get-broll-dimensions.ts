@@ -34,6 +34,7 @@ export const getBRollDimensions = async (
     videoFileExtensions.some((ext) => bRoll.source.toLowerCase().endsWith(ext))
   ) {
     const metadata = await parseMedia({
+      acknowledgeRemotionLicense: true,
       src: bRoll.source,
       fields: { dimensions: true },
     });
