@@ -9,6 +9,7 @@ import {
   PreviousSceneAction,
 } from "./PreviousNextSceneAction";
 import { SceneTitle } from "./SceneTitle";
+import { TransitionToNextSceneCheckbox } from "./TransitionToNextSceneCheckbox";
 
 const style: React.CSSProperties = {
   padding: 30,
@@ -40,6 +41,12 @@ export const Sidebar: React.FC<{
       />
       {currentScene.type === "video-scene" ? (
         <EditCaptionsAction currentScene={currentScene} />
+      ) : null}
+      {currentScene.type === "video-scene" ? (
+        <TransitionToNextSceneCheckbox
+          currentSceneIndex={currentSceneIndex}
+          scenesAndMetadata={scenesAndMetadata}
+        ></TransitionToNextSceneCheckbox>
       ) : null}
       {currentScene.type === "video-scene" ? (
         <DeleteRecordingAction

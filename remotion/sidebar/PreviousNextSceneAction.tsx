@@ -13,7 +13,6 @@ export const NextSceneAction: React.FC<{
       return;
     }
 
-    // TODO: Will work in next Remotion version
     seek(next.from);
   }, [next]);
 
@@ -42,7 +41,6 @@ export const PreviousSceneAction: React.FC<{
       return;
     }
 
-    // TODO: Will work in next Remotion version
     seek(next.from);
   }, [next]);
 
