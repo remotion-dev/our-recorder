@@ -1,4 +1,3 @@
-import { parseMedia } from "@remotion/media-parser";
 import { CanvasLayout } from "../../config/layout";
 import {
   Cameras,
@@ -11,6 +10,7 @@ import { getBRollDimensions } from "../layout/get-broll-dimensions";
 import { getVideoSceneLayout } from "../layout/get-layout";
 import { PLACEHOLDER_DURATION_IN_FRAMES } from "./empty-place-holder";
 import { fetchCaptions } from "./fetch-captions";
+import { getMetadataFromSource } from "./get-duration";
 import { getFinalWebcamPosition } from "./get-final-webcam-position";
 import { getStartEndFrame } from "./get-start-end-frame";
 
@@ -49,25 +49,14 @@ export const addMetadataToScene = async ({
     };
   }
 
-  const webcamMetadata = await parseMedia({
-    acknowledgeRemotionLicense: true,
-    src: cameras.webcam.src,
-    fields: {
-      slowDurationInSeconds: true,
-      dimensions: true,
-    },
-  });
+  const webcamMetadata = await getMetadataFromSource(cameras.webcam.src);
 
   if (!webcamMetadata.dimensions) {
     throw new Error("No dimensions for webcam");
   }
 
   const displayMetadata = cameras.display
-    ? await parseMedia({
-        acknowledgeRemotionLicense: true,
-        src: cameras.display.src,
-        fields: { dimensions: true, slowDurationInSeconds: true },
-      })
+    ? await getMetadataFromSource(cameras.display.src)
     : null;
 
   const captions = await fetchCaptions(cameras.captions);

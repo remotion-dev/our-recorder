@@ -9,7 +9,7 @@ import { Main, MainProps } from "./Main";
 import { Sidebar } from "./sidebar/Sidebar";
 
 export const getSidebarWidth = () => {
-  return getRemotionEnvironment().isStudio ? 400 : 0;
+  return getRemotionEnvironment().isStudio ? 500 : 0;
 };
 
 export const MainWithSidebar: React.FC<MainProps> = (props) => {
