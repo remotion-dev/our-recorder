@@ -62,6 +62,8 @@ export const VideoScene: React.FC<{
   const { id } = useVideoConfig();
   const frame = useCurrentFrame();
 
+  const { dragged, onBRollDragOver, onBRollLeave } = useAllowDrop();
+
   const onDrop = useCallback(
     (e: React.DragEvent<HTMLDivElement>) => {
       onBRollDropHandler({
@@ -70,11 +72,10 @@ export const VideoScene: React.FC<{
         sceneIndex,
         from: frame - B_ROLL_TRANSITION_DURATION,
       });
+      onBRollLeave(e);
     },
-    [frame, id, sceneIndex],
+    [frame, id, onBRollLeave, sceneIndex],
   );
-
-  const { dragged, onBRollDragOver, onBRollLeave } = useAllowDrop();
 
   return (
     <AbsoluteFill

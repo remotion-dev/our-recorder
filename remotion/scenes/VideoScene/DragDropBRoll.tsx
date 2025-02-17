@@ -41,7 +41,7 @@ export const onBRollDropHandler = async ({
 
       const newScene: SelectableVideoScene = {
         ...scene,
-        bRolls: bRolls,
+        bRolls: [...scene.bRolls, ...bRolls],
       };
 
       return {

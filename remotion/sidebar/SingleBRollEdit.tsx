@@ -2,11 +2,7 @@ import { updateDefaultProps } from "@remotion/studio";
 import React, { useCallback } from "react";
 import { useVideoConfig } from "remotion";
 import { REGULAR_FONT } from "../../config/fonts";
-import {
-  BRoll,
-  BRollWithDimensions,
-  SelectableVideoScene,
-} from "../../config/scenes";
+import { BRoll, SelectableVideoScene } from "../../config/scenes";
 import { B_ROLL_TRANSITION_DURATION } from "../../config/transitions";
 import { SceneTitle } from "./SceneTitle";
 
@@ -39,7 +35,7 @@ const centerPiece: React.CSSProperties = {
 type BRollUpdater = (b: BRoll) => BRoll;
 
 export const SingleBRollEdit: React.FC<{
-  bRoll: BRollWithDimensions;
+  bRoll: BRoll;
   bRollIndex: number;
   sceneIndex: number;
 }> = ({ bRoll, bRollIndex, sceneIndex }) => {

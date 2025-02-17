@@ -31,7 +31,7 @@ export const BRollEditor: React.FC<{
 
   return (
     <div style={container}>
-      {scene.bRolls.map((bRoll, i) => {
+      {scene.scene.bRolls.map((bRoll, i) => {
         return (
           <SingleBRollEdit
             sceneIndex={sceneIndex}
