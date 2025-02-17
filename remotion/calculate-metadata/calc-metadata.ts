@@ -1,5 +1,6 @@
 import { type CalculateMetadataFunction } from "remotion";
 import { FPS } from "../../config/fps";
+import { SceneAndMetadata } from "../../config/scenes";
 import type { MainProps } from "../Main";
 import { getSidebarWidth } from "../MainWithSidebar";
 import { getDimensionsForLayout } from "../layout/dimensions";
@@ -17,17 +18,17 @@ export const calcMetadata: CalculateMetadataFunction<MainProps> = async ({
     scenes: props.scenes,
   });
 
-  const withMetadata = await Promise.all(
-    scenesWithCameras.map(({ scene, cameras }) =>
-      addMetadataToScene({
-        scene,
-        cameras,
-        hasAtLeast1Camera,
-        allScenes: props.scenes,
-        canvasLayout: props.canvasLayout,
-      }),
-    ),
-  );
+  const withMetadata: SceneAndMetadata[] = [];
+  for (const { scene, cameras } of scenesWithCameras) {
+    const withData = await addMetadataToScene({
+      scene,
+      cameras,
+      hasAtLeast1Camera,
+      allScenes: props.scenes,
+      canvasLayout: props.canvasLayout,
+    });
+    withMetadata.push(withData);
+  }
 
   const {
     totalDurationInFrames: durationInFrames,
