@@ -1,18 +1,25 @@
-import { webFileReader } from "@remotion/media-parser/web-file";
-import { ConvertMediaProgress, convertMedia } from "@remotion/webcodecs";
-
+import { webReader } from "@remotion/media-parser/web";
+import {
+  ConvertMediaProgress,
+  convertMedia,
+  webcodecsController,
+} from "@remotion/webcodecs";
+import { getExtension } from "./find-good-supported-codec";
 export const convertInBrowser = ({
   src,
   onProgress,
+  mimeType,
 }: {
   src: Blob;
   onProgress: (progress: ConvertMediaProgress, abort: () => void) => void;
+  mimeType: string;
 }) => {
-  const controller = new AbortController();
+  const controller = webcodecsController();
+
   return convertMedia({
-    container: "webm",
+    container: getExtension(mimeType),
     src: new File([src.slice()], `temp`),
-    reader: webFileReader,
+    reader: webReader,
     resize: {
       maxHeight: 1080,
       mode: "max-height",
@@ -20,6 +27,6 @@ export const convertInBrowser = ({
     onProgress: (progress) => {
       onProgress?.(progress, () => controller.abort());
     },
-    signal: controller.signal,
+    controller: controller,
   });
 };

@@ -71,17 +71,15 @@ export const Stream: React.FC<{
         return;
       }
 
-      if (recordAudio) {
-        mediaStream.streamState.stream
-          .getAudioTracks()
-          .forEach((track) => track.stop());
-      }
+      mediaStream.streamState.stream
+        .getAudioTracks()
+        .forEach((track) => track.stop());
 
       mediaStream.streamState.stream
         .getVideoTracks()
         .forEach((track) => track.stop());
     };
-  }, [mediaStream, recordAudio]);
+  }, [mediaStream]);
 
   useEffect(() => {
     const { current } = sourceRef;
@@ -144,8 +142,6 @@ export const Stream: React.FC<{
         setMediaStream(prefix, { type: "loaded", stream });
       })
       .catch((e) => {
-        console.log(e);
-
         const errMessage =
           e.name === "NotReadableError"
             ? "The selected device is not readable. This could be due to another app using this camera."

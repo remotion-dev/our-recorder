@@ -3,6 +3,7 @@ import { AbsoluteFill } from "remotion";
 import { DeviceItem } from "../DeviceItem";
 import { useDevices } from "../WaitingForDevices";
 import { Label, formatDeviceLabel } from "../helpers/format-device-label";
+import { RescanDevices } from "./RescanDevices";
 
 const title: React.CSSProperties = {
   fontWeight: "bold",
@@ -10,7 +11,6 @@ const title: React.CSSProperties = {
 
 const container: React.CSSProperties = {
   display: "flex",
-  flexDirection: "row",
   backgroundColor: "rgba(0, 0, 0, 0.9)",
   padding: 20,
   gap: 20,
@@ -41,7 +41,8 @@ export const StreamPicker: React.FC<{
   canSelectScreen: boolean;
   onPickVideo: (device: MediaDeviceInfo) => void;
   onPickAudio: (device: MediaDeviceInfo) => void;
-  onPickScreen: () => void;
+  onPickScreenWithoutAudio: () => void;
+  onPickScreenWithAudio: () => void;
   selectedVideoDevice: string | null;
   selectedAudioDevice: string | null;
   clear: () => void;
@@ -51,7 +52,8 @@ export const StreamPicker: React.FC<{
   canSelectScreen,
   onPickAudio,
   onPickVideo,
-  onPickScreen,
+  onPickScreenWithoutAudio,
+  onPickScreenWithAudio,
   selectedAudioDevice,
   selectedVideoDevice,
   clear,
@@ -67,68 +69,81 @@ export const StreamPicker: React.FC<{
 
   return (
     <AbsoluteFill style={container}>
-      <div
-        style={{
-          flex: 1,
-          opacity:
-            canSelectAudio && selectedVideoDevice && !selectedAudioDevice
-              ? 0.5
-              : 1,
-        }}
-      >
-        <div style={title}>Select video</div>
-        {canSelectScreen ? (
-          <DeviceItem
-            handleClick={() => {
-              onPickScreen();
-            }}
-            deviceLabel={"Screen capture"}
-            type="screen"
-            selected={selectedVideoDevice === "display"}
-          />
-        ) : null}
-        {videoInputs.map((d) => {
-          return (
-            <DeviceItem
-              type="camera"
-              key={d.deviceId}
-              deviceLabel={getDeviceLabel(d)}
-              handleClick={() => {
-                onPickVideo(d);
-              }}
-              selected={selectedVideoDevice === d.deviceId}
-            />
-          );
-        })}
-        {selectedVideoDevice && canClear ? (
-          <a style={clearStyle} onClick={clear}>
-            Clear
-          </a>
-        ) : null}
-      </div>
-      {canSelectAudio ? (
+      <div className="flex-1 flex-row flex">
         <div
           style={{
             flex: 1,
-            opacity: !selectedVideoDevice && selectedAudioDevice ? 0.5 : 1,
+            opacity:
+              canSelectAudio && selectedVideoDevice && !selectedAudioDevice
+                ? 0.5
+                : 1,
           }}
         >
-          <div style={title}>Select audio</div>
-          {audioInputs.map((d) => {
+          <div style={title}>Select video</div>
+          {canSelectScreen ? (
+            <DeviceItem
+              handleClick={() => {
+                onPickScreenWithoutAudio();
+              }}
+              deviceLabel={"Screen capture"}
+              type="screen"
+              selected={selectedVideoDevice === "display-without-audio"}
+            />
+          ) : null}
+          {canSelectScreen ? (
+            <DeviceItem
+              handleClick={() => {
+                onPickScreenWithAudio();
+              }}
+              deviceLabel={"Screen capture with audio"}
+              type="screen"
+              selected={selectedVideoDevice === "display-with-audio"}
+            />
+          ) : null}
+          {videoInputs.map((d) => {
             return (
               <DeviceItem
-                type="microphone"
+                type="camera"
                 key={d.deviceId}
                 deviceLabel={getDeviceLabel(d)}
                 handleClick={() => {
-                  onPickAudio(d);
+                  onPickVideo(d);
                 }}
-                selected={selectedAudioDevice === d.deviceId}
+                selected={selectedVideoDevice === d.deviceId}
               />
             );
           })}
+          {selectedVideoDevice && canClear ? (
+            <a style={clearStyle} onClick={clear}>
+              Clear
+            </a>
+          ) : null}
         </div>
-      ) : null}
+        {canSelectAudio ? (
+          <div
+            style={{
+              flex: 1,
+              opacity: !selectedVideoDevice && selectedAudioDevice ? 0.5 : 1,
+            }}
+          >
+            <div style={title}>Select audio</div>
+            {audioInputs.map((d) => {
+              return (
+                <DeviceItem
+                  type="microphone"
+                  key={d.deviceId}
+                  deviceLabel={getDeviceLabel(d)}
+                  handleClick={() => {
+                    onPickAudio(d);
+                  }}
+                  selected={selectedAudioDevice === d.deviceId}
+                />
+              );
+            })}
+          </div>
+        ) : null}
+      </div>
+      <RescanDevices />
     </AbsoluteFill>
   );
 };
