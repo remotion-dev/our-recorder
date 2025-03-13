@@ -52,18 +52,18 @@ export const addMetadataToScene = async ({
   const webcamMetadata = await parseMedia({
     src: cameras.webcam.src,
     fields: {
-      durationInSeconds: true,
+      slowDurationInSeconds: true,
       dimensions: true,
     },
   });
-  if (!webcamMetadata.durationInSeconds) {
-    throw new Error("No duration in seconds for webcam");
+  if (!webcamMetadata.dimensions) {
+    throw new Error("No dimensions for webcam");
   }
 
   const displayMetadata = cameras.display
     ? await parseMedia({
         src: cameras.display.src,
-        fields: { dimensions: true, durationInSeconds: true },
+        fields: { dimensions: true, slowDurationInSeconds: true },
       })
     : null;
 
@@ -71,7 +71,7 @@ export const addMetadataToScene = async ({
 
   const { actualStartFrame, derivedEndFrame } = await getStartEndFrame({
     scene,
-    recordingDurationInSeconds: webcamMetadata.durationInSeconds,
+    recordingDurationInSeconds: webcamMetadata.slowDurationInSeconds,
     captions,
   });
 
