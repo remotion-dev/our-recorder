@@ -55,8 +55,9 @@ export const addMetadataToScene = async ({
       durationInSeconds: true,
       dimensions: true,
     },
-    acknowledgeRemotionLicense: true
+    acknowledgeRemotionLicense: true,
   });
+
   if (!webcamMetadata.dimensions) {
     throw new Error("No dimensions for webcam");
   }
@@ -68,7 +69,7 @@ export const addMetadataToScene = async ({
     ? await parseMedia({
         src: cameras.display.src,
         fields: { dimensions: true, durationInSeconds: true },
-        acknowledgeRemotionLicense: true
+        acknowledgeRemotionLicense: true,
       })
     : null;
 
